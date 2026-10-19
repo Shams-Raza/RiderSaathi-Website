@@ -1,0 +1,27 @@
+{
+  "name": "ridersaathi-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shams-Raza/RiderSaathi-Website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shams-Raza/RiderSaathi-Website/issues"
+  },
+  "homepage": "https://github.com/Shams-Raza/RiderSaathi-Website#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "ejs": "^7.0.2",
+    "express": "^5.3.0"
+  }
+}

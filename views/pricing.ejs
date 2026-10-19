@@ -1,0 +1,42 @@
+<%- include('partials/header') %>
+
+<div class="wrap">
+  <div class="hero" style="padding-bottom: 12px;">
+    <h1>Plans &amp; pricing</h1>
+    <p class="sub"><%= settings.siteName %> plans and prices — 1 day, 1 week, 1 month. Free trial first, no auto-renewal.</p>
+  </div>
+
+  <div class="card">
+    <h2>Choose your plan</h2>
+    <p>Har naye account ko pehli 10 rides bilkul free — bina kisi payment ke, taaki aap khud dekh lo ki aapke kaam ka hai ya nahi. Uske baad plan chuno. Na auto-renewal, na card save hota hai: plan ek baar ka hai aur apna waqt poora hote hi khud khatam ho jaata hai.</p>
+
+    <div class="pricing-grid">
+      <% plans.forEach(plan => { %>
+      <div class="plancard">
+        <div class="plancard-title">
+          <%= plan.name %>
+          <% if (plan.badge) { %>
+            <span class="plancard-badge"><%= plan.badge %></span>
+          <% } %>
+        </div>
+        <div class="plancard-price">₹<%= plan.price %></div>
+        <div class="plancard-duration"><%= plan.durationText %></div>
+        <div class="plancard-desc"><%= plan.description %></div>
+      </div>
+      <% }) %>
+    </div>
+
+    <p style="color: var(--muted); font-size: 14.5px;">Yahan website se lo ya app ke andar se — dono tarah plan usi mobile number par aata hai jisse aapne app me sign in kiya hai.</p>
+    
+    <p style="color: var(--muted); font-size: 14px;"><strong>Plan kab chalu hota hai:</strong> online payment (payment gateway) — within about a minute of the payment being confirmed; direct UPI (order page) — within a few minutes once the payment matches our bank record; if it has to be checked by hand, the same day. Support: <%= settings.supportHours %>.</p>
+
+    <p><a href="/delivery">Delivery &amp; activation</a> &middot; <a href="/refunds">Refund &amp; cancellation policy</a></p>
+
+    <p style="margin-top: 20px;">
+      <a class="btn" href="/buy">Buy a plan</a> &nbsp; 
+      <a class="btn ghost" href="/install">Download <%= settings.siteName %></a>
+    </p>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

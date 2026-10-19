@@ -1,0 +1,45 @@
+<%- include('partials/header') %>
+
+<div class="wrap">
+  <div class="legal">
+    <h1>Buy a <%= settings.siteName %> plan</h1>
+    <p>Enter the mobile number you use in <%= settings.siteName %> and pick a plan. Payment is by UPI. There is no auto-renewal and no card is saved — each plan is a one-time purchase that ends when its time runs out.</p>
+
+    <form method="post" action="/buy" class="delform">
+      <label for="phone">Your <%= settings.siteName %> mobile number</label>
+      <input id="phone" name="phone" inputmode="numeric" autocomplete="tel" required pattern="[0-9]{10}" maxlength="10" placeholder="10 digit mobile number" value="<%= typeof phone !== 'undefined' ? phone : '' %>">
+
+      <label>Choose a plan</label>
+      <div class="plans">
+        <% plans.forEach((plan, index) => { %>
+        <label class="planpick">
+          <input type="radio" name="planId" value="<%= plan.id %>" <%= index === 1 ? 'checked' : '' %> required>
+          <span class="planbody">
+            <span class="planname"><%= plan.name %></span>
+            <span class="planbadge"><%= plan.badge || '&nbsp;' %></span>
+            <span class="planprice">&#8377;<%= plan.price %></span>
+            <span class="plandays"><%= plan.durationText %></span>
+          </span>
+        </label>
+        <% }) %>
+      </div>
+
+      <button type="submit">Continue to Payment</button>
+    </form>
+
+    <h2>How it reaches your phone</h2>
+    <p>The plan is added to the account on that mobile number, not to this browser. Open <%= settings.siteName %> on your phone afterwards and it is already there — you do not have to sign in again, enter a code, or update the app.</p>
+
+    <h2>Do I need an account first?</h2>
+    <p>Yes. Install <%= settings.siteName %>, sign in once with your mobile number, and every new account gets <strong>10 free rides</strong> before any payment is needed. Come back here when your trial runs out.</p>
+
+    <p class="sub" style="margin-top: 24px;">
+      <a href="/pricing">Plans &amp; pricing</a> &middot; 
+      <a href="/refunds">Refunds &amp; cancellation</a> &middot; 
+      <a href="/delivery">Delivery &amp; activation</a> &middot; 
+      <a href="mailto:<%= settings.contactEmail %>"><%= settings.contactEmail %></a>
+    </p>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

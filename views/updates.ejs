@@ -1,0 +1,37 @@
+<%- include('partials/header') %>
+
+<div class="wrap">
+  <div class="hero" style="padding-bottom: 16px;">
+    <h1>What's new in <%= settings.siteName %></h1>
+    <p class="sub">Har version me kya badla — sabse naya sabse upar. Abhi live version <strong><%= settings.appVersion %></strong> hai.</p>
+    <p>
+      <a class="btn" href="/download">Download <%= settings.siteName %> <%= settings.appVersion %></a>
+      <a class="btn ghost" href="/install">Install guide</a>
+    </p>
+  </div>
+
+  <% updates.forEach(up => { %>
+    <div class="card">
+      <h2 style="margin-bottom: 4px;"><%= up.version %> <% if (up.status) { %>&middot; <span style="font-size: 14px; color: var(--accent);"><%= up.status %></span><% } %></h2>
+      <p class="sub" style="margin-top: 0; font-size: 13.5px; color: var(--muted);"><%= up.date %></p>
+      <p><strong><%= up.headline %></strong></p>
+      <ul>
+        <% up.points.forEach(pt => { %>
+          <li><%= pt %></li>
+        <% }) %>
+      </ul>
+    </div>
+  <% }) %>
+
+  <div class="card">
+    <h2>Update kaise install kare</h2>
+    <p><strong><%= settings.siteName %> 5.8 se aage update app ke andar hi ho jata hai</strong> — "Update karo" dabao, download app me chalta hai, aur install ka button apne aap aa jata hai. Pehli baar phone poochhega ki <%= settings.siteName %> ko install karne ki ijazat do; ek baar de dena, phir dubara nahi poochhega.</p>
+  </div>
+
+  <div class="card">
+    <h2>Ola ke baare me</h2>
+    <p>Ola support <strong>nahi</strong> karta. Ola ke apne app ke andar automatic accept block kiya gaya hai, isliye <%= settings.siteName %> Ola ki booking par kuch nahi karta. Rapido chalta hai, Uber aur Porter teeno compatible hain.</p>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

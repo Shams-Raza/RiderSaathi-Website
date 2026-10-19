@@ -1,0 +1,35 @@
+{
+  "siteName": "RiderSaathi",
+  "siteUrl": "https://ridersaathi.in",
+  "tagline": "Driver Productivity & Screen Assist Utility (MCC 5734)",
+  "heroTitle": "Apni pasand ki ride.<br>Apne rules par.",
+  "heroSubtitle": "Ghaate wali rides chhodo, kamai wali uthao. RiderSaathi aapke set kiye hue rules par Rapido, Uber aur Porter ki bookings filter karta hai — taaki aap screen taakte rehne ke bajaye sadak par dhyan rakh kar befikar kaam kar sako.",
+  "heroEnText": "RiderSaathi is an independent ride filter app for bike-taxi, auto, cab and parcel drivers. Set your own rules — trip distance, pickup distance, parcel or passenger, route and fare — and RiderSaathi accepts only the bookings that match. Earn more, drive easier, keep your eyes on the road.",
+  "freeRidesTrial": "Pehle 10 rides bilkul free",
+  "appVersion": "5.28.1",
+  "apkFileSize": "11.1 MB",
+  "apkDownloadUrl": "/downloads/RiderSaathi-v5.28.1.apk",
+  "sha256File": "f5a4df810d82bcb3d4aaac42fbdb64a6ac90665ab737a1993127abd3996da52b",
+  "sha256Cert": "1b257df6e673afd4bddaa9b32a4ce4030bb893af3756a746ce1902f29a4e8551",
+  
+  "ownerName": "Shams Raza",
+  "legalBusinessName": "RiderSaathi Technologies",
+  "businessType": "Sole Proprietorship",
+  "registrationDetails": "Registered under Udyam (MSME) & Local Shops & Establishment (Gumasta) Licensing",
+  "contactEmail": "help@ridersaathi.in",
+  "whatsappNumber": "918349049467",
+  "whatsappText": "Mujhe RiderSaathi ke updates chahiye",
+  "telegramHandle": "RiderSaathi_app",
+  "telegramUrl": "https://t.me/RiderSaathi_app",
+  "officeAddress": "78-E, Sai Baba Nagar, Dwarkapuri, Indore, Madhya Pradesh 452009",
+  "supportHours": "Monday - Saturday | 10 AM - 5 PM (IST)",
+  "grievanceOfficer": "Shams Raza",
+  
+  "upiId": "ridersaathi@upi",
+  "upiPayeeName": "RiderSaathi",
+  "upiQrImage": "",
+  
+  "adminPassword": "admin123",
+  "bannerAlert": "Pehli 10 rides bilkul free — bina kisi payment ke test karo!",
+  "showBanner": true
+}

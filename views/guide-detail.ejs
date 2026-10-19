@@ -1,0 +1,31 @@
+<%- include('partials/header') %>
+
+<div class="wrap">
+  <div style="margin-top: 24px; font-size: 13.5px; color: var(--muted);">
+    <a href="/">Home</a> &rsaquo; <a href="/guides">Guides</a> &rsaquo; <span><%= guide.title %></span>
+  </div>
+
+  <div class="legal" style="margin-top: 14px;">
+    <div style="display:inline-block; font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:8px;">
+      <%= guide.category %>
+    </div>
+    <h1><%= guide.title %></h1>
+    <p class="sub" style="font-weight: 500; color: var(--muted);"><%= guide.summary %></p>
+    <hr style="border: 0; border-top: 1px solid var(--line); margin: 20px 0;">
+
+    <div class="guide-body" style="line-height: 1.7; font-size: 16px;">
+      <%- guide.content %>
+    </div>
+
+    <div class="cta" style="margin-top: 36px;">
+      <h3>Try <%= settings.siteName %> today</h3>
+      <p>Set these settings on your own phone. First 10 rides are completely free.</p>
+      <p>
+        <a class="btn btn-sm" href="/install">Download APK</a>
+        <a class="btn btn-sm ghost" href="/guides">Back to all guides</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

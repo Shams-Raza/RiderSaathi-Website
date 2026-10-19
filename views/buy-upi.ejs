@@ -1,0 +1,59 @@
+<%- include('partials/header') %>
+
+<div class="wrap">
+  <div class="legal">
+    <h1>Pay by UPI</h1>
+    <p>Complete your payment using any UPI app (PhonePe, Google Pay, Paytm, BHIM). Once paid, your <%= settings.siteName %> plan activates automatically.</p>
+
+    <!-- UPI Box -->
+    <div class="upibox">
+      <div class="upilabel">Amount to pay</div>
+      <div class="upibig">₹<%= plan.price %></div>
+      <div class="upilabel" style="margin-top: 12px;">Send to UPI ID</div>
+      <div class="upiid"><%= settings.upiId %></div>
+      <div style="font-size: 13.5px; color: var(--muted); margin-bottom: 8px;">Payee: <%= settings.upiPayeeName %></div>
+      
+      <button class="upicopy" id="copyUpiBtn" data-upi="<%= settings.upiId %>">
+        📋 Copy UPI ID
+      </button>
+
+      <div style="margin-top: 14px;">
+        <a class="btn btn-sm" href="upi://pay?pa=<%= settings.upiId %>&pn=<%= encodeURIComponent(settings.upiPayeeName) %>&am=<%= plan.price %>&cu=INR&tn=RiderSaathi%20<%= plan.name %>" style="text-decoration:none;">
+          Open UPI App Directly
+        </a>
+      </div>
+    </div>
+
+    <!-- Summary Box -->
+    <div class="card" style="padding: 18px 24px;">
+      <h3 style="margin-top:0;">Order Summary</h3>
+      <p style="margin: 4px 0;"><strong>Mobile Number:</strong> <%= order.phone %></p>
+      <p style="margin: 4px 0;"><strong>Plan:</strong> <%= plan.name %> (<%= plan.durationText %>)</p>
+      <p style="margin: 4px 0;"><strong>Order ID:</strong> <%= order.id %></p>
+      <p style="margin: 4px 0;"><strong>Status:</strong> <span style="color: var(--warn); font-weight: 600;"><%= order.status %></span></p>
+    </div>
+
+    <!-- Confirmation submission form -->
+    <h2>Confirm your payment</h2>
+    <p>Payment karne ke baad apna 12-digit UPI Reference Number / UTR yahan enter karein, ya seedha WhatsApp par screenshot bhejein:</p>
+
+    <form method="post" action="/buy/confirm" class="delform">
+      <input type="hidden" name="orderId" value="<%= order.id %>">
+      <label for="upiRef">12-Digit UPI Transaction ID / UTR</label>
+      <input id="upiRef" name="upiRef" placeholder="e.g. 423456789012" required pattern="[0-9A-Za-z]{8,24}">
+      <button type="submit">Confirm &amp; Activate Plan</button>
+    </form>
+
+    <div class="cta">
+      <h3>Need help with payment?</h3>
+      <p>Agar koi dikkat aaye ya UPI match na ho, hume WhatsApp par transaction screenshot bhejein. Hamari team turant plan chalu kar degi.</p>
+      <p>
+        <a class="btn btn-sm" href="https://wa.me/<%= settings.whatsappNumber %>?text=<%= encodeURIComponent('Maine ' + plan.name + ' plan ke liye ₹' + plan.price + ' pay kiye hain. Order ID: ' + order.id + ', Mobile: ' + order.phone) %>" target="_blank" rel="noopener">
+          WhatsApp Support par Screenshot bhejo
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

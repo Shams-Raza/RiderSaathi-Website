@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+
+<div class="wrap">
+  <div class="hero" style="padding-bottom: 16px;">
+    <h1>Guides for drivers</h1>
+    <p class="sub"><%= settings.siteName %> ke har rule ka guide — kya karta hai, kaise set karein, aur kaunsi value se shuru karein.</p>
+  </div>
+
+  <% 
+    const categories = [...new Set(guides.map(g => g.category || 'General'))];
+    categories.forEach(cat => {
+      const catGuides = guides.filter(g => (g.category || 'General') === cat);
+  %>
+    <div class="card">
+      <h2><%= cat %></h2>
+      <% catGuides.forEach(g => { %>
+        <h3><a href="/guides/<%= g.slug %>"><%= g.title %></a></h3>
+        <p><%= g.summary %></p>
+      <% }) %>
+    </div>
+  <% }) %>
+
+  <div class="cta">
+    <h3>Download <%= settings.siteName %></h3>
+    <p>Apni pasand ke rules test karne ke liye app install karein. Pehle 10 rides bilkul free hain.</p>
+    <p>
+      <a class="btn btn-sm" href="/install">Install Guide &amp; APK</a>
+      <a class="btn btn-sm ghost" href="/faq">Driver FAQs</a>
+    </p>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

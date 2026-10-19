@@ -1,0 +1,36 @@
+[
+  {
+    "version": "Version 5.28.1",
+    "status": "abhi live",
+    "date": "27 Sept 2026",
+    "headline": "RiderSaathi Sahayak aa gaya — dikkat likho, wo batayega kya dabana hai. Aur raste wali agli ride.",
+    "points": [
+      "RiderSaathi Sahayak: Har screen par 'Sahayak se poochho' button. Dikkat likho, turant solution milega.",
+      "'Accepted' tabhi, jab ride sach me aapko mili. Fake accept alerts band.",
+      "Raste wali agli ride: Drop location ke route par aane wali agli booking lena aasan.",
+      "Smart Decline: Tay kiye hue km se chhoti rides turant decline, baaki auto-expire.",
+      "Battery manager warnings: Phone system ne app roka to Checks screen par turant button milega."
+    ]
+  },
+  {
+    "version": "Version 5.27.0",
+    "status": "completed",
+    "date": "20 Sept 2026",
+    "headline": "Uber ki ride ab aur tezi se accept hoti hai — card parsing time aadha hua.",
+    "points": [
+      "Uber driver compatibility: 239ms me live ride capture confirmation.",
+      "Booking reading speed 2x fast hui, taaki booking kisi aur ke paas jaane se pehle pakad sakein.",
+      "Porter slider swipe speed aur accurate hui."
+    ]
+  },
+  {
+    "version": "Version 5.26.0",
+    "status": "completed",
+    "date": "17 Sept 2026",
+    "headline": "Rapido pickup screen sync aur Porter quick-match improvements.",
+    "points": [
+      "Rapido booking screen detection delay fix.",
+      "Porter instant countdown slider auto-recognition."
+    ]
+  }
+]

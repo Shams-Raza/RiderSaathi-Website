@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+
+<div class="wrap">
+  <div class="hero" style="padding-bottom: 16px;">
+    <h1>Questions drivers ask</h1>
+    <p class="sub">Rules, settings, install aur plans — sab seedhi baat me.</p>
+  </div>
+
+  <% faqs.forEach(item => { %>
+    <div class="card">
+      <h2><%= item.q %></h2>
+      <p><%= item.a %></p>
+    </div>
+  <% }) %>
+
+  <div class="card">
+    <h2>Still stuck?</h2>
+    <p>Install the app and use <strong>Help</strong> inside it — your message arrives with your phone's details attached, so we can usually answer without a lot of back and forth.</p>
+    <p>
+      <a class="btn btn-sm" href="/install">Install guide &rarr;</a>
+      <a class="btn btn-sm ghost" href="/contact">Contact Support</a>
+    </p>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

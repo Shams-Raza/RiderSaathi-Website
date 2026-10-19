@@ -1,0 +1,58 @@
+[
+  {
+    "slug": "ridersaathi-shuru-kaise-kare",
+    "title": "RiderSaathi shuru kaise karein",
+    "category": "Shuru karne ke liye",
+    "summary": "RiderSaathi install karne se lekar pehli ride tak: sign in, permissions, rules, Monitor mode aur Active mode — step by step.",
+    "content": "<h3>1. Download aur Install</h3><p>Sabse pehle hamari website se RiderSaathi APK download karein aur install karein. Agar Play Protect warning aaye to 'More details' par tap karke 'Install anyway' karein.</p><h3>2. Mobile Number se Login</h3><p>RiderSaathi kholo aur apna active mobile number darj karo. Pehli 10 rides bilkul free milengi.</p><h3>3. Zaroori Permissions dein</h3><p>Accessibility Service on karein taaki app booking card padh sake, aur 'Display over other apps' on karein floating controller ke liye.</p><h3>4. Apne Rules Tay Karein</h3><p>Booking type, Trip distance, Pickup limit aur Fare range set karein.</p><h3>5. Pehle Monitor mode, phir Active</h3><p>Pehli ek shift Monitor mode me chala kar dekhein ki app kya faisla le raha hai. Sab theek lage to Active mode on kar dein."
+  },
+  {
+    "slug": "booking-type-parcel-sawari",
+    "title": "Booking types — kaunsi bookings leni hain",
+    "category": "Rules — ek-ek karke",
+    "summary": "RiderSaathi me Bike, Auto, Cab aur Parcel ke switch, Boost/Saver rides, cab ke types aur Intercity bookings kaise chalu-band karein.",
+    "content": "<p>Aapke paas poora control hai ki kaunsi ride leni hai:</p><ul><li><strong>Parcel ya Sawari:</strong> Agar aaj sirf parcel lena hai to sawari band kar sakte hain.</li><li><strong>Boost & Saver Switch:</strong> Kam kiraye wali Boost/Saver rides alag switch se block ki ja sakti hain.</li><li><strong>Cab Options:</strong> AC, Non-AC, XL aur Intercity ke alag switch hain.</li></ul>"
+  },
+  {
+    "slug": "trip-aur-pickup-distance",
+    "title": "Trip distance aur pickup distance",
+    "category": "Rules — ek-ek karke",
+    "summary": "Trip distance (kam se kam / zyada se zyada km) aur pickup distance kaise set karein, shuruaati values kya rakhein.",
+    "content": "<p>Rules me Trip Distance aur Pickup Distance do sabse mahatvapoorna settings hain:</p><ul><li><strong>Minimum Trip:</strong> Chhoti ghaate wali (jaise ₹20-₹30) rides se bachne ke liye minimum 4 ya 5 km rakhein.</li><li><strong>Maximum Trip:</strong> Jitni lambi ride aap lena chahein (jaise 30 km ya 50 km).</li><li><strong>Pickup Distance:</strong> 2.5 se 3.5 km shuruaat ke liye behtareen rehta hai.</li></ul>"
+  },
+  {
+    "slug": "kamai-filter-fare-aur-tip",
+    "title": "Kamai filter — fare aur extra tip",
+    "category": "Rules — ek-ek karke",
+    "summary": "Kamai filter me minimum aur maximum kiraya kaise rakhein, Rapido bike card rule aur surge/tip wali rides.",
+    "content": "<p>Kamai filter aapko target earnings set karne deta hai. Minimum fare tay karein taaki sirf profitable bookings hi accept hon. Tip switch on karne par surge ya customer tip wali rides ko preference milti hai.</p>"
+  },
+  {
+    "slug": "go-to-ghar-ki-taraf",
+    "title": "Go To — jidhar jaana hai",
+    "category": "Rules — ek-ek karke",
+    "summary": "Shift ke aakhir me ghar ki taraf jaane wali rides lene ke liye Go To area kaise set karein.",
+    "content": "<p>Shift khatam hone par khaali ghar lautna nuksaan hai. Go To feature me apne area ka naam daalein. RiderSaathi sirf usi taraf jaane wali rides accept karega, aur timer poora hone par Go To automatically band ho jaata hai.</p>"
+  },
+  {
+    "slug": "jahan-nahi-jaana",
+    "title": "Jahan nahi jaana (Area Block)",
+    "category": "Rules — ek-ek karke",
+    "summary": "Heavy traffic ya kharab raste wale areas ko pickup aur drop dono taraf se block karein.",
+    "content": "<p>Shehar ke jin ilaakon me jaam lagta hai ya wapas aana mushkil hota hai, unhe block list me daal dein. RiderSaathi un jagahon ki rides ko reject kar dega.</p>"
+  },
+  {
+    "slug": "raste-wali-agli-ride",
+    "title": "Raste wali agli ride",
+    "category": "Rules — ek-ek karke",
+    "summary": "Ride ke dauraan drop location ke raste me aane wali agli booking accept karein.",
+    "content": "<p>Jab aap passenger drop karne wale hote hain, tab ride app agli booking offer karta hai. RiderSaathi wahi booking chunta hai jo aapke usi ongoing raste par ho, taaki aapka samay aur fuel dono bache.</p>"
+  },
+  {
+    "slug": "kin-apps-par-chalta-hai",
+    "title": "RiderSaathi kin apps par chalta hai",
+    "category": "App ke hisaab se",
+    "summary": "Rapido (bike, auto, cab, parcel), Uber aur Porter ke saath compatibility ki poori jaankari.",
+    "content": "<p>RiderSaathi <strong>Rapido Captain</strong>, <strong>Uber Driver</strong> aur <strong>Porter Delivery Partner</strong> teeno ke saath safely chalta hai. Ola par auto-accept band hai isliye Ola support nahi karta.</p>"
+  }
+]

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "day1",
+    "name": "1 Day",
+    "price": 12,
+    "wasPrice": 15,
+    "durationDays": 1,
+    "durationText": "1 day",
+    "badge": "",
+    "active": true,
+    "description": "Short shift testing or single day duty."
+  },
+  {
+    "id": "week1",
+    "name": "1 Week",
+    "price": 68,
+    "wasPrice": 84,
+    "durationDays": 7,
+    "durationText": "7 days",
+    "badge": "Popular",
+    "active": true,
+    "description": "Best for full weekly shifts & high savings."
+  },
+  {
+    "id": "month1",
+    "name": "1 Month",
+    "price": 248,
+    "wasPrice": 360,
+    "durationDays": 30,
+    "durationText": "30 days",
+    "badge": "Most popular",
+    "active": true,
+    "description": "Maximum value for daily full-time captains."
+  }
+]

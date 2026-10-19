@@ -1,0 +1,134 @@
+<%- include('partials/header') %>
+
+<div class="wrap">
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-badge"><%= settings.tagline %></div>
+    <h1><%- settings.heroTitle %></h1>
+    <p class="sub"><%= settings.heroSubtitle %></p>
+    <p class="hero-en"><%= settings.heroEnText %></p>
+    <div>
+      <a class="btn" href="/install">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+        Download for Android
+      </a>
+      <a class="btn ghost" href="/pricing" style="margin-left: 8px;">View Plans</a>
+    </div>
+    <div class="meta">Version <%= settings.appVersion %> &middot; <%= settings.apkFileSize %> &middot; <%= settings.freeRidesTrial %></div>
+  </div>
+
+  <!-- Card 1: 3 Problems -->
+  <div class="card">
+    <h2>Driver bhaiyon ki 3 sabse badi dikkatein — aur <%= settings.siteName %> ka jawab</h2>
+    
+    <h3>1. Jab kaam kam ho</h3>
+    <p><strong>Dikkat:</strong> Captain khaali baithe rehte hain. Ride aate hi 1-2 second me koi aur utha leta hai. Jab tak pickup aur drop padho, tab tak der ho chuki hoti hai.<br>
+    <strong><%= settings.siteName %>:</strong> Screen ghoorne ki zaroorat nahi. Aapki pasand ki doori aur area ki ride aate hi <%= settings.siteName %> use pehchaan kar aapke liye chun leta hai.</p>
+
+    <h3>2. Jab demand zyada ho</h3>
+    <p><strong>Dikkat:</strong> Ride ke upar ride bajti rehti hai, aur zyadatar ₹20-₹30 wali choti rides hoti hain. Inke chakkar me 15-20 km wali kamai wali ride kab nikal gayi, pata hi nahi chalta.<br>
+    <strong><%= settings.siteName %>:</strong> Choti ghaate wali rides chhod deta hai, aur sirf aapke tay kiye minimum distance wali lambi rides chunta hai.</p>
+
+    <h3>3. Baar-baar haath se accept/reject karne ki thakan</h3>
+    <p><strong>Dikkat:</strong> Bike ya auto chalate waqt screen par lagataar haath maarna thaka dene wala hai, aur khatarnak bhi.<br>
+    <strong><%= settings.siteName %>:</strong> Jab tak aapki pasand ki ride nahi aati, phone jeb me ya mount par rakho. Sadak par dhyan rahe.</p>
+  </div>
+
+  <!-- Card 2: Features -->
+  <div class="card">
+    <h2>Aap kya-kya tay kar sakte ho</h2>
+    <p><%= settings.siteName %> booking card ka poora content padhta hai — kiraya, pickup, drop aur doori — aur phir aapke rules se milata hai. Jitna aap chaho utna barik:</p>
+    <ul>
+      <li><strong>Parcel ya sawari:</strong> Bike, auto, cab aur parcel — har ek ka apna switch. Aaj sirf parcel karna hai to baaki band. Saare filters dono par barabar lagte hain. Boost/Saver rides aur Intercity cab ke alag switch bhi hain.</li>
+      <li><strong>Trip doori:</strong> Kam se kam aur zyada se zyada kitne km ki ride leni hai.</li>
+      <li><strong>Pickup ki doori:</strong> Passenger tak kitni door tak jaana theek hai — 0.5 se 12 km tak, ek slider se.</li>
+      <li><strong>Kamai filter:</strong> Minimum aur maximum kiraya. Aur jahan card par fare dikhta hi nahi (Rapido bike), wahan "kam se kam itne km" ka rule chalta hai.</li>
+      <li><strong>Sirf tip wali rides:</strong> Kuch rider sirf wahi rides lete hain jisme customer ne extra ya surge diya ho — wo bhi ek switch hai.</li>
+      <li><strong>Extra stops:</strong> Beech me kitne stop tak theek hai, ya sirf direct rides.</li>
+    </ul>
+  </div>
+
+  <!-- Card 3: Exclusive Features -->
+  <div class="card">
+    <h2>Wo cheezein jo kahin aur nahi milengi</h2>
+
+    <h3>Raste wali agli ride</h3>
+    <p>Ride lene ke baad <%= settings.siteName %> uska raasta yaad rakhta hai. Jab ride app aapko agli booking bhejta hai, <%= settings.siteName %> wahi chunta hai jo usi raste par ho — taaki drop ke baad khaali na lautna pade. Raaste se kitni door tak ka pickup aur drop chalega, ye aap tay karte ho.</p>
+
+    <h3>Go To — ghar ya kisi khaas ilaake ki taraf</h3>
+    <p>Shift ke aakhir me ghar jaana ho, ya kisi ilaake ki taraf nikalna ho — area ka naam daal do. <%= settings.siteName %> sirf us taraf jaane wali rides chunega. Time bhi set kar sakte ho, taaki Go To apne aap band ho jaaye.</p>
+
+    <h3>Jahan nahi jaana</h3>
+    <p>Heavy traffic ya kharab road wale ilaake alag se block kar sakte ho — pickup ki taraf bhi, drop ki taraf bhi. Jo area aapke liye ghaate ka hai, wo list me daal do aur bhool jao.</p>
+
+    <h3>Aapke haath me control, chalte-chalte</h3>
+    <p>Ek floating button chalte waqt saamne rehta hai — booking aate hi wo khud chhup jaata hai. Rides ko expire hone do ya turant decline karo, aur decline hone se pehle kitna waqt mile — ye bhi aap tay karte ho.</p>
+  </div>
+
+  <!-- Card 4: Plans & Pricing -->
+  <div class="card">
+    <h2>Plans &amp; pricing</h2>
+    <p>Har naye account ko <strong>pehli 10 rides bilkul free</strong> — bina kisi payment ke, taaki aap khud dekh lo ki aapke kaam ka hai ya nahi. Uske baad plan chuno. Na auto-renewal, na card save hota hai: plan ek baar ka hai aur apna waqt poora hote hi khud khatam ho jaata hai.</p>
+    
+    <div class="pricing-grid">
+      <% plans.forEach(plan => { %>
+      <div class="plancard">
+        <div class="plancard-title">
+          <%= plan.name %>
+          <% if (plan.badge) { %>
+            <span class="plancard-badge"><%= plan.badge %></span>
+          <% } %>
+        </div>
+        <div class="plancard-price">₹<%= plan.price %></div>
+        <div class="plancard-duration"><%= plan.durationText %></div>
+        <div class="plancard-desc"><%= plan.description %></div>
+      </div>
+      <% }) %>
+    </div>
+
+    <p style="color: var(--muted); font-size: 14.5px;">Yahan website se lo ya app ke andar se — dono tarah plan usi mobile number par aata hai jisse aapne app me sign in kiya hai.</p>
+    <p style="color: var(--muted); font-size: 14px;"><strong>Plan kab chalu hota hai:</strong> online payment (UPI gateway) — within about a minute; direct UPI — within a few minutes once verified. Support: <%= settings.supportHours %>.</p>
+    <p><a class="btn" href="/buy">Buy a plan</a> &nbsp; <a class="btn ghost" href="/install">Download APK</a></p>
+  </div>
+
+  <!-- Card 5: WhatsApp updates -->
+  <div class="card">
+    <h2>WhatsApp par updates</h2>
+    <p>Naye version aur zaroori jaankari sabse pehle aapke WhatsApp par.</p>
+    <p><a class="btn" href="https://wa.me/<%= settings.whatsappNumber %>?text=<%= encodeURIComponent(settings.whatsappText) %>" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/></svg>
+      Updates chalu karo
+    </a></p>
+  </div>
+
+  <!-- Card 6: 3 Steps -->
+  <div class="card">
+    <h2>Shuru kaise karein — 3 step</h2>
+    <ol class="steps">
+      <li>
+        <strong>Download karo:</strong> <%= settings.siteName %> install karo aur mobile number se sign in karo. Pehli 10 rides bilkul free hain — koi payment nahi.
+      </li>
+      <li>
+        <strong>Apne rules set karo:</strong> Kitne km ki ride chahiye, pickup kitna door tak chalega, parcel ya sawari, kaunsa area — sab slider aur switch se, ek baar.
+      </li>
+      <li>
+        <strong>Pehle dekho, phir chalao:</strong> Monitor mode me <%= settings.siteName %> har booking par batata hai ki wo kya karta — bina kuch dabaye. Faisle sahi lagein to Active karo, aur phone jeb me rakh do.
+      </li>
+    </ol>
+    <p><a class="btn" href="/install">Download for Android</a></p>
+  </div>
+
+  <!-- Card 7: Guides Preview -->
+  <div class="card">
+    <h2>Guides for drivers</h2>
+    <p>Seedhi baat me — kaise chalta hai, kaunsi settings sahi hain, aur kis app par kaam karta hai.</p>
+    <ul>
+      <% guides.slice(0, 8).forEach(guide => { %>
+        <li><a href="/guides/<%= guide.slug %>"><strong><%= guide.title %></strong></a> — <%= guide.summary %></li>
+      <% }) %>
+    </ul>
+    <p><a href="/guides">Saare guides dekho →</a></p>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

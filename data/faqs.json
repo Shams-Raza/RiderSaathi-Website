@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "q": "RiderSaathi kya hai aur kaise kaam karta hai?",
+    "a": "RiderSaathi bike-taxi, auto, cab aur parcel drivers ka Android app hai. Aap Rules me apni pasand ek baar set karte ho — booking type, trip ki doori, pickup ki doori, kiraya, area. Rapido, Uber ya Porter ka booking card aate hi RiderSaathi use padh kar aapke rules se milata hai, aur sirf wahi ride chunta hai jo poori utarti hai. Baaki bookings ko wo chhod deta hai."
+  },
+  {
+    "id": 2,
+    "q": "Rapido, Uber aur Porter me apni pasand ki ride kaise chunein?",
+    "a": "Rules me teen cheezein sabse pehle set karo: Booking types (sirf wahi gaadi chalu jo aap chalate ho), Trip distance (kam se kam aur zyada se zyada km) aur Pickup distance (passenger tak kitni door tak jaana theek hai). Phir ek shift Monitor mode me chala kar Activity me faisle dekho, aur sahi lagein to Active karo."
+  },
+  {
+    "id": 3,
+    "q": "Pickup ki doori kaise set karein?",
+    "a": "Rules me Pickup distance ka ek slider hai — 0.5 se 12 km tak, shuruaat me 3 km. Lambi ride ke liye door ka pickup bhi faayde ka hota hai, isliye pickup limit thodi khuli rakho aur minimum trip distance badhao; tab door ka pickup sirf lambi rides par lagega."
+  },
+  {
+    "id": 4,
+    "q": "Kya sirf parcel ya sirf ek tarah ki ride le sakte hain?",
+    "a": "Haan. Booking types me Bike, Auto, Cab aur Parcel ke alag switch hain. Sirf parcel karna ho to baaki band kar do — trip, pickup, kiraya aur area ke saare rules parcel par bhi lagte hain. Rapido ki Boost aur Uber ki Saver rides ka alag switch hai, aur cab me Intercity ka bhi."
+  },
+  {
+    "id": 5,
+    "q": "Ghar jaate waqt sirf apne raste ki ride kaise lein (Go To)?",
+    "a": "Rules me Go To chalu karo aur area ka naam waisa hi likho jaisa booking card par aata hai. Tab RiderSaathi sirf unhi bookings ko chunta hai jinka drop un jagahon ke paas ho. Go To tay samay ke baad apne aap band ho jaata hai — shuruaat me 1 ghanta."
+  },
+  {
+    "id": 6,
+    "q": "Does it work when the driver app is minimised or the screen is off?",
+    "a": "Haan. Duty par jaa kar ride app minimise kar do — RiderSaathi peeche chalta rehta hai. Screen band hone par bhi chalana ho to Advanced settings me 'Accept rides while the screen is off' chalu karo; ye shuruaat me band rehta hai aur thodi zyada battery leta hai. Phone par PIN ya pattern lock ho to ye kaam nahi karta."
+  },
+  {
+    "id": 7,
+    "q": "Porter par rules kaise lagte hain?",
+    "a": "Porter ke card par kiraya aur pickup ki doori hoti hai, trip ki doori nahi. Isliye Porter par Kamai filter (minimum fare) aur Pickup distance sabse kaam ke rules hain; trip distance ke rules wahan nahi lagte. Jo order aapke rules par nahi hai, wo countdown khatam hote hi apne aap chala jaata hai."
+  },
+  {
+    "id": 8,
+    "q": "Play Protect ya install warning aaye to kya karein?",
+    "a": "Warning par 'More details' daba kar 'Install anyway' karein. Android ye warning har us app par dikhata hai jo Play Store ke bahar se aaya ho. RiderSaathi hamesha hamari official website se hi download karein — install page par file ka SHA-256 fingerprint aur signing certificate likha hai."
+  },
+  {
+    "id": 9,
+    "q": "Is it free? (Free trial kitna hai?)",
+    "a": "Har naye account ko shuru me pehle 10 rides bilkul free milti hain, taaki aap bina kisi payment ke apne rules khud test kar sako. Uske baad ek prepaid plan — daam Pricing page par hain. Payment direct UPI se hoti hai, na auto-renewal hota hai na card save."
+  },
+  {
+    "id": 10,
+    "q": "Which phones does it work on?",
+    "a": "Android 8.0 aur uske baad ke phones par. Vivo, Oppo, Realme aur Xiaomi phones par battery me RiderSaathi ko background me chalne ki ijaazat deni hoti hai, warna phone use band kar deta hai. App ki Checks screen batati hai ki kya baaki hai."
+  },
+  {
+    "id": 11,
+    "q": "Payment ke baad plan kitni der me chalu hota hai?",
+    "a": "Online payment (payment gateway — UPI, card, net banking): within about a minute of payment confirmation. Direct UPI (order page): within a few minutes once the payment matches our bank record; if it has to be checked by hand, the same day. Plan usi mobile number par chalu hota hai jisse aapne app me sign in kiya hai, aur app use khud utha leta hai. Support: Monday - Saturday | 10 AM - 5 PM (IST)."
+  }
+]

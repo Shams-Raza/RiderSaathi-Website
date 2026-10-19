@@ -1,0 +1,67 @@
+<%- include('partials/header') %>
+
+<div class="wrap">
+  <div class="hero" style="padding-bottom: 20px;">
+    <h1>How to install <%= settings.siteName %></h1>
+    <p class="sub">Android only. It takes about two minutes.</p>
+    <a class="btn" href="/download">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+      Download APK
+    </a>
+    <div class="meta">Version <%= settings.appVersion %> &middot; <%= settings.apkFileSize %></div>
+  </div>
+
+  <div class="card">
+    <h2>Steps</h2>
+    <ol class="steps">
+      <li>Download the file above. Android warns about any app installed from outside the Play Store, so expect a warning here — the next section tells you exactly what to tap.</li>
+      <li>Open the downloaded file and allow installation from your browser when asked.</li>
+      <li>Open <%= settings.siteName %> and enter your mobile number.</li>
+      <li>Grant <strong>Accessibility access</strong> when it asks. This is what lets it read the booking card. <%= settings.siteName %> first shows what it reads and asks for your consent; it uses this Android feature only for the rule-based automation Google Play's policy allows, reads only your driver apps, and you can switch it off at any time in Settings.</li>
+      <li>Grant <strong>Display over other apps</strong> for the floating control.</li>
+      <li>Leave it in <strong>Monitor</strong> mode for a shift. Check the Activity screen and see whether you agree with its decisions before switching to Active.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>If Play Protect blocks the install</h2>
+    <p>It probably will, at least once. Google shows this warning for any app that did not come from the Play Store and has not yet been installed by many people. It is not a virus warning and it does not mean anything is wrong with the file — but you should still only ever download from this page, and you can check the checksum number at the bottom to be sure.</p>
+    <p><strong>You do not need to switch Play Protect off.</strong> On the warning:</p>
+    <ol class="steps">
+      <li>Tap <strong>More details</strong>, then <strong>Install anyway</strong>.</li>
+      <li>If it says <em>Send app for scanning</em>, tap that and wait — the install continues after a few seconds.</li>
+    </ol>
+    <p>If your phone shows no <strong>Install anyway</strong> option, write to us from the Contact page and we will help — keep Play Protect switched on.</p>
+  </div>
+
+  <div class="card">
+    <h2>If Accessibility says “Restricted setting”</h2>
+    <p>On Android 13 and newer, an app installed from outside the Play Store is not allowed to turn on Accessibility until you say so once. You will see <em>“For your security, this setting is currently unavailable.”</em> This is a one-time step:</p>
+    <ol class="steps">
+      <li><strong>Settings</strong> &rarr; <strong>Apps</strong> &rarr; <strong><%= settings.siteName %></strong>.</li>
+      <li>Tap the <strong>⋮</strong> menu at the top right.</li>
+      <li>Tap <strong>Allow restricted settings</strong>.</li>
+      <li>Now go back and turn on Accessibility for <%= settings.siteName %>.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>Important for Vivo, Oppo, Realme and Xiaomi phones</h2>
+    <p>These phones shut background apps down aggressively, and will stop the app mid-shift unless you tell them not to.</p>
+    <ul>
+      <li><strong>Battery</strong> &rarr; find <%= settings.siteName %> &rarr; allow background activity / do not restrict</li>
+      <li><strong>Auto-start</strong> &rarr; turn it on for <%= settings.siteName %></li>
+      <li><strong>Recent apps</strong> &rarr; lock <%= settings.siteName %> so clearing recents does not kill it</li>
+    </ul>
+    <p>The Checks screen inside the app tells you if any of this is still missing.</p>
+  </div>
+
+  <div class="notice">
+    <p><strong>Only ever download from this page.</strong> A copy from anywhere else may have been modified. We will never ask for your ride-app password or OTP — not in the app, not on WhatsApp, not ever. Anyone who does is not us.</p>
+    <p class="meta" style="margin-top: 12px;"><strong>Verified build.</strong> Version <%= settings.appVersion %>, signed with <%= settings.siteName %>'s release key.<br>
+    File SHA-256: <code style="word-break:break-all"><%= settings.sha256File %></code><br>
+    Signing certificate SHA-256: <code style="word-break:break-all"><%= settings.sha256Cert %></code></p>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

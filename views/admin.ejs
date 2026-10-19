@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard — <%= settings.siteName %></title>
+  <link rel="icon" href="/images/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/admin.css">
+  <script src="/js/admin.js" defer></script>
+</head>
+<body class="admin-body">
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <a class="admin-brand" href="/admin">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="#1b3a8c"><path d="M14 2 5 13h6l-1 9 9-11h-6z"/></svg>
+        <span><%= settings.siteName %></span>
+        <span class="badge">ADMIN</span>
+      </a>
+
+      <nav class="admin-nav">
+        <button class="admin-nav-item active" data-tab="tabOverview">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          Overview
+        </button>
+        <button class="admin-nav-item" data-tab="tabSettings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          Owner &amp; Site Info
+        </button>
+        <button class="admin-nav-item" data-tab="tabApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          App &amp; APK Download
+        </button>
+        <button class="admin-nav-item" data-tab="tabPayment">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+          UPI &amp; Payments
+        </button>
+        <button class="admin-nav-item" data-tab="tabPlans">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          Pricing Plans
+        </button>
+        <button class="admin-nav-item" data-tab="tabOrders">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          Orders &amp; Buy Leads
+        </button>
+        <button class="admin-nav-item" data-tab="tabInquiries">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Contact Messages
+        </button>
+        <button class="admin-nav-item" data-tab="tabFaq">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          FAQs
+        </button>
+        <button class="admin-nav-item" data-tab="tabSecurity">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          Security &amp; Backup
+        </button>
+      </nav>
+
+      <div class="admin-sidebar-footer">
+        <a href="/" target="_blank" class="btn-outline" style="text-align:center; text-decoration:none;">
+          🌐 View Live Site
+        </a>
+        <a href="/admin/logout" class="btn-outline" style="text-align:center; text-decoration:none; color:var(--admin-danger);">
+          Log Out
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <div class="admin-header">
+        <div>
+          <h1>Welcome, Admin</h1>
+          <div style="font-size: 13.5px; color: var(--admin-muted); margin-top: 4px;">
+            Manage all aspects of <%= settings.siteName %> website in real time.
+          </div>
+        </div>
+        <div>
+          <button id="exportBackupBtn" class="btn-outline">📥 Export Backup</button>
+        </div>
+      </div>
+
+      <!-- Toast Notification -->
+      <div id="adminToast" class="toast-msg"></div>
+
+      <!-- 1. TAB: Overview -->
+      <div class="tab-pane active" id="tabOverview">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-title">Total Visitors</span>
+            <span class="stat-value"><%= stats.visitors || 0 %></span>
+            <span class="stat-help">Web visits recorded</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">APK Downloads</span>
+            <span class="stat-value"><%= stats.downloads || 0 %></span>
+            <span class="stat-help">Driver app downloads</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">Plan Orders</span>
+            <span class="stat-value"><%= orders.length %></span>
+            <span class="stat-help">Subscription requests</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">Inquiries</span>
+            <span class="stat-value"><%= inquiries.length %></span>
+            <span class="stat-help">Contact messages received</span>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h2>Quick Actions &amp; Information to Update</h2>
+          <p style="color: var(--admin-muted); font-size: 14.5px; line-height: 1.6;">
+            Aap Lapak ke default details ko apne information se replace karne ke liye left sidebar me <strong>"Owner &amp; Site Info"</strong> par click karein.
+            Wahan aap apna <strong>Naam</strong>, <strong>Address</strong>, <strong>WhatsApp Number</strong>, <strong>Email</strong>, aur <strong>UPI ID</strong> daal sakte hain.
+            Save karte hi poori website par live update ho jayega!
+          </p>
+        </div>
+
+        <div class="admin-card">
+          <h2>Recent Orders (<%= orders.slice(0, 5).length %>)</h2>
+          <% if (orders.length === 0) { %>
+            <p style="color: var(--admin-muted);">No orders recorded yet.</p>
+          <% } else { %>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Mobile</th>
+                    <th>Plan</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% orders.slice(0, 5).forEach(ord => { %>
+                  <tr>
+                    <td><%= new Date(ord.createdAt).toLocaleDateString() %></td>
+                    <td><strong><%= ord.phone %></strong></td>
+                    <td><%= ord.planName %></td>
+                    <td>₹<%= ord.price %></td>
+                    <td>
+                      <span class="badge-tag <%= ord.status === 'Activated' ? 'badge-success' : 'badge-warning' %>">
+                        <%= ord.status %>
+                      </span>
+                    </td>
+                    <td>
+                      <button class="btn-primary" style="padding: 4px 10px; font-size: 12px;" onclick="updateOrderStatus('<%= ord.id %>', 'Activated')">Activate</button>
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- 2. TAB: Owner & Site Settings -->
+      <div class="tab-pane" id="tabSettings">
+        <div class="admin-card">
+          <h2>Owner &amp; Business Information</h2>
+          <p style="font-size: 13.5px; color: var(--admin-muted);">Ye details website ke About, Contact, footer aur policy pages par dikhengi.</p>
+          
+          <form id="generalSettingsForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Website Name</label>
+                <input type="text" name="siteName" value="<%= settings.siteName %>" required>
+              </div>
+
+              <div class="form-group">
+                <label>Owner / Founder Name</label>
+                <input type="text" name="ownerName" value="<%= settings.ownerName %>" placeholder="e.g. Shams Raza" required>
+              </div>
+
+              <div class="form-group">
+                <label>Legal Business Name</label>
+                <input type="text" name="legalBusinessName" value="<%= settings.legalBusinessName %>" placeholder="e.g. RiderSaathi Technologies" required>
+              </div>
+
+              <div class="form-group">
+                <label>Registration / Licence Info</label>
+                <input type="text" name="registrationDetails" value="<%= settings.registrationDetails %>" placeholder="e.g. Registered under Udyam (MSME), Shop & Establishment Licence">
+              </div>
+
+              <div class="form-group">
+                <label>Contact Email</label>
+                <input type="email" name="contactEmail" value="<%= settings.contactEmail %>" required>
+              </div>
+
+              <div class="form-group">
+                <label>WhatsApp Support Number (with country code, no +)</label>
+                <input type="text" name="whatsappNumber" value="<%= settings.whatsappNumber %>" placeholder="e.g. 918349049467" required>
+              </div>
+
+              <div class="form-group">
+                <label>WhatsApp Preset Text</label>
+                <input type="text" name="whatsappText" value="<%= settings.whatsappText %>">
+              </div>
+
+              <div class="form-group">
+                <label>Telegram Channel / Handle</label>
+                <input type="text" name="telegramHandle" value="<%= settings.telegramHandle %>" placeholder="e.g. RiderSaathi_app">
+              </div>
+
+              <div class="form-group">
+                <label>Telegram Link URL</label>
+                <input type="url" name="telegramUrl" value="<%= settings.telegramUrl %>">
+              </div>
+
+              <div class="form-group">
+                <label>Support Hours</label>
+                <input type="text" name="supportHours" value="<%= settings.supportHours %>">
+              </div>
+
+              <div class="form-group full-width">
+                <label>Office / Business Address</label>
+                <textarea name="officeAddress" rows="2"><%= settings.officeAddress %></textarea>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Grievance Officer Name</label>
+                <input type="text" name="grievanceOfficer" value="<%= settings.grievanceOfficer %>">
+              </div>
+
+              <div class="form-group full-width">
+                <label>Top Announcement Bar Message</label>
+                <input type="text" name="bannerAlert" value="<%= settings.bannerAlert %>">
+              </div>
+
+              <div class="form-group full-width">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                  <input type="checkbox" name="showBanner" <%= settings.showBanner ? 'checked' : '' %> style="width: auto;">
+                  Show Top Announcement Bar on Website
+                </label>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Save All Settings</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- 3. TAB: App & APK Settings -->
+      <div class="tab-pane" id="tabApp">
+        <div class="admin-card">
+          <h2>Android APK &amp; Version Configuration</h2>
+          <form id="appSettingsForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Current App Version</label>
+                <input type="text" name="appVersion" value="<%= settings.appVersion %>" required>
+              </div>
+
+              <div class="form-group">
+                <label>APK File Size</label>
+                <input type="text" name="apkFileSize" value="<%= settings.apkFileSize %>" placeholder="e.g. 11.1 MB" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label>APK Download URL (Local file path or Google Drive / Cloud URL)</label>
+                <input type="text" name="apkDownloadUrl" value="<%= settings.apkDownloadUrl %>" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label>File SHA-256 Checksum Fingerprint</label>
+                <input type="text" name="sha256File" value="<%= settings.sha256File %>">
+              </div>
+
+              <div class="form-group full-width">
+                <label>Signing Certificate SHA-256 Fingerprint</label>
+                <input type="text" name="sha256Cert" value="<%= settings.sha256Cert %>">
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Update APK Details</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- 4. TAB: UPI & Payments -->
+      <div class="tab-pane" id="tabPayment">
+        <div class="admin-card">
+          <h2>Payment &amp; UPI Configuration</h2>
+          <form id="paymentSettingsForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Your Receiving UPI ID (e.g. phonepe / gpay / paytm / bank)</label>
+                <input type="text" name="upiId" value="<%= settings.upiId %>" placeholder="e.g. yourname@okhdfcbank" required>
+              </div>
+
+              <div class="form-group">
+                <label>UPI Payee Name (displayed to riders)</label>
+                <input type="text" name="upiPayeeName" value="<%= settings.upiPayeeName %>" placeholder="e.g. RiderSaathi" required>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Update UPI Settings</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- 5. TAB: Pricing Plans -->
+      <div class="tab-pane" id="tabPlans">
+        <div class="admin-card">
+          <h2>Manage Existing Plans</h2>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Plan Name</th>
+                  <th>Price</th>
+                  <th>Duration</th>
+                  <th>Badge</th>
+                  <th>Description</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% plans.forEach(plan => { %>
+                <tr>
+                  <td><strong><%= plan.name %></strong></td>
+                  <td>₹<%= plan.price %></td>
+                  <td><%= plan.durationText %></td>
+                  <td><%= plan.badge || '—' %></td>
+                  <td><%= plan.description %></td>
+                  <td>
+                    <button class="btn-danger" onclick="deletePlan('<%= plan.id %>')">Delete</button>
+                  </td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h2>Add New Plan</h2>
+          <form id="addPlanForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Plan ID (unique, e.g. year1)</label>
+                <input type="text" name="id" placeholder="e.g. days15" required>
+              </div>
+
+              <div class="form-group">
+                <label>Plan Name</label>
+                <input type="text" name="name" placeholder="e.g. 15 Days" required>
+              </div>
+
+              <div class="form-group">
+                <label>Price (₹)</label>
+                <input type="number" name="price" placeholder="e.g. 149" required>
+              </div>
+
+              <div class="form-group">
+                <label>Original / Struck-through Price (optional)</label>
+                <input type="number" name="wasPrice" placeholder="e.g. 199">
+              </div>
+
+              <div class="form-group">
+                <label>Duration in Days</label>
+                <input type="number" name="durationDays" placeholder="e.g. 15" required>
+              </div>
+
+              <div class="form-group">
+                <label>Duration Text (e.g. 15 days)</label>
+                <input type="text" name="durationText" placeholder="e.g. 15 days" required>
+              </div>
+
+              <div class="form-group">
+                <label>Badge (e.g. Best Value, Special)</label>
+                <input type="text" name="badge" placeholder="optional">
+              </div>
+
+              <div class="form-group full-width">
+                <label>Description</label>
+                <input type="text" name="description" placeholder="Short description of this plan">
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Add Plan</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- 6. TAB: Orders & Buy Leads -->
+      <div class="tab-pane" id="tabOrders">
+        <div class="admin-card">
+          <h2>All Subscription Orders (<%= orders.length %>)</h2>
+          <% if (orders.length === 0) { %>
+            <p style="color: var(--admin-muted);">No orders recorded yet. When drivers click Buy and enter their phone number, they appear here.</p>
+          <% } else { %>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Order ID</th>
+                    <th>Mobile</th>
+                    <th>Plan</th>
+                    <th>Amount</th>
+                    <th>UPI Ref / UTR</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% orders.forEach(ord => { %>
+                  <tr>
+                    <td><%= new Date(ord.createdAt).toLocaleString() %></td>
+                    <td><code><%= ord.id %></code></td>
+                    <td><strong><%= ord.phone %></strong></td>
+                    <td><%= ord.planName %></td>
+                    <td>₹<%= ord.price %></td>
+                    <td><code><%= ord.upiRef || 'Waiting' %></code></td>
+                    <td>
+                      <span class="badge-tag <%= ord.status === 'Activated' ? 'badge-success' : 'badge-warning' %>">
+                        <%= ord.status %>
+                      </span>
+                    </td>
+                    <td>
+                      <% if (ord.status !== 'Activated') { %>
+                        <button class="btn-primary" style="padding: 4px 8px; font-size: 12px;" onclick="updateOrderStatus('<%= ord.id %>', 'Activated')">Mark Activated</button>
+                      <% } else { %>
+                        <button class="btn-outline" style="padding: 4px 8px; font-size: 12px;" onclick="updateOrderStatus('<%= ord.id %>', 'Pending')">Revert</button>
+                      <% } %>
+                      <a href="https://wa.me/91<%= ord.phone %>?text=<%= encodeURIComponent('Namaste! Aapka RiderSaathi ' + ord.planName + ' plan activate ho gaya hai.') %>" target="_blank" class="btn-outline" style="padding: 4px 8px; font-size: 12px; text-decoration: none; display: inline-block;">
+                        Chat WhatsApp
+                      </a>
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- 7. TAB: Contact Messages -->
+      <div class="tab-pane" id="tabInquiries">
+        <div class="admin-card">
+          <h2>Driver Inquiries &amp; Contact Leads (<%= inquiries.length %>)</h2>
+          <% if (inquiries.length === 0) { %>
+            <p style="color: var(--admin-muted);">No inquiries yet. Driver queries from the Contact page will appear here.</p>
+          <% } else { %>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Subject</th>
+                    <th>Message</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% inquiries.forEach(inq => { %>
+                  <tr>
+                    <td><%= new Date(inq.createdAt).toLocaleString() %></td>
+                    <td><strong><%= inq.name %></strong></td>
+                    <td><%= inq.phone %></td>
+                    <td><%= inq.subject %></td>
+                    <td style="max-width: 280px; word-break: break-word;"><%= inq.message %></td>
+                    <td>
+                      <span class="badge-tag <%= inq.status === 'Resolved' ? 'badge-success' : 'badge-warning' %>">
+                        <%= inq.status || 'New' %>
+                      </span>
+                    </td>
+                    <td>
+                      <a href="https://wa.me/91<%= inq.phone %>?text=<%= encodeURIComponent('Namaste ' + inq.name + '! RiderSaathi support ki taraf se message.') %>" target="_blank" class="btn-outline" style="padding: 4px 8px; font-size: 12px; text-decoration: none;">
+                        Reply WhatsApp
+                      </a>
+                      <button class="btn-primary" style="padding: 4px 8px; font-size: 12px; margin-top: 4px;" onclick="updateInquiryStatus('<%= inq.id %>', 'Resolved')">
+                        Resolve
+                      </button>
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- 8. TAB: FAQs -->
+      <div class="tab-pane" id="tabFaq">
+        <div class="admin-card">
+          <h2>Existing FAQs (<%= faqs.length %>)</h2>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Question</th>
+                  <th>Answer</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% faqs.forEach(f => { %>
+                <tr>
+                  <td style="font-weight: 600; width: 35%;"><%= f.q %></td>
+                  <td style="color: var(--admin-muted); font-size: 13.5px;"><%= f.a %></td>
+                  <td style="width: 80px;">
+                    <button class="btn-danger" onclick="deleteFaq('<%= f.id %>')">Delete</button>
+                  </td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h2>Add New FAQ</h2>
+          <form id="addFaqForm">
+            <div class="form-group" style="margin-bottom: 14px;">
+              <label>Question (Sawal)</label>
+              <input type="text" id="faqQ" placeholder="e.g. Kya ye app background me chalta hai?" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 14px;">
+              <label>Answer (Jawab)</label>
+              <textarea id="faqA" rows="3" placeholder="Jawab likhein..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary">Add FAQ</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- 9. TAB: Security & Backup -->
+      <div class="tab-pane" id="tabSecurity">
+        <div class="admin-card">
+          <h2>Change Admin Password</h2>
+          <form id="passwordForm">
+            <div class="form-grid" style="max-width: 450px;">
+              <div class="form-group">
+                <label>New Password</label>
+                <input type="password" id="newPassword" placeholder="Minimum 6 characters" required>
+              </div>
+              <div class="form-group">
+                <label>Confirm New Password</label>
+                <input type="password" id="confirmPassword" placeholder="Repeat new password" required>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Update Admin Password</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="admin-card">
+          <h2>Backup &amp; Restore</h2>
+          <p style="color: var(--admin-muted); font-size: 14px;">
+            Aap apni website ki saari settings, pricing plans, FAQs aur orders ka complete backup JSON file me download kar sakte hain.
+          </p>
+          <div class="form-actions">
+            <a href="/api/admin/backup/export" class="btn-primary" style="text-decoration:none; display:inline-block;">Download Complete Backup</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Hook up sub-forms into general settings update
+    ['appSettingsForm', 'paymentSettingsForm'].forEach(formId => {
+      const f = document.getElementById(formId);
+      if (f) {
+        f.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const formData = new FormData(f);
+          const data = Object.fromEntries(formData.entries());
+          try {
+            const res = await fetch('/api/admin/settings', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(data)
+            });
+            const result = await res.json();
+            if (result.success) {
+              const toast = document.getElementById('adminToast');
+              toast.textContent = "Saved successfully!";
+              toast.className = "toast-msg success";
+              toast.style.display = "block";
+              setTimeout(() => { toast.style.display = 'none'; }, 2500);
+            }
+          } catch(err) {
+            alert("Error saving");
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

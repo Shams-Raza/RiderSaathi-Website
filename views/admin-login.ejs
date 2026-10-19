@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Login — <%= settings.siteName %></title>
+  <link rel="icon" href="/images/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/admin.css">
+  <style>
+    .login-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .login-box {
+      width: 100%;
+      max-width: 380px;
+      background: var(--admin-card);
+      border: 1px solid var(--admin-border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      text-align: center;
+    }
+    .login-box h1 {
+      font-size: 22px;
+      margin: 14px 0 6px;
+      font-weight: 800;
+    }
+    .login-box p {
+      font-size: 14px;
+      color: var(--admin-muted);
+      margin: 0 0 24px;
+    }
+    .login-error {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      margin-bottom: 18px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body class="admin-body">
+  <div class="login-container">
+    <div class="login-box">
+      <div style="display:inline-flex; width:48px; height:48px; border-radius:12px; background:#1b3a8c; align-items:center; justify-content:center;">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="#fff"><path d="M14 2 5 13h6l-1 9 9-11h-6z"/></svg>
+      </div>
+      <h1><%= settings.siteName %> Admin</h1>
+      <p>Enter your admin password to manage the website.</p>
+
+      <% if (typeof error !== 'undefined' && error) { %>
+        <div class="login-error"><%= error %></div>
+      <% } %>
+
+      <form method="post" action="/admin/login">
+        <div class="form-group" style="text-align: left;">
+          <label for="password">Admin Password</label>
+          <input type="password" id="password" name="password" placeholder="Default: admin123" required autofocus>
+        </div>
+        <button type="submit" class="btn-primary" style="width: 100%; margin-top: 18px; padding: 12px;">Log In to Dashboard</button>
+      </form>
+
+      <div style="margin-top: 24px;">
+        <a href="/" style="font-size: 13px; color: var(--admin-muted); text-decoration: none;">&larr; Return to Website</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
