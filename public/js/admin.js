@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = Object.fromEntries(formData.entries());
       data.price = Number(data.price);
       data.wasPrice = Number(data.wasPrice) || data.price;
-      data.durationDays = Number(data.durationDays);
+      data.durationDays = Number(data.durationDays) || 1;
       data.active = true;
 
       try {
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         const result = await res.json();
         if (result.success) {
-          showToast("Plan added successfully!");
+          showToast("New Plan Added!");
           setTimeout(() => location.reload(), 800);
         } else {
           showToast(result.message || "Failed to add plan", "error");
@@ -89,10 +89,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 3. Delete Plan
-  window.deletePlan = async function (planId) {
+  window.deletePlan = async function (id) {
     if (!confirm("Are you sure you want to delete this plan?")) return;
     try {
-      const res = await fetch(`/api/admin/plans/delete/${planId}`, {
+      const res = await fetch(`/api/admin/plans/delete/${id}`, {
         method: "POST",
       });
       const result = await res.json();
@@ -219,4 +219,84 @@ document.addEventListener("DOMContentLoaded", () => {
       window.open("/api/admin/backup/export", "_blank");
     });
   }
+
+  // 10. Grant Subscription Days to Driver
+  window.grantSubscription = async function (driverId, days, planName = "") {
+    try {
+      const res = await fetch("/api/admin/drivers/grant-subscription", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ driverId, days, planName }),
+      });
+      const result = await res.json();
+      if (result.success) {
+        showToast(result.message);
+        setTimeout(() => location.reload(), 600);
+      } else {
+        showToast(result.message || "Error granting subscription", "error");
+      }
+    } catch (err) {
+      showToast("Network error", "error");
+    }
+  };
+
+  // 11. Grant Free Trial Rides
+  window.grantTrialRides = async function (driverId, extraRides = 10) {
+    try {
+      const res = await fetch("/api/admin/drivers/grant-trial", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ driverId, extraRides }),
+      });
+      const result = await res.json();
+      if (result.success) {
+        showToast(result.message);
+        setTimeout(() => location.reload(), 600);
+      } else {
+        showToast(result.message || "Error adding trial rides", "error");
+      }
+    } catch (err) {
+      showToast("Network error", "error");
+    }
+  };
+
+  // 12. Toggle Driver Ban / Active Status
+  window.toggleDriverStatus = async function (driverId) {
+    try {
+      const res = await fetch("/api/admin/drivers/toggle-status", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ driverId }),
+      });
+      const result = await res.json();
+      if (result.success) {
+        showToast(result.message);
+        setTimeout(() => location.reload(), 600);
+      } else {
+        showToast(result.message || "Error toggling driver status", "error");
+      }
+    } catch (err) {
+      showToast("Network error", "error");
+    }
+  };
+
+  // 13. Approve Order and Automatically Activate Driver Subscription
+  window.approveAndActivateOrder = async function (orderId) {
+    if (!confirm("Approve this order and immediately activate driver subscription?")) return;
+    try {
+      const res = await fetch(`/api/admin/orders/${orderId}/approve-activate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      });
+      const result = await res.json();
+      if (result.success) {
+        showToast(result.message);
+        setTimeout(() => location.reload(), 800);
+      } else {
+        showToast(result.message || "Error approving order", "error");
+      }
+    } catch (err) {
+      showToast("Network error", "error");
+    }
+  };
 });

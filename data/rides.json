@@ -1,0 +1,22 @@
+[
+  {
+    "id": "RIDE-MVI0NZF4",
+    "driverId": "DRV-MVI0NQTV",
+    "driverPhone": "8349049467",
+    "platform": "rapido",
+    "fare": 120,
+    "pickupDistanceKm": 0,
+    "tripDistanceKm": 5.2,
+    "acceptedAt": "2026-10-21T11:16:12.688Z"
+  },
+  {
+    "id": "RIDE-DEMO01",
+    "driverId": "DRV-DEMO101",
+    "driverPhone": "9876543210",
+    "platform": "rapido",
+    "fare": 85,
+    "pickupDistanceKm": 1.2,
+    "tripDistanceKm": 5.4,
+    "acceptedAt": "2026-10-21T10:15:00.000Z"
+  }
+]

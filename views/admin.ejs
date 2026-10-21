@@ -23,13 +23,17 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
           Overview
         </button>
+        <button class="admin-nav-item" data-tab="tabDrivers">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          Drivers &amp; App (<%= drivers.length %>)
+        </button>
+        <button class="admin-nav-item" data-tab="tabOrders">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          Orders &amp; Leads (<%= orders.length %>)
+        </button>
         <button class="admin-nav-item" data-tab="tabSettings">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
           Owner &amp; Site Info
-        </button>
-        <button class="admin-nav-item" data-tab="tabApp">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-          App &amp; APK Download
         </button>
         <button class="admin-nav-item" data-tab="tabPayment">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
@@ -39,9 +43,9 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
           Pricing Plans
         </button>
-        <button class="admin-nav-item" data-tab="tabOrders">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-          Orders &amp; Buy Leads
+        <button class="admin-nav-item" data-tab="tabApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          App &amp; APK Download
         </button>
         <button class="admin-nav-item" data-tab="tabInquiries">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
@@ -58,10 +62,13 @@
       </nav>
 
       <div class="admin-sidebar-footer">
-        <a href="/" target="_blank" class="btn-outline" style="text-align:center; text-decoration:none;">
+        <a href="/api/docs" target="_blank" class="btn-outline" style="text-align:center; text-decoration:none; margin-bottom: 6px; background: rgba(30,102,245,0.08); color: var(--admin-primary); font-weight: 600; display: block;">
+          ⚡ API Documentation
+        </a>
+        <a href="/" target="_blank" class="btn-outline" style="text-align:center; text-decoration:none; margin-bottom: 6px; display: block;">
           🌐 View Live Site
         </a>
-        <a href="/admin/logout" class="btn-outline" style="text-align:center; text-decoration:none; color:var(--admin-danger);">
+        <a href="/admin/logout" class="btn-outline" style="text-align:center; text-decoration:none; color:var(--admin-danger); display: block;">
           Log Out
         </a>
       </div>
@@ -73,10 +80,11 @@
         <div>
           <h1>Welcome, Admin</h1>
           <div style="font-size: 13.5px; color: var(--admin-muted); margin-top: 4px;">
-            Manage all aspects of <%= settings.siteName %> website in real time.
+            Manage <%= settings.siteName %> website, drivers, subscriptions, and live REST APIs.
           </div>
         </div>
-        <div>
+        <div style="display: flex; gap: 10px;">
+          <a href="/api/docs" target="_blank" class="btn-outline" style="text-decoration:none;">⚡ Open API Docs</a>
           <button id="exportBackupBtn" class="btn-outline">📥 Export Backup</button>
         </div>
       </div>
@@ -88,7 +96,17 @@
       <div class="tab-pane active" id="tabOverview">
         <div class="stats-grid">
           <div class="stat-card">
-            <span class="stat-title">Total Visitors</span>
+            <span class="stat-title">Total App Drivers</span>
+            <span class="stat-value"><%= drivers.length %></span>
+            <span class="stat-help">Registered in mobile app</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">Rides Filtered</span>
+            <span class="stat-value"><%= stats.totalRidesFiltered || 0 %></span>
+            <span class="stat-help">Total rides accepted via app</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-title">Website Visitors</span>
             <span class="stat-value"><%= stats.visitors || 0 %></span>
             <span class="stat-help">Web visits recorded</span>
           </div>
@@ -105,7 +123,7 @@
           <div class="stat-card">
             <span class="stat-title">Inquiries</span>
             <span class="stat-value"><%= inquiries.length %></span>
-            <span class="stat-help">Contact messages received</span>
+            <span class="stat-help">Contact messages</span>
           </div>
         </div>
 
@@ -114,7 +132,7 @@
           <p style="color: var(--admin-muted); font-size: 14.5px; line-height: 1.6;">
             Aap Lapak ke default details ko apne information se replace karne ke liye left sidebar me <strong>"Owner &amp; Site Info"</strong> par click karein.
             Wahan aap apna <strong>Naam</strong>, <strong>Address</strong>, <strong>WhatsApp Number</strong>, <strong>Email</strong>, aur <strong>UPI ID</strong> daal sakte hain.
-            Save karte hi poori website par live update ho jayega!
+            Save karte hi poori website aur mobile app me live update ho jayega!
           </p>
         </div>
 
@@ -141,14 +159,18 @@
                     <td><%= new Date(ord.createdAt).toLocaleDateString() %></td>
                     <td><strong><%= ord.phone %></strong></td>
                     <td><%= ord.planName %></td>
-                    <td>₹<%= ord.price %></td>
+                    <td>₹<%= ord.amount || ord.price %></td>
                     <td>
                       <span class="badge-tag <%= ord.status === 'Activated' ? 'badge-success' : 'badge-warning' %>">
                         <%= ord.status %>
                       </span>
                     </td>
                     <td>
-                      <button class="btn-primary" style="padding: 4px 10px; font-size: 12px;" onclick="updateOrderStatus('<%= ord.id %>', 'Activated')">Activate</button>
+                      <% if (ord.status !== 'Activated') { %>
+                        <button class="btn-primary" style="padding: 4px 10px; font-size: 12px;" onclick="approveAndActivateOrder('<%= ord.id %>')">Approve &amp; Activate</button>
+                      <% } else { %>
+                        <span style="font-size: 12px; color: var(--admin-success); font-weight: 600;">✓ Activated</span>
+                      <% } %>
                     </td>
                   </tr>
                   <% }) %>
@@ -159,7 +181,164 @@
         </div>
       </div>
 
-      <!-- 2. TAB: Owner & Site Settings -->
+      <!-- 2. TAB: Drivers & Mobile App Management -->
+      <div class="tab-pane" id="tabDrivers">
+        <div class="admin-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+            <div>
+              <h2 style="margin: 0;">Registered Drivers (<%= drivers.length %>)</h2>
+              <p style="color: var(--admin-muted); font-size: 13.5px; margin: 4px 0 0;">
+                Drivers who registered in the RiderSaathi mobile app with their mobile number or device ID.
+              </p>
+            </div>
+            <div>
+              <a href="/api/docs" target="_blank" class="btn-outline" style="text-decoration:none;">📖 View App APIs</a>
+            </div>
+          </div>
+
+          <% if (drivers.length === 0) { %>
+            <p style="color: var(--admin-muted);">No drivers registered yet. As soon as a driver opens the mobile app, they will automatically appear here!</p>
+          <% } else { %>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Driver</th>
+                    <th>Device &amp; Version</th>
+                    <th>Trial Rides</th>
+                    <th>Subscription</th>
+                    <th>Total Rides</th>
+                    <th>Status</th>
+                    <th>Quick Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% drivers.forEach(drv => { 
+                    const trialUsed = drv.trialRidesUsed || 0;
+                    const trialTotal = drv.trialRidesTotal || 10;
+                    const trialLeft = Math.max(0, trialTotal - trialUsed);
+                    
+                    let subText = 'None / Trial';
+                    let subBadge = 'badge-warning';
+                    if (drv.subscription && drv.subscription.expiresAt) {
+                      const exp = new Date(drv.subscription.expiresAt);
+                      if (exp > new Date()) {
+                        const daysLeft = Math.ceil((exp - new Date()) / (1000 * 60 * 60 * 24));
+                        subText = `${drv.subscription.planName || 'Active'} (${daysLeft}d left)`;
+                        subBadge = 'badge-success';
+                      } else {
+                        subText = 'Expired';
+                        subBadge = 'badge-danger';
+                      }
+                    }
+                  %>
+                  <tr>
+                    <td>
+                      <strong><%= drv.name || 'Captain' %></strong><br>
+                      <a href="https://wa.me/91<%= drv.phone %>" target="_blank" style="color: var(--admin-primary); text-decoration: none; font-size: 13px;">
+                        📱 <%= drv.phone %>
+                      </a>
+                    </td>
+                    <td>
+                      <span style="font-size: 13px; font-weight: 500;"><%= drv.deviceModel || 'Android' %></span><br>
+                      <span style="font-size: 11.5px; color: var(--admin-muted);">v<%= drv.appVersion || '5.28.1' %></span>
+                    </td>
+                    <td>
+                      <span style="font-weight: 700; color: <%= trialLeft > 0 ? '#16a34a' : '#dc2626' %>;">
+                        <%= trialLeft %> / <%= trialTotal %>
+                      </span>
+                      <div style="font-size: 11px; color: var(--admin-muted);">rides left</div>
+                    </td>
+                    <td>
+                      <span class="badge-tag <%= subBadge %>">
+                        <%= subText %>
+                      </span>
+                    </td>
+                    <td>
+                      <strong><%= drv.totalRidesAccepted || 0 %></strong>
+                    </td>
+                    <td>
+                      <span class="badge-tag <%= drv.status === 'banned' ? 'badge-danger' : 'badge-success' %>">
+                        <%= drv.status || 'active' %>
+                      </span>
+                    </td>
+                    <td>
+                      <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+                        <button class="btn-primary" style="padding: 3px 8px; font-size: 11.5px;" onclick="grantSubscription('<%= drv.id %>', 1, '1 Day Pass')" title="Grant 1 Day Pass">+1 Day</button>
+                        <button class="btn-primary" style="padding: 3px 8px; font-size: 11.5px;" onclick="grantSubscription('<%= drv.id %>', 7, '1 Week Pass')" title="Grant 7 Days Pass">+7 Days</button>
+                        <button class="btn-primary" style="padding: 3px 8px; font-size: 11.5px;" onclick="grantSubscription('<%= drv.id %>', 30, '1 Month Pass')" title="Grant 30 Days Pass">+30 Days</button>
+                        <button class="btn-outline" style="padding: 3px 8px; font-size: 11.5px;" onclick="grantTrialRides('<%= drv.id %>', 10)" title="Add 10 Free Rides">+10 Rides</button>
+                        <button class="btn-outline" style="padding: 3px 8px; font-size: 11.5px; color: <%= drv.status === 'banned' ? 'green' : 'red' %>;" onclick="toggleDriverStatus('<%= drv.id %>')">
+                          <%= drv.status === 'banned' ? 'Unban' : 'Ban' %>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- 3. TAB: Orders & Buy Leads -->
+      <div class="tab-pane" id="tabOrders">
+        <div class="admin-card">
+          <h2>All Subscription Orders (<%= orders.length %>)</h2>
+          <% if (orders.length === 0) { %>
+            <p style="color: var(--admin-muted);">No orders recorded yet. When drivers click Buy and enter their phone number, they appear here.</p>
+          <% } else { %>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Order ID</th>
+                    <th>Mobile</th>
+                    <th>Plan</th>
+                    <th>Amount</th>
+                    <th>UTR / Ref</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% orders.forEach(ord => { %>
+                  <tr>
+                    <td><%= new Date(ord.createdAt).toLocaleString() %></td>
+                    <td><code><%= ord.id %></code></td>
+                    <td><strong><%= ord.phone %></strong></td>
+                    <td><%= ord.planName %></td>
+                    <td>₹<%= ord.amount || ord.price %></td>
+                    <td><code><%= ord.utr || ord.upiRef || 'Waiting' %></code></td>
+                    <td>
+                      <span class="badge-tag <%= ord.status === 'Activated' ? 'badge-success' : 'badge-warning' %>">
+                        <%= ord.status %>
+                      </span>
+                    </td>
+                    <td>
+                      <% if (ord.status !== 'Activated') { %>
+                        <button class="btn-primary" style="padding: 4px 8px; font-size: 12px;" onclick="approveAndActivateOrder('<%= ord.id %>')">
+                          ⚡ Approve &amp; Activate Driver
+                        </button>
+                      <% } else { %>
+                        <button class="btn-outline" style="padding: 4px 8px; font-size: 12px;" onclick="updateOrderStatus('<%= ord.id %>', 'Pending')">Revert</button>
+                      <% } %>
+                      <a href="https://wa.me/91<%= ord.phone %>?text=<%= encodeURIComponent('Namaste! Aapka RiderSaathi ' + ord.planName + ' plan activate ho gaya hai.') %>" target="_blank" class="btn-outline" style="padding: 4px 8px; font-size: 12px; text-decoration: none; display: inline-block;">
+                        Chat WhatsApp
+                      </a>
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- 4. TAB: Owner & Site Settings -->
       <div class="tab-pane" id="tabSettings">
         <div class="admin-card">
           <h2>Owner &amp; Business Information</h2>
@@ -247,95 +426,65 @@
         </div>
       </div>
 
-      <!-- 3. TAB: App & APK Settings -->
-      <div class="tab-pane" id="tabApp">
-        <div class="admin-card">
-          <h2>Android APK &amp; Version Configuration</h2>
-          <form id="appSettingsForm">
-            <div class="form-grid">
-              <div class="form-group">
-                <label>Current App Version</label>
-                <input type="text" name="appVersion" value="<%= settings.appVersion %>" required>
-              </div>
-
-              <div class="form-group">
-                <label>APK File Size</label>
-                <input type="text" name="apkFileSize" value="<%= settings.apkFileSize %>" placeholder="e.g. 11.1 MB" required>
-              </div>
-
-              <div class="form-group full-width">
-                <label>APK Download URL (Local file path or Google Drive / Cloud URL)</label>
-                <input type="text" name="apkDownloadUrl" value="<%= settings.apkDownloadUrl %>" required>
-              </div>
-
-              <div class="form-group full-width">
-                <label>File SHA-256 Checksum Fingerprint</label>
-                <input type="text" name="sha256File" value="<%= settings.sha256File %>">
-              </div>
-
-              <div class="form-group full-width">
-                <label>Signing Certificate SHA-256 Fingerprint</label>
-                <input type="text" name="sha256Cert" value="<%= settings.sha256Cert %>">
-              </div>
-            </div>
-
-            <div class="form-actions">
-              <button type="submit" class="btn-primary">Update APK Details</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <!-- 4. TAB: UPI & Payments -->
+      <!-- 5. TAB: UPI & Payments -->
       <div class="tab-pane" id="tabPayment">
         <div class="admin-card">
-          <h2>Payment &amp; UPI Configuration</h2>
+          <h2>UPI Payment Gateway Settings</h2>
+          <p style="font-size: 13.5px; color: var(--admin-muted);">Direct UPI ID set karein jahan driver subscriptions ke paise jayenge.</p>
+          
           <form id="paymentSettingsForm">
             <div class="form-grid">
               <div class="form-group">
-                <label>Your Receiving UPI ID (e.g. phonepe / gpay / paytm / bank)</label>
-                <input type="text" name="upiId" value="<%= settings.upiId %>" placeholder="e.g. yourname@okhdfcbank" required>
+                <label>Your UPI ID (VPA)</label>
+                <input type="text" name="upiId" value="<%= settings.upiId %>" placeholder="e.g. 9876543210@paytm" required>
               </div>
 
               <div class="form-group">
-                <label>UPI Payee Name (displayed to riders)</label>
+                <label>UPI Payee / Business Display Name</label>
                 <input type="text" name="upiPayeeName" value="<%= settings.upiPayeeName %>" placeholder="e.g. RiderSaathi" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Custom QR Code Image URL (optional)</label>
+                <input type="text" name="upiQrImage" value="<%= settings.upiQrImage || '' %>" placeholder="https://... ya blank chhodein (auto-generated QR use hoga)">
               </div>
             </div>
 
             <div class="form-actions">
-              <button type="submit" class="btn-primary">Update UPI Settings</button>
+              <button type="submit" class="btn-primary">Save Payment Settings</button>
             </div>
           </form>
         </div>
       </div>
 
-      <!-- 5. TAB: Pricing Plans -->
+      <!-- 6. TAB: Pricing Plans -->
       <div class="tab-pane" id="tabPlans">
         <div class="admin-card">
-          <h2>Manage Existing Plans</h2>
+          <h2>Current Pricing Plans (<%= plans.length %>)</h2>
           <div class="admin-table-wrap">
             <table class="admin-table">
               <thead>
                 <tr>
-                  <th>Plan Name</th>
+                  <th>Plan ID</th>
+                  <th>Name</th>
                   <th>Price</th>
+                  <th>Original Price</th>
                   <th>Duration</th>
                   <th>Badge</th>
-                  <th>Description</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <% plans.forEach(plan => { %>
+                <% plans.forEach(p => { %>
                 <tr>
-                  <td><strong><%= plan.name %></strong></td>
-                  <td>₹<%= plan.price %></td>
-                  <td><%= plan.durationText %></td>
-                  <td><%= plan.badge || '—' %></td>
-                  <td><%= plan.description %></td>
+                  <td><code><%= p.id %></code></td>
+                  <td><strong><%= p.name %></strong></td>
+                  <td>₹<%= p.price %></td>
+                  <td><%= p.wasPrice ? '₹' + p.wasPrice : '-' %></td>
+                  <td><%= p.durationDays %> days</td>
+                  <td><%= p.badge || '-' %></td>
                   <td>
-                    <button class="btn-danger" onclick="deletePlan('<%= plan.id %>')">Delete</button>
+                    <button class="btn-outline" style="color:var(--admin-danger); padding:4px 8px; font-size:12px;" onclick="deletePlan('<%= p.id %>')">Delete</button>
                   </td>
                 </tr>
                 <% }) %>
@@ -345,37 +494,37 @@
         </div>
 
         <div class="admin-card">
-          <h2>Add New Plan</h2>
+          <h2>Add New Pricing Plan</h2>
           <form id="addPlanForm">
             <div class="form-grid">
               <div class="form-group">
-                <label>Plan ID (unique, e.g. year1)</label>
-                <input type="text" name="id" placeholder="e.g. days15" required>
+                <label>Plan ID (e.g. day3, month3)</label>
+                <input type="text" name="id" placeholder="e.g. days3" required>
               </div>
 
               <div class="form-group">
-                <label>Plan Name</label>
-                <input type="text" name="name" placeholder="e.g. 15 Days" required>
+                <label>Plan Display Name</label>
+                <input type="text" name="name" placeholder="e.g. 3 Days Pass" required>
               </div>
 
               <div class="form-group">
-                <label>Price (₹)</label>
-                <input type="number" name="price" placeholder="e.g. 149" required>
+                <label>Offer Price (₹)</label>
+                <input type="number" name="price" placeholder="e.g. 35" required>
               </div>
 
               <div class="form-group">
-                <label>Original / Struck-through Price (optional)</label>
-                <input type="number" name="wasPrice" placeholder="e.g. 199">
+                <label>Original Cut-off Price (₹)</label>
+                <input type="number" name="wasPrice" placeholder="e.g. 45">
               </div>
 
               <div class="form-group">
                 <label>Duration in Days</label>
-                <input type="number" name="durationDays" placeholder="e.g. 15" required>
+                <input type="number" name="durationDays" placeholder="e.g. 3" required>
               </div>
 
               <div class="form-group">
-                <label>Duration Text (e.g. 15 days)</label>
-                <input type="text" name="durationText" placeholder="e.g. 15 days" required>
+                <label>Duration Display Text</label>
+                <input type="text" name="durationText" placeholder="e.g. 3 days" required>
               </div>
 
               <div class="form-group">
@@ -396,61 +545,51 @@
         </div>
       </div>
 
-      <!-- 6. TAB: Orders & Buy Leads -->
-      <div class="tab-pane" id="tabOrders">
+      <!-- 7. TAB: App & APK Settings -->
+      <div class="tab-pane" id="tabApp">
         <div class="admin-card">
-          <h2>All Subscription Orders (<%= orders.length %>)</h2>
-          <% if (orders.length === 0) { %>
-            <p style="color: var(--admin-muted);">No orders recorded yet. When drivers click Buy and enter their phone number, they appear here.</p>
-          <% } else { %>
-            <div class="admin-table-wrap">
-              <table class="admin-table">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Order ID</th>
-                    <th>Mobile</th>
-                    <th>Plan</th>
-                    <th>Amount</th>
-                    <th>UPI Ref / UTR</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% orders.forEach(ord => { %>
-                  <tr>
-                    <td><%= new Date(ord.createdAt).toLocaleString() %></td>
-                    <td><code><%= ord.id %></code></td>
-                    <td><strong><%= ord.phone %></strong></td>
-                    <td><%= ord.planName %></td>
-                    <td>₹<%= ord.price %></td>
-                    <td><code><%= ord.upiRef || 'Waiting' %></code></td>
-                    <td>
-                      <span class="badge-tag <%= ord.status === 'Activated' ? 'badge-success' : 'badge-warning' %>">
-                        <%= ord.status %>
-                      </span>
-                    </td>
-                    <td>
-                      <% if (ord.status !== 'Activated') { %>
-                        <button class="btn-primary" style="padding: 4px 8px; font-size: 12px;" onclick="updateOrderStatus('<%= ord.id %>', 'Activated')">Mark Activated</button>
-                      <% } else { %>
-                        <button class="btn-outline" style="padding: 4px 8px; font-size: 12px;" onclick="updateOrderStatus('<%= ord.id %>', 'Pending')">Revert</button>
-                      <% } %>
-                      <a href="https://wa.me/91<%= ord.phone %>?text=<%= encodeURIComponent('Namaste! Aapka RiderSaathi ' + ord.planName + ' plan activate ho gaya hai.') %>" target="_blank" class="btn-outline" style="padding: 4px 8px; font-size: 12px; text-decoration: none; display: inline-block;">
-                        Chat WhatsApp
-                      </a>
-                    </td>
-                  </tr>
-                  <% }) %>
-                </tbody>
-              </table>
+          <h2>Android APK &amp; Version Management</h2>
+          <form id="appSettingsForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Current App Version</label>
+                <input type="text" name="appVersion" value="<%= settings.appVersion %>" required>
+              </div>
+
+              <div class="form-group">
+                <label>APK File Size</label>
+                <input type="text" name="apkFileSize" value="<%= settings.apkFileSize %>">
+              </div>
+
+              <div class="form-group">
+                <label>Free Trial Rides on Install</label>
+                <input type="text" name="freeRidesTrial" value="<%= settings.freeRidesTrial %>">
+              </div>
+
+              <div class="form-group full-width">
+                <label>APK Download URL</label>
+                <input type="text" name="apkDownloadUrl" value="<%= settings.apkDownloadUrl %>" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label>SHA-256 APK Hash</label>
+                <input type="text" name="sha256File" value="<%= settings.sha256File %>">
+              </div>
+
+              <div class="form-group full-width">
+                <label>SHA-256 Certificate Hash</label>
+                <input type="text" name="sha256Cert" value="<%= settings.sha256Cert %>">
+              </div>
             </div>
-          <% } %>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Save App Settings</button>
+            </div>
+          </form>
         </div>
       </div>
 
-      <!-- 7. TAB: Contact Messages -->
+      <!-- 8. TAB: Contact Messages -->
       <div class="tab-pane" id="tabInquiries">
         <div class="admin-card">
           <h2>Driver Inquiries &amp; Contact Leads (<%= inquiries.length %>)</h2>
@@ -480,16 +619,16 @@
                     <td style="max-width: 280px; word-break: break-word;"><%= inq.message %></td>
                     <td>
                       <span class="badge-tag <%= inq.status === 'Resolved' ? 'badge-success' : 'badge-warning' %>">
-                        <%= inq.status || 'New' %>
+                        <%= inq.status %>
                       </span>
                     </td>
                     <td>
-                      <a href="https://wa.me/91<%= inq.phone %>?text=<%= encodeURIComponent('Namaste ' + inq.name + '! RiderSaathi support ki taraf se message.') %>" target="_blank" class="btn-outline" style="padding: 4px 8px; font-size: 12px; text-decoration: none;">
+                      <% if (inq.status !== 'Resolved') { %>
+                        <button class="btn-primary" style="padding: 4px 8px; font-size: 12px;" onclick="updateInquiryStatus('<%= inq.id %>', 'Resolved')">Mark Resolved</button>
+                      <% } %>
+                      <a href="https://wa.me/91<%= inq.phone %>" target="_blank" class="btn-outline" style="padding: 4px 8px; font-size: 12px; text-decoration: none; display: inline-block;">
                         Reply WhatsApp
                       </a>
-                      <button class="btn-primary" style="padding: 4px 8px; font-size: 12px; margin-top: 4px;" onclick="updateInquiryStatus('<%= inq.id %>', 'Resolved')">
-                        Resolve
-                      </button>
                     </td>
                   </tr>
                   <% }) %>
@@ -500,10 +639,10 @@
         </div>
       </div>
 
-      <!-- 8. TAB: FAQs -->
+      <!-- 9. TAB: FAQs -->
       <div class="tab-pane" id="tabFaq">
         <div class="admin-card">
-          <h2>Existing FAQs (<%= faqs.length %>)</h2>
+          <h2>Current FAQs (<%= faqs.length %>)</h2>
           <div class="admin-table-wrap">
             <table class="admin-table">
               <thead>
@@ -517,9 +656,9 @@
                 <% faqs.forEach(f => { %>
                 <tr>
                   <td style="font-weight: 600; width: 35%;"><%= f.q %></td>
-                  <td style="color: var(--admin-muted); font-size: 13.5px;"><%= f.a %></td>
-                  <td style="width: 80px;">
-                    <button class="btn-danger" onclick="deleteFaq('<%= f.id %>')">Delete</button>
+                  <td style="color: var(--admin-muted);"><%= f.a %></td>
+                  <td>
+                    <button class="btn-outline" style="color:var(--admin-danger); padding:4px 8px; font-size:12px;" onclick="deleteFaq('<%= f.id %>')">Delete</button>
                   </td>
                 </tr>
                 <% }) %>
@@ -544,7 +683,7 @@
         </div>
       </div>
 
-      <!-- 9. TAB: Security & Backup -->
+      <!-- 10. TAB: Security & Backup -->
       <div class="tab-pane" id="tabSecurity">
         <div class="admin-card">
           <h2>Change Admin Password</h2>
@@ -568,7 +707,7 @@
         <div class="admin-card">
           <h2>Backup &amp; Restore</h2>
           <p style="color: var(--admin-muted); font-size: 14px;">
-            Aap apni website ki saari settings, pricing plans, FAQs aur orders ka complete backup JSON file me download kar sakte hain.
+            Aap apni website ki saari settings, pricing plans, FAQs, drivers aur orders ka complete backup JSON file me download kar sakte hain.
           </p>
           <div class="form-actions">
             <a href="/api/admin/backup/export" class="btn-primary" style="text-decoration:none; display:inline-block;">Download Complete Backup</a>

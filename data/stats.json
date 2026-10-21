@@ -2,5 +2,7 @@
   "visitors": 1440,
   "downloads": 845,
   "orders": 128,
-  "inquiries": 43
+  "inquiries": 43,
+  "totalDrivers": 2,
+  "totalRidesFiltered": 4
 }

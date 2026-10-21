@@ -1,0 +1,78 @@
+[
+  {
+    "id": "DRV-MVI0NQTV",
+    "phone": "8349049467",
+    "name": "Shams Captain",
+    "deviceId": "",
+    "deviceModel": "OnePlus 11",
+    "appVersion": "5.28.1",
+    "authToken": "token_mvi0nqtv_x0o5k7",
+    "trialRidesTotal": 10,
+    "trialRidesUsed": 1,
+    "isTrialActive": true,
+    "subscription": {
+      "status": "trial",
+      "planId": null,
+      "planName": null,
+      "startsAt": null,
+      "expiresAt": null
+    },
+    "filterRules": {
+      "minFare": 50,
+      "maxPickupDistanceKm": 2.5,
+      "minFarePerKm": 12,
+      "platforms": {
+        "rapido": true,
+        "uber": true,
+        "porter": true,
+        "ola": true
+      },
+      "passengers": true,
+      "parcels": true,
+      "autoAccept": true,
+      "voiceAlert": true
+    },
+    "status": "active",
+    "totalRidesAccepted": 1,
+    "createdAt": "2026-10-21T11:16:01.555Z",
+    "lastActiveAt": "2026-10-21T11:16:12.686Z"
+  },
+  {
+    "id": "DRV-DEMO101",
+    "phone": "9876543210",
+    "name": "Demo Captain",
+    "deviceId": "demo-device-id-001",
+    "deviceModel": "Redmi Note 12",
+    "appVersion": "5.28.1",
+    "authToken": "token_demo_9876543210",
+    "trialRidesTotal": 10,
+    "trialRidesUsed": 3,
+    "isTrialActive": true,
+    "subscription": {
+      "status": "trial",
+      "planId": null,
+      "planName": null,
+      "startsAt": null,
+      "expiresAt": null
+    },
+    "filterRules": {
+      "minFare": 50,
+      "maxPickupDistanceKm": 2.5,
+      "minFarePerKm": 12,
+      "platforms": {
+        "rapido": true,
+        "uber": true,
+        "porter": true,
+        "ola": true
+      },
+      "passengers": true,
+      "parcels": true,
+      "autoAccept": true,
+      "voiceAlert": true
+    },
+    "status": "active",
+    "totalRidesAccepted": 3,
+    "createdAt": "2026-10-21T06:00:00.000Z",
+    "lastActiveAt": "2026-10-21T10:30:00.000Z"
+  }
+]

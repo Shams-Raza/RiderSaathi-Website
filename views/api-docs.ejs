@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mobile App API Documentation — <%= settings.siteName %></title>
+  <link rel="icon" href="/images/icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .docs-container {
+      max-width: 1040px;
+      margin: 40px auto 80px;
+      padding: 0 20px;
+    }
+    .docs-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .docs-header h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-heading);
+      margin-bottom: 12px;
+    }
+    .docs-header p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .docs-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      background: rgba(30, 102, 245, 0.1);
+      color: var(--brand-primary);
+      margin-bottom: 16px;
+    }
+    .endpoint-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      transition: border-color 0.2s ease;
+    }
+    .endpoint-card:hover {
+      border-color: var(--brand-primary);
+    }
+    .endpoint-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .method-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+    .method-post { background: #e0f2fe; color: #0284c7; }
+    .method-get { background: #dcfce7; color: #16a34a; }
+    .endpoint-path {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-heading);
+    }
+    .endpoint-desc {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .code-block {
+      background: #0f172a;
+      color: #f8fafc;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      padding: 16px;
+      border-radius: 10px;
+      overflow-x: auto;
+      margin-top: 8px;
+      position: relative;
+    }
+    .code-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 14px;
+    }
+  </style>
+</head>
+<body>
+  <%- include('partials/header') %>
+
+  <div class="docs-container">
+    <div class="docs-header">
+      <div class="docs-badge">⚡ Android &amp; Flutter App Integration</div>
+      <h1><%= settings.siteName %> Mobile App REST APIs</h1>
+      <p>
+        Use these production-ready endpoints to connect the RiderSaathi Android APK with your live Render backend for authentication, 10 free trial rides counter, active subscription verification, filter rules sync, and OTA updates.
+      </p>
+      <div style="margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 14px; background: rgba(30,102,245,0.06); padding: 8px 16px; border-radius: 8px; display: inline-block;">
+        Base URL: <strong>https://ridersaathi.onrender.com/api/app</strong>
+      </div>
+    </div>
+
+    <!-- 1. Auth Endpoint -->
+    <div class="endpoint-card">
+      <div class="endpoint-header">
+        <span class="method-badge method-post">POST</span>
+        <span class="endpoint-path">/api/app/auth</span>
+      </div>
+      <div class="endpoint-desc">
+        Driver Login or Registration. Automatically assigns 10 Free Trial Rides on new sign up, checks existing subscription, and returns auth token with driver filter rules.
+      </div>
+      <div class="code-title">Request Body (JSON)</div>
+      <pre class="code-block"><code>{
+  "phone": "9876543210",
+  "name": "Raju Captain",
+  "deviceId": "android-uuid-99a12c",
+  "deviceModel": "Xiaomi Redmi Note 12",
+  "appVersion": "5.28.1"
+}</code></pre>
+      <div class="code-title">Response (200 OK)</div>
+      <pre class="code-block"><code>{
+  "success": true,
+  "message": "Authenticated successfully",
+  "token": "token_17300000_abc123",
+  "driver": {
+    "id": "DRV-1730000001",
+    "phone": "9876543210",
+    "name": "Raju Captain",
+    "status": "active"
+  },
+  "access": {
+    "accessGranted": true,
+    "reason": "trial_active",
+    "message": "Free trial active: 10 rides remaining",
+    "trial": { "total": 10, "used": 0, "remaining": 10 },
+    "subscription": { "isActive": false, "daysLeft": 0 }
+  },
+  "filterRules": {
+    "minFare": 50,
+    "maxPickupDistanceKm": 2.5,
+    "minFarePerKm": 12,
+    "platforms": { "rapido": true, "uber": true, "porter": true },
+    "autoAccept": true
+  }
+}</code></pre>
+    </div>
+
+    <!-- 2. Status & Subscription Check -->
+    <div class="endpoint-card">
+      <div class="endpoint-header">
+        <span class="method-badge method-get">GET</span>
+        <span class="endpoint-path">/api/app/status</span>
+      </div>
+      <div class="endpoint-desc">
+        Verify if the driver is currently allowed to filter rides. Returns trial status or days left in active paid subscription.
+      </div>
+      <div class="code-title">Headers</div>
+      <pre class="code-block"><code>Authorization: Bearer &lt;token&gt;
+// OR Query param: ?phone=9876543210</code></pre>
+      <div class="code-title">Response (200 OK)</div>
+      <pre class="code-block"><code>{
+  "success": true,
+  "accessGranted": true,
+  "reason": "active_subscription",
+  "subscription": {
+    "isActive": true,
+    "planName": "1 Week Pass",
+    "expiresAt": "2026-10-28T12:00:00.000Z",
+    "daysLeft": 7
+  },
+  "trial": { "total": 10, "used": 10, "remaining": 0 },
+  "serverTime": "2026-10-21T16:40:00.000Z"
+}</code></pre>
+    </div>
+
+    <!-- 3. Record Filtered / Used Ride -->
+    <div class="endpoint-card">
+      <div class="endpoint-header">
+        <span class="method-badge method-post">POST</span>
+        <span class="endpoint-path">/api/app/ride/record</span>
+      </div>
+      <div class="endpoint-desc">
+        Triggered when RiderSaathi accessibility service accepts or filters a matching ride. Deducts 1 ride from the 10 free trial rides (if in trial mode) and updates driver stats.
+      </div>
+      <div class="code-title">Request Body (JSON)</div>
+      <pre class="code-block"><code>{
+  "token": "token_17300000_abc123",
+  "platform": "rapido",
+  "fare": 95,
+  "pickupDistanceKm": 1.4,
+  "tripDistanceKm": 6.8
+}</code></pre>
+      <div class="code-title">Response (200 OK)</div>
+      <pre class="code-block"><code>{
+  "success": true,
+  "message": "Ride recorded successfully",
+  "access": {
+    "accessGranted": true,
+    "reason": "trial_active",
+    "trial": { "total": 10, "used": 1, "remaining": 9 }
+  }
+}</code></pre>
+    </div>
+
+    <!-- 4. Sync Filter Rules -->
+    <div class="endpoint-card">
+      <div class="endpoint-header">
+        <span class="method-badge method-post">POST</span>
+        <span class="endpoint-path">/api/app/rules/sync</span>
+      </div>
+      <div class="endpoint-desc">
+        Saves the driver's custom filter settings (Min Fare, Max Pickup, Platforms) to cloud so settings are never lost on phone restart.
+      </div>
+      <div class="code-title">Request Body (JSON)</div>
+      <pre class="code-block"><code>{
+  "token": "token_17300000_abc123",
+  "filterRules": {
+    "minFare": 60,
+    "maxPickupDistanceKm": 2.0,
+    "minFarePerKm": 14,
+    "platforms": { "rapido": true, "uber": true, "porter": false },
+    "passengers": true,
+    "parcels": false,
+    "autoAccept": true,
+    "voiceAlert": true
+  }
+}</code></pre>
+    </div>
+
+    <!-- 5. App Version Update Check -->
+    <div class="endpoint-card">
+      <div class="endpoint-header">
+        <span class="method-badge method-get">GET</span>
+        <span class="endpoint-path">/api/app/check-update?version=5.28.1</span>
+      </div>
+      <div class="endpoint-desc">
+        Checks if a newer APK is released. Prompts the driver to download update.
+      </div>
+      <div class="code-title">Response (200 OK)</div>
+      <pre class="code-block"><code>{
+  "hasUpdate": false,
+  "latestVersion": "5.28.1",
+  "apkUrl": "https://ridersaathi.onrender.com/downloads/RiderSaathi-v5.28.1.apk",
+  "apkFileSize": "11.1 MB",
+  "releaseNotes": "Faster Rapido & Uber filter response with Android 14 support",
+  "isForceUpdate": false
+}</code></pre>
+    </div>
+
+    <!-- 6. In-App Plan Purchase -->
+    <div class="endpoint-card">
+      <div class="endpoint-header">
+        <span class="method-badge method-post">POST</span>
+        <span class="endpoint-path">/api/app/order/create</span>
+      </div>
+      <div class="endpoint-desc">
+        Initiate plan subscription directly inside the mobile app. Returns UPI payment intent string and QR details.
+      </div>
+      <div class="code-title">Request Body (JSON)</div>
+      <pre class="code-block"><code>{
+  "planId": "week1",
+  "phone": "9876543210"
+}</code></pre>
+      <div class="code-title">Response (200 OK)</div>
+      <pre class="code-block"><code>{
+  "success": true,
+  "orderId": "ORD-17300000-ABC",
+  "planName": "1 Week",
+  "amount": 68,
+  "upiString": "upi://pay?pa=ridersaathi@upi&pn=RiderSaathi&am=68&tn=RiderSaathi_week1",
+  "upiId": "ridersaathi@upi"
+}</code></pre>
+    </div>
+
+  </div>
+
+  <%- include('partials/footer') %>
+</body>
+</html>
