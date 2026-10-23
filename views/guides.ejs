@@ -1,9 +1,14 @@
 <%- include('partials/header') %>
 
-<div class="wrap">
-  <div class="hero" style="padding-bottom: 16px;">
-    <h1>Guides for drivers</h1>
-    <p class="sub"><%= settings.siteName %> ke har rule ka guide — kya karta hai, kaise set karein, aur kaunsi value se shuru karein.</p>
+<div class="wrap" style="padding-top: 36px; padding-bottom: 60px;">
+  <div class="section-head" style="text-align: center; margin-bottom: 36px;">
+    <div class="pill-badge green" style="margin: 0 auto 12px;">Tips, Rules &amp; Optimization</div>
+    <h1 style="font-family: var(--font-heading); font-size: 38px; font-weight: 800; color: var(--text-heading); letter-spacing: -0.8px;">
+      Driver Guides &amp; Tutorials
+    </h1>
+    <p style="max-width: 620px; margin: 8px auto 0; font-size: 16px; color: var(--text-muted);">
+      <%= settings.siteName %> ke har ek rule ka guide — Rapido, Uber, Porter me rules kaise set karein aur kamai kaise badhayein:
+    </p>
   </div>
 
   <% 
@@ -11,22 +16,36 @@
     categories.forEach(cat => {
       const catGuides = guides.filter(g => (g.category || 'General') === cat);
   %>
-    <div class="card">
-      <h2><%= cat %></h2>
-      <% catGuides.forEach(g => { %>
-        <h3><a href="/guides/<%= g.slug %>"><%= g.title %></a></h3>
-        <p><%= g.summary %></p>
-      <% }) %>
+    <div class="card card-section">
+      <h2 style="font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--text-heading); margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--border-light);">
+        📁 <%= cat %>
+      </h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;">
+        <% catGuides.forEach(g => { %>
+        <div class="feature-box">
+          <h4 style="margin-bottom: 6px;">
+            <a href="/guides/<%= g.slug %>" style="color: var(--text-heading); text-decoration: none;">
+              <%= g.title %> &rarr;
+            </a>
+          </h4>
+          <p style="font-size: 14px; color: var(--text-muted);"><%= g.summary %></p>
+        </div>
+        <% }) %>
+      </div>
     </div>
   <% }) %>
 
-  <div class="cta">
-    <h3>Download <%= settings.siteName %></h3>
-    <p>Apni pasand ke rules test karne ke liye app install karein. Pehle 10 rides bilkul free hain.</p>
-    <p>
-      <a class="btn btn-sm" href="/install">Install Guide &amp; APK</a>
-      <a class="btn btn-sm ghost" href="/faq">Driver FAQs</a>
+  <div class="card" style="text-align: center; background: linear-gradient(135deg, rgba(239,246,255,0.7) 0%, rgba(240,253,244,0.7) 100%);">
+    <h3 style="font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--text-heading); margin-bottom: 8px;">
+      Ready to test on your phone?
+    </h3>
+    <p style="font-size: 15px; color: var(--text-body); max-width: 500px; margin: 0 auto 20px;">
+      Apni pasand ke rules test karne ke liye official app install karein. Pehle 10 rides bilkul free hain.
     </p>
+    <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+      <a class="btn btn-sm" href="/install">Install Guide &amp; APK</a>
+      <a class="btn ghost btn-sm" href="/faq">Driver FAQs</a>
+    </div>
   </div>
 </div>
 

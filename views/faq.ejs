@@ -1,25 +1,45 @@
 <%- include('partials/header') %>
 
-<div class="wrap">
-  <div class="hero" style="padding-bottom: 16px;">
-    <h1>Questions drivers ask</h1>
-    <p class="sub">Rules, settings, install aur plans — sab seedhi baat me.</p>
+<div class="wrap" style="padding-top: 36px; padding-bottom: 60px;">
+  <div class="section-head" style="text-align: center; margin-bottom: 36px;">
+    <div class="pill-badge green" style="margin: 0 auto 12px;">Driver Sawal &amp; Jawab</div>
+    <h1 style="font-family: var(--font-heading); font-size: 38px; font-weight: 800; color: var(--text-heading); letter-spacing: -0.8px;">
+      Frequently Asked Questions
+    </h1>
+    <p style="max-width: 620px; margin: 8px auto 0; font-size: 16px; color: var(--text-muted);">
+      Rules, settings, account security, payment aur install se jude aam sawalon ke seedhe jawab:
+    </p>
   </div>
 
-  <% faqs.forEach(item => { %>
-    <div class="card">
-      <h2><%= item.q %></h2>
-      <p><%= item.a %></p>
+  <div style="max-width: 820px; margin: 0 auto;">
+    <% faqs.forEach((item, index) => { %>
+    <div class="faq-item <%= index === 0 ? 'open' : '' %>">
+      <div class="faq-question">
+        <span><%= item.q %></span>
+        <span class="faq-icon">+</span>
+      </div>
+      <div class="faq-answer">
+        <%= item.a %>
+      </div>
     </div>
-  <% }) %>
+    <% }) %>
 
-  <div class="card">
-    <h2>Still stuck?</h2>
-    <p>Install the app and use <strong>Help</strong> inside it — your message arrives with your phone's details attached, so we can usually answer without a lot of back and forth.</p>
-    <p>
-      <a class="btn btn-sm" href="/install">Install guide &rarr;</a>
-      <a class="btn btn-sm ghost" href="/contact">Contact Support</a>
-    </p>
+    <div class="card" style="margin-top: 32px; text-align: center; background: linear-gradient(135deg, rgba(239,246,255,0.7) 0%, rgba(240,253,244,0.7) 100%);">
+      <h3 style="font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--text-heading); margin-bottom: 8px;">
+        Koi aur sawal ya dikkat hai?
+      </h3>
+      <p style="font-size: 15px; color: var(--text-body); max-width: 520px; margin: 0 auto 20px;">
+        Aap direct hamari WhatsApp helpline par message bhej sakte hain ya contact form se likh sakte hain. Hamari team turant madad karegi.
+      </p>
+      <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+        <a class="btn success btn-sm" href="https://wa.me/<%= settings.whatsappNumber %>?text=<%= encodeURIComponent('Mujhe RiderSaathi ke baare me kuch poochhna hai') %>" target="_blank" rel="noopener">
+          WhatsApp Support Chat
+        </a>
+        <a class="btn ghost btn-sm" href="/contact">
+          Contact Form Bharein
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 

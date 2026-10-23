@@ -1,51 +1,112 @@
 <%- include('partials/header') %>
 
-<div class="wrap">
-  <div class="card" style="margin-top: 30px;">
-    <h2>Contact us</h2>
-    <p>Payment, refund, rules ya app problem — reach us here and we reply within 2 working days.</p>
-    <ul>
-      <li><strong>Founder:</strong> <%= settings.ownerName %></li>
-      <li><strong>Email:</strong> <a href="mailto:<%= settings.contactEmail %>"><%= settings.contactEmail %></a></li>
-      <li><strong>WhatsApp:</strong> <a href="https://wa.me/<%= settings.whatsappNumber %>" target="_blank" rel="noopener">+<%= settings.whatsappNumber %></a></li>
-      <li><strong>Telegram:</strong> <a href="<%= settings.telegramUrl %>" target="_blank" rel="noopener"><%= settings.telegramHandle %></a></li>
-      <li><strong>Address:</strong> <%= settings.officeAddress %></li>
-      <li><strong>Support hours:</strong> <%= settings.supportHours %></li>
-    </ul>
-    
-    <div class="notice" style="margin-top: 20px;">
-      <p><strong>Stay safe:</strong> <%= settings.siteName %> will never ask for your OTP, UPI PIN, password or bank details, and never asks you to pay anyone over a call. Anyone who does is not us.<br>
-      <%= settings.siteName %> kabhi aapka OTP, UPI PIN, password ya bank details nahi maangta. Koi maange to wo <%= settings.siteName %> nahi hai.</p>
-    </div>
+<div class="wrap" style="padding-top: 36px; padding-bottom: 60px;">
+  <div class="section-head" style="text-align: center; margin-bottom: 36px;">
+    <div class="pill-badge green" style="margin: 0 auto 12px;">Support Hours: <%= settings.supportHours %></div>
+    <h1 style="font-family: var(--font-heading); font-size: 38px; font-weight: 800; color: var(--text-heading); letter-spacing: -0.8px;">
+      Contact <%= settings.siteName %> Support
+    </h1>
+    <p style="max-width: 600px; margin: 8px auto 0; font-size: 16px; color: var(--text-muted);">
+      Payment activation, app permissions, rules ya kisi bhi sawal ke liye humse sampark karein:
+    </p>
   </div>
 
-  <div class="card">
-    <h2>Send us a message</h2>
-    <p>Aap apna sawal ya pareshani yahan likh kar bhej sakte hain. Hamari team turant revert karegi:</p>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px;">
+    <!-- Left Column: Direct Info & WhatsApp -->
+    <div>
+      <div class="card" style="height: 100%; display: flex; flex-direction: column;">
+        <h3 style="font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--text-heading); margin-bottom: 16px;">
+          Direct Helpline &amp; Office
+        </h3>
 
-    <div id="contactAlert" style="display:none;"></div>
+        <div style="display: flex; flex-direction: column; gap: 16px; flex-grow: 1;">
+          <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div style="width: 38px; height: 38px; background: #dcfce7; color: #15803d; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px;">📱</div>
+            <div>
+              <strong style="color: var(--text-heading); font-size: 14.5px; display: block;">WhatsApp Support</strong>
+              <a href="https://wa.me/<%= settings.whatsappNumber %>" target="_blank" rel="noopener" style="font-size: 14px; font-weight: 600;">
+                +<%= settings.whatsappNumber %> (Instant Reply)
+              </a>
+            </div>
+          </div>
 
-    <form id="contactForm" class="delform">
-      <label for="cName">Aapka Naam</label>
-      <input type="text" id="cName" name="name" placeholder="Driver / Captain Name" required>
+          <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div style="width: 38px; height: 38px; background: #e0f2fe; color: #0369a1; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px;">✉️</div>
+            <div>
+              <strong style="color: var(--text-heading); font-size: 14.5px; display: block;">Official Email</strong>
+              <a href="mailto:<%= settings.contactEmail %>" style="font-size: 14px;">
+                <%= settings.contactEmail %>
+              </a>
+            </div>
+          </div>
 
-      <label for="cPhone">Mobile Number</label>
-      <input type="tel" id="cPhone" name="phone" placeholder="10 digit mobile number" required pattern="[0-9]{10}">
+          <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div style="width: 38px; height: 38px; background: var(--brand-tint); color: var(--brand-primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px;">✈️</div>
+            <div>
+              <strong style="color: var(--text-heading); font-size: 14.5px; display: block;">Telegram Channel</strong>
+              <a href="<%= settings.telegramUrl %>" target="_blank" rel="noopener" style="font-size: 14px;">
+                <%= settings.telegramHandle %>
+              </a>
+            </div>
+          </div>
 
-      <label for="cSubject">Topic / Mudda</label>
-      <select id="cSubject" name="subject" required>
-        <option value="Payment & Plan Activation">Payment &amp; Plan Activation</option>
-        <option value="App Installation & Permissions">App Installation &amp; Permissions</option>
-        <option value="Rules & Booking Filtering">Rules &amp; Booking Filtering</option>
-        <option value="Refund Request">Refund Request</option>
-        <option value="Other">Other / General Question</option>
-      </select>
+          <div style="display: flex; align-items: flex-start; gap: 12px;">
+            <div style="width: 38px; height: 38px; background: #fef3c7; color: #b45309; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px;">🏢</div>
+            <div>
+              <strong style="color: var(--text-heading); font-size: 14.5px; display: block;">Office Address</strong>
+              <span style="font-size: 13.5px; color: var(--text-body); line-height: 1.5; display: block;">
+                <%= settings.officeAddress %>
+              </span>
+            </div>
+          </div>
+        </div>
 
-      <label for="cMessage">Message / Dikkat</label>
-      <textarea id="cMessage" name="message" rows="4" placeholder="Apni dikkat ya sawal yahan likhein..." required></textarea>
+        <div class="notice-box" style="margin-top: 24px; margin-bottom: 0;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0; color:var(--warning);"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          <div style="font-size: 12.5px;">
+            <strong>Suraksha Alert:</strong> <%= settings.siteName %> kabhi aapka OTP, UPI PIN, password ya bank details nahi maangta. Koi maange toh wo hum nahi hain.
+          </div>
+        </div>
+      </div>
+    </div>
 
-      <button type="submit">Send Message</button>
-    </form>
+    <!-- Right Column: Interactive Message Form -->
+    <div>
+      <div class="card">
+        <h3 style="font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--text-heading); margin-bottom: 6px;">
+          Send us a Message
+        </h3>
+        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 18px;">
+          Apna sawal ya pareshani niche likhein, hamari team jald revert karegi:
+        </p>
+
+        <div id="contactAlert" style="display:none; padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 16px; font-size: 14px;"></div>
+
+        <form id="contactForm" class="delform">
+          <label for="cName" style="margin-top:0;">Aapka Naam</label>
+          <input type="text" id="cName" name="name" placeholder="Driver / Captain Name" required>
+
+          <label for="cPhone">Mobile Number (10 Digits)</label>
+          <input type="tel" id="cPhone" name="phone" placeholder="10 digit number" required pattern="[0-9]{10}">
+
+          <label for="cSubject">Topic / Mudda</label>
+          <select id="cSubject" name="subject" required>
+            <option value="Payment & Plan Activation">Payment &amp; Plan Activation</option>
+            <option value="App Installation & Permissions">App Installation &amp; Permissions</option>
+            <option value="Rules & Booking Filtering">Rules &amp; Booking Filtering</option>
+            <option value="Refund Request">Refund Request</option>
+            <option value="Other">Other / General Question</option>
+          </select>
+
+          <label for="cMessage">Aapka Message / Dikkat</label>
+          <textarea id="cMessage" name="message" rows="4" placeholder="Apni dikkat yahan likhein..." required></textarea>
+
+          <button type="submit" class="btn" style="width: 100%; margin-top: 18px; padding: 13px;">
+            Submit Message
+          </button>
+        </form>
+      </div>
+    </div>
   </div>
 </div>
 

@@ -53,5 +53,10 @@
     "id": 11,
     "q": "Payment ke baad plan kitni der me chalu hota hai?",
     "a": "Online payment (payment gateway — UPI, card, net banking): within about a minute of payment confirmation. Direct UPI (order page): within a few minutes once the payment matches our bank record; if it has to be checked by hand, the same day. Plan usi mobile number par chalu hota hai jisse aapne app me sign in kiya hai, aur app use khud utha leta hai. Support: Monday - Saturday | 10 AM - 5 PM (IST)."
+  },
+  {
+    "id": 1792729596056,
+    "q": "Automated test question?",
+    "a": "Automated test answer."
   }
 ]

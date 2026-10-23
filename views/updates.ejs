@@ -1,21 +1,42 @@
 <%- include('partials/header') %>
 
-<div class="wrap">
-  <div class="hero" style="padding-bottom: 16px;">
-    <h1>What's new in <%= settings.siteName %></h1>
-    <p class="sub">Har version me kya badla — sabse naya sabse upar. Abhi live version <strong><%= settings.appVersion %></strong> hai.</p>
-    <p>
-      <a class="btn" href="/download">Download <%= settings.siteName %> <%= settings.appVersion %></a>
-      <a class="btn ghost" href="/install">Install guide</a>
+<div class="wrap" style="padding-top: 36px; padding-bottom: 60px;">
+  <div class="section-head" style="text-align: center; margin-bottom: 36px;">
+    <div class="pill-badge green" style="margin: 0 auto 12px;">Current Release: v<%= settings.appVersion %></div>
+    <h1 style="font-family: var(--font-heading); font-size: 38px; font-weight: 800; color: var(--text-heading); letter-spacing: -0.8px;">
+      What's New in <%= settings.siteName %>
+    </h1>
+    <p style="max-width: 620px; margin: 8px auto 20px; font-size: 16px; color: var(--text-muted);">
+      Har naye version ke changelog aur improvements — sabse naya update sabse upar:
     </p>
+
+    <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+      <a class="btn" href="/download">Download Latest v<%= settings.appVersion %></a>
+      <a class="btn ghost" href="/install">Install Guide</a>
+    </div>
   </div>
 
   <% updates.forEach(up => { %>
-    <div class="card">
-      <h2 style="margin-bottom: 4px;"><%= up.version %> <% if (up.status) { %>&middot; <span style="font-size: 14px; color: var(--accent);"><%= up.status %></span><% } %></h2>
-      <p class="sub" style="margin-top: 0; font-size: 13.5px; color: var(--muted);"><%= up.date %></p>
-      <p><strong><%= up.headline %></strong></p>
-      <ul>
+    <div class="card card-section">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--border-light);">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <h2 style="font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--text-heading); margin: 0;">
+            <%= up.version %>
+          </h2>
+          <% if (up.status) { %>
+            <span class="pill-badge" style="margin: 0; padding: 2px 10px; font-size: 11.5px;">
+              <%= up.status %>
+            </span>
+          <% } %>
+        </div>
+        <span style="font-size: 13.5px; color: var(--text-muted); font-weight: 500;"><%= up.date %></span>
+      </div>
+
+      <p style="font-size: 15.5px; font-weight: 700; color: var(--brand-primary); margin-bottom: 12px;">
+        <%= up.headline %>
+      </p>
+
+      <ul style="padding-left: 20px; line-height: 1.8; font-size: 14.5px; color: var(--text-body);">
         <% up.points.forEach(pt => { %>
           <li><%= pt %></li>
         <% }) %>
@@ -23,14 +44,13 @@
     </div>
   <% }) %>
 
-  <div class="card">
-    <h2>Update kaise install kare</h2>
-    <p><strong><%= settings.siteName %> 5.8 se aage update app ke andar hi ho jata hai</strong> — "Update karo" dabao, download app me chalta hai, aur install ka button apne aap aa jata hai. Pehli baar phone poochhega ki <%= settings.siteName %> ko install karne ki ijazat do; ek baar de dena, phir dubara nahi poochhega.</p>
-  </div>
-
-  <div class="card">
-    <h2>Ola ke baare me</h2>
-    <p>Ola support <strong>nahi</strong> karta. Ola ke apne app ke andar automatic accept block kiya gaya hai, isliye <%= settings.siteName %> Ola ki booking par kuch nahi karta. Rapido chalta hai, Uber aur Porter teeno compatible hain.</p>
+  <div class="card card-section">
+    <h3 style="font-family: var(--font-heading); font-size: 20px; font-weight: 700; color: var(--text-heading); margin-bottom: 10px;">
+      Update Kaise Install Karein
+    </h3>
+    <p style="font-size: 15px; color: var(--text-body); line-height: 1.7;">
+      <strong><%= settings.siteName %> 5.8 se aage ke versions me update app ke andar hi ho jata hai:</strong> "Update karo" dabane par download app me background me chalta hai, aur "Install" button apne aap aa jata hai. Pehli baar phone poochhega ki permission do — allow kar dein, dubara nahi poochhega.
+    </p>
   </div>
 </div>
 

@@ -11,24 +11,21 @@
   "apkDownloadUrl": "/downloads/RiderSaathi-v5.28.1.apk",
   "sha256File": "f5a4df810d82bcb3d4aaac42fbdb64a6ac90665ab737a1993127abd3996da52b",
   "sha256Cert": "1b257df6e673afd4bddaa9b32a4ce4030bb893af3756a746ce1902f29a4e8551",
-  
-  "ownerName": "Shams Raza",
+  "ownerName": "Shams",
   "legalBusinessName": "RiderSaathi Technologies",
   "businessType": "Sole Proprietorship",
   "registrationDetails": "Registered under Udyam (MSME) & Local Shops & Establishment (Gumasta) Licensing",
   "contactEmail": "help@ridersaathi.in",
-  "whatsappNumber": "918349049467",
+  "whatsappNumber": "918641011669",
   "whatsappText": "Mujhe RiderSaathi ke updates chahiye",
   "telegramHandle": "RiderSaathi_app",
   "telegramUrl": "https://t.me/RiderSaathi_app",
-  "officeAddress": "78-E, Sai Baba Nagar, Dwarkapuri, Indore, Madhya Pradesh 452009",
+  "officeAddress": "403, Gulab bagh colony, Indore, Madhya Pradesh 452009",
   "supportHours": "Monday - Saturday | 10 AM - 5 PM (IST)",
   "grievanceOfficer": "Shams Raza",
-  
-  "upiId": "ridersaathi@upi",
+  "upiId": "ridersaathi0001@upi",
   "upiPayeeName": "RiderSaathi",
   "upiQrImage": "",
-  
   "adminPassword": "admin123",
   "bannerAlert": "Pehli 10 rides bilkul free — bina kisi payment ke test karo!",
   "showBanner": true

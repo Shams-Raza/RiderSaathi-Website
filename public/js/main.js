@@ -43,13 +43,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const upiId = copyUpiBtn.getAttribute("data-upi");
       if (upiId) {
         navigator.clipboard.writeText(upiId).then(() => {
-          const original = copyUpiBtn.textContent;
-          copyUpiBtn.textContent = "UPI ID Copied!";
-          copyUpiBtn.style.background = "var(--ok)";
-          copyUpiBtn.style.color = "#fff";
+          const original = copyUpiBtn.innerHTML;
+          copyUpiBtn.innerHTML = "✓ Copied!";
+          copyUpiBtn.style.borderColor = "var(--success)";
+          copyUpiBtn.style.color = "var(--success)";
           setTimeout(() => {
-            copyUpiBtn.textContent = original;
-            copyUpiBtn.style.background = "";
+            copyUpiBtn.innerHTML = original;
+            copyUpiBtn.style.borderColor = "";
             copyUpiBtn.style.color = "";
           }, 2500);
         });
@@ -57,7 +57,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 4. Contact Form Handler (AJAX)
+  // 4. Interactive FAQ Accordion
+  const faqQuestions = document.querySelectorAll(".faq-question");
+  faqQuestions.forEach((q) => {
+    q.addEventListener("click", () => {
+      const item = q.parentElement;
+      item.classList.toggle("open");
+    });
+  });
+
+  // 5. Contact Form Handler (AJAX)
   const contactForm = document.getElementById("contactForm");
   const contactAlert = document.getElementById("contactAlert");
   if (contactForm) {
@@ -65,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.preventDefault();
       const submitBtn = contactForm.querySelector("button[type='submit']");
       submitBtn.disabled = true;
-      submitBtn.textContent = "Sending...";
+      submitBtn.textContent = "Sending message...";
 
       const formData = new FormData(contactForm);
       const data = Object.fromEntries(formData.entries());
@@ -80,10 +89,10 @@ document.addEventListener("DOMContentLoaded", () => {
         if (result.success) {
           contactForm.reset();
           if (contactAlert) {
-            contactAlert.className = "notice";
+            contactAlert.className = "notice-box success";
             contactAlert.style.display = "block";
             contactAlert.innerHTML =
-              "<strong>Message Sent!</strong> Hamari support team aapko 2 working days ke andar WhatsApp ya phone par contact karegi.";
+              "<strong>Message Received!</strong> Aapka sandesh mil gaya hai. Hamari support team aapse WhatsApp ya call par jald revert karegi.";
           }
         } else {
           alert("Error: " + (result.message || "Could not send message."));
@@ -92,8 +101,46 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Network error. Please try again or WhatsApp directly.");
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = "Send Message";
+        submitBtn.textContent = "Submit Message";
       }
+    });
+  }
+
+  // 6. Subtle Scroll Reveal Observer (High Performance & GPU Accelerated)
+  if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.08,
+        rootMargin: "0px 0px -30px 0px",
+      }
+    );
+
+    // Standalone cards, form containers, legal docs, upi box
+    const candidateCards = document.querySelectorAll(
+      ".card, .legal, .form-card, .upibox"
+    );
+    candidateCards.forEach((card) => {
+      if (!card.querySelector(".problems-grid, .features-grid, .pricing-grid, .reviews-grid, .steps-container")) {
+        card.classList.add("reveal");
+        revealObserver.observe(card);
+      }
+    });
+
+    // Sub-elements, grid cards & nested section heads
+    const revealElements = document.querySelectorAll(
+      ".card-section .section-head, .problem-card, .feature-box, .plancard, .review-card, .step-row, .partner-chip, .faq-item, .notice-box"
+    );
+    revealElements.forEach((el) => {
+      el.classList.add("reveal");
+      revealObserver.observe(el);
     });
   }
 });

@@ -31,5 +31,16 @@
     "badge": "Most popular",
     "active": true,
     "description": "Maximum value for daily full-time captains."
+  },
+  {
+    "id": "free plan",
+    "name": "FREE FREE",
+    "price": 1,
+    "wasPrice": 489,
+    "durationDays": 5,
+    "durationText": "5 days",
+    "badge": "Most popular",
+    "description": "",
+    "active": true
   }
 ]

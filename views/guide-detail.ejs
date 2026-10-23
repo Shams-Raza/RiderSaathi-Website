@@ -1,29 +1,36 @@
 <%- include('partials/header') %>
 
-<div class="wrap">
-  <div style="margin-top: 24px; font-size: 13.5px; color: var(--muted);">
-    <a href="/">Home</a> &rsaquo; <a href="/guides">Guides</a> &rsaquo; <span><%= guide.title %></span>
+<div class="wrap" style="padding-top: 28px; padding-bottom: 60px;">
+  <div style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 20px;">
+    <a href="/">Home</a> &rsaquo; <a href="/guides">Guides</a> &rsaquo; <span style="color: var(--text-heading); font-weight: 600;"><%= guide.title %></span>
   </div>
 
-  <div class="legal" style="margin-top: 14px;">
-    <div style="display:inline-block; font-size:12px; font-weight:700; color:var(--accent); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:8px;">
+  <div class="card" style="padding: 36px 32px;">
+    <div class="pill-badge green" style="margin-bottom: 12px;">
       <%= guide.category %>
     </div>
-    <h1><%= guide.title %></h1>
-    <p class="sub" style="font-weight: 500; color: var(--muted);"><%= guide.summary %></p>
-    <hr style="border: 0; border-top: 1px solid var(--line); margin: 20px 0;">
+    
+    <h1 style="font-family: var(--font-heading); font-size: 34px; font-weight: 800; color: var(--text-heading); letter-spacing: -0.6px; margin-bottom: 12px;">
+      <%= guide.title %>
+    </h1>
+    <p style="font-size: 17px; font-weight: 500; color: var(--text-body); line-height: 1.6; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid var(--border-light);">
+      <%= guide.summary %>
+    </p>
 
-    <div class="guide-body" style="line-height: 1.7; font-size: 16px;">
+    <div class="guide-body" style="line-height: 1.75; font-size: 16px; color: var(--text-body);">
       <%- guide.content %>
     </div>
 
-    <div class="cta" style="margin-top: 36px;">
-      <h3>Try <%= settings.siteName %> today</h3>
-      <p>Set these settings on your own phone. First 10 rides are completely free.</p>
-      <p>
-        <a class="btn btn-sm" href="/install">Download APK</a>
-        <a class="btn btn-sm ghost" href="/guides">Back to all guides</a>
-      </p>
+    <div class="notice-box info" style="margin-top: 36px;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0; color:var(--brand-primary);"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      <div>
+        <strong>Pehle 10 rides bilkul free hain!</strong> Ye settings apne phone par try karne ke liye abhi app download karein aur live rides me test karein.
+      </div>
+    </div>
+
+    <div style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 24px;">
+      <a class="btn" href="/install">Download APK (Free)</a>
+      <a class="btn ghost" href="/guides">Back to all guides</a>
     </div>
   </div>
 </div>

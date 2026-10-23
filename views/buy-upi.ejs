@@ -1,57 +1,93 @@
 <%- include('partials/header') %>
 
-<div class="wrap">
-  <div class="legal">
-    <h1>Pay by UPI</h1>
-    <p>Complete your payment using any UPI app (PhonePe, Google Pay, Paytm, BHIM). Once paid, your <%= settings.siteName %> plan activates automatically.</p>
+<div class="wrap" style="padding-top: 36px; padding-bottom: 60px;">
+  <div class="form-card">
+    <div class="section-head" style="text-align: center; margin-bottom: 24px;">
+      <div class="pill-badge green" style="margin: 0 auto 10px;">Step 2: Complete UPI Payment</div>
+      <h1 style="font-family: var(--font-heading); font-size: 32px; font-weight: 800; color: var(--text-heading); letter-spacing: -0.5px;">
+        Pay via UPI (GPay / PhonePe / Paytm)
+      </h1>
+      <p style="font-size: 15px; color: var(--text-muted);">
+        Niche diye UPI link par tap karein ya UPI ID copy karke payment karein. Payment hone par turant plan chalu ho jayega.
+      </p>
+    </div>
 
-    <!-- UPI Box -->
-    <div class="upibox">
-      <div class="upilabel">Amount to pay</div>
+    <!-- Main UPI Payment Card -->
+    <div class="card upibox" style="margin-top: 0;">
+      <div style="font-size: 13.5px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;">
+        Total Amount to Pay
+      </div>
       <div class="upibig">₹<%= plan.price %></div>
-      <div class="upilabel" style="margin-top: 12px;">Send to UPI ID</div>
-      <div class="upiid"><%= settings.upiId %></div>
-      <div style="font-size: 13.5px; color: var(--muted); margin-bottom: 8px;">Payee: <%= settings.upiPayeeName %></div>
-      
-      <button class="upicopy" id="copyUpiBtn" data-upi="<%= settings.upiId %>">
-        📋 Copy UPI ID
-      </button>
+      <div style="font-size: 14px; font-weight: 600; color: var(--text-body); margin-bottom: 12px;">
+        <%= plan.name %> (<%= plan.durationText %> Validity) for <strong>+91 <%= phone %></strong>
+      </div>
 
-      <div style="margin-top: 14px;">
-        <a class="btn btn-sm" href="upi://pay?pa=<%= settings.upiId %>&pn=<%= encodeURIComponent(settings.upiPayeeName) %>&am=<%= plan.price %>&cu=INR&tn=RiderSaathi%20<%= plan.name %>" style="text-decoration:none;">
-          Open UPI App Directly
-        </a>
+      <!-- Direct UPI App Button (Opens phone's installed UPI app) -->
+      <a href="<%= upiString %>" class="btn" style="width: 100%; max-width: 380px; margin: 12px auto 16px; font-size: 16px; padding: 14px;">
+        ⚡ Open UPI App Directly to Pay
+      </a>
+
+      <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin: 8px 0;">
+        <span style="height: 1px; background: var(--border); width: 60px;"></span>
+        <span style="font-size: 12.5px; color: var(--text-muted); font-weight: 600;">YA FIR DIRECT UPI ID PAR BHEJEIN</span>
+        <span style="height: 1px; background: var(--border); width: 60px;"></span>
+      </div>
+
+      <div class="upiid-badge" id="upiBadgeText"><%= upiId %></div>
+      
+      <div>
+        <button class="btn ghost btn-sm" id="copyUpiBtn" data-upi="<%= upiId %>" style="padding: 9px 20px;">
+          📋 Copy UPI ID
+        </button>
+      </div>
+
+      <div style="font-size: 12.5px; color: var(--text-muted); margin-top: 10px;">
+        Payee Name: <strong><%= upiPayee %></strong> &middot; Order Ref: <code><%= orderId %></code>
       </div>
     </div>
 
-    <!-- Summary Box -->
-    <div class="card" style="padding: 18px 24px;">
-      <h3 style="margin-top:0;">Order Summary</h3>
-      <p style="margin: 4px 0;"><strong>Mobile Number:</strong> <%= order.phone %></p>
-      <p style="margin: 4px 0;"><strong>Plan:</strong> <%= plan.name %> (<%= plan.durationText %>)</p>
-      <p style="margin: 4px 0;"><strong>Order ID:</strong> <%= order.id %></p>
-      <p style="margin: 4px 0;"><strong>Status:</strong> <span style="color: var(--warn); font-weight: 600;"><%= order.status %></span></p>
+    <!-- Order Summary Details -->
+    <div class="card" style="padding: 20px 24px; margin-bottom: 24px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 10px; margin-bottom: 10px;">
+        <span style="font-size: 14px; color: var(--text-muted);">Registered Mobile:</span>
+        <strong style="color: var(--text-heading);">+91 <%= phone %></strong>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 10px; margin-bottom: 10px;">
+        <span style="font-size: 14px; color: var(--text-muted);">Selected Plan:</span>
+        <strong style="color: var(--text-heading);"><%= plan.name %> (₹<%= plan.price %>)</strong>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 14px; color: var(--text-muted);">Order ID:</span>
+        <code style="font-size: 13.5px;"><%= orderId %></code>
+      </div>
     </div>
 
-    <!-- Confirmation submission form -->
-    <h2>Confirm your payment</h2>
-    <p>Payment karne ke baad apna 12-digit UPI Reference Number / UTR yahan enter karein, ya seedha WhatsApp par screenshot bhejein:</p>
-
-    <form method="post" action="/buy/confirm" class="delform">
-      <input type="hidden" name="orderId" value="<%= order.id %>">
-      <label for="upiRef">12-Digit UPI Transaction ID / UTR</label>
-      <input id="upiRef" name="upiRef" placeholder="e.g. 423456789012" required pattern="[0-9A-Za-z]{8,24}">
-      <button type="submit">Confirm &amp; Activate Plan</button>
-    </form>
-
-    <div class="cta">
-      <h3>Need help with payment?</h3>
-      <p>Agar koi dikkat aaye ya UPI match na ho, hume WhatsApp par transaction screenshot bhejein. Hamari team turant plan chalu kar degi.</p>
-      <p>
-        <a class="btn btn-sm" href="https://wa.me/<%= settings.whatsappNumber %>?text=<%= encodeURIComponent('Maine ' + plan.name + ' plan ke liye ₹' + plan.price + ' pay kiye hain. Order ID: ' + order.id + ', Mobile: ' + order.phone) %>" target="_blank" rel="noopener">
-          WhatsApp Support par Screenshot bhejo
-        </a>
+    <!-- UTR Submission Form -->
+    <div class="card">
+      <h3 style="font-family: var(--font-heading); font-size: 20px; font-weight: 700; color: var(--text-heading); margin-bottom: 8px;">
+        Payment Ke Baad UTR / Ref Number Dalein
+      </h3>
+      <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">
+        Payment hone ke baad aapke GPay / PhonePe / Paytm receipt par 12-digit ka UTR / UPI Ref number milta hai. Use yahan daalein:
       </p>
+
+      <form method="post" action="/buy/confirm-utr" class="delform">
+        <input type="hidden" name="orderId" value="<%= orderId %>">
+        <label for="utr">12-Digit UPI Ref / UTR Number</label>
+        <input id="utr" name="utr" placeholder="e.g. 429182736451" required pattern="[0-9A-Za-z]{8,24}" style="font-family: var(--font-mono); font-size: 16px; font-weight: 600;">
+
+        <button type="submit" class="btn success" style="width: 100%; margin-top: 18px; padding: 14px;">
+          ✓ Submit UTR &amp; Activate Plan
+        </button>
+      </form>
+
+      <div style="margin-top: 20px; padding-top: 16px; border-top: 1px dashed var(--border); text-align: center;">
+        <span style="font-size: 13.5px; color: var(--text-muted);">Koi pareshani aaye toh WhatsApp par screenshot bhejein:</span><br>
+        <a class="btn ghost btn-sm" href="https://wa.me/<%= settings.whatsappNumber %>?text=<%= encodeURIComponent('Maine ' + plan.name + ' ke liye ₹' + plan.price + ' bheje hain. Order ID: ' + orderId + ', Phone: ' + phone) %>" target="_blank" rel="noopener" style="margin-top: 10px; display: inline-flex;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/></svg>
+          WhatsApp Support (+<%= settings.whatsappNumber %>)
+        </a>
+      </div>
     </div>
   </div>
 </div>

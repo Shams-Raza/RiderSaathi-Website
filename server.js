@@ -625,31 +625,42 @@ function handleRecordRide(req, res) {
   });
 }
 app.post('/api/app/ride/record', handleRecordRide);
+app.post('/api/app/record-ride', handleRecordRide);
 app.post('/api/app/use-ride', handleRecordRide);
 
 // 4. Get & Sync Filter Rules
-app.get('/api/app/rules', (req, res) => {
+function handleGetRules(req, res) {
   const { driver } = getDriverFromRequest(req);
   if (!driver) {
     return res.status(404).json({ success: false, message: 'Driver not found' });
   }
-  res.json({ success: true, filterRules: driver.filterRules || {} });
-});
+  const rules = driver.filterRules || {};
+  res.json({ success: true, filterRules: rules, rules });
+}
+app.get('/api/app/rules', handleGetRules);
+app.get('/api/app/rules/get', handleGetRules);
 
-app.post('/api/app/rules/sync', (req, res) => {
+function handleSyncRules(req, res) {
   const { driver, drivers } = getDriverFromRequest(req);
   if (!driver) {
     return res.status(404).json({ success: false, message: 'Driver not found' });
   }
-  const { filterRules } = req.body;
-  if (filterRules && typeof filterRules === 'object') {
-    driver.filterRules = { ...driver.filterRules, ...filterRules };
+  const incoming = req.body.filterRules || req.body.rules || (typeof req.body === 'object' && req.body.minFare ? req.body : null);
+  if (incoming && typeof incoming === 'object') {
+    driver.filterRules = { ...driver.filterRules, ...incoming };
     driver.lastActiveAt = new Date().toISOString();
     writeJSON(DRIVERS_FILE, drivers);
-    return res.json({ success: true, message: 'Filter rules synchronized', filterRules: driver.filterRules });
+    return res.json({
+      success: true,
+      message: 'Filter rules synchronized',
+      filterRules: driver.filterRules,
+      rules: driver.filterRules
+    });
   }
   res.status(400).json({ success: false, message: 'Invalid filterRules payload' });
-});
+}
+app.post('/api/app/rules', handleSyncRules);
+app.post('/api/app/rules/sync', handleSyncRules);
 
 // 5. Version Update Check
 app.get('/api/app/check-update', (req, res) => {
@@ -1027,10 +1038,11 @@ app.post('/api/admin/inquiries/:id/status', requireAdmin, (req, res) => {
 app.post('/api/admin/faq/add', requireAdmin, (req, res) => {
   const faqs = readJSON(FAQS_FILE, []);
   const { q, a } = req.body;
-  if (!q || !a) return res.status(400).json({ success: false, message: 'Missing fields' });
-  faqs.push({ id: Date.now(), q, a });
+  if (!q || !a) return res.status(400).json({ success: false, message: 'Missing question or answer' });
+  const newFaq = { id: Date.now(), q: String(q).trim(), a: String(a).trim() };
+  faqs.push(newFaq);
   writeJSON(FAQS_FILE, faqs);
-  res.json({ success: true });
+  res.json({ success: true, faq: newFaq });
 });
 
 // Delete FAQ

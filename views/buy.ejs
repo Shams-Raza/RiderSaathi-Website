@@ -1,44 +1,84 @@
 <%- include('partials/header') %>
 
-<div class="wrap">
-  <div class="legal">
-    <h1>Buy a <%= settings.siteName %> plan</h1>
-    <p>Enter the mobile number you use in <%= settings.siteName %> and pick a plan. Payment is by UPI. There is no auto-renewal and no card is saved — each plan is a one-time purchase that ends when its time runs out.</p>
+<div class="wrap" style="padding-top: 36px; padding-bottom: 60px;">
+  <div class="form-card">
+    <div class="section-head" style="text-align: center; margin-bottom: 28px;">
+      <div class="pill-badge green" style="margin: 0 auto 12px;">Instant Digital Activation</div>
+      <h1 style="font-family: var(--font-heading); font-size: 34px; font-weight: 800; color: var(--text-heading); letter-spacing: -0.6px;">
+        Activate <%= settings.siteName %> Plan
+      </h1>
+      <p style="font-size: 15.5px; color: var(--text-muted);">
+        Apna 10-digit mobile number enter karein aur plan chunein. Payment direct UPI se hoti hai — na auto-debit, na card details.
+      </p>
+    </div>
 
-    <form method="post" action="/buy" class="delform">
-      <label for="phone">Your <%= settings.siteName %> mobile number</label>
-      <input id="phone" name="phone" inputmode="numeric" autocomplete="tel" required pattern="[0-9]{10}" maxlength="10" placeholder="10 digit mobile number" value="<%= typeof phone !== 'undefined' ? phone : '' %>">
+    <div class="card" style="box-shadow: var(--shadow-md);">
+      <form method="post" action="/buy/upi" class="delform">
+        <label for="phone" style="margin-top: 0;">1. Aapka <%= settings.siteName %> Mobile Number</label>
+        <div style="position: relative;">
+          <input id="phone" name="phone" inputmode="numeric" autocomplete="tel" required pattern="[0-9]{10}" maxlength="10" placeholder="10-digit registered number (e.g. 9876543210)" value="<%= typeof phone !== 'undefined' ? phone : '' %>" style="padding-left: 48px; font-size: 16px; font-weight: 600;">
+          <span style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-weight: 700; color: var(--text-muted); font-size: 15px;">+91</span>
+        </div>
+        <p style="font-size: 12.5px; color: var(--text-muted); margin-top: 6px;">
+          * Usi number par plan activate hoga jisse aapne app me sign in kiya hai.
+        </p>
 
-      <label>Choose a plan</label>
-      <div class="plans">
-        <% plans.forEach((plan, index) => { %>
-        <label class="planpick">
-          <input type="radio" name="planId" value="<%= plan.id %>" <%= index === 1 ? 'checked' : '' %> required>
-          <span class="planbody">
-            <span class="planname"><%= plan.name %></span>
-            <span class="planbadge"><%= plan.badge || '&nbsp;' %></span>
-            <span class="planprice">&#8377;<%= plan.price %></span>
-            <span class="plandays"><%= plan.durationText %></span>
-          </span>
-        </label>
-        <% }) %>
+        <label style="margin-top: 24px;">2. Plan Chunein</label>
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 8px;">
+          <% plans.forEach((p, idx) => { 
+            const isSelected = selectedPlan && selectedPlan.id === p.id;
+          %>
+          <label style="display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-radius: var(--radius-md); border: 2px solid <%= isSelected ? 'var(--brand-primary)' : 'var(--border)' %>; background: <%= isSelected ? 'var(--brand-tint)' : 'var(--surface)' %>; cursor: pointer; transition: all 0.2s ease;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <input type="radio" name="planId" value="<%= p.id %>" <%= isSelected ? 'checked' : '' %> required style="width: auto; margin: 0; transform: scale(1.2);">
+              <div>
+                <div style="font-family: var(--font-heading); font-size: 16.5px; font-weight: 700; color: var(--text-heading);">
+                  <%= p.name %>
+                  <% if (p.badge) { %>
+                    <span style="font-size: 11px; font-weight: 800; background: var(--brand-primary); color: #fff; padding: 2px 8px; border-radius: var(--radius-pill); margin-left: 6px;">
+                      <%= p.badge %>
+                    </span>
+                  <% } %>
+                </div>
+                <div style="font-size: 13px; color: var(--text-muted);"><%= p.durationText %> validity &middot; <%= p.description %></div>
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <div style="font-family: var(--font-mono); font-size: 20px; font-weight: 800; color: var(--text-heading);">₹<%= p.price %></div>
+              <% if (p.wasPrice) { %>
+                <div style="font-size: 12px; color: var(--text-faint); text-decoration: line-through;">₹<%= p.wasPrice %></div>
+              <% } %>
+            </div>
+          </label>
+          <% }) %>
+        </div>
+
+        <button type="submit" class="btn" style="width: 100%; margin-top: 26px; padding: 15px; font-size: 16px;">
+          Proceed to UPI Payment &rarr;
+        </button>
+      </form>
+    </div>
+
+    <!-- Reassurance Features -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 24px;">
+      <div style="text-align: center; padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);">
+        <div style="font-size: 20px; margin-bottom: 4px;">⚡</div>
+        <strong style="font-size: 13.5px; color: var(--text-heading); display: block;">Instant Activation</strong>
+        <span style="font-size: 12px; color: var(--text-muted);">1-2 min me plan chalu</span>
       </div>
 
-      <button type="submit">Continue to Payment</button>
-    </form>
+      <div style="text-align: center; padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);">
+        <div style="font-size: 20px; margin-bottom: 4px;">🔒</div>
+        <strong style="font-size: 13.5px; color: var(--text-heading); display: block;">Safe UPI Transfer</strong>
+        <span style="font-size: 12px; color: var(--text-muted);">Direct GPay / PhonePe / Paytm</span>
+      </div>
 
-    <h2>How it reaches your phone</h2>
-    <p>The plan is added to the account on that mobile number, not to this browser. Open <%= settings.siteName %> on your phone afterwards and it is already there — you do not have to sign in again, enter a code, or update the app.</p>
-
-    <h2>Do I need an account first?</h2>
-    <p>Yes. Install <%= settings.siteName %>, sign in once with your mobile number, and every new account gets <strong>10 free rides</strong> before any payment is needed. Come back here when your trial runs out.</p>
-
-    <p class="sub" style="margin-top: 24px;">
-      <a href="/pricing">Plans &amp; pricing</a> &middot; 
-      <a href="/refunds">Refunds &amp; cancellation</a> &middot; 
-      <a href="/delivery">Delivery &amp; activation</a> &middot; 
-      <a href="mailto:<%= settings.contactEmail %>"><%= settings.contactEmail %></a>
-    </p>
+      <div style="text-align: center; padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md);">
+        <div style="font-size: 20px; margin-bottom: 4px;">💬</div>
+        <strong style="font-size: 13.5px; color: var(--text-heading); display: block;">WhatsApp Support</strong>
+        <span style="font-size: 12px; color: var(--text-muted);">Instant helpline available</span>
+      </div>
+    </div>
   </div>
 </div>
 

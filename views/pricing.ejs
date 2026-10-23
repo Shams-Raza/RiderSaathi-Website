@@ -1,41 +1,101 @@
 <%- include('partials/header') %>
 
-<div class="wrap">
-  <div class="hero" style="padding-bottom: 12px;">
-    <h1>Plans &amp; pricing</h1>
-    <p class="sub"><%= settings.siteName %> plans and prices — 1 day, 1 week, 1 month. Free trial first, no auto-renewal.</p>
+<div class="wrap" style="padding-top: 36px; padding-bottom: 60px;">
+  <div class="section-head" style="text-align: center; margin-bottom: 36px;">
+    <div class="pill-badge green" style="margin: 0 auto 12px;">No Hidden Charges • No Auto-Renewal</div>
+    <h1 style="font-family: var(--font-heading); font-size: 38px; font-weight: 800; color: var(--text-heading); letter-spacing: -0.8px;">
+      Plans &amp; Pricing
+    </h1>
+    <p style="max-width: 620px; margin: 8px auto 0; font-size: 16.5px; color: var(--text-muted);">
+      Pehle 10 rides bilkul free — bina kisi payment ke test karo. Pasand aane par 1 day, 1 week ya 1 month ka plan chuno.
+    </p>
   </div>
 
-  <div class="card">
-    <h2>Choose your plan</h2>
-    <p>Har naye account ko pehli 10 rides bilkul free — bina kisi payment ke, taaki aap khud dekh lo ki aapke kaam ka hai ya nahi. Uske baad plan chuno. Na auto-renewal, na card save hota hai: plan ek baar ka hai aur apna waqt poora hote hi khud khatam ho jaata hai.</p>
-
-    <div class="pricing-grid">
-      <% plans.forEach(plan => { %>
-      <div class="plancard">
-        <div class="plancard-title">
-          <%= plan.name %>
-          <% if (plan.badge) { %>
-            <span class="plancard-badge"><%= plan.badge %></span>
-          <% } %>
-        </div>
-        <div class="plancard-price">₹<%= plan.price %></div>
-        <div class="plancard-duration"><%= plan.durationText %></div>
-        <div class="plancard-desc"><%= plan.description %></div>
+  <div class="pricing-grid">
+    <% plans.forEach(plan => { %>
+    <div class="plancard <%= plan.badge ? 'popular' : '' %>">
+      <% if (plan.badge) { %>
+        <div class="plancard-ribbon"><%= plan.badge %></div>
+      <% } %>
+      <div class="plancard-title"><%= plan.name %></div>
+      
+      <div class="plancard-price-row">
+        <span class="plancard-price">₹<%= plan.price %></span>
+        <% if (plan.wasPrice) { %>
+          <span class="plancard-wasprice">₹<%= plan.wasPrice %></span>
+        <% } %>
       </div>
-      <% }) %>
+      <div class="plancard-duration"><%= plan.durationText %> validity</div>
+      <div class="plancard-desc"><%= plan.description %></div>
+
+      <ul class="plancard-features">
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Rapido, Uber &amp; Porter Filter
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Ghar ki taraf (Go-To) Route
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Custom Fare &amp; Distance Rules
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Auto-Accept Profitable Bookings
+        </li>
+        <li>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          WhatsApp Priority Assistance
+        </li>
+      </ul>
+
+      <a class="btn <%= plan.badge ? '' : 'ghost' %>" href="/buy?plan=<%= plan.id %>">
+        Choose <%= plan.name %>
+      </a>
+    </div>
+    <% }) %>
+  </div>
+
+  <!-- Highlights & Policies Card -->
+  <div class="card" style="margin-top: 36px;">
+    <h3 style="font-family: var(--font-heading); font-size: 20px; font-weight: 700; color: var(--text-heading); margin-bottom: 14px;">
+      Payment aur Activation ke Baare Me Zaroori Baatein
+    </h3>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
+      <div style="background: var(--surface-alt); padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border);">
+        <strong style="color: var(--text-heading); display: block; margin-bottom: 6px;">⚡ Instant Digital Delivery</strong>
+        <p style="font-size: 14px; margin: 0; color: var(--text-body);">
+          UPI payment confirm hote hi 1-2 minute me plan aapke registered mobile number par chalu ho jata hai. App update ya dubara sign in karne ki zaroorat nahi hoti.
+        </p>
+      </div>
+
+      <div style="background: var(--surface-alt); padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border);">
+        <strong style="color: var(--text-heading); display: block; margin-bottom: 6px;">🛡️ No Auto-Debit / No Card Saved</strong>
+        <p style="font-size: 14px; margin: 0; color: var(--text-body);">
+          Hamare paas koi bank ya card details save nahi hoti. Plan ka samay poora hone par wo apne aap band ho jata hai — bina kisi extra deduction ke.
+        </p>
+      </div>
+
+      <div style="background: var(--surface-alt); padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border);">
+        <strong style="color: var(--text-heading); display: block; margin-bottom: 6px;">📞 6 Days Direct Support</strong>
+        <p style="font-size: 14px; margin: 0; color: var(--text-body);">
+          Agar payment ke baad koi dikkat aaye, toh WhatsApp par UTR screenshot bhejein. Hamari team (<%= settings.supportHours %>) turant madad karegi.
+        </p>
+      </div>
     </div>
 
-    <p style="color: var(--muted); font-size: 14.5px;">Yahan website se lo ya app ke andar se — dono tarah plan usi mobile number par aata hai jisse aapne app me sign in kiya hai.</p>
-    
-    <p style="color: var(--muted); font-size: 14px;"><strong>Plan kab chalu hota hai:</strong> online payment (payment gateway) — within about a minute of the payment being confirmed; direct UPI (order page) — within a few minutes once the payment matches our bank record; if it has to be checked by hand, the same day. Support: <%= settings.supportHours %>.</p>
-
-    <p><a href="/delivery">Delivery &amp; activation</a> &middot; <a href="/refunds">Refund &amp; cancellation policy</a></p>
-
-    <p style="margin-top: 20px;">
-      <a class="btn" href="/buy">Buy a plan</a> &nbsp; 
-      <a class="btn ghost" href="/install">Download <%= settings.siteName %></a>
-    </p>
+    <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <div style="font-size: 14px;">
+        <a href="/delivery" style="margin-right: 14px;">Delivery &amp; Activation Policy</a> &middot; 
+        <a href="/refunds">Refund &amp; Cancellation Policy</a>
+      </div>
+      <div>
+        <a class="btn ghost btn-sm" href="/install">Download APK First</a>
+      </div>
+    </div>
   </div>
 </div>
 

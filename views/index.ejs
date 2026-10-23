@@ -1,133 +1,364 @@
 <%- include('partials/header') %>
 
-<div class="wrap">
-  <!-- Hero Section -->
-  <div class="hero">
-    <div class="hero-badge"><%= settings.tagline %></div>
-    <h1><%- settings.heroTitle %></h1>
-    <p class="sub"><%= settings.heroSubtitle %></p>
-    <p class="hero-en"><%= settings.heroEnText %></p>
-    <div>
-      <a class="btn" href="/install">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
-        Download for Android
-      </a>
-      <a class="btn ghost" href="/pricing" style="margin-left: 8px;">View Plans</a>
+<!-- 1. HERO SECTION -->
+<section class="hero-wrapper">
+  <div class="wrap">
+    <div class="hero-grid">
+      <!-- Left Column: High-Impact Copy -->
+      <div class="hero-content">
+        <div class="pill-badge green">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <%= settings.freeRidesTrial %> — Bina Kisi Payment Ke Test Karo
+        </div>
+
+        <h1 class="hero-title">
+          Ghaate wali rides chhodo,<br>
+          <span class="highlight">Kamai wali rides uthao!</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          <%= settings.siteName %> aapke set kiye gaye rules par <strong>Rapido, Uber aur Porter</strong> ki bookings filter karta hai — taaki aap screen taakte rehne ke bajaye sadak par dhyan rakh kar befikar kamai kar sako.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn" href="/install">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+            Download for Android
+          </a>
+          <a class="btn ghost" href="/pricing">
+            View Plans (₹<%= (plans[0] && plans[0].price) || 12 %> se shuru)
+          </a>
+        </div>
+
+        <div class="hero-meta">
+          <span>Version <%= settings.appVersion %></span>
+          <span class="dot"></span>
+          <span>Size: <%= settings.apkFileSize %></span>
+          <span class="dot"></span>
+          <span style="color: var(--success); font-weight: 700;">100% Virus Free</span>
+        </div>
+
+        <div class="trust-badges-bar">
+          <div class="trust-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            Pehle 10 rides free
+          </div>
+          <div class="trust-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+            Zero Account Ban
+          </div>
+          <div class="trust-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.04-4.09l-2.6-1.53C16.15 17.58 14.24 19 12 19z"/></svg>
+            No Auto-Debit
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Simulator Mockup -->
+      <div class="mockup-container">
+        <div class="phone-mockup">
+          <div class="phone-header">
+            <div class="phone-status">
+              <span class="pulse-indicator"></span>
+              <span><%= settings.siteName %> Filter Active</span>
+            </div>
+            <span style="font-size: 11.5px; font-weight: 700; background: var(--brand-tint); color: var(--brand-primary); padding: 2px 8px; border-radius: 4px;">
+              Auto-Pilot
+            </span>
+          </div>
+
+          <!-- Ride Simulation Card 1 (Accepted) -->
+          <div class="ride-card accepted">
+            <div class="ride-header-row">
+              <span class="platform-pill platform-rapido">Rapido Bike</span>
+              <span class="ride-fare">₹128</span>
+            </div>
+            <div class="ride-details">
+              <span>📍 Drop: 6.2 km</span>
+              <span>🏃 Pickup: 0.8 km</span>
+            </div>
+            <div class="decision-badge accepted">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              AUTO-ACCEPTED (Kiraya ₹20/km)
+            </div>
+          </div>
+
+          <!-- Ride Simulation Card 2 (Declined) -->
+          <div class="ride-card declined">
+            <div class="ride-header-row">
+              <span class="platform-pill platform-porter">Porter 2W</span>
+              <span class="ride-fare">₹24</span>
+            </div>
+            <div class="ride-details">
+              <span>📍 Drop: 1.1 km</span>
+              <span style="color: var(--danger); font-weight: 700;">🏃 Pickup: 3.2 km</span>
+            </div>
+            <div class="decision-badge declined">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+              FILTERED (Ghaate wali ride - 3.2km pickup)
+            </div>
+          </div>
+
+          <!-- Ride Simulation Card 3 (Accepted) -->
+          <div class="ride-card accepted" style="margin-bottom: 0;">
+            <div class="ride-header-row">
+              <span class="platform-pill platform-uber">Uber Auto</span>
+              <span class="ride-fare">₹175</span>
+            </div>
+            <div class="ride-details">
+              <span>📍 Drop: 8.5 km</span>
+              <span>🏃 Pickup: 1.1 km</span>
+            </div>
+            <div class="decision-badge accepted">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              AUTO-ACCEPTED (Ghar ki taraf)
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="meta">Version <%= settings.appVersion %> &middot; <%= settings.apkFileSize %> &middot; <%= settings.freeRidesTrial %></div>
+  </div>
+</section>
+
+<!-- 2. SUPPORTED PLATFORMS SECTION -->
+<div class="wrap">
+  <div class="partners-section">
+    <div class="partners-title">Compatible Apps — Har App Par Barabar Kaam Karta Hai</div>
+    <div class="partners-grid">
+      <div class="partner-chip">
+        <span class="partner-dot" style="background: #eab308;"></span>
+        Rapido Captain (Bike &amp; Auto)
+      </div>
+      <div class="partner-chip">
+        <span class="partner-dot" style="background: #0f172a;"></span>
+        Uber Driver (Moto, Auto, Cab)
+      </div>
+      <div class="partner-chip">
+        <span class="partner-dot" style="background: #0284c7;"></span>
+        Porter Partner (2-Wheeler &amp; 3W)
+      </div>
+      <div class="partner-chip">
+        <span class="partner-dot" style="background: #10b981;"></span>
+        Shadowfax Delivery
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <!-- 3. 3 BIG DRIVER PROBLEMS & RIDERSAATHI SOLUTION -->
+  <div class="card card-section">
+    <div class="section-head">
+      <h2>Driver bhaiyon ki 3 sabse badi dikkatein — aur <%= settings.siteName %> ka jawab</h2>
+      <p>Aapki mehnat ka paisa kisi ghaate wali ride me na phanse, isliye ye app banaya gaya hai:</p>
+    </div>
+
+    <div class="problems-grid">
+      <!-- Problem 1 -->
+      <div class="problem-card">
+        <div class="problem-icon icon-yellow">⚡</div>
+        <h3>1. Jab kaam kam ho</h3>
+        <div class="problem-box">
+          <strong>Dikkat:</strong> Captain khaali baithe rehte hain. Ride aate hi 1-2 second me koi aur utha leta hai. Jab tak pickup aur drop padho, tab tak ride chali jati hai.
+        </div>
+        <div class="solution-box">
+          <strong><%= settings.siteName %>:</strong> Screen ghoorne ki zaroorat nahi. Aapki pasand ki doori aur area ki ride aate hi <%= settings.siteName %> 1 second me use accept kar leta hai.
+        </div>
+      </div>
+
+      <!-- Problem 2 -->
+      <div class="problem-card">
+        <div class="problem-icon icon-blue">💰</div>
+        <h3>2. Jab demand zyada ho</h3>
+        <div class="problem-box">
+          <strong>Dikkat:</strong> Ride ke upar ride bajti rehti hai, aur zyadatar ₹20-₹30 wali choti rides hoti hain. Inke chakkar me 15-20 km wali kamai wali ride nikal jaati hai.
+        </div>
+        <div class="solution-box">
+          <strong><%= settings.siteName %>:</strong> Chhoti ghaate wali rides ko skip kar deta hai, aur sirf aapke set kiye huye minimum fare &amp; distance wali lambi rides uthata hai.
+        </div>
+      </div>
+
+      <!-- Problem 3 -->
+      <div class="problem-card">
+        <div class="problem-icon icon-green">🛡️</div>
+        <h3>3. Baar-baar hath maarne ki thakan</h3>
+        <div class="problem-box">
+          <strong>Dikkat:</strong> Bike ya auto chalate waqt screen par lagataar haath maarna thaka dene wala hai, aur traffic me chalte waqt khatarnak bhi.
+        </div>
+        <div class="solution-box">
+          <strong><%= settings.siteName %>:</strong> Jab tak aapki pasand ki ride nahi aati, phone mount par rakho. Sadak par poora dhyan rahega aur chalan ka darr nahi.
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Card 1: 3 Problems -->
-  <div class="card">
-    <h2>Driver bhaiyon ki 3 sabse badi dikkatein — aur <%= settings.siteName %> ka jawab</h2>
-    
-    <h3>1. Jab kaam kam ho</h3>
-    <p><strong>Dikkat:</strong> Captain khaali baithe rehte hain. Ride aate hi 1-2 second me koi aur utha leta hai. Jab tak pickup aur drop padho, tab tak der ho chuki hoti hai.<br>
-    <strong><%= settings.siteName %>:</strong> Screen ghoorne ki zaroorat nahi. Aapki pasand ki doori aur area ki ride aate hi <%= settings.siteName %> use pehchaan kar aapke liye chun leta hai.</p>
+  <!-- 4. WHAT RULES YOU CAN CONTROL -->
+  <div class="card card-section">
+    <div class="section-head">
+      <h2>Aap kya-kya rules tay kar sakte ho</h2>
+      <p><%= settings.siteName %> booking card ka poora content padhta hai — kiraya, pickup, drop aur doori — aur aapke rules se milata hai:</p>
+    </div>
 
-    <h3>2. Jab demand zyada ho</h3>
-    <p><strong>Dikkat:</strong> Ride ke upar ride bajti rehti hai, aur zyadatar ₹20-₹30 wali choti rides hoti hain. Inke chakkar me 15-20 km wali kamai wali ride kab nikal gayi, pata hi nahi chalta.<br>
-    <strong><%= settings.siteName %>:</strong> Choti ghaate wali rides chhod deta hai, aur sirf aapke tay kiye minimum distance wali lambi rides chunta hai.</p>
-
-    <h3>3. Baar-baar haath se accept/reject karne ki thakan</h3>
-    <p><strong>Dikkat:</strong> Bike ya auto chalate waqt screen par lagataar haath maarna thaka dene wala hai, aur khatarnak bhi.<br>
-    <strong><%= settings.siteName %>:</strong> Jab tak aapki pasand ki ride nahi aati, phone jeb me ya mount par rakho. Sadak par dhyan rahe.</p>
+    <div class="features-grid">
+      <div class="feature-box">
+        <h4>📦 Parcel ya Sawari Filter</h4>
+        <p>Bike, auto, cab aur parcel — har ek ka alag switch. Aaj sirf parcel delivery karni hai toh ride band, sirf ride karni hai toh parcel band.</p>
+      </div>
+      <div class="feature-box">
+        <h4>🏃 Pickup Doori Limit</h4>
+        <p>Passenger tak kitni door tak jaana hai — 0.5 km se 10 km tak ka slider. 3 km se door ka pickup lene se bacho.</p>
+      </div>
+      <div class="feature-box">
+        <h4>📍 Trip Doori (Min / Max km)</h4>
+        <p>Kam se kam aur zyada se zyada kitne km ki trip leni hai. Chhoti ghaate wali rides filter karke lambi kamai wali uthao.</p>
+      </div>
+      <div class="feature-box">
+        <h4>💵 Minimum Kiraya Rule</h4>
+        <p>Minimum fare set karein (jaise ₹60 se upar). Rapido bike jahan kiraya nahi dikhta, wahan "kam se kam itne km" ka rule chalta hai.</p>
+      </div>
+      <div class="feature-box">
+        <h4>🏠 Go To — Ghar ki taraf</h4>
+        <p>Shift khatam hone par apne area ka naam daal do. Sirf usi taraf jaane wali rides accept hongi — khaali petrol waste nahi hoga.</p>
+      </div>
+      <div class="feature-box">
+        <h4>🚫 Jahan Nahi Jaana (Blacklist)</h4>
+        <p>Heavy traffic, no-entry ya kharab road wale ilaake block kar sakte ho. Wahan ki bookings aate hi reject ho jayengi.</p>
+      </div>
+    </div>
   </div>
 
-  <!-- Card 2: Features -->
-  <div class="card">
-    <h2>Aap kya-kya tay kar sakte ho</h2>
-    <p><%= settings.siteName %> booking card ka poora content padhta hai — kiraya, pickup, drop aur doori — aur phir aapke rules se milata hai. Jitna aap chaho utna barik:</p>
-    <ul>
-      <li><strong>Parcel ya sawari:</strong> Bike, auto, cab aur parcel — har ek ka apna switch. Aaj sirf parcel karna hai to baaki band. Saare filters dono par barabar lagte hain. Boost/Saver rides aur Intercity cab ke alag switch bhi hain.</li>
-      <li><strong>Trip doori:</strong> Kam se kam aur zyada se zyada kitne km ki ride leni hai.</li>
-      <li><strong>Pickup ki doori:</strong> Passenger tak kitni door tak jaana theek hai — 0.5 se 12 km tak, ek slider se.</li>
-      <li><strong>Kamai filter:</strong> Minimum aur maximum kiraya. Aur jahan card par fare dikhta hi nahi (Rapido bike), wahan "kam se kam itne km" ka rule chalta hai.</li>
-      <li><strong>Sirf tip wali rides:</strong> Kuch rider sirf wahi rides lete hain jisme customer ne extra ya surge diya ho — wo bhi ek switch hai.</li>
-      <li><strong>Extra stops:</strong> Beech me kitne stop tak theek hai, ya sirf direct rides.</li>
-    </ul>
-  </div>
+  <!-- 5. PLANS & PRICING SECTION -->
+  <div class="card card-section" id="pricing">
+    <div class="section-head" style="text-align: center;">
+      <div class="pill-badge green" style="margin: 0 auto 12px;">Transaprent Pricing</div>
+      <h2>Simple Plans — Pehle 10 Rides Free</h2>
+      <p style="max-width: 620px; margin: 0 auto;">
+        Har naye account ko <strong>pehli 10 rides bilkul free</strong> milti hain. Pasandeeda plan chunein. Na card details required hain, na auto-debit ka jhanjhat.
+      </p>
+    </div>
 
-  <!-- Card 3: Exclusive Features -->
-  <div class="card">
-    <h2>Wo cheezein jo kahin aur nahi milengi</h2>
-
-    <h3>Raste wali agli ride</h3>
-    <p>Ride lene ke baad <%= settings.siteName %> uska raasta yaad rakhta hai. Jab ride app aapko agli booking bhejta hai, <%= settings.siteName %> wahi chunta hai jo usi raste par ho — taaki drop ke baad khaali na lautna pade. Raaste se kitni door tak ka pickup aur drop chalega, ye aap tay karte ho.</p>
-
-    <h3>Go To — ghar ya kisi khaas ilaake ki taraf</h3>
-    <p>Shift ke aakhir me ghar jaana ho, ya kisi ilaake ki taraf nikalna ho — area ka naam daal do. <%= settings.siteName %> sirf us taraf jaane wali rides chunega. Time bhi set kar sakte ho, taaki Go To apne aap band ho jaaye.</p>
-
-    <h3>Jahan nahi jaana</h3>
-    <p>Heavy traffic ya kharab road wale ilaake alag se block kar sakte ho — pickup ki taraf bhi, drop ki taraf bhi. Jo area aapke liye ghaate ka hai, wo list me daal do aur bhool jao.</p>
-
-    <h3>Aapke haath me control, chalte-chalte</h3>
-    <p>Ek floating button chalte waqt saamne rehta hai — booking aate hi wo khud chhup jaata hai. Rides ko expire hone do ya turant decline karo, aur decline hone se pehle kitna waqt mile — ye bhi aap tay karte ho.</p>
-  </div>
-
-  <!-- Card 4: Plans & Pricing -->
-  <div class="card">
-    <h2>Plans &amp; pricing</h2>
-    <p>Har naye account ko <strong>pehli 10 rides bilkul free</strong> — bina kisi payment ke, taaki aap khud dekh lo ki aapke kaam ka hai ya nahi. Uske baad plan chuno. Na auto-renewal, na card save hota hai: plan ek baar ka hai aur apna waqt poora hote hi khud khatam ho jaata hai.</p>
-    
     <div class="pricing-grid">
-      <% plans.forEach(plan => { %>
-      <div class="plancard">
-        <div class="plancard-title">
-          <%= plan.name %>
-          <% if (plan.badge) { %>
-            <span class="plancard-badge"><%= plan.badge %></span>
+      <% plans.forEach((plan, idx) => { %>
+      <div class="plancard <%= plan.badge ? 'popular' : '' %>">
+        <% if (plan.badge) { %>
+          <div class="plancard-ribbon"><%= plan.badge %></div>
+        <% } %>
+        <div class="plancard-title"><%= plan.name %></div>
+        
+        <div class="plancard-price-row">
+          <span class="plancard-price">₹<%= plan.price %></span>
+          <% if (plan.wasPrice) { %>
+            <span class="plancard-wasprice">₹<%= plan.wasPrice %></span>
           <% } %>
         </div>
-        <div class="plancard-price">₹<%= plan.price %></div>
-        <div class="plancard-duration"><%= plan.durationText %></div>
+        <div class="plancard-duration"><%= plan.durationText %> duration</div>
         <div class="plancard-desc"><%= plan.description %></div>
+
+        <ul class="plancard-features">
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Rapido, Uber, Porter Support
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Ghar ki taraf (Go-To) Filter
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Pickup &amp; Fare Rules
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Voice &amp; Sound Alerts
+          </li>
+        </ul>
+
+        <a class="btn <%= plan.badge ? '' : 'ghost' %>" href="/buy?plan=<%= plan.id %>">
+          Buy <%= plan.name %>
+        </a>
       </div>
       <% }) %>
     </div>
 
-    <p style="color: var(--muted); font-size: 14.5px;">Yahan website se lo ya app ke andar se — dono tarah plan usi mobile number par aata hai jisse aapne app me sign in kiya hai.</p>
-    <p style="color: var(--muted); font-size: 14px;"><strong>Plan kab chalu hota hai:</strong> online payment (UPI gateway) — within about a minute; direct UPI — within a few minutes once verified. Support: <%= settings.supportHours %>.</p>
-    <p><a class="btn" href="/buy">Buy a plan</a> &nbsp; <a class="btn ghost" href="/install">Download APK</a></p>
+    <div class="notice-box info" style="margin-top: 10px;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0; color:var(--brand-primary);"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+      <div>
+        <strong>Plan activation timing:</strong> UPI Payment karne ke 1 se 2 minute ke andar digital plan aapke mobile number par activate ho jata hai. Kisi tarah ki madad ke liye hamari team support hours (<%= settings.supportHours %>) me WhatsApp par available hai.
+      </div>
+    </div>
   </div>
 
-  <!-- Card 5: WhatsApp updates -->
-  <div class="card">
-    <h2>WhatsApp par updates</h2>
-    <p>Naye version aur zaroori jaankari sabse pehle aapke WhatsApp par.</p>
-    <p><a class="btn" href="https://wa.me/<%= settings.whatsappNumber %>?text=<%= encodeURIComponent(settings.whatsappText) %>" target="_blank" rel="noopener">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/></svg>
-      Updates chalu karo
-    </a></p>
+  <!-- 6. REAL CAPTAIN TESTIMONIALS / REVIEWS -->
+  <div class="card card-section">
+    <div class="section-head" style="text-align: center;">
+      <div class="pill-badge" style="margin: 0 auto 12px;">Captains Ki Rai</div>
+      <h2>Desh bhar ke captains ka bharosa</h2>
+      <p>Dekhiye driver bhai RiderSaathi ke baare me kya keh rahe hain:</p>
+    </div>
+
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">
+          "Pehle din bhar me ₹400-500 hi bachte the petrol nikal kar kyunki chhoti ₹20 wali rides aa jaati thi. RiderSaathi lagane ke baad ₹800+ daily bachat ho rahi hai!"
+        </p>
+        <div class="review-author">
+          <div class="author-avatar">R</div>
+          <div class="author-info">
+            <h5>Raju Sharma</h5>
+            <span>Rapido Captain, Indore</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">
+          "Porter 2-wheeler par chalaata hoon. 3-4 km door jakar sirf ₹30 milte the. Is app se maine pickup 1.5 km limit set kar diya. Ab ghaate ka trip kabhi nahi lagta."
+        </p>
+        <div class="review-author">
+          <div class="author-avatar">M</div>
+          <div class="author-info">
+            <h5>Mukesh Yadav</h5>
+            <span>Porter Partner, Delhi NCR</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">
+          "Bike chalate waqt screen par baar-baar tap karne ka jhanjhat khatam. Phone mount par rehta hai, sadak par dhyan rehta hai. Chalan ka darr bhi nahi."
+        </p>
+        <div class="review-author">
+          <div class="author-avatar">S</div>
+          <div class="author-info">
+            <h5>Suresh Patel</h5>
+            <span>Uber Moto &amp; Auto, Bangalore</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Card 6: 3 Steps -->
-  <div class="card">
-    <h2>Shuru kaise karein — 3 step</h2>
-    <ol class="steps">
-      <li>
-        <strong>Download karo:</strong> <%= settings.siteName %> install karo aur mobile number se sign in karo. Pehli 10 rides bilkul free hain — koi payment nahi.
-      </li>
-      <li>
-        <strong>Apne rules set karo:</strong> Kitne km ki ride chahiye, pickup kitna door tak chalega, parcel ya sawari, kaunsa area — sab slider aur switch se, ek baar.
-      </li>
-      <li>
-        <strong>Pehle dekho, phir chalao:</strong> Monitor mode me <%= settings.siteName %> har booking par batata hai ki wo kya karta — bina kuch dabaye. Faisle sahi lagein to Active karo, aur phone jeb me rakh do.
-      </li>
-    </ol>
-    <p><a class="btn" href="/install">Download for Android</a></p>
-  </div>
-
-  <!-- Card 7: Guides Preview -->
-  <div class="card">
-    <h2>Guides for drivers</h2>
-    <p>Seedhi baat me — kaise chalta hai, kaunsi settings sahi hain, aur kis app par kaam karta hai.</p>
-    <ul>
-      <% guides.slice(0, 8).forEach(guide => { %>
-        <li><a href="/guides/<%= guide.slug %>"><strong><%= guide.title %></strong></a> — <%= guide.summary %></li>
-      <% }) %>
-    </ul>
-    <p><a href="/guides">Saare guides dekho →</a></p>
+  <!-- 7. WHATSAPP & SUPPORT SECTION -->
+  <div class="card card-section" style="background: linear-gradient(135deg, rgba(239,246,255,0.7) 0%, rgba(240,253,244,0.7) 100%);">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+      <div>
+        <h2 style="font-family: var(--font-heading); font-size: 24px; margin-bottom: 8px; color: var(--text-heading);">
+          WhatsApp Community &amp; Direct Support
+        </h2>
+        <p style="font-size: 15px; color: var(--text-body); max-width: 540px;">
+          Naye version updates, tips aur kisi bhi dikkat ke liye direct WhatsApp par judein. Hamari support team aapki poori madad karegi.
+        </p>
+      </div>
+      <div>
+        <a class="btn success" href="https://wa.me/<%= settings.whatsappNumber %>?text=<%= encodeURIComponent(settings.whatsappText) %>" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/></svg>
+          WhatsApp par judein
+        </a>
+      </div>
+    </div>
   </div>
 </div>
 

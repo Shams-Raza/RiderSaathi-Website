@@ -1,48 +1,66 @@
 <%- include('partials/header') %>
 
-<div class="wrap">
-  <div class="hero" style="padding-bottom: 16px;">
-    <h1><%= settings.siteName %> kyun bana</h1>
-    <p class="sub">Ye app kisi office me idea meeting se nahi nikla. Ye sadak par bana.</p>
-  </div>
-
-  <div class="card">
-    <h2>Shuruaat</h2>
-    <p><%= settings.siteName %> banane wala khud Rapido, Ola aur Uber par captain raha hai. Roz ki wahi kahani: ghanton ka intezaar, aur jab ride bajti hai to do second me kisi aur ke paas chali jaati hai. Pickup aur drop padhne me hi waqt nikal jaata tha.</p>
-    <p>Aur jab demand chadhti hai to ulta problem — ride ke upar ride, zyadatar ₹20-₹30 wali. Inhi ko dekhte-dekhte 15-20 km wali kamai wali ride kab nikal gayi, pata hi nahi chalta.</p>
-    <p>Sabse badi baat ye thi ki is problem ko kisi ne problem maana hi nahi. Driver ko billi ki tarah taak laga kar baithna padta tha. <%= settings.siteName %> isi liye bana — taaki rider aaram se, befikar ho kar beth sake, aur jo ride uske kaam ki hai wahi uske paas aaye.</p>
-  </div>
-
-  <div class="card">
-    <h2>Hum kya banate hain</h2>
-    <p><%= settings.siteName %> ek Android app hai jo driver ke apne phone par chalta hai. Driver apne rules khud tay karta hai — kitni doori ki ride, kitna pickup, parcel ya sawari, kaunsa raasta, kitni kamai — aur app unhi rules par chalta hai.</p>
-    <p>Har feature kisi na kisi asli dikkat se nikla hai. Raste wali agli ride, kyunki khaali lautna ghaata hai. Go To, kyunki shift ke aakhir me ghar ki taraf jaana hota hai. Jahan nahi jaana, kyunki har shehar me kuch ilaake aise hote hain jahan se nikalna hi mushkil hai.</p>
-  </div>
-
-  <div class="card">
-    <h2>Kaun chalata hai</h2>
-    <p><%= settings.siteName %> <strong><%= settings.ownerName %></strong> ka business hai (<%= settings.legalBusinessName %>). Ye <%= settings.registrationDetails %>.</p>
-    <p>Driver ek prepaid plan leta hai — ek mobile number par, UPI ya online payment se. Na koi auto-renewal, na card save hota hai. Plan apne waqt par apne aap khatam ho jaata hai.</p>
-  </div>
-
-  <div class="card" lang="en">
-    <h2><%= settings.siteName %> in brief</h2>
-    <ul>
-      <li><strong>Business:</strong> a venture of <%= settings.ownerName %> (<%= settings.legalBusinessName %>) — <%= settings.registrationDetails %>.</li>
-      <li><strong>Product:</strong> an Android app for ride-hailing and delivery driver partners. The driver sets their own rules — trip distance, pickup distance, parcel or passenger, route, fare — and the app takes the bookings that match them, on the driver's own phone.</li>
-      <li><strong>Category:</strong> computer software — a driver productivity &amp; screen assist utility (MCC 5734).</li>
-      <li><strong>What we sell:</strong> prepaid software plans for one mobile number (see <a href="/pricing">Pricing</a>). The plan starts in the app within about a minute of payment. No auto-renewal; no card is stored.</li>
-      <li><a href="/refunds">Refund policy</a> &middot; <a href="/delivery">Delivery policy</a> &middot; <a href="/terms">Terms</a> &middot; <a href="/privacy">Privacy</a> &middot; <a href="/contact">Contact</a></li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h2>Driver se baat</h2>
-    <p>Support WhatsApp aur app ke Help se chalta hai. Koi call centre nahi — har sawal ka jawab 2 working days ke andar.</p>
-    <p>
-      <a class="btn" href="/contact">Contact Support</a> &nbsp; 
-      <a class="btn ghost" href="/install"><%= settings.siteName %> download karo</a>
+<div class="wrap" style="padding-top: 36px; padding-bottom: 60px;">
+  <div class="section-head" style="text-align: center; margin-bottom: 36px;">
+    <div class="pill-badge green" style="margin: 0 auto 12px;">By Captains, For Captains</div>
+    <h1 style="font-family: var(--font-heading); font-size: 38px; font-weight: 800; color: var(--text-heading); letter-spacing: -0.8px;">
+      <%= settings.siteName %> Kyun Bana
+    </h1>
+    <p style="max-width: 620px; margin: 8px auto 0; font-size: 16.5px; color: var(--text-muted);">
+      Ye app kisi air-conditioned office me nahi bana — ye sadak par, ghanton dhoop aur traffic me mehnat karne ke baad bana.
     </p>
+  </div>
+
+  <div class="card card-section">
+    <h2 style="font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--text-heading); margin-bottom: 12px;">
+      Shuruaat ki Kahani
+    </h2>
+    <p style="font-size: 15.5px; color: var(--text-body); line-height: 1.7; margin-bottom: 14px;">
+      <%= settings.siteName %> banane wale khud Rapido, Ola aur Uber par ride chala chuke hain. Roz ki wahi kahani: ghanton ka intezaar, aur jab ride bajti hai toh do second me kisi aur ke paas chali jaati hai. Pickup aur drop padhne me hi waqt nikal jaata tha.
+    </p>
+    <p style="font-size: 15.5px; color: var(--text-body); line-height: 1.7; margin-bottom: 14px;">
+      Aur jab demand chadhti hai toh ulta problem — ride ke upar ride, zyadatar ₹20-₹30 wali. Inhi ko dekhne ke chakkar me 15-20 km wali kamai wali ride kab nikal gayi, pata hi nahi chalta.
+    </p>
+    <p style="font-size: 15.5px; color: var(--text-body); line-height: 1.7;">
+      Sabse badi baat ye thi ki is dikkat ko kisi ne samjha hi nahi. Driver ko billi ki tarah taak laga kar baithna padta tha. <%= settings.siteName %> isi liye bana — taaki rider aaram se, befikar ho kar baithe, aur jo ride uske kaam ki hai wahi uske paas aaye.
+    </p>
+  </div>
+
+  <div class="card card-section">
+    <h2 style="font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--text-heading); margin-bottom: 12px;">
+      Hum Kya Banate Hain
+    </h2>
+    <p style="font-size: 15.5px; color: var(--text-body); line-height: 1.7; margin-bottom: 14px;">
+      <%= settings.siteName %> ek Android app hai jo driver ke apne phone par chalta hai. Driver apne rules khud tay karta hai — kitni doori ki ride, kitna pickup, parcel ya sawari, kaunsa raasta, kitni kamai — aur app unhi rules par chalta hai.
+    </p>
+    <p style="font-size: 15.5px; color: var(--text-body); line-height: 1.7;">
+      Har feature kisi na kisi asli dikkat se nikla hai. Raste wali agli ride, kyunki khaali lautna ghaata hai. Go To, kyunki shift ke aakhir me ghar ki taraf jaana hota hai. Jahan nahi jaana, kyunki har shehar me kuch ilaake aise hote hain jahan se nikalna hi mushkil hai.
+    </p>
+  </div>
+
+  <div class="card card-section">
+    <h2 style="font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--text-heading); margin-bottom: 12px;">
+      Kaun Chalata Hai (Ownership &amp; Legal Info)
+    </h2>
+    <p style="font-size: 15.5px; color: var(--text-body); line-height: 1.7; margin-bottom: 14px;">
+      <%= settings.siteName %> <strong><%= settings.ownerName %></strong> ka business hai (<%= settings.legalBusinessName %>). Ye <%= settings.registrationDetails %>.
+    </p>
+    <p style="font-size: 15.5px; color: var(--text-body); line-height: 1.7;">
+      Driver ek prepaid plan leta hai — ek mobile number par, UPI se. Na koi auto-renewal, na card save hota hai. Plan apne waqt par apne aap khatam ho jaata hai.
+    </p>
+  </div>
+
+  <div class="card card-section" style="background: var(--surface-alt); border-color: var(--brand-border);">
+    <h3 style="font-family: var(--font-heading); font-size: 20px; font-weight: 700; color: var(--text-heading); margin-bottom: 14px;">
+      Driver Support &amp; Contact
+    </h3>
+    <p style="font-size: 15px; color: var(--text-body); margin-bottom: 18px;">
+      Support WhatsApp aur website ke Contact se chalta hai. Har sawal ka jawab 2 working days ke andar.
+    </p>
+    <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+      <a class="btn btn-sm" href="/contact">Contact Support</a>
+      <a class="btn ghost btn-sm" href="/install">Download <%= settings.siteName %></a>
+    </div>
   </div>
 </div>
 

@@ -1,26 +1,67 @@
+<!-- Sticky Mobile Download Bar (Shows only on mobile screens) -->
+<div class="mobile-sticky-bar">
+  <div class="mobile-bar-inner">
+    <div class="mobile-bar-info">
+      <span class="mobile-bar-badge">🎉 10 Rides Free Trial</span>
+      <span class="mobile-bar-title"><%= settings.siteName %> v<%= settings.appVersion %></span>
+    </div>
+    <a href="/download" class="btn btn-sm">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+      Download APK
+    </a>
+  </div>
+</div>
+
 <footer>
   <div class="wrap">
-    <%= settings.siteName %> &middot; 
-    <a href="/about">About</a> &middot; 
-    <a href="/guides">Guides</a> &middot; 
-    <a href="/pricing">Pricing</a> &middot; 
-    <a href="/refunds">Refunds</a> &middot; 
-    <a href="/delivery">Delivery</a> &middot; 
-    <a href="/contact">Contact</a> &middot; 
-    <a href="/updates">What's new</a> &middot; 
-    <a href="/terms">Terms</a> &middot; 
-    <a href="/privacy">Privacy</a> &middot; 
-    <a href="/admin" style="opacity: 0.65;">Admin</a>
-    <br>
-    <span class="owner">
-      Founded and operated by <strong><%= settings.ownerName %></strong> &middot; 
-      <a href="mailto:<%= settings.contactEmail %>"><%= settings.contactEmail %></a>
-    </span>
-    <br>
-    <span class="tm">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px;">
+      <div>
+        <a class="brand" href="/" style="margin-bottom: 8px;">
+          <span class="brand-glyph" style="width: 32px; height: 32px;">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M14 2 5 13h6l-1 9 9-11h-6z"/></svg>
+          </span>
+          <span><%= settings.siteName %></span>
+        </a>
+        <p style="font-size: 14px; color: var(--text-muted); max-width: 380px; margin-top: 6px;">
+          Smart ride filter assistant for bike-taxi, auto, cab &amp; parcel captains. Earn more, drive safe, stop staring at screens.
+        </p>
+      </div>
+
+      <div>
+        <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-heading); margin-bottom: 12px;">Quick Links</div>
+        <div class="footer-nav">
+          <a href="/about">About</a>
+          <a href="/pricing">Pricing</a>
+          <a href="/install">Install Guide</a>
+          <a href="/guides">Driver Guides</a>
+          <a href="/faq">FAQ</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-heading); margin-bottom: 12px;">Policies &amp; Admin</div>
+        <div class="footer-nav">
+          <a href="/refunds">Refunds</a>
+          <a href="/delivery">Delivery</a>
+          <a href="/terms">Terms</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/api/docs" style="color: var(--brand-primary);">REST APIs</a>
+          <a href="/admin" style="opacity: 0.7;">Admin Login</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding-top: 20px; border-top: 1px solid var(--border-light); font-size: 13.5px;">
+      <span>Founded &amp; operated by <strong><%= settings.ownerName %></strong> (<%= settings.legalBusinessName %>)</span> &middot; 
+      <a href="mailto:<%= settings.contactEmail %>"><%= settings.contactEmail %></a> &middot; 
+      <a href="https://wa.me/<%= settings.whatsappNumber %>" target="_blank" rel="noopener">WhatsApp Support</a>
+    </div>
+
+    <div class="footer-disclaimer">
       Rapido, Uber and Porter are trademarks of their respective owners and are named here only to identify compatibility (nominative fair use). 
-      <%= settings.siteName %> is an independent driver productivity &amp; screen assist utility (<%= settings.tagline %>) and is not affiliated with, endorsed by or sponsored by any of them.
-    </span>
+      <%= settings.siteName %> is an independent driver productivity &amp; screen assist utility and is not affiliated with, endorsed by or sponsored by any of them.
+    </div>
   </div>
 </footer>
 </body>

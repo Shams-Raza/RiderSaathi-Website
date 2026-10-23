@@ -299,4 +299,56 @@ document.addEventListener("DOMContentLoaded", () => {
       showToast("Network error", "error");
     }
   };
+
+  // 14. Payment Settings Form (UPI ID, Payee Name, QR)
+  const paymentForm = document.getElementById("paymentSettingsForm");
+  if (paymentForm) {
+    paymentForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(paymentForm);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const res = await fetch("/api/admin/settings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        const result = await res.json();
+        if (result.success) {
+          showToast("Payment & UPI settings saved successfully!");
+        } else {
+          showToast(result.message || "Failed to save payment settings", "error");
+        }
+      } catch (err) {
+        showToast("Error updating payment settings", "error");
+      }
+    });
+  }
+
+  // 15. App & APK Settings Form (Version, Download URL, Hashes)
+  const appForm = document.getElementById("appSettingsForm");
+  if (appForm) {
+    appForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(appForm);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        const res = await fetch("/api/admin/settings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        const result = await res.json();
+        if (result.success) {
+          showToast("App & APK settings saved successfully!");
+        } else {
+          showToast(result.message || "Failed to save app settings", "error");
+        }
+      } catch (err) {
+        showToast("Error updating app settings", "error");
+      }
+    });
+  }
 });

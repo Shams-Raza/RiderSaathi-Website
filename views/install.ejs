@@ -1,66 +1,132 @@
 <%- include('partials/header') %>
 
-<div class="wrap">
-  <div class="hero" style="padding-bottom: 20px;">
-    <h1>How to install <%= settings.siteName %></h1>
-    <p class="sub">Android only. It takes about two minutes.</p>
-    <a class="btn" href="/download">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
-      Download APK
-    </a>
-    <div class="meta">Version <%= settings.appVersion %> &middot; <%= settings.apkFileSize %></div>
+<div class="wrap" style="padding-top: 36px; padding-bottom: 60px;">
+  <div class="section-head" style="text-align: center; margin-bottom: 32px;">
+    <div class="pill-badge green" style="margin: 0 auto 12px;">Android 8.0 se Android 14+ Supported</div>
+    <h1 style="font-family: var(--font-heading); font-size: 38px; font-weight: 800; color: var(--text-heading); letter-spacing: -0.8px;">
+      How to install <%= settings.siteName %>
+    </h1>
+    <p style="max-width: 580px; margin: 8px auto 20px; font-size: 16.5px; color: var(--text-muted);">
+      Sirf 2 minute ka aasan process. Niche diye button se official APK download karein.
+    </p>
+
+    <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 12px;">
+      <a class="btn" href="/download">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+        Download <%= settings.siteName %> APK
+      </a>
+      <a class="btn ghost" href="/faq">
+        Common Questions
+      </a>
+    </div>
+
+    <div class="hero-meta" style="justify-content: center;">
+      <span>Version <%= settings.appVersion %></span>
+      <span class="dot"></span>
+      <span>Size: <%= settings.apkFileSize %></span>
+      <span class="dot"></span>
+      <span style="color: var(--success); font-weight: 700;">10 Free Rides Included</span>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>Steps</h2>
-    <ol class="steps">
-      <li>Download the file above. Android warns about any app installed from outside the Play Store, so expect a warning here — the next section tells you exactly what to tap.</li>
-      <li>Open the downloaded file and allow installation from your browser when asked.</li>
-      <li>Open <%= settings.siteName %> and enter your mobile number.</li>
-      <li>Grant <strong>Accessibility access</strong> when it asks. This is what lets it read the booking card. <%= settings.siteName %> first shows what it reads and asks for your consent; it uses this Android feature only for the rule-based automation Google Play's policy allows, reads only your driver apps, and you can switch it off at any time in Settings.</li>
-      <li>Grant <strong>Display over other apps</strong> for the floating control.</li>
-      <li>Leave it in <strong>Monitor</strong> mode for a shift. Check the Activity screen and see whether you agree with its decisions before switching to Active.</li>
+  <!-- Step-by-Step Installation Cards -->
+  <div class="card card-section">
+    <div class="section-head">
+      <h2>4 Aasan Steps me Install &amp; Setup Karein</h2>
+      <p>Download hone ke baad apne phone me ye aasan steps follow karein:</p>
+    </div>
+
+    <div class="steps-container">
+      <div class="step-row">
+        <div class="step-badge">1</div>
+        <div class="step-content">
+          <h4>APK File Download &amp; Open Karein</h4>
+          <p>Upar diye button par click karke file download karein. Download poora hone par notification ya Downloads folder se file open karein. Chrome agar "Install unknown apps" pooche, toh <strong>Allow</strong> kar dein.</p>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-badge">2</div>
+        <div class="step-content">
+          <h4>Mobile Number Se Sign In Karein</h4>
+          <p>App open karke apna 10-digit mobile number enter karein. Har naye captain ko turant <strong>10 Free Trial Rides</strong> mil jaati hain.</p>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-badge">3</div>
+        <div class="step-content">
+          <h4>Accessibility Permission Allow Karein</h4>
+          <p>App me Accessibility switch on karein. Yahi feature aapke driver apps (Rapido, Uber, Porter) ke booking cards ko padhta hai taaki ride auto-filter ho sake. Ye kisi bhi private data ya password ko access nahi karta.</p>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-badge">4</div>
+        <div class="step-content">
+          <h4>Display Over Other Apps (Floating Button)</h4>
+          <p>Floating control switch on karein taaki screen par chhota icon dikhe. Isse aap chalte-chalte bhi filter on/off ya pause kar sakte hain.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Play Protect Guidance -->
+  <div class="card card-section">
+    <div class="section-head">
+      <h2>Agar Play Protect Warning Aaye Toh Kya Karein?</h2>
+      <p>Google Play Store se bahar install hone wali har naye app par Android ek security note dikhata hai. Isse ghabrane ki zaroorat nahi hai:</p>
+    </div>
+
+    <div class="notice-box info">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0; color:var(--brand-primary);"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+      <div>
+        <strong>Aapko Play Protect band karne ki koi zaroorat nahi hai:</strong><br>
+        1. Screen par <strong>"More details"</strong> par tap karein.<br>
+        2. Uske baad <strong>"Install anyway"</strong> par tap karein. Install 2 second me complete ho jayega.
+      </div>
+    </div>
+  </div>
+
+  <!-- Android 13/14 Restricted Settings -->
+  <div class="card card-section">
+    <div class="section-head">
+      <h2>Android 13 ya 14 par "Restricted Setting" Aaye Toh?</h2>
+      <p>Naye Android phones me Accessibility on karte waqt <em>"Restricted setting"</em> likha aaye toh ye ek-time setting karni hoti hai:</p>
+    </div>
+
+    <ol class="delform" style="padding-left: 20px; line-height: 1.8; color: var(--text-body);">
+      <li>Phone ke <strong>Settings</strong> &rarr; <strong>Apps</strong> &rarr; <strong><%= settings.siteName %></strong> me jayein.</li>
+      <li>Upar right corner me <strong>3 dots (⋮)</strong> par tap karein.</li>
+      <li><strong>"Allow restricted settings"</strong> select karein aur phone ka lock screen PIN daalein.</li>
+      <li>Wapas app me aakar Accessibility on kar dein — chalu ho jayega!</li>
     </ol>
   </div>
 
-  <div class="card">
-    <h2>If Play Protect blocks the install</h2>
-    <p>It probably will, at least once. Google shows this warning for any app that did not come from the Play Store and has not yet been installed by many people. It is not a virus warning and it does not mean anything is wrong with the file — but you should still only ever download from this page, and you can check the checksum number at the bottom to be sure.</p>
-    <p><strong>You do not need to switch Play Protect off.</strong> On the warning:</p>
-    <ol class="steps">
-      <li>Tap <strong>More details</strong>, then <strong>Install anyway</strong>.</li>
-      <li>If it says <em>Send app for scanning</em>, tap that and wait — the install continues after a few seconds.</li>
-    </ol>
-    <p>If your phone shows no <strong>Install anyway</strong> option, write to us from the Contact page and we will help — keep Play Protect switched on.</p>
+  <!-- Vivo, Oppo, Realme, Xiaomi Battery Lock -->
+  <div class="card card-section">
+    <div class="section-head">
+      <h2>Vivo, Oppo, Realme aur Xiaomi Phone Ke Liye Zaroori</h2>
+      <p>Ye phones background apps ko band kar dete hain. Shift ke dauran app active rahe, isliye ye 2 settings zaroor karein:</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-box">
+        <h4>🔋 Battery Optimization Off</h4>
+        <p>Settings &rarr; Battery &rarr; <%= settings.siteName %> &rarr; <strong>"Don't optimize" / "Allow background activity"</strong> chunein.</p>
+      </div>
+      <div class="feature-box">
+        <h4>🔒 App Lock in Recent Apps</h4>
+        <p>Recent apps menu kholein, <%= settings.siteName %> par press karke <strong>Lock icon</strong> daba dein taaki clearing se app close na ho.</p>
+      </div>
+    </div>
   </div>
 
-  <div class="card">
-    <h2>If Accessibility says “Restricted setting”</h2>
-    <p>On Android 13 and newer, an app installed from outside the Play Store is not allowed to turn on Accessibility until you say so once. You will see <em>“For your security, this setting is currently unavailable.”</em> This is a one-time step:</p>
-    <ol class="steps">
-      <li><strong>Settings</strong> &rarr; <strong>Apps</strong> &rarr; <strong><%= settings.siteName %></strong>.</li>
-      <li>Tap the <strong>⋮</strong> menu at the top right.</li>
-      <li>Tap <strong>Allow restricted settings</strong>.</li>
-      <li>Now go back and turn on Accessibility for <%= settings.siteName %>.</li>
-    </ol>
-  </div>
-
-  <div class="card">
-    <h2>Important for Vivo, Oppo, Realme and Xiaomi phones</h2>
-    <p>These phones shut background apps down aggressively, and will stop the app mid-shift unless you tell them not to.</p>
-    <ul>
-      <li><strong>Battery</strong> &rarr; find <%= settings.siteName %> &rarr; allow background activity / do not restrict</li>
-      <li><strong>Auto-start</strong> &rarr; turn it on for <%= settings.siteName %></li>
-      <li><strong>Recent apps</strong> &rarr; lock <%= settings.siteName %> so clearing recents does not kill it</li>
-    </ul>
-    <p>The Checks screen inside the app tells you if any of this is still missing.</p>
-  </div>
-
-  <div class="notice">
-    <p><strong>Only ever download from this page.</strong> A copy from anywhere else may have been modified. We will never ask for your ride-app password or OTP — not in the app, not on WhatsApp, not ever. Anyone who does is not us.</p>
-    <p class="meta" style="margin-top: 12px;"><strong>Verified build.</strong> Version <%= settings.appVersion %>, signed with <%= settings.siteName %>'s release key.<br>
-    File SHA-256: <code style="word-break:break-all"><%= settings.sha256File %></code><br>
-    Signing certificate SHA-256: <code style="word-break:break-all"><%= settings.sha256Cert %></code></p>
+  <div class="notice-box">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0; color:var(--warning);"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+    <div>
+      <strong>Suraksha ki guarantee:</strong> Hamesha official <%= settings.siteName %> website se hi download karein. Hum kabhi bhi aapka OTP, ride app password ya UPI PIN nahi maangte.
+    </div>
   </div>
 </div>
 
