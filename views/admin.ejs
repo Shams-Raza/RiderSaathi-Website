@@ -3,21 +3,39 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Dashboard — <%= settings.siteName %></title>
+  <title>Admin Dashboard &amp; CMS — <%= settings.siteName %></title>
   <link rel="icon" href="/images/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/css/admin.css">
   <script src="/js/admin.js" defer></script>
 </head>
 <body class="admin-body">
+  <!-- Mobile Header Bar -->
+  <div class="mobile-admin-bar">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <div class="brand-icon-wrap" style="width:28px; height:28px;">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M14 2 5 13h6l-1 9 9-11h-6z"/></svg>
+      </div>
+      <strong style="font-size:15px;"><%= settings.siteName %> Admin</strong>
+    </div>
+    <div style="display:flex; gap:8px; align-items:center;">
+      <button class="mobile-menu-btn" id="mobileMenuToggle" aria-label="Toggle navigation menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+    </div>
+  </div>
+
   <div class="admin-layout">
-    <!-- Sidebar -->
-    <aside class="admin-sidebar">
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar" id="adminSidebar">
       <a class="admin-brand" href="/admin">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="#1b3a8c"><path d="M14 2 5 13h6l-1 9 9-11h-6z"/></svg>
+        <div class="brand-icon-wrap">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="#fff"><path d="M14 2 5 13h6l-1 9 9-11h-6z"/></svg>
+        </div>
         <span><%= settings.siteName %></span>
-        <span class="badge">ADMIN</span>
+        <span class="badge">CMS</span>
       </a>
 
+      <div class="admin-nav-section-title">Main Dashboard</div>
       <nav class="admin-nav">
         <button class="admin-nav-item active" data-tab="tabOverview">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
@@ -25,35 +43,61 @@
         </button>
         <button class="admin-nav-item" data-tab="tabDrivers">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-          Drivers &amp; App (<%= drivers.length %>)
+          Drivers (<%= drivers.length %>)
+          <span class="nav-counter"><%= drivers.length %></span>
         </button>
         <button class="admin-nav-item" data-tab="tabOrders">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-          Orders &amp; Leads (<%= orders.length %>)
+          Orders (<%= orders.length %>)
+          <span class="nav-counter"><%= orders.length %></span>
         </button>
-        <button class="admin-nav-item" data-tab="tabSettings">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-          Owner &amp; Site Info
+      </nav>
+
+      <div class="admin-nav-section-title">Content Management (CMS)</div>
+      <nav class="admin-nav">
+        <button class="admin-nav-item" data-tab="tabHomeCms">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          Home Page CMS
+        </button>
+        <button class="admin-nav-item" data-tab="tabPlans">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+          Pricing Plans (<%= plans.length %>)
+        </button>
+        <button class="admin-nav-item" data-tab="tabApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+          APK &amp; Version
+        </button>
+        <button class="admin-nav-item" data-tab="tabGuides">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          Guides &amp; Tutorials (<%= guides.length %>)
+        </button>
+        <button class="admin-nav-item" data-tab="tabFaq">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+          FAQs (<%= faqs.length %>)
+        </button>
+        <button class="admin-nav-item" data-tab="tabInquiries">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Messages (<%= inquiries.length %>)
+        </button>
+      </nav>
+
+      <div class="admin-nav-section-title">Site Settings &amp; SEO</div>
+      <nav class="admin-nav">
+        <button class="admin-nav-item" data-tab="tabContact">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+          Contact &amp; Support
+        </button>
+        <button class="admin-nav-item" data-tab="tabFooter">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          Footer &amp; Legal
+        </button>
+        <button class="admin-nav-item" data-tab="tabSeo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          SEO &amp; Meta Tags
         </button>
         <button class="admin-nav-item" data-tab="tabPayment">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
           UPI &amp; Payments
-        </button>
-        <button class="admin-nav-item" data-tab="tabPlans">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-          Pricing Plans
-        </button>
-        <button class="admin-nav-item" data-tab="tabApp">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-          App &amp; APK Download
-        </button>
-        <button class="admin-nav-item" data-tab="tabInquiries">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-          Contact Messages
-        </button>
-        <button class="admin-nav-item" data-tab="tabFaq">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-          FAQs
         </button>
         <button class="admin-nav-item" data-tab="tabSecurity">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
@@ -62,43 +106,52 @@
       </nav>
 
       <div class="admin-sidebar-footer">
-        <a href="/api/docs" target="_blank" class="btn-outline" style="text-align:center; text-decoration:none; margin-bottom: 6px; background: rgba(30,102,245,0.08); color: var(--admin-primary); font-weight: 600; display: block;">
-          ⚡ API Documentation
+        <a href="/api/docs" target="_blank" class="btn-outline" style="text-decoration:none; font-size:12.5px;">
+          ⚡ REST API Docs
         </a>
-        <a href="/" target="_blank" class="btn-outline" style="text-align:center; text-decoration:none; margin-bottom: 6px; display: block;">
+        <a href="/" target="_blank" class="btn-outline" style="text-decoration:none; font-size:12.5px;">
           🌐 View Live Site
         </a>
-        <a href="/admin/logout" class="btn-outline" style="text-align:center; text-decoration:none; color:var(--admin-danger); display: block;">
-          Log Out
+        <a href="/admin/logout" class="btn-outline" style="text-decoration:none; color:var(--admin-danger); font-size:12.5px;">
+          🚪 Log Out
         </a>
       </div>
     </aside>
 
-    <!-- Main Content -->
+    <!-- Main Content Area -->
     <main class="admin-main">
+      <!-- Top Navbar Header -->
       <div class="admin-header">
         <div>
-          <h1>Welcome, Admin</h1>
-          <div style="font-size: 13.5px; color: var(--admin-muted); margin-top: 4px;">
-            Manage <%= settings.siteName %> website, drivers, subscriptions, and live REST APIs.
+          <h1>Dashboard &amp; Content Management</h1>
+          <div style="font-size: 13.5px; color: var(--admin-muted); margin-top: 3px;">
+            Full administrative control for <%= settings.siteName %> website, driver app, pricing &amp; APIs.
           </div>
         </div>
-        <div style="display: flex; gap: 10px;">
-          <a href="/api/docs" target="_blank" class="btn-outline" style="text-decoration:none;">⚡ Open API Docs</a>
-          <button id="exportBackupBtn" class="btn-outline">📥 Export Backup</button>
+        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+          <div class="admin-user-pill" title="Active Admin Session">
+            <span class="status-dot"></span>
+            <span><%= typeof adminEmail !== 'undefined' ? adminEmail : 'admin@ridersaathi.in' %></span>
+          </div>
+          <button id="themeToggleBtn" class="btn-outline" title="Toggle Light/Dark Theme">
+            🌓 Theme
+          </button>
+          <a href="/api/admin/backup/export" class="btn-outline" style="text-decoration:none;">
+            📥 Backup JSON
+          </a>
         </div>
       </div>
 
-      <!-- Toast Notification -->
+      <!-- Toast Notification Message -->
       <div id="adminToast" class="toast-msg"></div>
 
-      <!-- 1. TAB: Overview -->
+      <!-- ================= 1. TAB: OVERVIEW ================= -->
       <div class="tab-pane active" id="tabOverview">
         <div class="stats-grid">
           <div class="stat-card">
-            <span class="stat-title">Total App Drivers</span>
+            <span class="stat-title">Registered Drivers</span>
             <span class="stat-value"><%= drivers.length %></span>
-            <span class="stat-help">Registered in mobile app</span>
+            <span class="stat-help">App installs &amp; phone accounts</span>
           </div>
           <div class="stat-card">
             <span class="stat-title">Rides Filtered</span>
@@ -108,7 +161,7 @@
           <div class="stat-card">
             <span class="stat-title">Website Visitors</span>
             <span class="stat-value"><%= stats.visitors || 0 %></span>
-            <span class="stat-help">Web visits recorded</span>
+            <span class="stat-help">Total page impressions</span>
           </div>
           <div class="stat-card">
             <span class="stat-title">APK Downloads</span>
@@ -123,32 +176,41 @@
           <div class="stat-card">
             <span class="stat-title">Inquiries</span>
             <span class="stat-value"><%= inquiries.length %></span>
-            <span class="stat-help">Contact messages</span>
+            <span class="stat-help">Contact form messages</span>
           </div>
         </div>
 
+        <!-- Quick Actions Card -->
         <div class="admin-card">
-          <h2>Quick Actions &amp; Information to Update</h2>
-          <p style="color: var(--admin-muted); font-size: 14.5px; line-height: 1.6;">
-            Aap Lapak ke default details ko apne information se replace karne ke liye left sidebar me <strong>"Owner &amp; Site Info"</strong> par click karein.
-            Wahan aap apna <strong>Naam</strong>, <strong>Address</strong>, <strong>WhatsApp Number</strong>, <strong>Email</strong>, aur <strong>UPI ID</strong> daal sakte hain.
-            Save karte hi poori website aur mobile app me live update ho jayega!
-          </p>
+          <h2>⚡ Quick CMS Actions</h2>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px;">
+            <button class="btn-primary" onclick="switchTab('tabHomeCms')">📝 Edit Home Page Text</button>
+            <button class="btn-outline" onclick="openPlanModal()">➕ Add Pricing Plan</button>
+            <button class="btn-outline" onclick="openGuideModal()">📚 Add Driver Guide</button>
+            <button class="btn-outline" onclick="openFaqModal()">❓ Add FAQ</button>
+            <button class="btn-outline" onclick="switchTab('tabApp')">📲 Update APK Version</button>
+            <button class="btn-outline" onclick="switchTab('tabSecurity')">🔒 Change Password</button>
+          </div>
         </div>
 
+        <!-- Recent Orders -->
         <div class="admin-card">
-          <h2>Recent Orders (<%= orders.slice(0, 5).length %>)</h2>
+          <div class="admin-card-header">
+            <h2>Recent Orders (<%= orders.slice(0, 5).length %> of <%= orders.length %>)</h2>
+            <button class="btn-outline btn-sm" onclick="switchTab('tabOrders')">View All Orders &rarr;</button>
+          </div>
           <% if (orders.length === 0) { %>
-            <p style="color: var(--admin-muted);">No orders recorded yet.</p>
+            <p style="color: var(--admin-muted);">No subscription orders placed yet.</p>
           <% } else { %>
             <div class="admin-table-wrap">
               <table class="admin-table">
                 <thead>
                   <tr>
                     <th>Date</th>
-                    <th>Mobile</th>
+                    <th>Driver Phone</th>
                     <th>Plan</th>
                     <th>Amount</th>
+                    <th>UTR / Ref</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
@@ -160,6 +222,7 @@
                     <td><strong><%= ord.phone %></strong></td>
                     <td><%= ord.planName %></td>
                     <td>₹<%= ord.amount || ord.price %></td>
+                    <td><code><%= ord.utr || ord.upiRef || 'Waiting' %></code></td>
                     <td>
                       <span class="badge-tag <%= ord.status === 'Activated' ? 'badge-success' : 'badge-warning' %>">
                         <%= ord.status %>
@@ -167,10 +230,59 @@
                     </td>
                     <td>
                       <% if (ord.status !== 'Activated') { %>
-                        <button class="btn-primary" style="padding: 4px 10px; font-size: 12px;" onclick="approveAndActivateOrder('<%= ord.id %>')">Approve &amp; Activate</button>
+                        <button class="btn-primary btn-sm" onclick="approveAndActivateOrder('<%= ord.id %>')">
+                          ⚡ Activate Driver
+                        </button>
                       <% } else { %>
-                        <span style="font-size: 12px; color: var(--admin-success); font-weight: 600;">✓ Activated</span>
+                        <span style="color:var(--admin-success); font-weight:600; font-size:12px;">Active</span>
                       <% } %>
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          <% } %>
+        </div>
+
+        <!-- Recent Registered Drivers -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2>Recent App Drivers (<%= drivers.slice(0, 5).length %> of <%= drivers.length %>)</h2>
+            <button class="btn-outline btn-sm" onclick="switchTab('tabDrivers')">View All Drivers &rarr;</button>
+          </div>
+          <% if (drivers.length === 0) { %>
+            <p style="color: var(--admin-muted);">No drivers have launched the app yet.</p>
+          <% } else { %>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Driver</th>
+                    <th>Phone</th>
+                    <th>Version</th>
+                    <th>Trial Left</th>
+                    <th>Status</th>
+                    <th>Quick Pass</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% drivers.slice(0, 5).forEach(drv => { 
+                    const trialLeft = Math.max(0, (drv.trialRidesTotal || 10) - (drv.trialRidesUsed || 0));
+                  %>
+                  <tr>
+                    <td><strong><%= drv.name || 'Captain' %></strong></td>
+                    <td><code><%= drv.phone %></code></td>
+                    <td>v<%= drv.appVersion || '5.28.1' %></td>
+                    <td><span style="font-weight:700; color:<%= trialLeft > 0 ? '#10b981' : '#ef4444' %>"><%= trialLeft %> rides</span></td>
+                    <td>
+                      <span class="badge-tag <%= drv.status === 'banned' ? 'badge-danger' : 'badge-success' %>">
+                        <%= drv.status || 'active' %>
+                      </span>
+                    </td>
+                    <td>
+                      <button class="btn-primary btn-sm" onclick="grantSubscription('<%= drv.id %>', 7, '7 Days Pass')">+7 Days</button>
+                      <button class="btn-outline btn-sm" onclick="grantTrialRides('<%= drv.id %>', 10)">+10 Free</button>
                     </td>
                   </tr>
                   <% }) %>
@@ -181,35 +293,376 @@
         </div>
       </div>
 
-      <!-- 2. TAB: Drivers & Mobile App Management -->
+      <!-- ================= 2. TAB: HOME PAGE CMS ================= -->
+      <div class="tab-pane" id="tabHomeCms">
+        <div class="admin-card">
+          <h2>Hero Section &amp; Headings</h2>
+          <div class="admin-card-desc">Bina kisi code badlaav ke Home page ke headings, text aur badges yahan se edit karein:</div>
+
+          <form id="homeCmsForm">
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label>Hero Free Trial Badge</label>
+                <input type="text" name="heroBadge" value="<%= settings.heroBadge || '' %>" placeholder="e.g. ⚡ Pehle 10 rides bilkul free — bina kisi payment ke test karo!">
+                <div class="field-hint">Dikhne wala green pill-badge hero heading ke upar.</div>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Hero Main Title (HTML supported: &lt;br&gt;, &lt;span class="highlight"&gt;...&lt;/span&gt;)</label>
+                <input type="text" name="heroTitle" value="<%= settings.heroTitle || '' %>" placeholder="Ghaate wali rides chhodo,<br><span class='highlight'>Kamai wali rides uthao!</span>" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Hero Subtitle (Hindi)</label>
+                <textarea name="heroSubtitle" rows="3" required><%= settings.heroSubtitle || '' %></textarea>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Hero English Secondary Text</label>
+                <textarea name="heroEnText" rows="3"><%= settings.heroEnText || '' %></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Free Trial Text Tag</label>
+                <input type="text" name="freeRidesTrial" value="<%= settings.freeRidesTrial || 'Pehle 10 rides bilkul free' %>">
+              </div>
+
+              <div class="form-group">
+                <label>Top Announcement Bar Message</label>
+                <input type="text" name="bannerAlert" value="<%= settings.bannerAlert || '' %>">
+              </div>
+
+              <div class="form-group full-width">
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                  <input type="checkbox" name="showBanner" <%= settings.showBanner ? 'checked' : '' %> style="width: auto;">
+                  Top Announcement Bar ko website par dikhayein (Show Top Banner)
+                </label>
+              </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+              <h3 style="font-size: 16px; font-weight: 750; margin-bottom: 12px;">Home Page Section Toggles (Show / Hide)</h3>
+              <p class="admin-card-desc">Jin sections ko aap abhi live website par hide ya show karna chahein unhe toggle karein:</p>
+
+              <% 
+                const hs = settings.homeSections || {};
+              %>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+                <div class="toggle-switch-card">
+                  <div class="toggle-info">
+                    <span class="toggle-title">Interactive Phone Simulator</span>
+                    <span class="toggle-desc">Hero right side animated phone mockup</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" name="homeSections_heroSimulator" <%= hs.heroSimulator !== false ? 'checked' : '' %>>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="toggle-switch-card">
+                  <div class="toggle-info">
+                    <span class="toggle-title">Supported Apps Bar</span>
+                    <span class="toggle-desc">Rapido, Uber, Porter, Shadowfax chips</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" name="homeSections_supportedApps" <%= hs.supportedApps !== false ? 'checked' : '' %>>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="toggle-switch-card">
+                  <div class="toggle-info">
+                    <span class="toggle-title">3 Big Driver Problems</span>
+                    <span class="toggle-desc">Problem &amp; solution cards</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" name="homeSections_driverProblems" <%= hs.driverProblems !== false ? 'checked' : '' %>>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="toggle-switch-card">
+                  <div class="toggle-info">
+                    <span class="toggle-title">What Rules You Control</span>
+                    <span class="toggle-desc">Pickup, Fare, Route rules grid</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" name="homeSections_ruleFeatures" <%= hs.ruleFeatures !== false ? 'checked' : '' %>>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="toggle-switch-card">
+                  <div class="toggle-info">
+                    <span class="toggle-title">Pricing Plans Preview</span>
+                    <span class="toggle-desc">Show plans grid on homepage</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" name="homeSections_pricingPreview" <%= hs.pricingPreview !== false ? 'checked' : '' %>>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="toggle-switch-card">
+                  <div class="toggle-info">
+                    <span class="toggle-title">Driver Reviews / Testimonials</span>
+                    <span class="toggle-desc">Real captain feedback cards</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" name="homeSections_driverReviews" <%= hs.driverReviews !== false ? 'checked' : '' %>>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+
+                <div class="toggle-switch-card">
+                  <div class="toggle-info">
+                    <span class="toggle-title">WhatsApp Community CTA Card</span>
+                    <span class="toggle-desc">Bottom direct contact banner</span>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox" name="homeSections_communityCard" <%= hs.communityCard !== false ? 'checked' : '' %>>
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions" style="margin-top: 24px;">
+              <button type="submit" class="btn-primary">💾 Save Home Page Changes</button>
+              <a href="/" target="_blank" class="btn-outline" style="text-decoration:none;">Preview Live Home Page &rarr;</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ================= 3. TAB: PRICING PLANS CRUD ================= -->
+      <div class="tab-pane" id="tabPlans">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div>
+              <h2>Pricing Plans Management (<%= plans.length %>)</h2>
+              <div class="admin-card-desc">Plans add, edit aur delete karein. Ye changes website ke Pricing section aur Mobile App me turant update honge.</div>
+            </div>
+            <button class="btn-primary" onclick="openPlanModal()">➕ Add New Plan</button>
+          </div>
+
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Plan ID</th>
+                  <th>Name</th>
+                  <th>Offer Price</th>
+                  <th>Cut-off Price</th>
+                  <th>Duration</th>
+                  <th>Badge</th>
+                  <th>Status</th>
+                  <th>Description</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% plans.forEach(p => { %>
+                <tr>
+                  <td><code><%= p.id %></code></td>
+                  <td><strong><%= p.name %></strong></td>
+                  <td><span style="font-weight:750; color:var(--admin-primary);">₹<%= p.price %></span></td>
+                  <td><%= p.wasPrice ? '₹' + p.wasPrice : '-' %></td>
+                  <td><%= p.durationDays %> days (<%= p.durationText %>)</td>
+                  <td>
+                    <% if (p.badge) { %>
+                      <span class="badge-tag badge-warning"><%= p.badge %></span>
+                    <% } else { %>
+                      <span style="color:var(--admin-subtle);">-</span>
+                    <% } %>
+                  </td>
+                  <td>
+                    <span class="badge-tag <%= p.active !== false ? 'badge-success' : 'badge-danger' %>">
+                      <%= p.active !== false ? 'Active' : 'Hidden' %>
+                    </span>
+                  </td>
+                  <td style="max-width: 220px; font-size: 12.5px; color: var(--admin-muted);"><%= p.description || '-' %></td>
+                  <td>
+                    <div style="display: flex; gap: 6px;">
+                      <button class="btn-outline btn-sm" onclick='editPlan(<%- JSON.stringify(p) %>)'>Edit</button>
+                      <button class="btn-outline btn-sm" style="color:var(--admin-danger);" onclick="deletePlan('<%= p.id %>')">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 4. TAB: APK & APP DOWNLOAD ================= -->
+      <div class="tab-pane" id="tabApp">
+        <div class="admin-card">
+          <h2>Android APK &amp; Version Management</h2>
+          <div class="admin-card-desc">Jab bhi aap naya APK build karein, naya version number, file size aur link yahan set karein:</div>
+
+          <form id="appSettingsForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Current App Version</label>
+                <input type="text" name="appVersion" value="<%= settings.appVersion %>" placeholder="e.g. 5.28.1" required>
+              </div>
+
+              <div class="form-group">
+                <label>APK File Size</label>
+                <input type="text" name="apkFileSize" value="<%= settings.apkFileSize %>" placeholder="e.g. 11.1 MB" required>
+              </div>
+
+              <div class="form-group">
+                <label>Release Date</label>
+                <input type="date" name="releaseDate" value="<%= settings.releaseDate || '' %>">
+              </div>
+
+              <div class="form-group">
+                <label>Free Trial Rides on Install</label>
+                <input type="text" name="freeRidesTrial" value="<%= settings.freeRidesTrial %>">
+              </div>
+
+              <div class="form-group full-width">
+                <label>APK Download URL</label>
+                <input type="text" name="apkDownloadUrl" value="<%= settings.apkDownloadUrl %>" placeholder="e.g. /downloads/RiderSaathi-v5.28.1.apk" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label>SHA-256 APK File Fingerprint</label>
+                <input type="text" name="sha256File" value="<%= settings.sha256File %>" placeholder="64-character SHA-256 hash">
+              </div>
+
+              <div class="form-group full-width">
+                <label>SHA-256 Signing Certificate Hash</label>
+                <input type="text" name="sha256Cert" value="<%= settings.sha256Cert %>" placeholder="64-character Certificate hash">
+              </div>
+
+              <div class="form-group full-width">
+                <label>Release Notes / What's New</label>
+                <textarea name="releaseNotes" rows="3" placeholder="Describe improvements in this version..."><%= settings.releaseNotes || '' %></textarea>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">💾 Save APK Settings</button>
+              <a href="<%= settings.apkDownloadUrl %>" target="_blank" class="btn-outline" style="text-decoration:none;">Direct Download Test &rarr;</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ================= 5. TAB: GUIDES & TUTORIALS CRUD ================= -->
+      <div class="tab-pane" id="tabGuides">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div>
+              <h2>Driver Guides &amp; Tutorials (<%= guides.length %>)</h2>
+              <div class="admin-card-desc">Installation guide, rules tutorial aur permissions ki jaankari yahan se add, edit ya delete karein.</div>
+            </div>
+            <button class="btn-primary" onclick="openGuideModal()">➕ Add New Guide</button>
+          </div>
+
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Slug</th>
+                  <th>Category</th>
+                  <th>Summary</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% guides.forEach(g => { %>
+                <tr>
+                  <td><strong><%= g.title %></strong></td>
+                  <td><code><%= g.slug %></code></td>
+                  <td><span class="badge-tag badge-info"><%= g.category || 'General' %></span></td>
+                  <td style="max-width: 280px; font-size: 12.5px; color: var(--admin-muted);"><%= g.summary %></td>
+                  <td>
+                    <div style="display: flex; gap: 6px;">
+                      <button class="btn-outline btn-sm" onclick='editGuide(<%- JSON.stringify(g) %>)'>Edit</button>
+                      <a href="/guides/<%= g.slug %>" target="_blank" class="btn-outline btn-sm" style="text-decoration:none;">View</a>
+                      <button class="btn-outline btn-sm" style="color:var(--admin-danger);" onclick="deleteGuide('<%= g.slug %>')">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 6. TAB: FAQS CRUD ================= -->
+      <div class="tab-pane" id="tabFaq">
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div>
+              <h2>Frequently Asked Questions (<%= faqs.length %>)</h2>
+              <div class="admin-card-desc">Sawal aur Jawab manage karein jo drivers website ke FAQ section me dekhte hain:</div>
+            </div>
+            <button class="btn-primary" onclick="openFaqModal()">➕ Add FAQ</button>
+          </div>
+
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th style="width: 35%;">Question (Sawal)</th>
+                  <th>Answer (Jawab)</th>
+                  <th style="width: 120px;">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% faqs.forEach(f => { %>
+                <tr>
+                  <td style="font-weight: 650;"><%= f.q %></td>
+                  <td style="color: var(--admin-muted); font-size: 13px;"><%= f.a %></td>
+                  <td>
+                    <div style="display: flex; gap: 6px;">
+                      <button class="btn-outline btn-sm" onclick='editFaq(<%- JSON.stringify(f) %>)'>Edit</button>
+                      <button class="btn-outline btn-sm" style="color:var(--admin-danger);" onclick="deleteFaq('<%= f.id %>')">Delete</button>
+                    </div>
+                  </td>
+                </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 7. TAB: DRIVERS MANAGEMENT ================= -->
       <div class="tab-pane" id="tabDrivers">
         <div class="admin-card">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+          <div class="admin-card-header">
             <div>
-              <h2 style="margin: 0;">Registered Drivers (<%= drivers.length %>)</h2>
-              <p style="color: var(--admin-muted); font-size: 13.5px; margin: 4px 0 0;">
-                Drivers who registered in the RiderSaathi mobile app with their mobile number or device ID.
-              </p>
+              <h2>All Registered Drivers (<%= drivers.length %>)</h2>
+              <div class="admin-card-desc">Mobile app users ka live access, subscription status, trial balance aur ban switch control karein:</div>
             </div>
-            <div>
-              <a href="/api/docs" target="_blank" class="btn-outline" style="text-decoration:none;">📖 View App APIs</a>
+            <div class="filter-search-bar" style="margin-bottom: 0;">
+              <input type="text" id="driverSearchInput" class="search-box-input" placeholder="Search by phone, name or model...">
             </div>
           </div>
 
           <% if (drivers.length === 0) { %>
-            <p style="color: var(--admin-muted);">No drivers registered yet. As soon as a driver opens the mobile app, they will automatically appear here!</p>
+            <p style="color: var(--admin-muted);">No drivers registered yet. Jaise hi koi driver app kholega, uska account yahan aa jayega.</p>
           <% } else { %>
             <div class="admin-table-wrap">
-              <table class="admin-table">
+              <table class="admin-table" id="driversTable">
                 <thead>
                   <tr>
-                    <th>Driver</th>
-                    <th>Device &amp; Version</th>
-                    <th>Trial Rides</th>
+                    <th>Driver / Phone</th>
+                    <th>Device &amp; App</th>
+                    <th>Trial Left</th>
                     <th>Subscription</th>
                     <th>Total Rides</th>
                     <th>Status</th>
-                    <th>Quick Actions</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -232,22 +685,22 @@
                       }
                     }
                   %>
-                  <tr>
+                  <tr class="driver-row" data-search="<%= (drv.name || '') + ' ' + drv.phone + ' ' + (drv.deviceModel || '') %>">
                     <td>
                       <strong><%= drv.name || 'Captain' %></strong><br>
-                      <a href="https://wa.me/91<%= drv.phone %>" target="_blank" style="color: var(--admin-primary); text-decoration: none; font-size: 13px;">
-                        📱 <%= drv.phone %>
+                      <a href="https://wa.me/91<%= drv.phone %>" target="_blank" style="color:var(--admin-primary); text-decoration:none; font-size:12.5px;">
+                        📱 +91 <%= drv.phone %>
                       </a>
                     </td>
                     <td>
-                      <span style="font-size: 13px; font-weight: 500;"><%= drv.deviceModel || 'Android' %></span><br>
-                      <span style="font-size: 11.5px; color: var(--admin-muted);">v<%= drv.appVersion || '5.28.1' %></span>
+                      <span style="font-weight:600;"><%= drv.deviceModel || 'Android' %></span><br>
+                      <span style="font-size:11.5px; color:var(--admin-muted);">v<%= drv.appVersion || '5.28.1' %></span>
                     </td>
                     <td>
-                      <span style="font-weight: 700; color: <%= trialLeft > 0 ? '#16a34a' : '#dc2626' %>;">
+                      <span style="font-weight:750; color:<%= trialLeft > 0 ? '#10b981' : '#ef4444' %>">
                         <%= trialLeft %> / <%= trialTotal %>
                       </span>
-                      <div style="font-size: 11px; color: var(--admin-muted);">rides left</div>
+                      <div style="font-size:11px; color:var(--admin-muted);">free rides</div>
                     </td>
                     <td>
                       <span class="badge-tag <%= subBadge %>">
@@ -264,11 +717,11 @@
                     </td>
                     <td>
                       <div style="display: flex; gap: 4px; flex-wrap: wrap;">
-                        <button class="btn-primary" style="padding: 3px 8px; font-size: 11.5px;" onclick="grantSubscription('<%= drv.id %>', 1, '1 Day Pass')" title="Grant 1 Day Pass">+1 Day</button>
-                        <button class="btn-primary" style="padding: 3px 8px; font-size: 11.5px;" onclick="grantSubscription('<%= drv.id %>', 7, '1 Week Pass')" title="Grant 7 Days Pass">+7 Days</button>
-                        <button class="btn-primary" style="padding: 3px 8px; font-size: 11.5px;" onclick="grantSubscription('<%= drv.id %>', 30, '1 Month Pass')" title="Grant 30 Days Pass">+30 Days</button>
-                        <button class="btn-outline" style="padding: 3px 8px; font-size: 11.5px;" onclick="grantTrialRides('<%= drv.id %>', 10)" title="Add 10 Free Rides">+10 Rides</button>
-                        <button class="btn-outline" style="padding: 3px 8px; font-size: 11.5px; color: <%= drv.status === 'banned' ? 'green' : 'red' %>;" onclick="toggleDriverStatus('<%= drv.id %>')">
+                        <button class="btn-primary btn-sm" onclick="grantSubscription('<%= drv.id %>', 1, '1 Day Pass')" title="Grant 1 Day">+1D</button>
+                        <button class="btn-primary btn-sm" onclick="grantSubscription('<%= drv.id %>', 7, '7 Days Pass')" title="Grant 7 Days">+7D</button>
+                        <button class="btn-primary btn-sm" onclick="grantSubscription('<%= drv.id %>', 30, '30 Days Pass')" title="Grant 30 Days">+30D</button>
+                        <button class="btn-outline btn-sm" onclick="grantTrialRides('<%= drv.id %>', 10)" title="Add 10 Free Rides">+10 Free</button>
+                        <button class="btn-outline btn-sm" style="color: <%= drv.status === 'banned' ? 'green' : 'red' %>;" onclick="toggleDriverStatus('<%= drv.id %>')">
                           <%= drv.status === 'banned' ? 'Unban' : 'Ban' %>
                         </button>
                       </div>
@@ -282,20 +735,29 @@
         </div>
       </div>
 
-      <!-- 3. TAB: Orders & Buy Leads -->
+      <!-- ================= 8. TAB: ORDERS & SUBSCRIPTIONS ================= -->
       <div class="tab-pane" id="tabOrders">
         <div class="admin-card">
-          <h2>All Subscription Orders (<%= orders.length %>)</h2>
+          <div class="admin-card-header">
+            <div>
+              <h2>All Subscription Orders &amp; UPI Leads (<%= orders.length %>)</h2>
+              <div class="admin-card-desc">Jab koi driver Buy form bharta hai aur UPI se pay karta hai, wo yahan show hota hai. 1-click me verify aur activate karein:</div>
+            </div>
+            <div class="filter-search-bar" style="margin-bottom: 0;">
+              <input type="text" id="orderSearchInput" class="search-box-input" placeholder="Search by phone, UTR or Plan...">
+            </div>
+          </div>
+
           <% if (orders.length === 0) { %>
-            <p style="color: var(--admin-muted);">No orders recorded yet. When drivers click Buy and enter their phone number, they appear here.</p>
+            <p style="color: var(--admin-muted);">No subscription orders placed yet.</p>
           <% } else { %>
             <div class="admin-table-wrap">
-              <table class="admin-table">
+              <table class="admin-table" id="ordersTable">
                 <thead>
                   <tr>
                     <th>Date</th>
                     <th>Order ID</th>
-                    <th>Mobile</th>
+                    <th>Driver Phone</th>
                     <th>Plan</th>
                     <th>Amount</th>
                     <th>UTR / Ref</th>
@@ -305,12 +767,12 @@
                 </thead>
                 <tbody>
                   <% orders.forEach(ord => { %>
-                  <tr>
+                  <tr class="order-row" data-search="<%= ord.phone + ' ' + (ord.utr || '') + ' ' + (ord.planName || '') + ' ' + ord.id %>">
                     <td><%= new Date(ord.createdAt).toLocaleString() %></td>
                     <td><code><%= ord.id %></code></td>
                     <td><strong><%= ord.phone %></strong></td>
                     <td><%= ord.planName %></td>
-                    <td>₹<%= ord.amount || ord.price %></td>
+                    <td><span style="font-weight:750; color:var(--admin-primary);">₹<%= ord.amount || ord.price %></span></td>
                     <td><code><%= ord.utr || ord.upiRef || 'Waiting' %></code></td>
                     <td>
                       <span class="badge-tag <%= ord.status === 'Activated' ? 'badge-success' : 'badge-warning' %>">
@@ -318,16 +780,18 @@
                       </span>
                     </td>
                     <td>
-                      <% if (ord.status !== 'Activated') { %>
-                        <button class="btn-primary" style="padding: 4px 8px; font-size: 12px;" onclick="approveAndActivateOrder('<%= ord.id %>')">
-                          ⚡ Approve &amp; Activate Driver
-                        </button>
-                      <% } else { %>
-                        <button class="btn-outline" style="padding: 4px 8px; font-size: 12px;" onclick="updateOrderStatus('<%= ord.id %>', 'Pending')">Revert</button>
-                      <% } %>
-                      <a href="https://wa.me/91<%= ord.phone %>?text=<%= encodeURIComponent('Namaste! Aapka RiderSaathi ' + ord.planName + ' plan activate ho gaya hai.') %>" target="_blank" class="btn-outline" style="padding: 4px 8px; font-size: 12px; text-decoration: none; display: inline-block;">
-                        Chat WhatsApp
-                      </a>
+                      <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                        <% if (ord.status !== 'Activated') { %>
+                          <button class="btn-primary btn-sm" onclick="approveAndActivateOrder('<%= ord.id %>')">
+                            ⚡ Approve &amp; Activate
+                          </button>
+                        <% } else { %>
+                          <button class="btn-outline btn-sm" onclick="updateOrderStatus('<%= ord.id %>', 'Pending')">Revert</button>
+                        <% } %>
+                        <a href="https://wa.me/91<%= ord.phone %>?text=<%= encodeURIComponent('Namaste! Aapka RiderSaathi ' + ord.planName + ' plan verify aur activate ho gaya hai.') %>" target="_blank" class="btn-outline btn-sm" style="text-decoration:none;">
+                          WhatsApp
+                        </a>
+                      </div>
                     </td>
                   </tr>
                   <% }) %>
@@ -338,263 +802,14 @@
         </div>
       </div>
 
-      <!-- 4. TAB: Owner & Site Settings -->
-      <div class="tab-pane" id="tabSettings">
-        <div class="admin-card">
-          <h2>Owner &amp; Business Information</h2>
-          <p style="font-size: 13.5px; color: var(--admin-muted);">Ye details website ke About, Contact, footer aur policy pages par dikhengi.</p>
-          
-          <form id="generalSettingsForm">
-            <div class="form-grid">
-              <div class="form-group">
-                <label>Website Name</label>
-                <input type="text" name="siteName" value="<%= settings.siteName %>" required>
-              </div>
-
-              <div class="form-group">
-                <label>Owner / Founder Name</label>
-                <input type="text" name="ownerName" value="<%= settings.ownerName %>" placeholder="e.g. Shams Raza" required>
-              </div>
-
-              <div class="form-group">
-                <label>Legal Business Name</label>
-                <input type="text" name="legalBusinessName" value="<%= settings.legalBusinessName %>" placeholder="e.g. RiderSaathi Technologies" required>
-              </div>
-
-              <div class="form-group">
-                <label>Registration / Licence Info</label>
-                <input type="text" name="registrationDetails" value="<%= settings.registrationDetails %>" placeholder="e.g. Registered under Udyam (MSME), Shop & Establishment Licence">
-              </div>
-
-              <div class="form-group">
-                <label>Contact Email</label>
-                <input type="email" name="contactEmail" value="<%= settings.contactEmail %>" required>
-              </div>
-
-              <div class="form-group">
-                <label>WhatsApp Support Number (with country code, no +)</label>
-                <input type="text" name="whatsappNumber" value="<%= settings.whatsappNumber %>" placeholder="e.g. 918349049467" required>
-              </div>
-
-              <div class="form-group">
-                <label>WhatsApp Preset Text</label>
-                <input type="text" name="whatsappText" value="<%= settings.whatsappText %>">
-              </div>
-
-              <div class="form-group">
-                <label>Telegram Channel / Handle</label>
-                <input type="text" name="telegramHandle" value="<%= settings.telegramHandle %>" placeholder="e.g. RiderSaathi_app">
-              </div>
-
-              <div class="form-group">
-                <label>Telegram Link URL</label>
-                <input type="url" name="telegramUrl" value="<%= settings.telegramUrl %>">
-              </div>
-
-              <div class="form-group">
-                <label>Support Hours</label>
-                <input type="text" name="supportHours" value="<%= settings.supportHours %>">
-              </div>
-
-              <div class="form-group full-width">
-                <label>Office / Business Address</label>
-                <textarea name="officeAddress" rows="2"><%= settings.officeAddress %></textarea>
-              </div>
-
-              <div class="form-group full-width">
-                <label>Grievance Officer Name</label>
-                <input type="text" name="grievanceOfficer" value="<%= settings.grievanceOfficer %>">
-              </div>
-
-              <div class="form-group full-width">
-                <label>Top Announcement Bar Message</label>
-                <input type="text" name="bannerAlert" value="<%= settings.bannerAlert %>">
-              </div>
-
-              <div class="form-group full-width">
-                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                  <input type="checkbox" name="showBanner" <%= settings.showBanner ? 'checked' : '' %> style="width: auto;">
-                  Show Top Announcement Bar on Website
-                </label>
-              </div>
-            </div>
-
-            <div class="form-actions">
-              <button type="submit" class="btn-primary">Save All Settings</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <!-- 5. TAB: UPI & Payments -->
-      <div class="tab-pane" id="tabPayment">
-        <div class="admin-card">
-          <h2>UPI Payment Gateway Settings</h2>
-          <p style="font-size: 13.5px; color: var(--admin-muted);">Direct UPI ID set karein jahan driver subscriptions ke paise jayenge.</p>
-          
-          <form id="paymentSettingsForm">
-            <div class="form-grid">
-              <div class="form-group">
-                <label>Your UPI ID (VPA)</label>
-                <input type="text" name="upiId" value="<%= settings.upiId %>" placeholder="e.g. 9876543210@paytm" required>
-              </div>
-
-              <div class="form-group">
-                <label>UPI Payee / Business Display Name</label>
-                <input type="text" name="upiPayeeName" value="<%= settings.upiPayeeName %>" placeholder="e.g. RiderSaathi" required>
-              </div>
-
-              <div class="form-group full-width">
-                <label>Custom QR Code Image URL (optional)</label>
-                <input type="text" name="upiQrImage" value="<%= settings.upiQrImage || '' %>" placeholder="https://... ya blank chhodein (auto-generated QR use hoga)">
-              </div>
-            </div>
-
-            <div class="form-actions">
-              <button type="submit" class="btn-primary">Save Payment Settings</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <!-- 6. TAB: Pricing Plans -->
-      <div class="tab-pane" id="tabPlans">
-        <div class="admin-card">
-          <h2>Current Pricing Plans (<%= plans.length %>)</h2>
-          <div class="admin-table-wrap">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Plan ID</th>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Original Price</th>
-                  <th>Duration</th>
-                  <th>Badge</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% plans.forEach(p => { %>
-                <tr>
-                  <td><code><%= p.id %></code></td>
-                  <td><strong><%= p.name %></strong></td>
-                  <td>₹<%= p.price %></td>
-                  <td><%= p.wasPrice ? '₹' + p.wasPrice : '-' %></td>
-                  <td><%= p.durationDays %> days</td>
-                  <td><%= p.badge || '-' %></td>
-                  <td>
-                    <button class="btn-outline" style="color:var(--admin-danger); padding:4px 8px; font-size:12px;" onclick="deletePlan('<%= p.id %>')">Delete</button>
-                  </td>
-                </tr>
-                <% }) %>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="admin-card">
-          <h2>Add New Pricing Plan</h2>
-          <form id="addPlanForm">
-            <div class="form-grid">
-              <div class="form-group">
-                <label>Plan ID (e.g. day3, month3)</label>
-                <input type="text" name="id" placeholder="e.g. days3" required>
-              </div>
-
-              <div class="form-group">
-                <label>Plan Display Name</label>
-                <input type="text" name="name" placeholder="e.g. 3 Days Pass" required>
-              </div>
-
-              <div class="form-group">
-                <label>Offer Price (₹)</label>
-                <input type="number" name="price" placeholder="e.g. 35" required>
-              </div>
-
-              <div class="form-group">
-                <label>Original Cut-off Price (₹)</label>
-                <input type="number" name="wasPrice" placeholder="e.g. 45">
-              </div>
-
-              <div class="form-group">
-                <label>Duration in Days</label>
-                <input type="number" name="durationDays" placeholder="e.g. 3" required>
-              </div>
-
-              <div class="form-group">
-                <label>Duration Display Text</label>
-                <input type="text" name="durationText" placeholder="e.g. 3 days" required>
-              </div>
-
-              <div class="form-group">
-                <label>Badge (e.g. Best Value, Special)</label>
-                <input type="text" name="badge" placeholder="optional">
-              </div>
-
-              <div class="form-group full-width">
-                <label>Description</label>
-                <input type="text" name="description" placeholder="Short description of this plan">
-              </div>
-            </div>
-
-            <div class="form-actions">
-              <button type="submit" class="btn-primary">Add Plan</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <!-- 7. TAB: App & APK Settings -->
-      <div class="tab-pane" id="tabApp">
-        <div class="admin-card">
-          <h2>Android APK &amp; Version Management</h2>
-          <form id="appSettingsForm">
-            <div class="form-grid">
-              <div class="form-group">
-                <label>Current App Version</label>
-                <input type="text" name="appVersion" value="<%= settings.appVersion %>" required>
-              </div>
-
-              <div class="form-group">
-                <label>APK File Size</label>
-                <input type="text" name="apkFileSize" value="<%= settings.apkFileSize %>">
-              </div>
-
-              <div class="form-group">
-                <label>Free Trial Rides on Install</label>
-                <input type="text" name="freeRidesTrial" value="<%= settings.freeRidesTrial %>">
-              </div>
-
-              <div class="form-group full-width">
-                <label>APK Download URL</label>
-                <input type="text" name="apkDownloadUrl" value="<%= settings.apkDownloadUrl %>" required>
-              </div>
-
-              <div class="form-group full-width">
-                <label>SHA-256 APK Hash</label>
-                <input type="text" name="sha256File" value="<%= settings.sha256File %>">
-              </div>
-
-              <div class="form-group full-width">
-                <label>SHA-256 Certificate Hash</label>
-                <input type="text" name="sha256Cert" value="<%= settings.sha256Cert %>">
-              </div>
-            </div>
-
-            <div class="form-actions">
-              <button type="submit" class="btn-primary">Save App Settings</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <!-- 8. TAB: Contact Messages -->
+      <!-- ================= 9. TAB: CONTACT MESSAGES ================= -->
       <div class="tab-pane" id="tabInquiries">
         <div class="admin-card">
-          <h2>Driver Inquiries &amp; Contact Leads (<%= inquiries.length %>)</h2>
+          <h2>Driver Contact Messages (<%= inquiries.length %>)</h2>
+          <div class="admin-card-desc">Website ke Contact page se driver bhaiyon dwara bheje gaye messages:</div>
+
           <% if (inquiries.length === 0) { %>
-            <p style="color: var(--admin-muted);">No inquiries yet. Driver queries from the Contact page will appear here.</p>
+            <p style="color: var(--admin-muted);">No messages received yet.</p>
           <% } else { %>
             <div class="admin-table-wrap">
               <table class="admin-table">
@@ -606,7 +821,7 @@
                     <th>Subject</th>
                     <th>Message</th>
                     <th>Status</th>
-                    <th>Action</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -614,7 +829,7 @@
                   <tr>
                     <td><%= new Date(inq.createdAt).toLocaleString() %></td>
                     <td><strong><%= inq.name %></strong></td>
-                    <td><%= inq.phone %></td>
+                    <td><code><%= inq.phone %></code></td>
                     <td><%= inq.subject %></td>
                     <td style="max-width: 280px; word-break: break-word;"><%= inq.message %></td>
                     <td>
@@ -623,12 +838,12 @@
                       </span>
                     </td>
                     <td>
-                      <% if (inq.status !== 'Resolved') { %>
-                        <button class="btn-primary" style="padding: 4px 8px; font-size: 12px;" onclick="updateInquiryStatus('<%= inq.id %>', 'Resolved')">Mark Resolved</button>
-                      <% } %>
-                      <a href="https://wa.me/91<%= inq.phone %>" target="_blank" class="btn-outline" style="padding: 4px 8px; font-size: 12px; text-decoration: none; display: inline-block;">
-                        Reply WhatsApp
-                      </a>
+                      <div style="display: flex; gap: 5px;">
+                        <% if (inq.status !== 'Resolved') { %>
+                          <button class="btn-primary btn-sm" onclick="updateInquiryStatus('<%= inq.id %>', 'Resolved')">Mark Resolved</button>
+                        <% } %>
+                        <a href="https://wa.me/91<%= inq.phone %>" target="_blank" class="btn-outline btn-sm" style="text-decoration:none;">Reply</a>
+                      </div>
                     </td>
                   </tr>
                   <% }) %>
@@ -639,113 +854,361 @@
         </div>
       </div>
 
-      <!-- 9. TAB: FAQs -->
-      <div class="tab-pane" id="tabFaq">
+      <!-- ================= 10. TAB: CONTACT & SUPPORT SETTINGS ================= -->
+      <div class="tab-pane" id="tabContact">
         <div class="admin-card">
-          <h2>Current FAQs (<%= faqs.length %>)</h2>
-          <div class="admin-table-wrap">
-            <table class="admin-table">
-              <thead>
-                <tr>
-                  <th>Question</th>
-                  <th>Answer</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% faqs.forEach(f => { %>
-                <tr>
-                  <td style="font-weight: 600; width: 35%;"><%= f.q %></td>
-                  <td style="color: var(--admin-muted);"><%= f.a %></td>
-                  <td>
-                    <button class="btn-outline" style="color:var(--admin-danger); padding:4px 8px; font-size:12px;" onclick="deleteFaq('<%= f.id %>')">Delete</button>
-                  </td>
-                </tr>
-                <% }) %>
-              </tbody>
-            </table>
-          </div>
-        </div>
+          <h2>Contact &amp; Support Channels</h2>
+          <div class="admin-card-desc">Driver help aur support links configure karein. Ye poori website par dynamic reflect hote hain:</div>
 
-        <div class="admin-card">
-          <h2>Add New FAQ</h2>
-          <form id="addFaqForm">
-            <div class="form-group" style="margin-bottom: 14px;">
-              <label>Question (Sawal)</label>
-              <input type="text" id="faqQ" placeholder="e.g. Kya ye app background me chalta hai?" required>
+          <form id="contactSettingsForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Official Support Email</label>
+                <input type="email" name="contactEmail" value="<%= settings.contactEmail %>" required>
+              </div>
+
+              <div class="form-group">
+                <label>WhatsApp Number (Country code with no +, e.g. 918641011669)</label>
+                <input type="text" name="whatsappNumber" value="<%= settings.whatsappNumber %>" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label>WhatsApp Default Greeting Message</label>
+                <input type="text" name="whatsappText" value="<%= settings.whatsappText %>">
+              </div>
+
+              <div class="form-group">
+                <label>Telegram Channel / Handle</label>
+                <input type="text" name="telegramHandle" value="<%= settings.telegramHandle %>">
+              </div>
+
+              <div class="form-group">
+                <label>Telegram Invite URL</label>
+                <input type="url" name="telegramUrl" value="<%= settings.telegramUrl %>">
+              </div>
+
+              <div class="form-group">
+                <label>Support Operating Hours</label>
+                <input type="text" name="supportHours" value="<%= settings.supportHours %>">
+              </div>
+
+              <div class="form-group">
+                <label>Grievance Officer Name</label>
+                <input type="text" name="grievanceOfficer" value="<%= settings.grievanceOfficer %>">
+              </div>
+
+              <div class="form-group full-width">
+                <label>Office / Business Address</label>
+                <textarea name="officeAddress" rows="2"><%= settings.officeAddress %></textarea>
+              </div>
             </div>
-            <div class="form-group" style="margin-bottom: 14px;">
-              <label>Answer (Jawab)</label>
-              <textarea id="faqA" rows="3" placeholder="Jawab likhein..." required></textarea>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">💾 Save Contact Settings</button>
             </div>
-            <button type="submit" class="btn-primary">Add FAQ</button>
           </form>
         </div>
       </div>
 
-      <!-- 10. TAB: Security & Backup -->
-      <div class="tab-pane" id="tabSecurity">
+      <!-- ================= 11. TAB: FOOTER & LEGAL CMS ================= -->
+      <div class="tab-pane" id="tabFooter">
         <div class="admin-card">
-          <h2>Change Admin Password</h2>
-          <form id="passwordForm">
-            <div class="form-grid" style="max-width: 450px;">
+          <h2>Footer, Ownership &amp; Legal Policies</h2>
+          <div class="admin-card-desc">Legal details, copyright notice aur disclaimers manage karein:</div>
+
+          <form id="footerSettingsForm">
+            <div class="form-grid">
               <div class="form-group">
-                <label>New Password</label>
-                <input type="password" id="newPassword" placeholder="Minimum 6 characters" required>
+                <label>Founder / Owner Name</label>
+                <input type="text" name="ownerName" value="<%= settings.ownerName %>" required>
               </div>
+
               <div class="form-group">
-                <label>Confirm New Password</label>
-                <input type="password" id="confirmPassword" placeholder="Repeat new password" required>
+                <label>Legal Business Name</label>
+                <input type="text" name="legalBusinessName" value="<%= settings.legalBusinessName %>" required>
+              </div>
+
+              <div class="form-group">
+                <label>Business Entity Type</label>
+                <input type="text" name="businessType" value="<%= settings.businessType || 'Sole Proprietorship' %>">
+              </div>
+
+              <div class="form-group">
+                <label>Registration &amp; Licensing Info</label>
+                <input type="text" name="registrationDetails" value="<%= settings.registrationDetails %>">
+              </div>
+
+              <div class="form-group full-width">
+                <label>Footer Legal Disclaimer</label>
+                <textarea name="footerDisclaimer" rows="3"><%= settings.footerDisclaimer || '' %></textarea>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Copyright Notice</label>
+                <input type="text" name="copyrightText" value="<%= settings.copyrightText || '' %>">
               </div>
             </div>
+
             <div class="form-actions">
-              <button type="submit" class="btn-primary">Update Admin Password</button>
+              <button type="submit" class="btn-primary">💾 Save Footer &amp; Legal Settings</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ================= 12. TAB: SEO & META TAGS ================= -->
+      <div class="tab-pane" id="tabSeo">
+        <div class="admin-card">
+          <h2>SEO &amp; Search Engine Optimization</h2>
+          <div class="admin-card-desc">Google search ranking aur social share cards ke liye meta titles aur descriptions configure karein:</div>
+
+          <form id="seoSettingsForm">
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label>Website SEO Title</label>
+                <input type="text" name="seoTitle" value="<%= settings.seoTitle || '' %>" placeholder="RiderSaathi — Smart Ride Filter App for Rapido, Uber & Porter Drivers">
+                <div class="field-hint">Google search results me sabse upar dikhne wala clickable title.</div>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Meta Description</label>
+                <textarea name="seoDescription" rows="3"><%= settings.seoDescription || '' %></textarea>
+                <div class="field-hint">150-160 characters ka concise summary search engines aur social shares ke liye.</div>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Meta Keywords (Comma separated)</label>
+                <input type="text" name="seoKeywords" value="<%= settings.seoKeywords || '' %>">
+              </div>
+
+              <div class="form-group">
+                <label>Official Site URL</label>
+                <input type="url" name="siteUrl" value="<%= settings.siteUrl %>">
+              </div>
+
+              <div class="form-group">
+                <label>Tagline</label>
+                <input type="text" name="tagline" value="<%= settings.tagline %>">
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">💾 Save SEO Settings</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ================= 13. TAB: UPI & PAYMENTS ================= -->
+      <div class="tab-pane" id="tabPayment">
+        <div class="admin-card">
+          <h2>UPI Payment Gateway Configuration</h2>
+          <div class="admin-card-desc">Driver subscriptions ke liye apna UPI ID aur Payee name configure karein:</div>
+
+          <form id="paymentSettingsForm">
+            <div class="form-grid">
+              <div class="form-group">
+                <label>UPI ID (VPA)</label>
+                <input type="text" name="upiId" value="<%= settings.upiId %>" placeholder="e.g. yourname@upi" required>
+              </div>
+
+              <div class="form-group">
+                <label>UPI Payee Display Name</label>
+                <input type="text" name="upiPayeeName" value="<%= settings.upiPayeeName %>" placeholder="e.g. RiderSaathi" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Custom QR Code Image URL (optional)</label>
+                <input type="text" name="upiQrImage" value="<%= settings.upiQrImage || '' %>" placeholder="Leave empty for dynamic auto-generated QR code">
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">💾 Save Payment Settings</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ================= 14. TAB: SECURITY & CREDENTIALS ================= -->
+      <div class="tab-pane" id="tabSecurity">
+        <div class="admin-card">
+          <h2>Admin Login Credentials &amp; Password</h2>
+          <div class="admin-card-desc">Admin email aur password securely update karein. Password bcrypt hashing ke saath save hoga:</div>
+
+          <form id="credentialsForm">
+            <div class="form-grid" style="max-width: 500px;">
+              <div class="form-group full-width">
+                <label>Current Admin Email</label>
+                <input type="email" name="newEmail" value="<%= typeof adminEmail !== 'undefined' ? adminEmail : 'admin@ridersaathi.in' %>" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Current Password (Required to make changes)</label>
+                <input type="password" id="currentPassword" name="currentPassword" placeholder="Enter current admin password" required>
+              </div>
+
+              <div class="form-group">
+                <label>New Password (Optional, leave blank to keep unchanged)</label>
+                <input type="password" id="newPassword" name="newPassword" placeholder="Minimum 6 characters">
+              </div>
+
+              <div class="form-group">
+                <label>Confirm New Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Repeat new password">
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">🔒 Update Credentials</button>
             </div>
           </form>
         </div>
 
         <div class="admin-card">
-          <h2>Backup &amp; Restore</h2>
-          <p style="color: var(--admin-muted); font-size: 14px;">
-            Aap apni website ki saari settings, pricing plans, FAQs, drivers aur orders ka complete backup JSON file me download kar sakte hain.
-          </p>
+          <h2>Complete System Data Backup</h2>
+          <div class="admin-card-desc">
+            Aap apni website ki poori settings, pricing plans, driver accounts, orders, FAQs aur guides ka 1-click JSON backup download kar sakte hain:
+          </div>
           <div class="form-actions">
-            <a href="/api/admin/backup/export" class="btn-primary" style="text-decoration:none; display:inline-block;">Download Complete Backup</a>
+            <a href="/api/admin/backup/export" class="btn-primary" style="text-decoration:none;">
+              📥 Download Full JSON Backup
+            </a>
           </div>
         </div>
       </div>
     </main>
   </div>
 
-  <script>
-    // Hook up sub-forms into general settings update
-    ['appSettingsForm', 'paymentSettingsForm'].forEach(formId => {
-      const f = document.getElementById(formId);
-      if (f) {
-        f.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const formData = new FormData(f);
-          const data = Object.fromEntries(formData.entries());
-          try {
-            const res = await fetch('/api/admin/settings', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(data)
-            });
-            const result = await res.json();
-            if (result.success) {
-              const toast = document.getElementById('adminToast');
-              toast.textContent = "Saved successfully!";
-              toast.className = "toast-msg success";
-              toast.style.display = "block";
-              setTimeout(() => { toast.style.display = 'none'; }, 2500);
-            }
-          } catch(err) {
-            alert("Error saving");
-          }
-        });
-      }
-    });
-  </script>
+  <!-- ================= MODALS ================= -->
+
+  <!-- 1. Plan Add / Edit Modal -->
+  <div class="modal-overlay" id="planModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="planModalTitle">Add Pricing Plan</h3>
+        <button type="button" class="modal-close-btn" onclick="closeModal('planModal')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="planForm">
+          <input type="hidden" id="planId" name="id">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Plan Name</label>
+              <input type="text" id="planName" name="name" placeholder="e.g. 1 Week Pass" required>
+            </div>
+            <div class="form-group">
+              <label>Offer Price (₹)</label>
+              <input type="number" id="planPrice" name="price" placeholder="e.g. 68" required>
+            </div>
+            <div class="form-group">
+              <label>Original Price (₹ cut-off)</label>
+              <input type="number" id="planWasPrice" name="wasPrice" placeholder="e.g. 84">
+            </div>
+            <div class="form-group">
+              <label>Duration in Days</label>
+              <input type="number" id="planDurationDays" name="durationDays" placeholder="e.g. 7" required>
+            </div>
+            <div class="form-group">
+              <label>Duration Text</label>
+              <input type="text" id="planDurationText" name="durationText" placeholder="e.g. 7 days" required>
+            </div>
+            <div class="form-group">
+              <label>Ribbon Badge (Optional)</label>
+              <input type="text" id="planBadge" name="badge" placeholder="e.g. Popular">
+            </div>
+            <div class="form-group full-width">
+              <label>Description</label>
+              <input type="text" id="planDescription" name="description" placeholder="e.g. Best for full weekly shifts & high savings">
+            </div>
+            <div class="form-group full-width">
+              <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <input type="checkbox" id="planActive" name="active" checked style="width:auto;">
+                Plan Active &amp; Visible on Website
+              </label>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Save Plan</button>
+            <button type="button" class="btn-outline" onclick="closeModal('planModal')">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Guide Add / Edit Modal -->
+  <div class="modal-overlay" id="guideModal">
+    <div class="modal-dialog" style="max-width: 680px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="guideModalTitle">Add Driver Guide</h3>
+        <button type="button" class="modal-close-btn" onclick="closeModal('guideModal')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="guideForm">
+          <input type="hidden" id="guideOriginalSlug" name="originalSlug">
+          <div class="form-grid">
+            <div class="form-group full-width">
+              <label>Guide Title</label>
+              <input type="text" id="guideTitle" name="title" placeholder="e.g. Trip distance aur pickup distance rules" required>
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <input type="text" id="guideCategory" name="category" placeholder="e.g. Rules — ek-ek karke">
+            </div>
+            <div class="form-group">
+              <label>URL Slug (Optional, auto-generated from title)</label>
+              <input type="text" id="guideSlug" name="slug" placeholder="e.g. trip-aur-pickup-distance">
+            </div>
+            <div class="form-group full-width">
+              <label>Short Summary</label>
+              <textarea id="guideSummary" name="summary" rows="2" placeholder="Brief summary of what this guide teaches..."></textarea>
+            </div>
+            <div class="form-group full-width">
+              <label>Content (HTML tags allowed: &lt;h3&gt;, &lt;p&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;strong&gt;)</label>
+              <textarea id="guideContent" name="content" rows="8" placeholder="Guide tutorial content..." required></textarea>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Save Guide</button>
+            <button type="button" class="btn-outline" onclick="closeModal('guideModal')">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. FAQ Add / Edit Modal -->
+  <div class="modal-overlay" id="faqModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title" id="faqModalTitle">Add FAQ</h3>
+        <button type="button" class="modal-close-btn" onclick="closeModal('faqModal')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="faqForm">
+          <input type="hidden" id="faqId" name="id">
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label>Question (Sawal)</label>
+            <input type="text" id="faqQ" name="q" placeholder="e.g. Play Protect warning aaye to kya karein?" required>
+          </div>
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label>Answer (Jawab)</label>
+            <textarea id="faqA" name="a" rows="4" placeholder="Jawab likhein..." required></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn-primary">Save FAQ</button>
+            <button type="button" class="btn-outline" onclick="closeModal('faqModal')">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

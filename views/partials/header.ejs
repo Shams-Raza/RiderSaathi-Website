@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><%= typeof title !== 'undefined' ? title : settings.siteName + ' — Smart Ride Filter App for Rapido, Uber & Porter Drivers' %></title>
-  <meta name="description" content="<%= typeof description !== 'undefined' ? description : 'Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.' %>">
-  <meta name="keywords" content="ride filter app for drivers, rapido ride filter app, uber driver ride filter, porter delivery filter, rider saathi, driver ride assistant, ride filter karne wala app, driver productivity app">
+  <title><%= typeof title !== 'undefined' ? title : (settings.seoTitle || (settings.siteName + ' — Smart Ride Filter App for Rapido, Uber & Porter Drivers')) %></title>
+  <meta name="description" content="<%= typeof description !== 'undefined' ? description : (settings.seoDescription || 'Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.') %>">
+  <meta name="keywords" content="<%= settings.seoKeywords || 'ride filter app for drivers, rapido ride filter app, uber driver ride filter, porter delivery filter, rider saathi, driver ride assistant, ride filter karne wala app, driver productivity app' %>">
   <link rel="icon" href="/images/icon.svg" type="image/svg+xml">
   <meta name="theme-color" content="#1e40af">
   <meta name="view-transition" content="same-origin">

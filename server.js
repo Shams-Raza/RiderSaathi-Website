@@ -1,6 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
 
 const app = express();
@@ -9,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 // Data file paths
 const DATA_DIR = path.join(__dirname, 'data');
 const SETTINGS_FILE = path.join(DATA_DIR, 'settings.json');
+const ADMIN_FILE = path.join(DATA_DIR, 'admin.json');
 const PLANS_FILE = path.join(DATA_DIR, 'plans.json');
 const FAQS_FILE = path.join(DATA_DIR, 'faqs.json');
 const GUIDES_FILE = path.join(DATA_DIR, 'guides.json');
@@ -773,34 +777,161 @@ app.post('/api/app/order/submit-utr', (req, res) => {
 
 // ----------------- Admin Auth & Dashboard ----------------- //
 
+const SESSION_SECRET = process.env.SESSION_SECRET || 'ridersaathi_secure_session_secret_2026_super_key_9821';
+const ADMIN_EMAIL_ENV = process.env.ADMIN_EMAIL || 'admin@ridersaathi.in';
+const ADMIN_PASSWORD_ENV = process.env.ADMIN_PASSWORD || 'admin123';
+
+// Initialize admin credentials if not set
+function initAdminCredentials() {
+  let admin = readJSON(ADMIN_FILE, null);
+  if (!admin || !admin.passwordHash) {
+    const hash = bcrypt.hashSync(ADMIN_PASSWORD_ENV, 10);
+    admin = {
+      email: ADMIN_EMAIL_ENV,
+      passwordHash: hash,
+      updatedAt: new Date().toISOString()
+    };
+    writeJSON(ADMIN_FILE, admin);
+  }
+  return admin;
+}
+initAdminCredentials();
+
+// HMAC Signed Session Token
+function signSession(email) {
+  const payload = {
+    email: email.trim().toLowerCase(),
+    iat: Date.now(),
+    exp: Date.now() + 24 * 60 * 60 * 1000 // 24 hours validity
+  };
+  const payloadB64 = Buffer.from(JSON.stringify(payload)).toString('base64url');
+  const sig = crypto.createHmac('sha256', SESSION_SECRET).update(payloadB64).digest('base64url');
+  return `${payloadB64}.${sig}`;
+}
+
+function verifySession(token) {
+  if (!token || typeof token !== 'string') return null;
+  const parts = token.split('.');
+  if (parts.length !== 2) return null;
+  const [payloadB64, sig] = parts;
+  const expectedSig = crypto.createHmac('sha256', SESSION_SECRET).update(payloadB64).digest('base64url');
+  if (sig !== expectedSig) return null;
+  try {
+    const payload = JSON.parse(Buffer.from(payloadB64, 'base64url').toString('utf8'));
+    if (!payload.exp || Date.now() > payload.exp) return null;
+    return payload;
+  } catch (e) {
+    return null;
+  }
+}
+
+// In-Memory Rate Limiting for Admin Login (5 failed attempts per 15 min window)
+const loginAttempts = new Map();
+const MAX_LOGIN_ATTEMPTS = 5;
+const LOGIN_BLOCK_TIME_MS = 15 * 60 * 1000;
+
+function checkLoginRateLimit(ip) {
+  const now = Date.now();
+  const record = loginAttempts.get(ip);
+  if (!record) return { allowed: true };
+  if (record.blockedUntil && now < record.blockedUntil) {
+    const minutesLeft = Math.ceil((record.blockedUntil - now) / 60000);
+    return { allowed: false, message: `Too many failed login attempts. Locked for ${minutesLeft} minute(s).` };
+  }
+  if (record.blockedUntil && now >= record.blockedUntil) {
+    loginAttempts.delete(ip);
+    return { allowed: true };
+  }
+  return { allowed: true };
+}
+
+function recordLoginFailure(ip) {
+  const now = Date.now();
+  const record = loginAttempts.get(ip) || { count: 0 };
+  record.count += 1;
+  record.lastAttempt = now;
+  if (record.count >= MAX_LOGIN_ATTEMPTS) {
+    record.blockedUntil = now + LOGIN_BLOCK_TIME_MS;
+  }
+  loginAttempts.set(ip, record);
+}
+
+function resetLoginRateLimit(ip) {
+  loginAttempts.delete(ip);
+}
+
+// Admin Authorization Middleware
 function requireAdmin(req, res, next) {
-  if (req.cookies && req.cookies.adminAuth === 'authenticated') {
+  const sessionToken = req.cookies && req.cookies.admin_session;
+  const session = verifySession(sessionToken);
+  if (session) {
+    req.adminUser = session;
     return next();
+  }
+  if (req.path.startsWith('/api/admin')) {
+    return res.status(401).json({ success: false, message: 'Unauthorized. Admin session required.' });
   }
   res.redirect('/admin/login');
 }
 
+// Admin Login Page
 app.get('/admin/login', (req, res) => {
-  if (req.cookies && req.cookies.adminAuth === 'authenticated') {
+  const sessionToken = req.cookies && req.cookies.admin_session;
+  const session = verifySession(sessionToken);
+  if (session) {
     return res.redirect('/admin');
   }
-  res.render('admin-login', { error: null });
-});
-
-app.post('/admin/login', (req, res) => {
-  const { password } = req.body;
   const settings = readJSON(SETTINGS_FILE);
-  const correctPassword = settings.adminPassword || 'admin123';
-
-  if (password === correctPassword) {
-    res.cookie('adminAuth', 'authenticated', { maxAge: 86400000, httpOnly: true });
-    return res.redirect('/admin');
-  }
-  res.render('admin-login', { error: 'Incorrect password. (Default is admin123)' });
+  res.render('admin-login', { error: null, email: '', settings });
 });
 
+// Admin Login Handler
+app.post('/admin/login', (req, res) => {
+  const settings = readJSON(SETTINGS_FILE);
+  const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '127.0.0.1';
+  
+  const limit = checkLoginRateLimit(clientIp);
+  if (!limit.allowed) {
+    return res.render('admin-login', { error: limit.message, email: req.body.email || '', settings });
+  }
+
+  const { email, password } = req.body;
+  const admin = readJSON(ADMIN_FILE, null) || initAdminCredentials();
+
+  const inputEmail = (email || '').trim().toLowerCase();
+  const adminEmail = (admin.email || '').trim().toLowerCase();
+
+  const isEmailMatch = (inputEmail === adminEmail);
+  const isPasswordMatch = admin.passwordHash && bcrypt.compareSync(password || '', admin.passwordHash);
+
+  if (isEmailMatch && isPasswordMatch) {
+    resetLoginRateLimit(clientIp);
+    const token = signSession(admin.email);
+    res.cookie('admin_session', token, {
+      maxAge: 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production'
+    });
+    return res.redirect('/admin');
+  }
+
+  recordLoginFailure(clientIp);
+  res.render('admin-login', {
+    error: 'Invalid email address or password. Please try again.',
+    email: req.body.email || '',
+    settings
+  });
+});
+
+// Admin Logout
 app.get('/admin/logout', (req, res) => {
-  res.clearCookie('adminAuth');
+  res.clearCookie('admin_session');
+  res.redirect('/admin/login');
+});
+
+app.post('/admin/logout', (req, res) => {
+  res.clearCookie('admin_session');
   res.redirect('/admin/login');
 });
 
@@ -816,6 +947,7 @@ app.get('/admin', requireAdmin, (req, res) => {
   const stats = readJSON(STATS_FILE, { visitors: 0, downloads: 0 });
   const drivers = readJSON(DRIVERS_FILE, []);
   const rides = readJSON(RIDES_FILE, []);
+  const admin = readJSON(ADMIN_FILE, { email: req.adminUser.email });
 
   res.render('admin', {
     settings,
@@ -827,30 +959,86 @@ app.get('/admin', requireAdmin, (req, res) => {
     orders,
     stats,
     drivers,
-    rides
+    rides,
+    adminEmail: admin.email || req.adminUser.email
   });
 });
 
 // ----------------- Admin API Endpoints ----------------- //
 
-// Update General Settings
+// Update General Settings & Home Page CMS & SEO
 app.post('/api/admin/settings', requireAdmin, (req, res) => {
   const current = readJSON(SETTINGS_FILE);
-  const updated = { ...current, ...req.body };
+  const body = { ...req.body };
+
+  // Handle nested homeSections if passed as individual fields or object
+  if (body.homeSections && typeof body.homeSections === 'object') {
+    body.homeSections = {
+      ...(current.homeSections || {}),
+      ...body.homeSections
+    };
+  }
+
+  // Handle boolean flags
+  if ('showBanner' in body) {
+    body.showBanner = body.showBanner === true || body.showBanner === 'true' || body.showBanner === 'on';
+  }
+
+  const updated = { ...current, ...body };
+  // Ensure plain text password is never saved in settings
+  delete updated.adminPassword;
+
   writeJSON(SETTINGS_FILE, updated);
-  res.json({ success: true });
+  res.json({ success: true, message: 'Settings saved successfully!', settings: updated });
 });
 
-// Add Plan
+// Plans Management: Save (Create or Update)
+app.post('/api/admin/plans/save', requireAdmin, (req, res) => {
+  const plans = readJSON(PLANS_FILE, []);
+  const { id, name, price, wasPrice, durationDays, durationText, badge, active, description } = req.body;
+
+  if (!name || isNaN(Number(price))) {
+    return res.status(400).json({ success: false, message: 'Valid Plan Name and Price are required.' });
+  }
+
+  const planId = (id && String(id).trim()) ? String(id).trim() : ('plan_' + Date.now().toString(36));
+  const planData = {
+    id: planId,
+    name: String(name).trim(),
+    price: Number(price),
+    wasPrice: wasPrice !== undefined && wasPrice !== '' ? Number(wasPrice) : Number(price),
+    durationDays: Number(durationDays) || 1,
+    durationText: durationText ? String(durationText).trim() : `${Number(durationDays) || 1} days`,
+    badge: badge ? String(badge).trim() : '',
+    active: active === true || active === 'true' || active === 'on',
+    description: description ? String(description).trim() : ''
+  };
+
+  const existingIdx = plans.findIndex(p => p.id === planId);
+  if (existingIdx >= 0) {
+    plans[existingIdx] = planData;
+  } else {
+    plans.push(planData);
+  }
+
+  writeJSON(PLANS_FILE, plans);
+  res.json({ success: true, message: `Plan "${planData.name}" saved!`, plan: planData });
+});
+
+// Add Plan (Legacy endpoint compatibility)
 app.post('/api/admin/plans/add', requireAdmin, (req, res) => {
   const plans = readJSON(PLANS_FILE, []);
   const newPlan = req.body;
   if (!newPlan.id || !newPlan.name || !newPlan.price) {
     return res.status(400).json({ success: false, message: 'Invalid plan details' });
   }
+  newPlan.price = Number(newPlan.price);
+  newPlan.wasPrice = Number(newPlan.wasPrice) || newPlan.price;
+  newPlan.durationDays = Number(newPlan.durationDays) || 1;
+  newPlan.active = true;
   plans.push(newPlan);
   writeJSON(PLANS_FILE, plans);
-  res.json({ success: true });
+  res.json({ success: true, message: 'Plan added!' });
 });
 
 // Delete Plan
@@ -858,7 +1046,7 @@ app.post('/api/admin/plans/delete/:id', requireAdmin, (req, res) => {
   let plans = readJSON(PLANS_FILE, []);
   plans = plans.filter(p => p.id !== req.params.id);
   writeJSON(PLANS_FILE, plans);
-  res.json({ success: true });
+  res.json({ success: true, message: 'Plan deleted successfully!' });
 });
 
 // Update Order Status
@@ -1034,7 +1222,33 @@ app.post('/api/admin/inquiries/:id/status', requireAdmin, (req, res) => {
   res.status(404).json({ success: false, message: 'Inquiry not found' });
 });
 
-// Add FAQ
+// FAQ Management: Save (Create or Update)
+app.post('/api/admin/faq/save', requireAdmin, (req, res) => {
+  const faqs = readJSON(FAQS_FILE, []);
+  const { id, q, a } = req.body;
+  if (!q || !a) {
+    return res.status(400).json({ success: false, message: 'Question and Answer are required.' });
+  }
+
+  const faqId = id ? Number(id) : Date.now();
+  const faqData = {
+    id: faqId,
+    q: String(q).trim(),
+    a: String(a).trim()
+  };
+
+  const existingIdx = faqs.findIndex(f => Number(f.id) === faqId);
+  if (existingIdx >= 0) {
+    faqs[existingIdx] = faqData;
+  } else {
+    faqs.push(faqData);
+  }
+
+  writeJSON(FAQS_FILE, faqs);
+  res.json({ success: true, message: 'FAQ saved successfully!', faq: faqData });
+});
+
+// Add FAQ (Legacy compatibility)
 app.post('/api/admin/faq/add', requireAdmin, (req, res) => {
   const faqs = readJSON(FAQS_FILE, []);
   const { q, a } = req.body;
@@ -1050,19 +1264,108 @@ app.post('/api/admin/faq/delete/:id', requireAdmin, (req, res) => {
   let faqs = readJSON(FAQS_FILE, []);
   faqs = faqs.filter(f => String(f.id) !== String(req.params.id));
   writeJSON(FAQS_FILE, faqs);
-  res.json({ success: true });
+  res.json({ success: true, message: 'FAQ deleted successfully!' });
 });
 
-// Change Password
+// Guides Management: Save (Create or Update)
+app.post('/api/admin/guides/save', requireAdmin, (req, res) => {
+  const guides = readJSON(GUIDES_FILE, []);
+  const { slug, originalSlug, title, category, summary, content } = req.body;
+
+  if (!title || !content) {
+    return res.status(400).json({ success: false, message: 'Guide Title and Content are required.' });
+  }
+
+  let finalSlug = (slug || title).toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .trim()
+    .replace(/[\s_-]+/g, '-');
+
+  if (!finalSlug) finalSlug = 'guide-' + Date.now().toString(36);
+
+  const guideData = {
+    slug: finalSlug,
+    title: String(title).trim(),
+    category: category ? String(category).trim() : 'General',
+    summary: summary ? String(summary).trim() : '',
+    content: String(content).trim()
+  };
+
+  const lookupSlug = originalSlug || finalSlug;
+  const existingIdx = guides.findIndex(g => g.slug === lookupSlug);
+  if (existingIdx >= 0) {
+    guides[existingIdx] = guideData;
+  } else {
+    guides.push(guideData);
+  }
+
+  writeJSON(GUIDES_FILE, guides);
+  res.json({ success: true, message: `Guide "${guideData.title}" saved!`, guide: guideData });
+});
+
+// Delete Guide
+app.post('/api/admin/guides/delete/:slug', requireAdmin, (req, res) => {
+  let guides = readJSON(GUIDES_FILE, []);
+  guides = guides.filter(g => g.slug !== req.params.slug);
+  writeJSON(GUIDES_FILE, guides);
+  res.json({ success: true, message: 'Guide deleted successfully!' });
+});
+
+// Change Admin Credentials (Email & Password with bcrypt)
+app.post('/api/admin/credentials', requireAdmin, (req, res) => {
+  const { currentPassword, newEmail, newPassword } = req.body;
+  const admin = readJSON(ADMIN_FILE, null) || initAdminCredentials();
+
+  if (!currentPassword) {
+    return res.status(400).json({ success: false, message: 'Current password is required.' });
+  }
+
+  const isMatch = admin.passwordHash && bcrypt.compareSync(currentPassword, admin.passwordHash);
+  if (!isMatch) {
+    return res.status(401).json({ success: false, message: 'Current password is incorrect.' });
+  }
+
+  if (newEmail && newEmail.trim()) {
+    const trimmedEmail = newEmail.trim().toLowerCase();
+    if (!trimmedEmail.includes('@') || !trimmedEmail.includes('.')) {
+      return res.status(400).json({ success: false, message: 'Please provide a valid email address.' });
+    }
+    admin.email = trimmedEmail;
+  }
+
+  if (newPassword && newPassword.trim()) {
+    if (newPassword.trim().length < 6) {
+      return res.status(400).json({ success: false, message: 'New password must be at least 6 characters.' });
+    }
+    admin.passwordHash = bcrypt.hashSync(newPassword.trim(), 10);
+  }
+
+  admin.updatedAt = new Date().toISOString();
+  writeJSON(ADMIN_FILE, admin);
+
+  // Re-sign session cookie with updated email
+  const token = signSession(admin.email);
+  res.cookie('admin_session', token, {
+    maxAge: 24 * 60 * 60 * 1000,
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production'
+  });
+
+  res.json({ success: true, message: 'Admin credentials updated successfully!', email: admin.email });
+});
+
+// Legacy Password Change Endpoint
 app.post('/api/admin/password', requireAdmin, (req, res) => {
   const { newPassword } = req.body;
   if (!newPassword || newPassword.length < 6) {
     return res.status(400).json({ success: false, message: 'Password must be at least 6 characters' });
   }
-  const settings = readJSON(SETTINGS_FILE);
-  settings.adminPassword = newPassword;
-  writeJSON(SETTINGS_FILE, settings);
-  res.json({ success: true });
+  const admin = readJSON(ADMIN_FILE, null) || initAdminCredentials();
+  admin.passwordHash = bcrypt.hashSync(newPassword, 10);
+  admin.updatedAt = new Date().toISOString();
+  writeJSON(ADMIN_FILE, admin);
+  res.json({ success: true, message: 'Password updated securely with bcrypt.' });
 });
 
 // Export Complete Data Backup

@@ -8,16 +8,15 @@
       <div class="hero-content">
         <div class="pill-badge green">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-          <%= settings.freeRidesTrial %> — Bina Kisi Payment Ke Test Karo
+          <%= settings.heroBadge || (settings.freeRidesTrial + ' — Bina Kisi Payment Ke Test Karo') %>
         </div>
 
         <h1 class="hero-title">
-          Ghaate wali rides chhodo,<br>
-          <span class="highlight">Kamai wali rides uthao!</span>
+          <%- settings.heroTitle || 'Ghaate wali rides chhodo,<br><span class="highlight">Kamai wali rides uthao!</span>' %>
         </h1>
 
         <p class="hero-subtitle">
-          <%= settings.siteName %> aapke set kiye gaye rules par <strong>Rapido, Uber aur Porter</strong> ki bookings filter karta hai — taaki aap screen taakte rehne ke bajaye sadak par dhyan rakh kar befikar kamai kar sako.
+          <%= settings.heroSubtitle || (settings.siteName + ' aapke set kiye gaye rules par Rapido, Uber aur Porter ki bookings filter karta hai — taaki aap screen taakte rehne ke bajaye sadak par dhyan rakh kar befikar kamai kar sako.') %>
         </p>
 
         <div class="hero-actions">
@@ -54,6 +53,7 @@
         </div>
       </div>
 
+      <% if (!settings.homeSections || settings.homeSections.heroSimulator !== false) { %>
       <!-- Right Column: Interactive Simulator Mockup -->
       <div class="mockup-container">
         <div class="phone-mockup">
@@ -116,10 +116,12 @@
           </div>
         </div>
       </div>
+      <% } %>
     </div>
   </div>
 </section>
 
+<% if (!settings.homeSections || settings.homeSections.supportedApps !== false) { %>
 <!-- 2. SUPPORTED PLATFORMS SECTION -->
 <div class="wrap">
   <div class="partners-section">
@@ -144,8 +146,10 @@
     </div>
   </div>
 </div>
+<% } %>
 
 <div class="wrap">
+  <% if (!settings.homeSections || settings.homeSections.driverProblems !== false) { %>
   <!-- 3. 3 BIG DRIVER PROBLEMS & RIDERSAATHI SOLUTION -->
   <div class="card card-section">
     <div class="section-head">
@@ -191,7 +195,9 @@
       </div>
     </div>
   </div>
+  <% } %>
 
+  <% if (!settings.homeSections || settings.homeSections.ruleFeatures !== false) { %>
   <!-- 4. WHAT RULES YOU CAN CONTROL -->
   <div class="card card-section">
     <div class="section-head">
@@ -226,7 +232,9 @@
       </div>
     </div>
   </div>
+  <% } %>
 
+  <% if (!settings.homeSections || settings.homeSections.pricingPreview !== false) { %>
   <!-- 5. PLANS & PRICING SECTION -->
   <div class="card card-section" id="pricing">
     <div class="section-head" style="text-align: center;">
@@ -287,7 +295,9 @@
       </div>
     </div>
   </div>
+  <% } %>
 
+  <% if (!settings.homeSections || settings.homeSections.driverReviews !== false) { %>
   <!-- 6. REAL CAPTAIN TESTIMONIALS / REVIEWS -->
   <div class="card card-section">
     <div class="section-head" style="text-align: center;">
@@ -340,7 +350,9 @@
       </div>
     </div>
   </div>
+  <% } %>
 
+  <% if (!settings.homeSections || settings.homeSections.communityCard !== false) { %>
   <!-- 7. WHATSAPP & SUPPORT SECTION -->
   <div class="card card-section" style="background: linear-gradient(135deg, rgba(239,246,255,0.7) 0%, rgba(240,253,244,0.7) 100%);">
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
@@ -360,6 +372,7 @@
       </div>
     </div>
   </div>
+  <% } %>
 </div>
 
 <%- include('partials/footer') %>

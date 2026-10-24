@@ -46,7 +46,6 @@
           <a href="/delivery">Delivery</a>
           <a href="/terms">Terms</a>
           <a href="/privacy">Privacy</a>
-          <a href="/api/docs" style="color: var(--brand-primary);">REST APIs</a>
         </div>
       </div>
     </div>
@@ -58,8 +57,10 @@
     </div>
 
     <div class="footer-disclaimer">
-      Rapido, Uber and Porter are trademarks of their respective owners and are named here only to identify compatibility (nominative fair use). 
-      <%= settings.siteName %> is an independent driver productivity &amp; screen assist utility and is not affiliated with, endorsed by or sponsored by any of them.
+      <%= settings.footerDisclaimer || (settings.siteName + ' is an independent driver productivity & screen assist utility and is not affiliated with, endorsed by or sponsored by Rapido, Uber or Porter.') %>
+    </div>
+    <div style="margin-top: 10px; font-size: 12px; color: var(--text-muted); text-align: center;">
+      <%= settings.copyrightText || ('© ' + new Date().getFullYear() + ' ' + settings.legalBusinessName + '. All rights reserved.') %>
     </div>
   </div>
 </footer>

@@ -2,6 +2,7 @@
   "siteName": "RiderSaathi",
   "siteUrl": "https://ridersaathi.in",
   "tagline": "Driver Productivity & Screen Assist Utility (MCC 5734)",
+  "heroBadge": "⚡ Pehle 10 rides bilkul free — bina kisi payment ke test karo!",
   "heroTitle": "Apni pasand ki ride.<br>Apne rules par.",
   "heroSubtitle": "Ghaate wali rides chhodo, kamai wali uthao. RiderSaathi aapke set kiye hue rules par Rapido, Uber aur Porter ki bookings filter karta hai — taaki aap screen taakte rehne ke bajaye sadak par dhyan rakh kar befikar kaam kar sako.",
   "heroEnText": "RiderSaathi is an independent ride filter app for bike-taxi, auto, cab and parcel drivers. Set your own rules — trip distance, pickup distance, parcel or passenger, route and fare — and RiderSaathi accepts only the bookings that match. Earn more, drive easier, keep your eyes on the road.",
@@ -11,6 +12,8 @@
   "apkDownloadUrl": "/downloads/RiderSaathi-v5.28.1.apk",
   "sha256File": "f5a4df810d82bcb3d4aaac42fbdb64a6ac90665ab737a1993127abd3996da52b",
   "sha256Cert": "1b257df6e673afd4bddaa9b32a4ce4030bb893af3756a746ce1902f29a4e8551",
+  "releaseDate": "2026-10-20",
+  "releaseNotes": "Improved Rapido & Porter auto-accept detection speed, battery optimization, and sound notifications.",
   "ownerName": "Shams",
   "legalBusinessName": "RiderSaathi Technologies",
   "businessType": "Sole Proprietorship",
@@ -26,7 +29,21 @@
   "upiId": "ridersaathi0001@upi",
   "upiPayeeName": "RiderSaathi",
   "upiQrImage": "",
-  "adminPassword": "admin123",
   "bannerAlert": "Pehli 10 rides bilkul free — bina kisi payment ke test karo!",
-  "showBanner": true
+  "showBanner": true,
+  "footerDisclaimer": "Rapido, Uber and Porter are trademarks of their respective owners and are named here only to identify compatibility (nominative fair use). RiderSaathi is an independent driver productivity & screen assist utility and is not affiliated with, endorsed by or sponsored by any of them.",
+  "copyrightText": "© 2026 RiderSaathi Technologies. All rights reserved.",
+  "seoTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber & Porter Drivers",
+  "seoDescription": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+  "seoKeywords": "ride filter app for drivers, rapido ride filter app, uber driver ride filter, porter delivery filter, rider saathi, driver ride assistant, ride filter karne wala app, driver productivity app",
+  "homeSections": {
+    "heroSimulator": true,
+    "supportedApps": true,
+    "driverProblems": true,
+    "ruleFeatures": true,
+    "pricingPreview": true,
+    "driverReviews": true,
+    "faqPreview": true,
+    "communityCard": true
+  }
 }
