@@ -1,23 +1,38 @@
 <%- include('partials/header') %>
 
+<%
+  const isEn = (typeof lang !== 'undefined' && lang === 'en');
+  const freeRides = (settings.numbers && settings.numbers.freeTrialRides) || 10;
+%>
+
 <div class="wrap" style="padding-top: 36px; padding-bottom: 60px;">
   <div class="section-head" style="text-align: center; margin-bottom: 36px;">
-    <div class="pill-badge green" style="margin: 0 auto 12px;">No Hidden Charges • No Auto-Renewal</div>
+    <div class="pill-badge green" style="margin: 0 auto 12px;">
+      <%= isEn ? 'No Hidden Charges • No Auto-Renewal' : 'कोई छुपा शुल्क नहीं • कोई ऑटो-डेबिट नहीं' %>
+    </div>
     <h1 style="font-family: var(--font-heading); font-size: 38px; font-weight: 800; color: var(--text-heading); letter-spacing: -0.8px;">
-      Plans &amp; Pricing
+      <%= isEn ? 'Plans & Pricing' : 'प्लान्स और कीमतें' %>
     </h1>
-    <p style="max-width: 620px; margin: 8px auto 0; font-size: 16.5px; color: var(--text-muted);">
-      Pehle 10 rides bilkul free — bina kisi payment ke test karo. Pasand aane par 1 day, 1 week ya 1 month ka plan chuno.
+    <p style="max-width: 640px; margin: 8px auto 0; font-size: 16.5px; color: var(--text-muted);">
+      <%= isEn 
+        ? `First ${freeRides} rides completely free — test without any payment. When satisfied, choose a 1 day, 1 week, or 1 month pass.` 
+        : `पहली ${freeRides} राइड्स बिल्कुल फ्री — बिना किसी पेमेंट के टेस्ट करें. पसंद आने पर 1 दिन, 1 हफ्ता या 1 महीने का पास चुनें.` %>
     </p>
   </div>
 
   <div class="pricing-grid">
-    <% plans.forEach(plan => { %>
-    <div class="plancard <%= plan.badge ? 'popular' : '' %>">
-      <% if (plan.badge) { %>
-        <div class="plancard-ribbon"><%= plan.badge %></div>
+    <% plans.forEach(plan => { 
+      const pName = isEn ? plan.name : (plan.name_hi || plan.name);
+      const pBadge = isEn ? plan.badge : (plan.badge_hi || plan.badge);
+      const pDuration = isEn ? plan.durationText : (plan.durationText_hi || plan.durationText);
+      const pDesc = isEn ? plan.description : (plan.description_hi || plan.description);
+      const pFeatures = isEn ? (plan.features || []) : (plan.features_hi || plan.features || []);
+    %>
+    <div class="plancard <%= pBadge ? 'popular' : '' %>">
+      <% if (pBadge) { %>
+        <div class="plancard-ribbon"><%= pBadge %></div>
       <% } %>
-      <div class="plancard-title"><%= plan.name %></div>
+      <div class="plancard-title"><%= pName %></div>
       
       <div class="plancard-price-row">
         <span class="plancard-price">₹<%= plan.price %></span>
@@ -25,34 +40,43 @@
           <span class="plancard-wasprice">₹<%= plan.wasPrice %></span>
         <% } %>
       </div>
-      <div class="plancard-duration"><%= plan.durationText %> validity</div>
-      <div class="plancard-desc"><%= plan.description %></div>
+      <div class="plancard-duration"><%= pDuration %> <%= isEn ? 'validity' : 'वैलिडिटी' %></div>
+      <div class="plancard-desc"><%= pDesc %></div>
 
       <ul class="plancard-features">
-        <li>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Rapido, Uber &amp; Porter Filter
-        </li>
-        <li>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Ghar ki taraf (Go-To) Route
-        </li>
-        <li>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Custom Fare &amp; Distance Rules
-        </li>
-        <li>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          Auto-Accept Profitable Bookings
-        </li>
-        <li>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-          WhatsApp Priority Assistance
-        </li>
+        <% if (pFeatures.length > 0) { %>
+          <% pFeatures.forEach(feat => { %>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              <%= feat %>
+            </li>
+          <% }) %>
+        <% } else { %>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Rapido, Uber &amp; Porter Filter
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Ghar ki taraf (Go-To) Route
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Custom Fare &amp; Distance Rules
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            Auto-Accept Profitable Bookings
+          </li>
+          <li>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            WhatsApp Priority Assistance
+          </li>
+        <% } %>
       </ul>
 
-      <a class="btn <%= plan.badge ? '' : 'ghost' %>" href="/buy?plan=<%= plan.id %>">
-        Choose <%= plan.name %>
+      <a class="btn <%= pBadge ? '' : 'ghost' %>" href="/buy?plan=<%= plan.id %>">
+        <%= isEn ? `Choose ${pName}` : `${pName} चुनें` %>
       </a>
     </div>
     <% }) %>
@@ -61,39 +85,45 @@
   <!-- Highlights & Policies Card -->
   <div class="card" style="margin-top: 36px;">
     <h3 style="font-family: var(--font-heading); font-size: 20px; font-weight: 700; color: var(--text-heading); margin-bottom: 14px;">
-      Payment aur Activation ke Baare Me Zaroori Baatein
+      <%= isEn ? 'Important Details on Payment & Plan Activation' : 'पेमेंट और प्लान एक्टिवेशन के बारे में जरूरी बातें' %>
     </h3>
     
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;">
       <div style="background: var(--surface-alt); padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border);">
-        <strong style="color: var(--text-heading); display: block; margin-bottom: 6px;">⚡ Instant Digital Delivery</strong>
+        <strong style="color: var(--text-heading); display: block; margin-bottom: 6px;">⚡ <%= isEn ? 'Instant Digital Delivery' : 'इंस्टेंट डिजिटल एक्टिवेशन' %></strong>
         <p style="font-size: 14px; margin: 0; color: var(--text-body);">
-          UPI payment confirm hote hi 1-2 minute me plan aapke registered mobile number par chalu ho jata hai. App update ya dubara sign in karne ki zaroorat nahi hoti.
+          <%= isEn 
+            ? 'Within 1-2 minutes of UPI payment confirmation, the digital pass activates on your registered mobile number without reinstalling.' 
+            : 'UPI पेमेंट कन्फर्म होते ही 1-2 मिनट में प्लान आपके रजिस्टर्ड मोबाइल नंबर पर चालू हो जाता है. ऐप दोबारा इनस्टॉल करने की जरूरत नहीं होती.' %>
         </p>
       </div>
 
       <div style="background: var(--surface-alt); padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border);">
-        <strong style="color: var(--text-heading); display: block; margin-bottom: 6px;">🛡️ No Auto-Debit / No Card Saved</strong>
+        <strong style="color: var(--text-heading); display: block; margin-bottom: 6px;">🛡️ <%= isEn ? 'No Auto-Debit / No Saved Cards' : 'कोई ऑटो-डेबिट नहीं / कार्ड सुरक्षित' %></strong>
         <p style="font-size: 14px; margin: 0; color: var(--text-body);">
-          Hamare paas koi bank ya card details save nahi hoti. Plan ka samay poora hone par wo apne aap band ho jata hai — bina kisi extra deduction ke.
+          <%= isEn 
+            ? 'We never store bank or card credentials. Once your chosen pass duration expires, the service simply pauses with zero surprise deductions.' 
+            : 'हमारे पास कोई बैंक या कार्ड डिटेल्स सेव नहीं होती. प्लान का समय पूरा होने पर वह अपने आप बंद हो जाता है — बिना किसी अनचाहे डिडक्शन के.' %>
         </p>
       </div>
 
       <div style="background: var(--surface-alt); padding: 18px; border-radius: var(--radius-md); border: 1px solid var(--border);">
-        <strong style="color: var(--text-heading); display: block; margin-bottom: 6px;">📞 6 Days Direct Support</strong>
+        <strong style="color: var(--text-heading); display: block; margin-bottom: 6px;">📞 <%= isEn ? '6 Days Direct Support' : '6 दिन डायरेक्ट सपोर्ट' %></strong>
         <p style="font-size: 14px; margin: 0; color: var(--text-body);">
-          Agar payment ke baad koi dikkat aaye, toh WhatsApp par UTR screenshot bhejein. Hamari team (<%= settings.supportHours %>) turant madad karegi.
+          <%= isEn 
+            ? `If you have any questions after payment, send your UTR screenshot on WhatsApp. Support hours: ${settings.supportHours}.` 
+            : `अगर पेमेंट के बाद कोई सवाल हो, तो व्हाट्सएप पर UTR स्क्रीनशॉट भेजें. सहायता समय (${settings.supportHours}) में टीम तुरंत मदद करेगी.` %>
         </p>
       </div>
     </div>
 
     <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
       <div style="font-size: 14px;">
-        <a href="/delivery" style="margin-right: 14px;">Delivery &amp; Activation Policy</a> &middot; 
-        <a href="/refunds">Refund &amp; Cancellation Policy</a>
+        <a href="/delivery" style="margin-right: 14px;"><%= isEn ? 'Delivery & Activation Policy' : 'डिलीवरी और एक्टिवेशन पॉलिसी' %></a> &middot; 
+        <a href="/refunds"><%= isEn ? 'Refund & Cancellation Policy' : 'रिफंड और कैंसलेशन पॉलिसी' %></a>
       </div>
       <div>
-        <a class="btn ghost btn-sm" href="/install">Download APK First</a>
+        <a class="btn ghost btn-sm" href="/install"><%= isEn ? 'Download APK First' : 'पहले APK डाउनलोड करें' %></a>
       </div>
     </div>
   </div>

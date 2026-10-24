@@ -183,14 +183,62 @@ app.use((req, res, next) => {
   next();
 });
 
-// Pass common variables to templates
+// Pass common variables to templates & Handle Bilingual Language (Hindi & English)
 app.use((req, res, next) => {
-  res.locals.settings = readJSON(SETTINGS_FILE);
+  const settings = readJSON(SETTINGS_FILE);
+  let lang = req.query.lang || (req.cookies && req.cookies.lang) || 'hi';
+  if (lang !== 'en' && lang !== 'hi') lang = 'hi';
+
+  // If language passed in query, update cookie
+  if (req.query.lang && (req.query.lang === 'en' || req.query.lang === 'hi')) {
+    res.cookie('lang', lang, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: false, sameSite: 'lax' });
+  }
+
+  res.locals.settings = settings;
+  res.locals.lang = lang;
   res.locals.currentPath = req.path;
+
+  // Active language dictionary
+  const contentEn = settings.content_en || {};
+  const contentHi = settings.content_hi || {};
+  res.locals.content = lang === 'en' ? contentEn : contentHi;
+
+  // Translation helper: t(englishFallback, hindiFallback)
+  res.locals.t = function(enText, hiText) {
+    if (res.locals.lang === 'en') {
+      return (enText !== undefined && enText !== null && enText !== '') ? enText : hiText;
+    } else {
+      return (hiText !== undefined && hiText !== null && hiText !== '') ? hiText : enText;
+    }
+  };
+
+  // Business Numbers helper
+  res.locals.num = function(key, fallback) {
+    if (settings.numbers && settings.numbers[key] !== undefined && settings.numbers[key] !== null) {
+      return settings.numbers[key];
+    }
+    return fallback !== undefined ? fallback : '';
+  };
+
   next();
 });
 
 // ----------------- Public Routes ----------------- //
+
+// Fast Language Switcher Endpoint
+app.get('/set-language/:lang', (req, res) => {
+  const lang = req.params.lang === 'en' ? 'en' : 'hi';
+  res.cookie('lang', lang, { maxAge: 365 * 24 * 60 * 60 * 1000, httpOnly: false, sameSite: 'lax' });
+  const referer = req.header('Referer') || '/';
+  // Strip any old ?lang= query param from referer if present
+  try {
+    const parsed = new URL(referer, 'http://localhost');
+    parsed.searchParams.delete('lang');
+    return res.redirect(parsed.pathname + (parsed.search || ''));
+  } catch (e) {
+    return res.redirect(referer);
+  }
+});
 
 // Home Page
 app.get('/', (req, res) => {
@@ -199,12 +247,26 @@ app.get('/', (req, res) => {
   res.render('index', { plans, guides });
 });
 
+// How It Works Page
+app.get('/how-it-works', (req, res) => {
+  const settings = res.locals.settings;
+  const isEn = res.locals.lang === 'en';
+  const hiw = settings.howItWorks || {};
+  res.render('how-it-works', {
+    title: (isEn ? hiw.title_en : hiw.title_hi) || `How It Works — ${settings.siteName}`,
+    description: (isEn ? hiw.subtitle_en : hiw.subtitle_hi) || `Step by step guide & tutorial on how ${settings.siteName} filters rides for captains.`
+  });
+});
+
 // Pricing Page
 app.get('/pricing', (req, res) => {
   const plans = readJSON(PLANS_FILE, []);
+  const isEn = res.locals.lang === 'en';
   res.render('pricing', {
-    title: `Plans & Pricing — ${res.locals.settings.siteName}`,
-    description: `${res.locals.settings.siteName} plans and prices. 1 day, 1 week, 1 month. Free trial first, no auto-renewal.`,
+    title: isEn ? `Plans & Pricing — ${res.locals.settings.siteName}` : `प्लान्स और कीमतें — ${res.locals.settings.siteName}`,
+    description: isEn 
+      ? `${res.locals.settings.siteName} plans and prices. 1 day, 1 week, 1 month. Free trial first, no auto-renewal.`
+      : `${res.locals.settings.siteName} के पारदर्शी प्लान्स. 1 दिन, 1 हफ्ता, 1 महीना. पहले 10 राइड्स फ्री.`,
     plans
   });
 });
@@ -966,25 +1028,38 @@ app.get('/admin', requireAdmin, (req, res) => {
 
 // ----------------- Admin API Endpoints ----------------- //
 
+// Helper for deep merging nested objects
+function deepMerge(target, source) {
+  if (!source || typeof source !== 'object' || Array.isArray(source)) return source !== undefined ? source : target;
+  const output = { ...(target || {}) };
+  for (const key of Object.keys(source)) {
+    if (source[key] !== null && typeof source[key] === 'object' && !Array.isArray(source[key])) {
+      output[key] = deepMerge(target ? target[key] : {}, source[key]);
+    } else if (source[key] !== undefined) {
+      output[key] = source[key];
+    }
+  }
+  return output;
+}
+
 // Update General Settings & Home Page CMS & SEO
 app.post('/api/admin/settings', requireAdmin, (req, res) => {
   const current = readJSON(SETTINGS_FILE);
   const body = { ...req.body };
 
-  // Handle nested homeSections if passed as individual fields or object
-  if (body.homeSections && typeof body.homeSections === 'object') {
-    body.homeSections = {
-      ...(current.homeSections || {}),
-      ...body.homeSections
-    };
-  }
+  // Handle nested objects if sent as JSON or form
+  ['homeSections', 'numbers', 'socialLinks', 'floatingSocial', 'location', 'howItWorks', 'content_en', 'content_hi', 'theme'].forEach(sectionKey => {
+    if (body[sectionKey] && typeof body[sectionKey] === 'object') {
+      body[sectionKey] = deepMerge(current[sectionKey] || {}, body[sectionKey]);
+    }
+  });
 
   // Handle boolean flags
   if ('showBanner' in body) {
     body.showBanner = body.showBanner === true || body.showBanner === 'true' || body.showBanner === 'on';
   }
 
-  const updated = { ...current, ...body };
+  const updated = deepMerge(current, body);
   // Ensure plain text password is never saved in settings
   delete updated.adminPassword;
 
@@ -995,23 +1070,53 @@ app.post('/api/admin/settings', requireAdmin, (req, res) => {
 // Plans Management: Save (Create or Update)
 app.post('/api/admin/plans/save', requireAdmin, (req, res) => {
   const plans = readJSON(PLANS_FILE, []);
-  const { id, name, price, wasPrice, durationDays, durationText, badge, active, description } = req.body;
+  const {
+    id, name, name_hi, price, wasPrice, durationDays, durationText, durationText_hi,
+    badge, badge_hi, active, description, description_hi, features, features_hi
+  } = req.body;
 
   if (!name || isNaN(Number(price))) {
     return res.status(400).json({ success: false, message: 'Valid Plan Name and Price are required.' });
+  }
+
+  // Parse features if passed as newline-separated strings
+  let parsedFeatures = Array.isArray(features) ? features : [];
+  if (typeof features === 'string') {
+    parsedFeatures = features.split('\n').map(s => s.trim()).filter(Boolean);
+  }
+
+  let parsedFeaturesHi = Array.isArray(features_hi) ? features_hi : [];
+  if (typeof features_hi === 'string') {
+    parsedFeaturesHi = features_hi.split('\n').map(s => s.trim()).filter(Boolean);
   }
 
   const planId = (id && String(id).trim()) ? String(id).trim() : ('plan_' + Date.now().toString(36));
   const planData = {
     id: planId,
     name: String(name).trim(),
+    name_hi: name_hi ? String(name_hi).trim() : String(name).trim(),
     price: Number(price),
     wasPrice: wasPrice !== undefined && wasPrice !== '' ? Number(wasPrice) : Number(price),
     durationDays: Number(durationDays) || 1,
     durationText: durationText ? String(durationText).trim() : `${Number(durationDays) || 1} days`,
+    durationText_hi: durationText_hi ? String(durationText_hi).trim() : `${Number(durationDays) || 1} दिन`,
     badge: badge ? String(badge).trim() : '',
+    badge_hi: badge_hi ? String(badge_hi).trim() : '',
     active: active === true || active === 'true' || active === 'on',
-    description: description ? String(description).trim() : ''
+    description: description ? String(description).trim() : '',
+    description_hi: description_hi ? String(description_hi).trim() : '',
+    features: parsedFeatures.length > 0 ? parsedFeatures : [
+      'Rapido, Uber & Porter Support',
+      'Go-To Route Filter',
+      'Custom Fare & Distance Rules',
+      'Voice Alerts'
+    ],
+    features_hi: parsedFeaturesHi.length > 0 ? parsedFeaturesHi : [
+      'Rapido, Uber और Porter सपोर्ट',
+      'घर की तरफ (Go-To) रूट फ़िल्टर',
+      'कस्टम किराया और दूरी रूल्स',
+      'आवाज और साउंड अलर्ट्स'
+    ]
   };
 
   const existingIdx = plans.findIndex(p => p.id === planId);

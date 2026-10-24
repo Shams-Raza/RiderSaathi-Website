@@ -35,11 +35,11 @@
         <span class="badge">CMS</span>
       </a>
 
-      <div class="admin-nav-section-title">Main Dashboard</div>
+      <div class="admin-nav-section-title">Operations</div>
       <nav class="admin-nav">
         <button class="admin-nav-item active" data-tab="tabOverview">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-          Overview
+          Overview &amp; Stats
         </button>
         <button class="admin-nav-item" data-tab="tabDrivers">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
@@ -53,19 +53,27 @@
         </button>
       </nav>
 
-      <div class="admin-nav-section-title">Content Management (CMS)</div>
+      <div class="admin-nav-section-title">Website Content &amp; Numbers</div>
       <nav class="admin-nav">
-        <button class="admin-nav-item" data-tab="tabHomeCms">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-          Home Page CMS
+        <button class="admin-nav-item" data-tab="tabNumbers">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line></svg>
+          Website Numbers &amp; Config
+        </button>
+        <button class="admin-nav-item" data-tab="tabBilingual">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          Bilingual Content (HI / EN)
         </button>
         <button class="admin-nav-item" data-tab="tabPlans">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
           Pricing Plans (<%= plans.length %>)
         </button>
+        <button class="admin-nav-item" data-tab="tabHowItWorks">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          How It Works (Video CMS)
+        </button>
         <button class="admin-nav-item" data-tab="tabApp">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-          APK &amp; Version
+          APK &amp; Download Links
         </button>
         <button class="admin-nav-item" data-tab="tabGuides">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
@@ -81,15 +89,23 @@
         </button>
       </nav>
 
-      <div class="admin-nav-section-title">Site Settings &amp; SEO</div>
+      <div class="admin-nav-section-title">Business &amp; Social</div>
       <nav class="admin-nav">
+        <button class="admin-nav-item" data-tab="tabSocial">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          Social Media &amp; Floating Dock
+        </button>
+        <button class="admin-nav-item" data-tab="tabCompany">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          Office &amp; Google Maps
+        </button>
         <button class="admin-nav-item" data-tab="tabContact">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-          Contact &amp; Support
+          WhatsApp &amp; Helpline
         </button>
         <button class="admin-nav-item" data-tab="tabFooter">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-          Footer &amp; Legal
+          Footer &amp; Legal CMS
         </button>
         <button class="admin-nav-item" data-tab="tabSeo">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -123,9 +139,9 @@
       <!-- Top Navbar Header -->
       <div class="admin-header">
         <div>
-          <h1>Dashboard &amp; Content Management</h1>
+          <h1>Dashboard &amp; Content Management System</h1>
           <div style="font-size: 13.5px; color: var(--admin-muted); margin-top: 3px;">
-            Full administrative control for <%= settings.siteName %> website, driver app, pricing &amp; APIs.
+            Full administrative control for <%= settings.siteName %> website, numbers, bilingual content &amp; driver APIs.
           </div>
         </div>
         <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
@@ -149,110 +165,49 @@
       <div class="tab-pane active" id="tabOverview">
         <div class="stats-grid">
           <div class="stat-card">
-            <span class="stat-title">Registered Drivers</span>
-            <span class="stat-value"><%= drivers.length %></span>
-            <span class="stat-help">App installs &amp; phone accounts</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-title">Rides Filtered</span>
-            <span class="stat-value"><%= stats.totalRidesFiltered || 0 %></span>
-            <span class="stat-help">Total rides accepted via app</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-title">Website Visitors</span>
-            <span class="stat-value"><%= stats.visitors || 0 %></span>
-            <span class="stat-help">Total page impressions</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-title">APK Downloads</span>
-            <span class="stat-value"><%= stats.downloads || 0 %></span>
-            <span class="stat-help">Driver app downloads</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-title">Plan Orders</span>
-            <span class="stat-value"><%= orders.length %></span>
-            <span class="stat-help">Subscription requests</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-title">Inquiries</span>
-            <span class="stat-value"><%= inquiries.length %></span>
-            <span class="stat-help">Contact form messages</span>
-          </div>
-        </div>
-
-        <!-- Quick Actions Card -->
-        <div class="admin-card">
-          <h2>⚡ Quick CMS Actions</h2>
-          <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px;">
-            <button class="btn-primary" onclick="switchTab('tabHomeCms')">📝 Edit Home Page Text</button>
-            <button class="btn-outline" onclick="openPlanModal()">➕ Add Pricing Plan</button>
-            <button class="btn-outline" onclick="openGuideModal()">📚 Add Driver Guide</button>
-            <button class="btn-outline" onclick="openFaqModal()">❓ Add FAQ</button>
-            <button class="btn-outline" onclick="switchTab('tabApp')">📲 Update APK Version</button>
-            <button class="btn-outline" onclick="switchTab('tabSecurity')">🔒 Change Password</button>
-          </div>
-        </div>
-
-        <!-- Recent Orders -->
-        <div class="admin-card">
-          <div class="admin-card-header">
-            <h2>Recent Orders (<%= orders.slice(0, 5).length %> of <%= orders.length %>)</h2>
-            <button class="btn-outline btn-sm" onclick="switchTab('tabOrders')">View All Orders &rarr;</button>
-          </div>
-          <% if (orders.length === 0) { %>
-            <p style="color: var(--admin-muted);">No subscription orders placed yet.</p>
-          <% } else { %>
-            <div class="admin-table-wrap">
-              <table class="admin-table">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Driver Phone</th>
-                    <th>Plan</th>
-                    <th>Amount</th>
-                    <th>UTR / Ref</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% orders.slice(0, 5).forEach(ord => { %>
-                  <tr>
-                    <td><%= new Date(ord.createdAt).toLocaleDateString() %></td>
-                    <td><strong><%= ord.phone %></strong></td>
-                    <td><%= ord.planName %></td>
-                    <td>₹<%= ord.amount || ord.price %></td>
-                    <td><code><%= ord.utr || ord.upiRef || 'Waiting' %></code></td>
-                    <td>
-                      <span class="badge-tag <%= ord.status === 'Activated' ? 'badge-success' : 'badge-warning' %>">
-                        <%= ord.status %>
-                      </span>
-                    </td>
-                    <td>
-                      <% if (ord.status !== 'Activated') { %>
-                        <button class="btn-primary btn-sm" onclick="approveAndActivateOrder('<%= ord.id %>')">
-                          ⚡ Activate Driver
-                        </button>
-                      <% } else { %>
-                        <span style="color:var(--admin-success); font-weight:600; font-size:12px;">Active</span>
-                      <% } %>
-                    </td>
-                  </tr>
-                  <% }) %>
-                </tbody>
-              </table>
+            <div class="stat-icon-wrap" style="background:#eff6ff; color:#2563eb;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
             </div>
-          <% } %>
+            <div class="stat-label">Active Drivers</div>
+            <div class="stat-value"><%= drivers.length %></div>
+            <div class="stat-desc">Registered Captains</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrap" style="background:#f0fdf4; color:#16a34a;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            </div>
+            <div class="stat-label">Subscription Orders</div>
+            <div class="stat-value"><%= orders.length %></div>
+            <div class="stat-desc">Total UPI Leads</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrap" style="background:#faf5ff; color:#9333ea;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            </div>
+            <div class="stat-label">APK Downloads</div>
+            <div class="stat-value"><%= (stats && stats.downloads) || 0 %></div>
+            <div class="stat-desc">Direct APK Clicks</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrap" style="background:#fffbeb; color:#d97706;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            </div>
+            <div class="stat-label">Page Views</div>
+            <div class="stat-value"><%= (stats && stats.visitors) || 0 %></div>
+            <div class="stat-desc">Website Visits</div>
+          </div>
         </div>
 
-        <!-- Recent Registered Drivers -->
-        <div class="admin-card">
+        <div class="admin-card" style="margin-top: 24px;">
           <div class="admin-card-header">
-            <h2>Recent App Drivers (<%= drivers.slice(0, 5).length %> of <%= drivers.length %>)</h2>
+            <h2>Recent Drivers (<%= drivers.slice(0, 5).length %> of <%= drivers.length %>)</h2>
             <button class="btn-outline btn-sm" onclick="switchTab('tabDrivers')">View All Drivers &rarr;</button>
           </div>
           <% if (drivers.length === 0) { %>
-            <p style="color: var(--admin-muted);">No drivers have launched the app yet.</p>
+            <p style="color: var(--admin-muted);">No drivers registered yet.</p>
           <% } else { %>
             <div class="admin-table-wrap">
               <table class="admin-table">
@@ -293,155 +248,300 @@
         </div>
       </div>
 
-      <!-- ================= 2. TAB: HOME PAGE CMS ================= -->
-      <div class="tab-pane" id="tabHomeCms">
+      <!-- ================= 2. TAB: WEBSITE NUMBERS & CONFIGURATION (Requirement 3) ================= -->
+      <div class="tab-pane" id="tabNumbers">
         <div class="admin-card">
-          <h2>Hero Section &amp; Headings</h2>
-          <div class="admin-card-desc">Bina kisi code badlaav ke Home page ke headings, text aur badges yahan se edit karein:</div>
+          <h2>Website Numbers &amp; Business Configuration</h2>
+          <div class="admin-card-desc">
+            Website par dikhne wale saare numbers, counters, limits, stats aur pricing metrics ko yahan se edit karein.
+            Yahan badlaav karte hi bina kisi redeployment ke website par turant live dikhega:
+          </div>
 
-          <form id="homeCmsForm">
-            <div class="form-grid">
-              <div class="form-group full-width">
-                <label>Hero Free Trial Badge</label>
-                <input type="text" name="heroBadge" value="<%= settings.heroBadge || '' %>" placeholder="e.g. ⚡ Pehle 10 rides bilkul free — bina kisi payment ke test karo!">
-                <div class="field-hint">Dikhne wala green pill-badge hero heading ke upar.</div>
-              </div>
-
-              <div class="form-group full-width">
-                <label>Hero Main Title (HTML supported: &lt;br&gt;, &lt;span class="highlight"&gt;...&lt;/span&gt;)</label>
-                <input type="text" name="heroTitle" value="<%= settings.heroTitle || '' %>" placeholder="Ghaate wali rides chhodo,<br><span class='highlight'>Kamai wali rides uthao!</span>" required>
-              </div>
-
-              <div class="form-group full-width">
-                <label>Hero Subtitle (Hindi)</label>
-                <textarea name="heroSubtitle" rows="3" required><%= settings.heroSubtitle || '' %></textarea>
-              </div>
-
-              <div class="form-group full-width">
-                <label>Hero English Secondary Text</label>
-                <textarea name="heroEnText" rows="3"><%= settings.heroEnText || '' %></textarea>
-              </div>
-
-              <div class="form-group">
-                <label>Free Trial Text Tag</label>
-                <input type="text" name="freeRidesTrial" value="<%= settings.freeRidesTrial || 'Pehle 10 rides bilkul free' %>">
-              </div>
-
-              <div class="form-group">
-                <label>Top Announcement Bar Message</label>
-                <input type="text" name="bannerAlert" value="<%= settings.bannerAlert || '' %>">
-              </div>
-
-              <div class="form-group full-width">
-                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                  <input type="checkbox" name="showBanner" <%= settings.showBanner ? 'checked' : '' %> style="width: auto;">
-                  Top Announcement Bar ko website par dikhayein (Show Top Banner)
-                </label>
-              </div>
+          <% const nums = settings.numbers || {}; %>
+          <form id="numbersSettingsForm">
+            <div class="admin-table-wrap" style="margin-bottom: 24px;">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th style="width: 25%;">Field Name &amp; Key</th>
+                    <th style="width: 20%;">Page / Section</th>
+                    <th style="width: 35%;">Purpose / What it controls</th>
+                    <th style="width: 20%;">Current Value (Editable)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Free Trial Rides</strong><br><code>numbers.freeTrialRides</code></td>
+                    <td>Hero, Pricing, Badges, Sticky Bar</td>
+                    <td>Har naye account ko milne wali free trial rides ki sankhya</td>
+                    <td><input type="number" name="numbers[freeTrialRides]" value="<%= nums.freeTrialRides !== undefined ? nums.freeTrialRides : 10 %>" required></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Starting Plan Price</strong><br><code>numbers.starterPrice</code></td>
+                    <td>Hero CTA Button, Pricing Link</td>
+                    <td>Hero button me "Plans (₹12 se shuru)" me dikhne wala minimum price</td>
+                    <td><input type="number" name="numbers[starterPrice]" value="<%= nums.starterPrice !== undefined ? nums.starterPrice : 12 %>" required></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Daily Savings Estimate</strong><br><code>numbers.dailySavingsEst</code></td>
+                    <td>Testimonials &amp; Reviews</td>
+                    <td>Driver review me bachat ka counter (e.g. 800+)</td>
+                    <td><input type="text" name="numbers[dailySavingsEst]" value="<%= nums.dailySavingsEst || '800+' %>" required></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Active Captains Count</strong><br><code>numbers.activeCaptainsCount</code></td>
+                    <td>Social Proof &amp; Stats</td>
+                    <td>Website par active drivers ka display number (e.g. 10,000+)</td>
+                    <td><input type="text" name="numbers[activeCaptainsCount]" value="<%= nums.activeCaptainsCount || '10,000+' %>" required></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Driver Rating</strong><br><code>numbers.satisfactionRating</code></td>
+                    <td>Trust &amp; Review Cards</td>
+                    <td>Captain satisfaction star rating (e.g. 4.9)</td>
+                    <td><input type="text" name="numbers[satisfactionRating]" value="<%= nums.satisfactionRating || '4.9' %>" required></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Default Min Fare Rule</strong><br><code>numbers.minFareDefault</code></td>
+                    <td>Rules Section &amp; Drivers App</td>
+                    <td>Minimum kiraya rule card me default threshold (₹)</td>
+                    <td><input type="number" name="numbers[minFareDefault]" value="<%= nums.minFareDefault !== undefined ? nums.minFareDefault : 50 %>" required></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Min Fare Per KM</strong><br><code>numbers.minFarePerKm</code></td>
+                    <td>Rules Section &amp; Simulator</td>
+                    <td>Kam se kam per-km kiraya rule (₹/km)</td>
+                    <td><input type="number" name="numbers[minFarePerKm]" value="<%= nums.minFarePerKm !== undefined ? nums.minFarePerKm : 12 %>" required></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Max Pickup Distance (KM)</strong><br><code>numbers.maxPickupDistanceKm</code></td>
+                    <td>Rules Section &amp; Simulator</td>
+                    <td>Passenger pickup doori limit (KM)</td>
+                    <td><input type="number" step="0.1" name="numbers[maxPickupDistanceKm]" value="<%= nums.maxPickupDistanceKm !== undefined ? nums.maxPickupDistanceKm : 2.5 %>" required></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Short Ride Min Fare (₹)</strong><br><code>numbers.shortRideFareMin</code></td>
+                    <td>Problem 2 Section</td>
+                    <td>Chhoti ghaate wali rides ki minimum range (₹)</td>
+                    <td><input type="number" name="numbers[shortRideFareMin]" value="<%= nums.shortRideFareMin !== undefined ? nums.shortRideFareMin : 20 %>" required></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Short Ride Max Fare (₹)</strong><br><code>numbers.shortRideFareMax</code></td>
+                    <td>Problem 2 Section</td>
+                    <td>Chhoti ghaate wali rides ki maximum range (₹)</td>
+                    <td><input type="number" name="numbers[shortRideFareMax]" value="<%= nums.shortRideFareMax !== undefined ? nums.shortRideFareMax : 30 %>" required></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Long Ride Min KM</strong><br><code>numbers.longRideDistanceMin</code></td>
+                    <td>Problem 2 Section</td>
+                    <td>Lambi kamai wali ride ki minimum doori (KM)</td>
+                    <td><input type="number" name="numbers[longRideDistanceMin]" value="<%= nums.longRideDistanceMin !== undefined ? nums.longRideDistanceMin : 15 %>" required></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Long Ride Max KM</strong><br><code>numbers.longRideDistanceMax</code></td>
+                    <td>Problem 2 Section</td>
+                    <td>Lambi kamai wali ride ki maximum doori (KM)</td>
+                    <td><input type="number" name="numbers[longRideDistanceMax]" value="<%= nums.longRideDistanceMax !== undefined ? nums.longRideDistanceMax : 20 %>" required></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Auto-Accept Speed (Sec)</strong><br><code>numbers.autoAcceptTimeSec</code></td>
+                    <td>Problem 1 Section</td>
+                    <td>App dwara ride grab karne ka timing (seconds)</td>
+                    <td><input type="number" name="numbers[autoAcceptTimeSec]" value="<%= nums.autoAcceptTimeSec !== undefined ? nums.autoAcceptTimeSec : 1 %>" required></td>
+                  </tr>
+                  <!-- Simulator Mock Cards -->
+                  <tr>
+                    <td><strong>Simulator Card 1: Fare (₹)</strong><br><code>numbers.mock1Fare</code></td>
+                    <td>Homepage Phone Simulator</td>
+                    <td>Mock Rapido card kiraya (₹)</td>
+                    <td><input type="number" name="numbers[mock1Fare]" value="<%= nums.mock1Fare || 128 %>"></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Simulator Card 1: Drop &amp; Pickup</strong><br><code>numbers.mock1DropKm / PickupKm</code></td>
+                    <td>Homepage Phone Simulator</td>
+                    <td>Card 1 drop KM / pickup KM</td>
+                    <td>
+                      <div style="display:flex; gap:6px;">
+                        <input type="number" step="0.1" name="numbers[mock1DropKm]" value="<%= nums.mock1DropKm || 6.2 %>" placeholder="Drop KM">
+                        <input type="number" step="0.1" name="numbers[mock1PickupKm]" value="<%= nums.mock1PickupKm || 0.8 %>" placeholder="Pickup KM">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Simulator Card 2: Fare &amp; Pickup</strong><br><code>numbers.mock2Fare / PickupKm</code></td>
+                    <td>Homepage Phone Simulator</td>
+                    <td>Mock Porter card kiraya (₹) aur pickup (KM)</td>
+                    <td>
+                      <div style="display:flex; gap:6px;">
+                        <input type="number" name="numbers[mock2Fare]" value="<%= nums.mock2Fare || 24 %>" placeholder="Fare ₹">
+                        <input type="number" step="0.1" name="numbers[mock2PickupKm]" value="<%= nums.mock2PickupKm || 3.2 %>" placeholder="Pickup KM">
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>Simulator Card 3: Fare (₹)</strong><br><code>numbers.mock3Fare</code></td>
+                    <td>Homepage Phone Simulator</td>
+                    <td>Mock Uber Auto card kiraya (₹)</td>
+                    <td><input type="number" name="numbers[mock3Fare]" value="<%= nums.mock3Fare || 175 %>"></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
-            <div style="margin-top: 30px;">
-              <h3 style="font-size: 16px; font-weight: 750; margin-bottom: 12px;">Home Page Section Toggles (Show / Hide)</h3>
-              <p class="admin-card-desc">Jin sections ko aap abhi live website par hide ya show karna chahein unhe toggle karein:</p>
-
-              <% 
-                const hs = settings.homeSections || {};
-              %>
-              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
-                <div class="toggle-switch-card">
-                  <div class="toggle-info">
-                    <span class="toggle-title">Interactive Phone Simulator</span>
-                    <span class="toggle-desc">Hero right side animated phone mockup</span>
-                  </div>
-                  <label class="switch">
-                    <input type="checkbox" name="homeSections_heroSimulator" <%= hs.heroSimulator !== false ? 'checked' : '' %>>
-                    <span class="slider"></span>
-                  </label>
-                </div>
-
-                <div class="toggle-switch-card">
-                  <div class="toggle-info">
-                    <span class="toggle-title">Supported Apps Bar</span>
-                    <span class="toggle-desc">Rapido, Uber, Porter, Shadowfax chips</span>
-                  </div>
-                  <label class="switch">
-                    <input type="checkbox" name="homeSections_supportedApps" <%= hs.supportedApps !== false ? 'checked' : '' %>>
-                    <span class="slider"></span>
-                  </label>
-                </div>
-
-                <div class="toggle-switch-card">
-                  <div class="toggle-info">
-                    <span class="toggle-title">3 Big Driver Problems</span>
-                    <span class="toggle-desc">Problem &amp; solution cards</span>
-                  </div>
-                  <label class="switch">
-                    <input type="checkbox" name="homeSections_driverProblems" <%= hs.driverProblems !== false ? 'checked' : '' %>>
-                    <span class="slider"></span>
-                  </label>
-                </div>
-
-                <div class="toggle-switch-card">
-                  <div class="toggle-info">
-                    <span class="toggle-title">What Rules You Control</span>
-                    <span class="toggle-desc">Pickup, Fare, Route rules grid</span>
-                  </div>
-                  <label class="switch">
-                    <input type="checkbox" name="homeSections_ruleFeatures" <%= hs.ruleFeatures !== false ? 'checked' : '' %>>
-                    <span class="slider"></span>
-                  </label>
-                </div>
-
-                <div class="toggle-switch-card">
-                  <div class="toggle-info">
-                    <span class="toggle-title">Pricing Plans Preview</span>
-                    <span class="toggle-desc">Show plans grid on homepage</span>
-                  </div>
-                  <label class="switch">
-                    <input type="checkbox" name="homeSections_pricingPreview" <%= hs.pricingPreview !== false ? 'checked' : '' %>>
-                    <span class="slider"></span>
-                  </label>
-                </div>
-
-                <div class="toggle-switch-card">
-                  <div class="toggle-info">
-                    <span class="toggle-title">Driver Reviews / Testimonials</span>
-                    <span class="toggle-desc">Real captain feedback cards</span>
-                  </div>
-                  <label class="switch">
-                    <input type="checkbox" name="homeSections_driverReviews" <%= hs.driverReviews !== false ? 'checked' : '' %>>
-                    <span class="slider"></span>
-                  </label>
-                </div>
-
-                <div class="toggle-switch-card">
-                  <div class="toggle-info">
-                    <span class="toggle-title">WhatsApp Community CTA Card</span>
-                    <span class="toggle-desc">Bottom direct contact banner</span>
-                  </div>
-                  <label class="switch">
-                    <input type="checkbox" name="homeSections_communityCard" <%= hs.communityCard !== false ? 'checked' : '' %>>
-                    <span class="slider"></span>
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-actions" style="margin-top: 24px;">
-              <button type="submit" class="btn-primary">💾 Save Home Page Changes</button>
-              <a href="/" target="_blank" class="btn-outline" style="text-decoration:none;">Preview Live Home Page &rarr;</a>
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">💾 Save Website Numbers</button>
+              <a href="/" target="_blank" class="btn-outline" style="text-decoration:none;">View Website &rarr;</a>
             </div>
           </form>
         </div>
       </div>
 
-      <!-- ================= 3. TAB: PRICING PLANS CRUD ================= -->
+      <!-- ================= 3. TAB: BILINGUAL CONTENT CMS (Requirement 2 & 4) ================= -->
+      <div class="tab-pane" id="tabBilingual">
+        <div class="admin-card">
+          <h2>Page Content &amp; Text CMS (Hindi &amp; English)</h2>
+          <div class="admin-card-desc">
+            Website ka saara static text, headings, buttons aur messages Hindi aur English dono bhashao me yahan se edit karein.
+            Jab visitor header me <strong>English</strong> ya <strong>हिंदी</strong> chunta hai, ye text use dikhta hai:
+          </div>
+
+          <% 
+            const cEn = settings.content_en || {};
+            const cHi = settings.content_hi || {};
+          %>
+
+          <form id="bilingualCmsForm">
+            <!-- Language Sub-Tabs -->
+            <div style="display: flex; gap: 12px; margin-bottom: 20px; border-bottom: 2px solid var(--admin-border); padding-bottom: 10px;">
+              <button type="button" class="btn-primary btn-sm" id="btnLangTabHi" onclick="switchBilingualTab('hi')">🇮🇳 Hindi Content (हिंदी)</button>
+              <button type="button" class="btn-outline btn-sm" id="btnLangTabEn" onclick="switchBilingualTab('en')">🇬🇧 English Content</button>
+            </div>
+
+            <!-- Hindi Sub-Pane -->
+            <div id="paneLangHi">
+              <h3 style="font-size: 16px; margin-bottom: 14px; color: var(--admin-primary);">हिंदी कंटेंट सेटिंग्स (Hindi Text)</h3>
+              
+              <div class="form-grid">
+                <div class="form-group full-width">
+                  <label>Hero Badge (Hindi)</label>
+                  <input type="text" name="content_hi[heroBadge]" value="<%= cHi.heroBadge || '' %>">
+                </div>
+                <div class="form-group full-width">
+                  <label>Hero Title (Hindi - HTML supported)</label>
+                  <input type="text" name="content_hi[heroTitle]" value="<%= cHi.heroTitle || '' %>">
+                </div>
+                <div class="form-group full-width">
+                  <label>Hero Subtitle (Hindi)</label>
+                  <textarea name="content_hi[heroSubtitle]" rows="3"><%= cHi.heroSubtitle || '' %></textarea>
+                </div>
+                <div class="form-group">
+                  <label>Download Button Text (Hindi)</label>
+                  <input type="text" name="content_hi[btnDownload]" value="<%= cHi.btnDownload || 'Android के लिए डाउनलोड' %>">
+                </div>
+                <div class="form-group">
+                  <label>View Plans Button Text (Hindi)</label>
+                  <input type="text" name="content_hi[btnViewPlans]" value="<%= cHi.btnViewPlans || 'प्लान्स देखें (₹12 से शुरू)' %>">
+                </div>
+                <div class="form-group full-width">
+                  <label>Problems Section Heading (Hindi)</label>
+                  <input type="text" name="content_hi[problemsHeading]" value="<%= cHi.problemsHeading || '' %>">
+                </div>
+                <div class="form-group full-width">
+                  <label>Problems Section Subheading (Hindi)</label>
+                  <textarea name="content_hi[problemsSubheading]" rows="2"><%= cHi.problemsSubheading || '' %></textarea>
+                </div>
+                <div class="form-group full-width">
+                  <label>Rules Section Heading (Hindi)</label>
+                  <input type="text" name="content_hi[rulesHeading]" value="<%= cHi.rulesHeading || '' %>">
+                </div>
+                <div class="form-group full-width">
+                  <label>Pricing Section Heading (Hindi)</label>
+                  <input type="text" name="content_hi[pricingHeading]" value="<%= cHi.pricingHeading || '' %>">
+                </div>
+                <div class="form-group full-width">
+                  <label>Reviews Section Heading (Hindi)</label>
+                  <input type="text" name="content_hi[reviewsHeading]" value="<%= cHi.reviewsHeading || '' %>">
+                </div>
+                <div class="form-group full-width">
+                  <label>Community Card Heading (Hindi)</label>
+                  <input type="text" name="content_hi[communityHeading]" value="<%= cHi.communityHeading || '' %>">
+                </div>
+                <div class="form-group full-width">
+                  <label>Community Card Subheading (Hindi)</label>
+                  <textarea name="content_hi[communitySubheading]" rows="2"><%= cHi.communitySubheading || '' %></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- English Sub-Pane -->
+            <div id="paneLangEn" style="display: none;">
+              <h3 style="font-size: 16px; margin-bottom: 14px; color: var(--admin-primary);">English Content Settings</h3>
+              
+              <div class="form-grid">
+                <div class="form-group full-width">
+                  <label>Hero Badge (English)</label>
+                  <input type="text" name="content_en[heroBadge]" value="<%= cEn.heroBadge || '' %>">
+                </div>
+                <div class="form-group full-width">
+                  <label>Hero Title (English - HTML supported)</label>
+                  <input type="text" name="content_en[heroTitle]" value="<%= cEn.heroTitle || '' %>">
+                </div>
+                <div class="form-group full-width">
+                  <label>Hero Subtitle (English)</label>
+                  <textarea name="content_en[heroSubtitle]" rows="3"><%= cEn.heroSubtitle || '' %></textarea>
+                </div>
+                <div class="form-group">
+                  <label>Download Button Text (English)</label>
+                  <input type="text" name="content_en[btnDownload]" value="<%= cEn.btnDownload || 'Download for Android' %>">
+                </div>
+                <div class="form-group">
+                  <label>View Plans Button Text (English)</label>
+                  <input type="text" name="content_en[btnViewPlans]" value="<%= cEn.btnViewPlans || 'View Plans (Starting ₹12)' %>">
+                </div>
+                <div class="form-group full-width">
+                  <label>Problems Section Heading (English)</label>
+                  <input type="text" name="content_en[problemsHeading]" value="<%= cEn.problemsHeading || '' %>">
+                </div>
+                <div class="form-group full-width">
+                  <label>Problems Section Subheading (English)</label>
+                  <textarea name="content_en[problemsSubheading]" rows="2"><%= cEn.problemsSubheading || '' %></textarea>
+                </div>
+                <div class="form-group full-width">
+                  <label>Rules Section Heading (English)</label>
+                  <input type="text" name="content_en[rulesHeading]" value="<%= cEn.rulesHeading || '' %>">
+                </div>
+                <div class="form-group full-width">
+                  <label>Pricing Section Heading (English)</label>
+                  <input type="text" name="content_en[pricingHeading]" value="<%= cEn.pricingHeading || '' %>">
+                </div>
+                <div class="form-group full-width">
+                  <label>Reviews Section Heading (English)</label>
+                  <input type="text" name="content_en[reviewsHeading]" value="<%= cEn.reviewsHeading || '' %>">
+                </div>
+                <div class="form-group full-width">
+                  <label>Community Card Heading (English)</label>
+                  <input type="text" name="content_en[communityHeading]" value="<%= cEn.communityHeading || '' %>">
+                </div>
+                <div class="form-group full-width">
+                  <label>Community Card Subheading (English)</label>
+                  <textarea name="content_en[communitySubheading]" rows="2"><%= cEn.communitySubheading || '' %></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions" style="margin-top: 24px;">
+              <button type="submit" class="btn-primary">💾 Save Bilingual Content</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ================= 4. TAB: PRICING PLANS CRUD (Requirement 5) ================= -->
       <div class="tab-pane" id="tabPlans">
         <div class="admin-card">
           <div class="admin-card-header">
             <div>
               <h2>Pricing Plans Management (<%= plans.length %>)</h2>
-              <div class="admin-card-desc">Plans add, edit aur delete karein. Ye changes website ke Pricing section aur Mobile App me turant update honge.</div>
+              <div class="admin-card-desc">Plans add, edit aur delete karein. Har plan ke features, benefits aur Hindi/English details yahan se manage karein:</div>
             </div>
             <button class="btn-primary" onclick="openPlanModal()">➕ Add New Plan</button>
           </div>
@@ -451,13 +551,13 @@
               <thead>
                 <tr>
                   <th>Plan ID</th>
-                  <th>Name</th>
+                  <th>Name (EN / HI)</th>
                   <th>Offer Price</th>
-                  <th>Cut-off Price</th>
+                  <th>Original</th>
                   <th>Duration</th>
                   <th>Badge</th>
+                  <th>Features Count</th>
                   <th>Status</th>
-                  <th>Description</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -465,10 +565,13 @@
                 <% plans.forEach(p => { %>
                 <tr>
                   <td><code><%= p.id %></code></td>
-                  <td><strong><%= p.name %></strong></td>
+                  <td>
+                    <strong><%= p.name %></strong><br>
+                    <span style="font-size:12px; color:var(--admin-muted);"><%= p.name_hi || p.name %></span>
+                  </td>
                   <td><span style="font-weight:750; color:var(--admin-primary);">₹<%= p.price %></span></td>
                   <td><%= p.wasPrice ? '₹' + p.wasPrice : '-' %></td>
-                  <td><%= p.durationDays %> days (<%= p.durationText %>)</td>
+                  <td><%= p.durationDays %>d (<%= p.durationText %>)</td>
                   <td>
                     <% if (p.badge) { %>
                       <span class="badge-tag badge-warning"><%= p.badge %></span>
@@ -477,11 +580,13 @@
                     <% } %>
                   </td>
                   <td>
+                    <span class="badge-tag badge-info"><%= (p.features && p.features.length) || 0 %> features</span>
+                  </td>
+                  <td>
                     <span class="badge-tag <%= p.active !== false ? 'badge-success' : 'badge-danger' %>">
                       <%= p.active !== false ? 'Active' : 'Hidden' %>
                     </span>
                   </td>
-                  <td style="max-width: 220px; font-size: 12.5px; color: var(--admin-muted);"><%= p.description || '-' %></td>
                   <td>
                     <div style="display: flex; gap: 6px;">
                       <button class="btn-outline btn-sm" onclick='editPlan(<%- JSON.stringify(p) %>)'>Edit</button>
@@ -496,11 +601,230 @@
         </div>
       </div>
 
-      <!-- ================= 4. TAB: APK & APP DOWNLOAD ================= -->
+      <!-- ================= 5. TAB: HOW IT WORKS VIDEO CMS (Requirement 14) ================= -->
+      <div class="tab-pane" id="tabHowItWorks">
+        <div class="admin-card">
+          <h2>"How It Works" Page &amp; YouTube Video CMS</h2>
+          <div class="admin-card-desc">
+            Website ke How It Works page (/how-it-works) par dikhne wala YouTube video aur 5 step-by-step driver onboarding cards configure karein:
+          </div>
+
+          <% const hiw = settings.howItWorks || {}; %>
+          <form id="howItWorksForm">
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label>YouTube Video URL (Watch or Share link)</label>
+                <input type="text" name="howItWorks[youtubeVideoUrl]" value="<%= hiw.youtubeVideoUrl || '' %>" placeholder="e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ" required>
+                <div class="field-hint">YouTube ka normal link paste karein (e.g. https://youtu.be/... ya https://youtube.com/watch?v=...). Embed URL automatically ban jayega.</div>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Direct YouTube Embed URL (Optional override)</label>
+                <input type="text" name="howItWorks[youtubeEmbedUrl]" value="<%= hiw.youtubeEmbedUrl || '' %>" placeholder="e.g. https://www.youtube.com/embed/dQw4w9WgXcQ">
+              </div>
+
+              <div class="form-group full-width">
+                <label>Page Title (English)</label>
+                <input type="text" name="howItWorks[title_en]" value="<%= hiw.title_en || '' %>">
+              </div>
+
+              <div class="form-group full-width">
+                <label>Page Title (Hindi)</label>
+                <input type="text" name="howItWorks[title_hi]" value="<%= hiw.title_hi || '' %>">
+              </div>
+
+              <div class="form-group full-width">
+                <label>Subtitle / Description (English)</label>
+                <textarea name="howItWorks[subtitle_en]" rows="2"><%= hiw.subtitle_en || '' %></textarea>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Subtitle / Description (Hindi)</label>
+                <textarea name="howItWorks[subtitle_hi]" rows="2"><%= hiw.subtitle_hi || '' %></textarea>
+              </div>
+            </div>
+
+            <div class="form-actions" style="margin-top: 24px;">
+              <button type="submit" class="btn-primary">💾 Save Video &amp; Tutorial Settings</button>
+              <a href="/how-it-works" target="_blank" class="btn-outline" style="text-decoration:none;">View /how-it-works Page &rarr;</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ================= 6. TAB: SOCIAL MEDIA & FLOATING DOCK (Requirement 11 & 13) ================= -->
+      <div class="tab-pane" id="tabSocial">
+        <div class="admin-card">
+          <h2>Floating Social Media Panel &amp; Social Links</h2>
+          <div class="admin-card-desc">
+            Website par right side me scroll ke dauran float karne wale 4 social icons (WhatsApp, Instagram, Facebook, YouTube) aur Show/Hide toggle button manage karein:
+          </div>
+
+          <% 
+            const float = settings.floatingSocial || {};
+            const soc = settings.socialLinks || {};
+          %>
+          <form id="socialSettingsForm">
+            <h3 style="font-size: 16px; margin-bottom: 12px; color: var(--admin-primary);">1. Floating Social Media Dock Controls (Requirement 13)</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 24px;">
+              <div class="toggle-switch-card">
+                <div class="toggle-info">
+                  <span class="toggle-title">Enable Floating Social Dock</span>
+                  <span class="toggle-desc">Master switch to show/hide floating panel</span>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" name="floatingSocial[enabled]" <%= float.enabled !== false ? 'checked' : '' %>>
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <div class="toggle-switch-card">
+                <div class="toggle-info">
+                  <span class="toggle-title">Visible by Default on First Visit</span>
+                  <span class="toggle-desc">Show open icons for first time visitors</span>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" name="floatingSocial[showByDefault]" <%= float.showByDefault !== false ? 'checked' : '' %>>
+                  <span class="slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <h3 style="font-size: 16px; margin-bottom: 12px; color: var(--admin-primary);">2. Individual Social Channels (URLs &amp; Visibility)</h3>
+            <div class="form-grid">
+              <!-- WhatsApp -->
+              <div class="form-group">
+                <label>WhatsApp Chat URL</label>
+                <input type="url" name="socialLinks[whatsapp][url]" value="<%= (soc.whatsapp && soc.whatsapp.url) || ('https://wa.me/' + settings.whatsappNumber) %>">
+              </div>
+              <div class="form-group" style="display:flex; align-items:flex-end;">
+                <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                  <input type="checkbox" name="socialLinks[whatsapp][enabled]" <%= (!soc.whatsapp || soc.whatsapp.enabled !== false) ? 'checked' : '' %> style="width:auto;">
+                  WhatsApp Icon Visible on Website
+                </label>
+              </div>
+
+              <!-- Instagram -->
+              <div class="form-group">
+                <label>Instagram Profile URL</label>
+                <input type="url" name="socialLinks[instagram][url]" value="<%= (soc.instagram && soc.instagram.url) || 'https://instagram.com/ridersaathi' %>">
+              </div>
+              <div class="form-group" style="display:flex; align-items:flex-end;">
+                <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                  <input type="checkbox" name="socialLinks[instagram][enabled]" <%= (!soc.instagram || soc.instagram.enabled !== false) ? 'checked' : '' %> style="width:auto;">
+                  Instagram Icon Visible on Website
+                </label>
+              </div>
+
+              <!-- Facebook -->
+              <div class="form-group">
+                <label>Facebook Page URL</label>
+                <input type="url" name="socialLinks[facebook][url]" value="<%= (soc.facebook && soc.facebook.url) || 'https://facebook.com/ridersaathi' %>">
+              </div>
+              <div class="form-group" style="display:flex; align-items:flex-end;">
+                <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                  <input type="checkbox" name="socialLinks[facebook][enabled]" <%= (!soc.facebook || soc.facebook.enabled !== false) ? 'checked' : '' %> style="width:auto;">
+                  Facebook Icon Visible on Website
+                </label>
+              </div>
+
+              <!-- YouTube -->
+              <div class="form-group">
+                <label>YouTube Channel URL</label>
+                <input type="url" name="socialLinks[youtube][url]" value="<%= (soc.youtube && soc.youtube.url) || 'https://youtube.com/@ridersaathi' %>">
+              </div>
+              <div class="form-group" style="display:flex; align-items:flex-end;">
+                <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                  <input type="checkbox" name="socialLinks[youtube][enabled]" <%= (!soc.youtube || soc.youtube.enabled !== false) ? 'checked' : '' %> style="width:auto;">
+                  YouTube Icon Visible on Website
+                </label>
+              </div>
+
+              <!-- Telegram -->
+              <div class="form-group">
+                <label>Telegram Channel / Group URL</label>
+                <input type="url" name="socialLinks[telegram][url]" value="<%= (soc.telegram && soc.telegram.url) || settings.telegramUrl || 'https://t.me/RiderSaathi_app' %>">
+              </div>
+              <div class="form-group" style="display:flex; align-items:flex-end;">
+                <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                  <input type="checkbox" name="socialLinks[telegram][enabled]" <%= (!soc.telegram || soc.telegram.enabled !== false) ? 'checked' : '' %> style="width:auto;">
+                  Telegram Icon Visible on Website
+                </label>
+              </div>
+            </div>
+
+            <div class="form-actions" style="margin-top: 24px;">
+              <button type="submit" class="btn-primary">💾 Save Social Media Settings</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ================= 7. TAB: OFFICE & GOOGLE MAPS (Requirement 8 & 9) ================= -->
+      <div class="tab-pane" id="tabCompany">
+        <div class="admin-card">
+          <h2>Office Location &amp; Google Maps Integration</h2>
+          <div class="admin-card-desc">
+            Company office address, interactive Google Maps iframe embed URL, coordinates aur directions link configure karein:
+          </div>
+
+          <% const loc = settings.location || {}; %>
+          <form id="locationSettingsForm">
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label>Office Physical Address</label>
+                <textarea name="location[address]" rows="2" required><%= loc.address || settings.officeAddress %></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>City</label>
+                <input type="text" name="location[city]" value="<%= loc.city || 'Indore' %>">
+              </div>
+
+              <div class="form-group">
+                <label>State</label>
+                <input type="text" name="location[state]" value="<%= loc.state || 'Madhya Pradesh' %>">
+              </div>
+
+              <div class="form-group">
+                <label>Pincode</label>
+                <input type="text" name="location[pincode]" value="<%= loc.pincode || '452009' %>">
+              </div>
+
+              <div class="form-group">
+                <label>Map Coordinates (Latitude, Longitude)</label>
+                <div style="display:flex; gap:6px;">
+                  <input type="text" name="location[latitude]" value="<%= loc.latitude || '22.7533' %>" placeholder="Latitude">
+                  <input type="text" name="location[longitude]" value="<%= loc.longitude || '75.8937' %>" placeholder="Longitude">
+                </div>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Google Maps Direct Directions URL</label>
+                <input type="url" name="location[googleMapsUrl]" value="<%= loc.googleMapsUrl || '' %>" placeholder="https://maps.google.com/?q=...">
+              </div>
+
+              <div class="form-group full-width">
+                <label>Google Maps Iframe Embed URL (Contact Page Map)</label>
+                <input type="text" name="location[googleMapsEmbedUrl]" value="<%= loc.googleMapsEmbedUrl || '' %>" placeholder="https://www.google.com/maps/embed?...">
+                <div class="field-hint">Google Maps par jakar "Share" &rarr; "Embed a map" se iframe ka src URL paste karein.</div>
+              </div>
+            </div>
+
+            <div class="form-actions" style="margin-top: 24px;">
+              <button type="submit" class="btn-primary">💾 Save Office &amp; Map Settings</button>
+              <a href="/contact" target="_blank" class="btn-outline" style="text-decoration:none;">Preview Contact Page &rarr;</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ================= 8. TAB: APK & APP DOWNLOAD (Requirement 6 & 7) ================= -->
       <div class="tab-pane" id="tabApp">
         <div class="admin-card">
-          <h2>Android APK &amp; Version Management</h2>
-          <div class="admin-card-desc">Jab bhi aap naya APK build karein, naya version number, file size aur link yahan set karein:</div>
+          <h2>Android APK &amp; Application Download Links</h2>
+          <div class="admin-card-desc">Naya version number, direct APK URL, Google Play Store link aur mirror URLs yahan se manage karein:</div>
 
           <form id="appSettingsForm">
             <div class="form-grid">
@@ -525,8 +849,18 @@
               </div>
 
               <div class="form-group full-width">
-                <label>APK Download URL</label>
+                <label>Direct APK Download URL</label>
                 <input type="text" name="apkDownloadUrl" value="<%= settings.apkDownloadUrl %>" placeholder="e.g. /downloads/RiderSaathi-v5.28.1.apk" required>
+              </div>
+
+              <div class="form-group full-width">
+                <label>Google Play Store URL (Optional)</label>
+                <input type="url" name="playStoreUrl" value="<%= settings.playStoreUrl || '' %>" placeholder="https://play.google.com/store/apps/details?id=...">
+              </div>
+
+              <div class="form-group full-width">
+                <label>Mirror Download URL (Optional)</label>
+                <input type="url" name="mirrorDownloadUrl" value="<%= settings.mirrorDownloadUrl || '' %>" placeholder="https://drive.google.com/...">
               </div>
 
               <div class="form-group full-width">
@@ -553,7 +887,7 @@
         </div>
       </div>
 
-      <!-- ================= 5. TAB: GUIDES & TUTORIALS CRUD ================= -->
+      <!-- ================= 9. TAB: GUIDES & TUTORIALS CRUD ================= -->
       <div class="tab-pane" id="tabGuides">
         <div class="admin-card">
           <div class="admin-card-header">
@@ -597,7 +931,7 @@
         </div>
       </div>
 
-      <!-- ================= 6. TAB: FAQS CRUD ================= -->
+      <!-- ================= 10. TAB: FAQS CRUD ================= -->
       <div class="tab-pane" id="tabFaq">
         <div class="admin-card">
           <div class="admin-card-header">
@@ -636,7 +970,7 @@
         </div>
       </div>
 
-      <!-- ================= 7. TAB: DRIVERS MANAGEMENT ================= -->
+      <!-- ================= 11. TAB: DRIVERS MANAGEMENT ================= -->
       <div class="tab-pane" id="tabDrivers">
         <div class="admin-card">
           <div class="admin-card-header">
@@ -735,7 +1069,7 @@
         </div>
       </div>
 
-      <!-- ================= 8. TAB: ORDERS & SUBSCRIPTIONS ================= -->
+      <!-- ================= 12. TAB: ORDERS & SUBSCRIPTIONS ================= -->
       <div class="tab-pane" id="tabOrders">
         <div class="admin-card">
           <div class="admin-card-header">
@@ -802,7 +1136,7 @@
         </div>
       </div>
 
-      <!-- ================= 9. TAB: CONTACT MESSAGES ================= -->
+      <!-- ================= 13. TAB: CONTACT MESSAGES ================= -->
       <div class="tab-pane" id="tabInquiries">
         <div class="admin-card">
           <h2>Driver Contact Messages (<%= inquiries.length %>)</h2>
@@ -854,11 +1188,11 @@
         </div>
       </div>
 
-      <!-- ================= 10. TAB: CONTACT & SUPPORT SETTINGS ================= -->
+      <!-- ================= 14. TAB: CONTACT & HELPLINE SETTINGS (Requirement 10) ================= -->
       <div class="tab-pane" id="tabContact">
         <div class="admin-card">
-          <h2>Contact &amp; Support Channels</h2>
-          <div class="admin-card-desc">Driver help aur support links configure karein. Ye poori website par dynamic reflect hote hain:</div>
+          <h2>WhatsApp, Helpline &amp; Customer Support</h2>
+          <div class="admin-card-desc">Driver support channels, WhatsApp number aur email configure karein:</div>
 
           <form id="contactSettingsForm">
             <div class="form-grid">
@@ -878,16 +1212,6 @@
               </div>
 
               <div class="form-group">
-                <label>Telegram Channel / Handle</label>
-                <input type="text" name="telegramHandle" value="<%= settings.telegramHandle %>">
-              </div>
-
-              <div class="form-group">
-                <label>Telegram Invite URL</label>
-                <input type="url" name="telegramUrl" value="<%= settings.telegramUrl %>">
-              </div>
-
-              <div class="form-group">
                 <label>Support Operating Hours</label>
                 <input type="text" name="supportHours" value="<%= settings.supportHours %>">
               </div>
@@ -898,7 +1222,7 @@
               </div>
 
               <div class="form-group full-width">
-                <label>Office / Business Address</label>
+                <label>Office Physical Address</label>
                 <textarea name="officeAddress" rows="2"><%= settings.officeAddress %></textarea>
               </div>
             </div>
@@ -910,11 +1234,11 @@
         </div>
       </div>
 
-      <!-- ================= 11. TAB: FOOTER & LEGAL CMS ================= -->
+      <!-- ================= 15. TAB: FOOTER & LEGAL CMS (Requirement 8) ================= -->
       <div class="tab-pane" id="tabFooter">
         <div class="admin-card">
-          <h2>Footer, Ownership &amp; Legal Policies</h2>
-          <div class="admin-card-desc">Legal details, copyright notice aur disclaimers manage karein:</div>
+          <h2>Company Details, Ownership &amp; Footer CMS</h2>
+          <div class="admin-card-desc">Company legal name, trade name, founder aur legal disclaimers manage karein:</div>
 
           <form id="footerSettingsForm">
             <div class="form-grid">
@@ -934,7 +1258,7 @@
               </div>
 
               <div class="form-group">
-                <label>Registration &amp; Licensing Info</label>
+                <label>Registration &amp; Licensing Info (MSME / Gumasta)</label>
                 <input type="text" name="registrationDetails" value="<%= settings.registrationDetails %>">
               </div>
 
@@ -950,13 +1274,13 @@
             </div>
 
             <div class="form-actions">
-              <button type="submit" class="btn-primary">💾 Save Footer &amp; Legal Settings</button>
+              <button type="submit" class="btn-primary">💾 Save Company &amp; Footer Settings</button>
             </div>
           </form>
         </div>
       </div>
 
-      <!-- ================= 12. TAB: SEO & META TAGS ================= -->
+      <!-- ================= 16. TAB: SEO & META TAGS ================= -->
       <div class="tab-pane" id="tabSeo">
         <div class="admin-card">
           <h2>SEO &amp; Search Engine Optimization</h2>
@@ -999,7 +1323,7 @@
         </div>
       </div>
 
-      <!-- ================= 13. TAB: UPI & PAYMENTS ================= -->
+      <!-- ================= 17. TAB: UPI & PAYMENTS ================= -->
       <div class="tab-pane" id="tabPayment">
         <div class="admin-card">
           <h2>UPI Payment Gateway Configuration</h2>
@@ -1030,7 +1354,7 @@
         </div>
       </div>
 
-      <!-- ================= 14. TAB: SECURITY & CREDENTIALS ================= -->
+      <!-- ================= 18. TAB: SECURITY & CREDENTIALS ================= -->
       <div class="tab-pane" id="tabSecurity">
         <div class="admin-card">
           <h2>Admin Login Credentials &amp; Password</h2>
@@ -1082,9 +1406,9 @@
 
   <!-- ================= MODALS ================= -->
 
-  <!-- 1. Plan Add / Edit Modal -->
+  <!-- 1. Plan Add / Edit Modal (with Feature List Builder & Bilingual Details) -->
   <div class="modal-overlay" id="planModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="max-width: 680px;">
       <div class="modal-header">
         <h3 class="modal-title" id="planModalTitle">Add Pricing Plan</h3>
         <button type="button" class="modal-close-btn" onclick="closeModal('planModal')">
@@ -1096,8 +1420,12 @@
           <input type="hidden" id="planId" name="id">
           <div class="form-grid">
             <div class="form-group">
-              <label>Plan Name</label>
+              <label>Plan Name (English)</label>
               <input type="text" id="planName" name="name" placeholder="e.g. 1 Week Pass" required>
+            </div>
+            <div class="form-group">
+              <label>Plan Name (Hindi)</label>
+              <input type="text" id="planNameHi" name="name_hi" placeholder="e.g. 1 हफ्ते का पास">
             </div>
             <div class="form-group">
               <label>Offer Price (₹)</label>
@@ -1112,17 +1440,40 @@
               <input type="number" id="planDurationDays" name="durationDays" placeholder="e.g. 7" required>
             </div>
             <div class="form-group">
-              <label>Duration Text</label>
+              <label>Duration Text (English)</label>
               <input type="text" id="planDurationText" name="durationText" placeholder="e.g. 7 days" required>
             </div>
             <div class="form-group">
-              <label>Ribbon Badge (Optional)</label>
+              <label>Duration Text (Hindi)</label>
+              <input type="text" id="planDurationTextHi" name="durationText_hi" placeholder="e.g. 7 दिन">
+            </div>
+            <div class="form-group">
+              <label>Ribbon Badge (English)</label>
               <input type="text" id="planBadge" name="badge" placeholder="e.g. Popular">
             </div>
+            <div class="form-group">
+              <label>Ribbon Badge (Hindi)</label>
+              <input type="text" id="planBadgeHi" name="badge_hi" placeholder="e.g. लोकप्रिय">
+            </div>
             <div class="form-group full-width">
-              <label>Description</label>
+              <label>Description (English)</label>
               <input type="text" id="planDescription" name="description" placeholder="e.g. Best for full weekly shifts & high savings">
             </div>
+            <div class="form-group full-width">
+              <label>Description (Hindi)</label>
+              <input type="text" id="planDescriptionHi" name="description_hi" placeholder="e.g. पूरी हफ़्ते की शिफ्ट और अधिक बचत के लिए बेस्ट">
+            </div>
+            
+            <!-- Features List (One feature per line) -->
+            <div class="form-group full-width">
+              <label>Plan Features (English - One item per line)</label>
+              <textarea id="planFeatures" name="features" rows="4" placeholder="Rapido, Uber & Porter Support&#10;Go-To (Towards Home) Route Filter&#10;Pickup & Fare Rules&#10;Voice & Sound Alerts"></textarea>
+            </div>
+            <div class="form-group full-width">
+              <label>Plan Features (Hindi - One item per line)</label>
+              <textarea id="planFeaturesHi" name="features_hi" rows="4" placeholder="Rapido, Uber और Porter सपोर्ट&#10;घर की तरफ (Go-To) रूट फ़िल्टर&#10;पिकअप और किराया रूल्स&#10;आवाज और साउंड अलर्ट्स"></textarea>
+            </div>
+
             <div class="form-group full-width">
               <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
                 <input type="checkbox" id="planActive" name="active" checked style="width:auto;">

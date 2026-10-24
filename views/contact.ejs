@@ -1,70 +1,103 @@
 <%- include('partials/header') %>
 
+<%
+  const isEn = (typeof lang !== 'undefined' && lang === 'en');
+  const loc = settings.location || {};
+  const soc = settings.socialLinks || {};
+%>
+
 <div class="wrap" style="padding-top: 36px; padding-bottom: 60px;">
   <div class="section-head" style="text-align: center; margin-bottom: 36px;">
-    <div class="pill-badge green" style="margin: 0 auto 12px;">Support Hours: <%= settings.supportHours %></div>
+    <div class="pill-badge green" style="margin: 0 auto 12px;">
+      <%= isEn ? `Support Hours: ${settings.supportHours}` : `सहायता समय: ${settings.supportHours}` %>
+    </div>
     <h1 style="font-family: var(--font-heading); font-size: 38px; font-weight: 800; color: var(--text-heading); letter-spacing: -0.8px;">
-      Contact <%= settings.siteName %> Support
+      <%= isEn ? `Contact ${settings.siteName} Support` : `${settings.siteName} सपोर्ट से संपर्क करें` %>
     </h1>
     <p style="max-width: 600px; margin: 8px auto 0; font-size: 16px; color: var(--text-muted);">
-      Payment activation, app permissions, rules ya kisi bhi sawal ke liye humse sampark karein:
+      <%= isEn 
+        ? 'Reach out for plan activation, app installation, filtering rules, or any captain support queries:' 
+        : 'प्लान एक्टिवेशन, ऐप इंस्टॉलेशन, रूल्स या किसी भी सवाल के लिए हमसे संपर्क करें:' %>
     </p>
   </div>
 
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 28px;">
-    <!-- Left Column: Direct Info & WhatsApp -->
+    <!-- Left Column: Direct Info & Location (Requirements 8, 9, 10) -->
     <div>
       <div class="card" style="height: 100%; display: flex; flex-direction: column;">
         <h3 style="font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--text-heading); margin-bottom: 16px;">
-          Direct Helpline &amp; Office
+          <%= isEn ? 'Direct Helpline & Registered Office' : 'डायरेक्ट हेल्पलाइन और ऑफिस' %>
         </h3>
 
         <div style="display: flex; flex-direction: column; gap: 16px; flex-grow: 1;">
           <div style="display: flex; align-items: flex-start; gap: 12px;">
-            <div style="width: 38px; height: 38px; background: #dcfce7; color: #15803d; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px;">📱</div>
+            <div style="width: 40px; height: 40px; background: #dcfce7; color: #15803d; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px;">📱</div>
             <div>
               <strong style="color: var(--text-heading); font-size: 14.5px; display: block;">WhatsApp Support</strong>
-              <a href="https://wa.me/<%= settings.whatsappNumber %>" target="_blank" rel="noopener" style="font-size: 14px; font-weight: 600;">
-                +<%= settings.whatsappNumber %> (Instant Reply)
+              <a href="https://wa.me/<%= settings.whatsappNumber %>" target="_blank" rel="noopener" style="font-size: 14px; font-weight: 600; color: #16a34a;">
+                +<%= settings.whatsappNumber %> (<%= isEn ? 'Instant Reply' : 'तुरंत जवाब' %>)
               </a>
             </div>
           </div>
 
           <div style="display: flex; align-items: flex-start; gap: 12px;">
-            <div style="width: 38px; height: 38px; background: #e0f2fe; color: #0369a1; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px;">✉️</div>
+            <div style="width: 40px; height: 40px; background: #e0f2fe; color: #0369a1; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px;">✉️</div>
             <div>
-              <strong style="color: var(--text-heading); font-size: 14.5px; display: block;">Official Email</strong>
-              <a href="mailto:<%= settings.contactEmail %>" style="font-size: 14px;">
+              <strong style="color: var(--text-heading); font-size: 14.5px; display: block;"><%= isEn ? 'Official Email' : 'ऑफिशियल ईमेल' %></strong>
+              <a href="mailto:<%= settings.contactEmail %>" style="font-size: 14px; color: var(--brand-primary);">
                 <%= settings.contactEmail %>
               </a>
             </div>
           </div>
 
           <div style="display: flex; align-items: flex-start; gap: 12px;">
-            <div style="width: 38px; height: 38px; background: var(--brand-tint); color: var(--brand-primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px;">✈️</div>
+            <div style="width: 40px; height: 40px; background: var(--brand-tint); color: var(--brand-primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px;">✈️</div>
             <div>
               <strong style="color: var(--text-heading); font-size: 14.5px; display: block;">Telegram Channel</strong>
-              <a href="<%= settings.telegramUrl %>" target="_blank" rel="noopener" style="font-size: 14px;">
+              <a href="<%= (soc.telegram && soc.telegram.url) || settings.telegramUrl %>" target="_blank" rel="noopener" style="font-size: 14px;">
                 <%= settings.telegramHandle %>
               </a>
             </div>
           </div>
 
           <div style="display: flex; align-items: flex-start; gap: 12px;">
-            <div style="width: 38px; height: 38px; background: #fef3c7; color: #b45309; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px;">🏢</div>
+            <div style="width: 40px; height: 40px; background: #fef3c7; color: #b45309; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px;">🏢</div>
             <div>
-              <strong style="color: var(--text-heading); font-size: 14.5px; display: block;">Office Address</strong>
+              <strong style="color: var(--text-heading); font-size: 14.5px; display: block;"><%= isEn ? 'Office Address' : 'ऑफिस का पता' %></strong>
               <span style="font-size: 13.5px; color: var(--text-body); line-height: 1.5; display: block;">
-                <%= settings.officeAddress %>
+                <%= loc.address || settings.officeAddress %>
               </span>
+              <% if (loc.googleMapsUrl) { %>
+                <a href="<%= loc.googleMapsUrl %>" target="_blank" rel="noopener" style="font-size: 13px; font-weight: 600; color: var(--brand-primary); margin-top: 4px; display: inline-block;">
+                  🗺️ <%= isEn ? 'Open in Google Maps →' : 'गूगल मैप्स में खोलें →' %>
+                </a>
+              <% } %>
             </div>
           </div>
         </div>
 
-        <div class="notice-box" style="margin-top: 24px; margin-bottom: 0;">
+        <!-- Google Maps Embed Card (Requirement 9) -->
+        <% if (loc.googleMapsEmbedUrl) { %>
+        <div style="margin-top: 20px; border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-sm);">
+          <iframe 
+            src="<%= loc.googleMapsEmbedUrl %>" 
+            width="100%" 
+            height="180" 
+            style="border:0; display:block;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+        <% } %>
+
+        <div class="notice-box" style="margin-top: 20px; margin-bottom: 0;">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0; color:var(--warning);"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
           <div style="font-size: 12.5px;">
-            <strong>Suraksha Alert:</strong> <%= settings.siteName %> kabhi aapka OTP, UPI PIN, password ya bank details nahi maangta. Koi maange toh wo hum nahi hain.
+            <strong><%= isEn ? 'Security Alert:' : 'सुरक्षा अलर्ट:' %></strong> 
+            <%= isEn 
+              ? `${settings.siteName} never asks for OTP, UPI PIN, password, or banking credentials. Please stay alert against fraud.` 
+              : `${settings.siteName} कभी आपसे OTP, UPI पिन, पासवर्ड या बैंक डिटेल्स नहीं मांगता. कृपया फ्रॉड से सावधान रहें.` %>
           </div>
         </div>
       </div>
@@ -74,35 +107,35 @@
     <div>
       <div class="card">
         <h3 style="font-family: var(--font-heading); font-size: 22px; font-weight: 700; color: var(--text-heading); margin-bottom: 6px;">
-          Send us a Message
+          <%= isEn ? 'Send us a Message' : 'हमे संदेश भेजें' %>
         </h3>
         <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 18px;">
-          Apna sawal ya pareshani niche likhein, hamari team jald revert karegi:
+          <%= isEn ? 'Fill in your query and our team will get back to you shortly:' : 'अपना सवाल या परेशानी नीचे लिखें, हमारी टीम जल्द संपर्क करेगी:' %>
         </p>
 
         <div id="contactAlert" style="display:none; padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 16px; font-size: 14px;"></div>
 
         <form id="contactForm" class="delform">
-          <label for="cName" style="margin-top:0;">Aapka Naam</label>
-          <input type="text" id="cName" name="name" placeholder="Driver / Captain Name" required>
+          <label for="cName" style="margin-top:0;"><%= isEn ? 'Your Name' : 'आपका नाम' %></label>
+          <input type="text" id="cName" name="name" placeholder="<%= isEn ? 'Driver / Captain Name' : 'ड्राइवर / कप्तान का नाम' %>" required>
 
-          <label for="cPhone">Mobile Number (10 Digits)</label>
-          <input type="tel" id="cPhone" name="phone" placeholder="10 digit number" required pattern="[0-9]{10}">
+          <label for="cPhone"><%= isEn ? 'Mobile Number (10 Digits)' : 'मोबाइल नंबर (10 अंक)' %></label>
+          <input type="tel" id="cPhone" name="phone" placeholder="<%= isEn ? '10-digit number' : '10 अंकों का नंबर' %>" required pattern="[0-9]{10}">
 
-          <label for="cSubject">Topic / Mudda</label>
+          <label for="cSubject"><%= isEn ? 'Topic / Subject' : 'मुद्दा / विषय' %></label>
           <select id="cSubject" name="subject" required>
-            <option value="Payment & Plan Activation">Payment &amp; Plan Activation</option>
-            <option value="App Installation & Permissions">App Installation &amp; Permissions</option>
-            <option value="Rules & Booking Filtering">Rules &amp; Booking Filtering</option>
-            <option value="Refund Request">Refund Request</option>
-            <option value="Other">Other / General Question</option>
+            <option value="Payment & Plan Activation"><%= isEn ? 'Payment & Plan Activation' : 'पेमेंट और प्लान एक्टिवेशन' %></option>
+            <option value="App Installation & Permissions"><%= isEn ? 'App Installation & Permissions' : 'ऐप इंस्टॉलेशन और परमिशन' %></option>
+            <option value="Rules & Booking Filtering"><%= isEn ? 'Rules & Booking Filtering' : 'रूल्स और बुकिंग फ़िल्टर' %></option>
+            <option value="Refund Request"><%= isEn ? 'Refund Request' : 'रिफंड रिक्वेस्ट' %></option>
+            <option value="Other"><%= isEn ? 'Other / General Question' : 'अन्य / सामान्य सवाल' %></option>
           </select>
 
-          <label for="cMessage">Aapka Message / Dikkat</label>
-          <textarea id="cMessage" name="message" rows="4" placeholder="Apni dikkat yahan likhein..." required></textarea>
+          <label for="cMessage"><%= isEn ? 'Your Message / Issue' : 'आपका संदेश / समस्या' %></label>
+          <textarea id="cMessage" name="message" rows="4" placeholder="<%= isEn ? 'Describe your issue here...' : 'अपनी समस्या यहाँ विस्तार से लिखें...' %>" required></textarea>
 
           <button type="submit" class="btn" style="width: 100%; margin-top: 18px; padding: 13px;">
-            Submit Message
+            <%= isEn ? 'Submit Message' : 'संदेश भेजें' %>
           </button>
         </form>
       </div>

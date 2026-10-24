@@ -1,5 +1,10 @@
 <%- include('partials/header') %>
 
+<%
+  const isEn = (typeof lang !== 'undefined' && lang === 'en');
+  const cnt = (typeof content !== 'undefined' && content) ? content : (isEn ? (settings.content_en || {}) : (settings.content_hi || {}));
+%>
+
 <!-- 1. HERO SECTION -->
 <section class="hero-wrapper">
   <div class="wrap">
@@ -8,24 +13,30 @@
       <div class="hero-content">
         <div class="pill-badge green">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-          <%= settings.heroBadge || (settings.freeRidesTrial + ' — Bina Kisi Payment Ke Test Karo') %>
+          <%= cnt.heroBadge || (isEn ? `⚡ First ${num('freeTrialRides', 10)} rides completely free — Test without payment!` : `⚡ पहली ${num('freeTrialRides', 10)} राइड्स बिल्कुल फ्री — बिना पेमेंट टेस्ट करें!`) %>
         </div>
 
         <h1 class="hero-title">
-          <%- settings.heroTitle || 'Ghaate wali rides chhodo,<br><span class="highlight">Kamai wali rides uthao!</span>' %>
+          <%- cnt.heroTitle || (isEn ? 'Your preferred ride.<br><span class="highlight">On your own terms.</span>' : 'अपनी पसंद की राइड.<br><span class="highlight">अपने रूल्स पर.</span>') %>
         </h1>
 
         <p class="hero-subtitle">
-          <%= settings.heroSubtitle || (settings.siteName + ' aapke set kiye gaye rules par Rapido, Uber aur Porter ki bookings filter karta hai — taaki aap screen taakte rehne ke bajaye sadak par dhyan rakh kar befikar kamai kar sako.') %>
+          <%= cnt.heroSubtitle || (isEn 
+            ? 'Skip loss-making trips, accept profitable ones. RiderSaathi filters Rapido, Uber and Porter bookings based on your custom rules — so you can focus on the road without staring at your screen.' 
+            : `${settings.siteName} आपके सेट किए हुए रूल्स पर Rapido, Uber और Porter की बुकिंग्स फ़िल्टर करता है — ताकि आप स्क्रीन ताकने के बजाय सड़क पर ध्यान देकर बेफ़िकर काम कर सकें.`) %>
         </p>
 
         <div class="hero-actions">
           <a class="btn" href="/install">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
-            Download for Android
+            <%= cnt.btnDownload || (isEn ? 'Download for Android' : 'Android के लिए डाउनलोड') %>
+          </a>
+          <a class="btn ghost btn-video-cta" href="/how-it-works">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <%= isEn ? 'How It Works (Video)' : 'कैसे काम करता है (वीडियो)' %>
           </a>
           <a class="btn ghost" href="/pricing">
-            View Plans (₹<%= (plans[0] && plans[0].price) || 12 %> se shuru)
+            <%= cnt.btnViewPlans || (isEn ? `Plans (From ₹${num('starterPrice', 12)})` : `प्लान्स (₹${num('starterPrice', 12)} से)`) %>
           </a>
         </div>
 
@@ -34,21 +45,21 @@
           <span class="dot"></span>
           <span>Size: <%= settings.apkFileSize %></span>
           <span class="dot"></span>
-          <span style="color: var(--success); font-weight: 700;">100% Virus Free</span>
+          <span style="color: var(--success); font-weight: 700;"><%= isEn ? '100% Virus Free' : '100% सुरक्षित & टेस्टेड' %></span>
         </div>
 
         <div class="trust-badges-bar">
           <div class="trust-item">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-            Pehle 10 rides free
+            <%= cnt.statFreeRides || (isEn ? `First ${num('freeTrialRides', 10)} rides free` : `पहली ${num('freeTrialRides', 10)} राइड्स फ्री`) %>
           </div>
           <div class="trust-item">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-            Zero Account Ban
+            <%= cnt.statZeroBan || (isEn ? 'Zero Account Ban' : 'जीरो अकाउंट बैन') %>
           </div>
           <div class="trust-item">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.04-4.09l-2.6-1.53C16.15 17.58 14.24 19 12 19z"/></svg>
-            No Auto-Debit
+            <%= cnt.statNoAutoDebit || (isEn ? 'No Auto-Debit' : 'कोई ऑटो-डेबिट नहीं') %>
           </div>
         </div>
       </div>
@@ -60,10 +71,10 @@
           <div class="phone-header">
             <div class="phone-status">
               <span class="pulse-indicator"></span>
-              <span><%= settings.siteName %> Filter Active</span>
+              <span><%= settings.siteName %> <%= isEn ? 'Filter Active' : 'फ़िल्टर एक्टिव' %></span>
             </div>
-            <span style="font-size: 11.5px; font-weight: 700; background: var(--brand-tint); color: var(--brand-primary); padding: 2px 8px; border-radius: 4px;">
-              Auto-Pilot
+            <span class="autopilot-pill">
+              <%= isEn ? '⚡ Auto-Pilot' : '⚡ ऑटो-पायलट' %>
             </span>
           </div>
 
@@ -71,15 +82,15 @@
           <div class="ride-card accepted">
             <div class="ride-header-row">
               <span class="platform-pill platform-rapido">Rapido Bike</span>
-              <span class="ride-fare">₹128</span>
+              <span class="ride-fare">₹<%= num('mock1Fare', 128) %></span>
             </div>
             <div class="ride-details">
-              <span>📍 Drop: 6.2 km</span>
-              <span>🏃 Pickup: 0.8 km</span>
+              <span>📍 Drop: <%= num('mock1DropKm', 6.2) %> km</span>
+              <span>🏃 Pickup: <%= num('mock1PickupKm', 0.8) %> km</span>
             </div>
             <div class="decision-badge accepted">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              AUTO-ACCEPTED (Kiraya ₹20/km)
+              <%= isEn ? `AUTO-ACCEPTED (Fare ₹${num('mock1FarePerKm', 20)}/km)` : `ऑटो-एक्सेप्टेड (किराया ₹${num('mock1FarePerKm', 20)}/किमी)` %>
             </div>
           </div>
 
@@ -87,15 +98,15 @@
           <div class="ride-card declined">
             <div class="ride-header-row">
               <span class="platform-pill platform-porter">Porter 2W</span>
-              <span class="ride-fare">₹24</span>
+              <span class="ride-fare">₹<%= num('mock2Fare', 24) %></span>
             </div>
             <div class="ride-details">
-              <span>📍 Drop: 1.1 km</span>
-              <span style="color: var(--danger); font-weight: 700;">🏃 Pickup: 3.2 km</span>
+              <span>📍 Drop: <%= num('mock2DropKm', 1.1) %> km</span>
+              <span style="color: var(--danger); font-weight: 700;">🏃 Pickup: <%= num('mock2PickupKm', 3.2) %> km</span>
             </div>
             <div class="decision-badge declined">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
-              FILTERED (Ghaate wali ride - 3.2km pickup)
+              <%= isEn ? `FILTERED (Loss trip - ${num('mock2PickupKm', 3.2)}km pickup)` : `फ़िल्टर्ड (घाटे वाली राइड - ${num('mock2PickupKm', 3.2)}किमी पिकअप)` %>
             </div>
           </div>
 
@@ -103,15 +114,15 @@
           <div class="ride-card accepted" style="margin-bottom: 0;">
             <div class="ride-header-row">
               <span class="platform-pill platform-uber">Uber Auto</span>
-              <span class="ride-fare">₹175</span>
+              <span class="ride-fare">₹<%= num('mock3Fare', 175) %></span>
             </div>
             <div class="ride-details">
-              <span>📍 Drop: 8.5 km</span>
-              <span>🏃 Pickup: 1.1 km</span>
+              <span>📍 Drop: <%= num('mock3DropKm', 8.5) %> km</span>
+              <span>🏃 Pickup: <%= num('mock3PickupKm', 1.1) %> km</span>
             </div>
             <div class="decision-badge accepted">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              AUTO-ACCEPTED (Ghar ki taraf)
+              <%= isEn ? 'AUTO-ACCEPTED (Towards Home)' : 'ऑटो-एक्सेप्टेड (घर की तरफ)' %>
             </div>
           </div>
         </div>
@@ -125,7 +136,7 @@
 <!-- 2. SUPPORTED PLATFORMS SECTION -->
 <div class="wrap">
   <div class="partners-section">
-    <div class="partners-title">Compatible Apps — Har App Par Barabar Kaam Karta Hai</div>
+    <div class="partners-title"><%= cnt.compatibleTitle || (isEn ? 'Compatible Apps — Works Seamlessly Across All Platforms' : 'कंपैटिबल ऐप्स — हर ऐप पर बराबर काम करता है') %></div>
     <div class="partners-grid">
       <div class="partner-chip">
         <span class="partner-dot" style="background: #eab308;"></span>
@@ -153,44 +164,50 @@
   <!-- 3. 3 BIG DRIVER PROBLEMS & RIDERSAATHI SOLUTION -->
   <div class="card card-section">
     <div class="section-head">
-      <h2>Driver bhaiyon ki 3 sabse badi dikkatein — aur <%= settings.siteName %> ka jawab</h2>
-      <p>Aapki mehnat ka paisa kisi ghaate wali ride me na phanse, isliye ye app banaya gaya hai:</p>
+      <h2><%= cnt.problemsHeading || (isEn ? '3 Biggest Driver Challenges — And RiderSaathi\'s Solution' : `ड्राइवर भाइयों की 3 सबसे बड़ी दिक्कतें — और ${settings.siteName} का जवाब`) %></h2>
+      <p><%= cnt.problemsSubheading || (isEn ? 'Designed from real captain experience on the streets so you never lose hard-earned fuel money.' : 'आपकी मेहनत का पैसा किसी घाटे वाली राइड में न फंसे, इसलिए यह ऐप बनाया गया है:') %></p>
     </div>
 
     <div class="problems-grid">
       <!-- Problem 1 -->
       <div class="problem-card">
         <div class="problem-icon icon-yellow">⚡</div>
-        <h3>1. Jab kaam kam ho</h3>
+        <h3><%= cnt.problem1Title || (isEn ? '1. When ride demand is low' : '1. जब काम कम हो') %></h3>
         <div class="problem-box">
-          <strong>Dikkat:</strong> Captain khaali baithe rehte hain. Ride aate hi 1-2 second me koi aur utha leta hai. Jab tak pickup aur drop padho, tab tak ride chali jati hai.
+          <strong><%= isEn ? 'Challenge:' : 'दिक्कत:' %></strong> 
+          <%= cnt.problem1Issue || (isEn ? 'Captains wait idle. As soon as a ride sounds, someone else grabs it in 1-2 seconds before you can even read pickup/drop.' : 'कप्तान खाली बैठे रहते हैं. राइड बजते ही 1-2 सेकंड में कोई और उठा लेता है. जब तक पिकअप और ड्रॉप पढ़ो तब तक राइड निकल जाती है.') %>
         </div>
         <div class="solution-box">
-          <strong><%= settings.siteName %>:</strong> Screen ghoorne ki zaroorat nahi. Aapki pasand ki doori aur area ki ride aate hi <%= settings.siteName %> 1 second me use accept kar leta hai.
+          <strong><%= settings.siteName %>:</strong> 
+          <%= cnt.problem1Solution || (isEn ? `No need to stare at screen. RiderSaathi auto-accepts matching rides for your chosen area within ${num('autoAcceptTimeSec', 1)} second.` : `स्क्रीन घूरने की जरूरत नहीं. आपकी पसंद की दूरी और एरिया की राइड आते ही ${settings.siteName} ${num('autoAcceptTimeSec', 1)} सेकंड में उसे एक्सेप्ट कर लेता है.`) %>
         </div>
       </div>
 
       <!-- Problem 2 -->
       <div class="problem-card">
         <div class="problem-icon icon-blue">💰</div>
-        <h3>2. Jab demand zyada ho</h3>
+        <h3><%= cnt.problem2Title || (isEn ? '2. When demand is peak' : '2. जब डिमांड ज्यादा हो') %></h3>
         <div class="problem-box">
-          <strong>Dikkat:</strong> Ride ke upar ride bajti rehti hai, aur zyadatar ₹20-₹30 wali choti rides hoti hain. Inke chakkar me 15-20 km wali kamai wali ride nikal jaati hai.
+          <strong><%= isEn ? 'Challenge:' : 'दिक्कत:' %></strong> 
+          <%= cnt.problem2Issue || (isEn ? `Back-to-back pings, mostly small ₹${num('shortRideFareMin', 20)}-₹${num('shortRideFareMax', 30)} trips. While dealing with these, high-value ${num('longRideDistanceMin', 15)}-${num('longRideDistanceMax', 20)} km trips slip away.` : `राइड के ऊपर राइड बजती रहती है, और ज्यादातर ₹${num('shortRideFareMin', 20)}-₹${num('shortRideFareMax', 30)} वाली छोटी राइड्स होती हैं. इनके चक्कर में ${num('longRideDistanceMin', 15)}-${num('longRideDistanceMax', 20)} किमी वाली कमाई वाली राइड निकल जाती है.`) %>
         </div>
         <div class="solution-box">
-          <strong><%= settings.siteName %>:</strong> Chhoti ghaate wali rides ko skip kar deta hai, aur sirf aapke set kiye huye minimum fare &amp; distance wali lambi rides uthata hai.
+          <strong><%= settings.siteName %>:</strong> 
+          <%= cnt.problem2Solution || (isEn ? 'Filters out low-fare loss trips and accepts only long, profitable rides matching your distance and minimum fare.' : 'छोटी घाटे वाली राइड्स को स्किप कर देता है, और सिर्फ आपके सेट किए हुए मिनिमम किराए व दूरी वाली लंबी राइड्स उठाता है.') %>
         </div>
       </div>
 
       <!-- Problem 3 -->
       <div class="problem-card">
         <div class="problem-icon icon-green">🛡️</div>
-        <h3>3. Baar-baar hath maarne ki thakan</h3>
+        <h3><%= cnt.problem3Title || (isEn ? '3. Screen tapping fatigue' : '3. बार-बार हाथ मारने की थकान') %></h3>
         <div class="problem-box">
-          <strong>Dikkat:</strong> Bike ya auto chalate waqt screen par lagataar haath maarna thaka dene wala hai, aur traffic me chalte waqt khatarnak bhi.
+          <strong><%= isEn ? 'Challenge:' : 'दिक्कत:' %></strong> 
+          <%= cnt.problem3Issue || (isEn ? 'Constantly tapping the screen while riding a two-wheeler or auto is exhausting and dangerous in traffic.' : 'बाइक या ऑटो चलाते वक्त स्क्रीन पर लगातार हाथ मारना थका देने वाला है, और ट्रैफिक में चलते वक्त खतरनाक भी.') %>
         </div>
         <div class="solution-box">
-          <strong><%= settings.siteName %>:</strong> Jab tak aapki pasand ki ride nahi aati, phone mount par rakho. Sadak par poora dhyan rahega aur chalan ka darr nahi.
+          <strong><%= settings.siteName %>:</strong> 
+          <%= cnt.problem3Solution || (isEn ? 'Keep your phone safely on the mount until your desired ride arrives. Complete focus on driving with zero fine fear.' : 'जब तक आपकी पसंद की राइड नहीं आती, फोन माउंट पर रखो. सड़क पर पूरा ध्यान रहेगा और चालान का डर नहीं.') %>
         </div>
       </div>
     </div>
@@ -201,34 +218,34 @@
   <!-- 4. WHAT RULES YOU CAN CONTROL -->
   <div class="card card-section">
     <div class="section-head">
-      <h2>Aap kya-kya rules tay kar sakte ho</h2>
-      <p><%= settings.siteName %> booking card ka poora content padhta hai — kiraya, pickup, drop aur doori — aur aapke rules se milata hai:</p>
+      <h2><%= cnt.rulesHeading || (isEn ? 'Rules You Can Control & Customize' : 'आप क्या-क्या रूल्स तय कर सकते हैं') %></h2>
+      <p><%= cnt.rulesSubheading || (isEn ? `${settings.siteName} reads the full booking card — fare, pickup, drop and distance — and matches with your preferences:` : `${settings.siteName} बुकिंग कार्ड का पूरा ब्योरा पढ़ता है — किराया, पिकअप, ड्रॉप और दूरी — और आपके रूल्स से मिलाता है:`) %></p>
     </div>
 
     <div class="features-grid">
       <div class="feature-box">
-        <h4>📦 Parcel ya Sawari Filter</h4>
-        <p>Bike, auto, cab aur parcel — har ek ka alag switch. Aaj sirf parcel delivery karni hai toh ride band, sirf ride karni hai toh parcel band.</p>
+        <h4>📦 <%= cnt.rule1Title || (isEn ? 'Parcel or Passenger Filter' : 'पार्सल या सवारी फ़िल्टर') %></h4>
+        <p><%= cnt.rule1Desc || (isEn ? 'Separate switches for bike, auto, cab, and parcel. Deliver parcels only or passengers only whenever you want.' : 'बाइक, ऑटो, कैब और पार्सल — हर एक का अलग स्विच. आज सिर्फ पार्सल डिलीवरी करनी है तो राइड बंद, सिर्फ राइड करनी है तो पार्सल बंद.') %></p>
       </div>
       <div class="feature-box">
-        <h4>🏃 Pickup Doori Limit</h4>
-        <p>Passenger tak kitni door tak jaana hai — 0.5 km se 10 km tak ka slider. 3 km se door ka pickup lene se bacho.</p>
+        <h4>🏃 <%= cnt.rule2Title || (isEn ? 'Pickup Distance Limit' : 'पिकअप दूरी लिमिट') %></h4>
+        <p><%= cnt.rule2Desc || (isEn ? `Slider from 0.5 km to 10 km. Avoid traveling far for passenger pickups (e.g. limit to ${num('maxPickupDistanceKm', 2.5)} km).` : `पैसेंजर तक कितनी दूर तक जाना है — 0.5 किमी से 10 किमी तक का स्लाइडर. ${num('maxPickupDistanceKm', 2.5)} किमी से दूर का पिकअप लेने से बचें.`) %></p>
       </div>
       <div class="feature-box">
-        <h4>📍 Trip Doori (Min / Max km)</h4>
-        <p>Kam se kam aur zyada se zyada kitne km ki trip leni hai. Chhoti ghaate wali rides filter karke lambi kamai wali uthao.</p>
+        <h4>📍 <%= cnt.rule3Title || (isEn ? 'Trip Distance (Min / Max km)' : 'ट्रिप दूरी (कम से कम / ज्यादा से ज्यादा)') %></h4>
+        <p><%= cnt.rule3Desc || (isEn ? 'Set minimum and maximum km trip bounds. Filter unprofitable short trips and focus on lucrative routes.' : 'कम से कम और ज्यादा से ज्यादा कितने किमी की ट्रिप लेनी है. छोटी घाटे वाली राइड्स फ़िल्टर करके लंबी कमाई वाली उठाएं.') %></p>
       </div>
       <div class="feature-box">
-        <h4>💵 Minimum Kiraya Rule</h4>
-        <p>Minimum fare set karein (jaise ₹60 se upar). Rapido bike jahan kiraya nahi dikhta, wahan "kam se kam itne km" ka rule chalta hai.</p>
+        <h4>💵 <%= cnt.rule4Title || (isEn ? 'Minimum Fare Rule' : 'मिनिमम किराया रूल') %></h4>
+        <p><%= cnt.rule4Desc || (isEn ? `Set a minimum fare threshold (e.g. above ₹${num('minFareDefault', 50)}). On apps hiding upfront fares, distance rules kick in.` : `मिनिमम किराया सेट करें (जैसे ₹${num('minFareDefault', 50)} से ऊपर). जहां किराया नहीं दिखता, वहां कम से कम दूरी का रूल काम करता है.`) %></p>
       </div>
       <div class="feature-box">
-        <h4>🏠 Go To — Ghar ki taraf</h4>
-        <p>Shift khatam hone par apne area ka naam daal do. Sirf usi taraf jaane wali rides accept hongi — khaali petrol waste nahi hoga.</p>
+        <h4>🏠 <%= cnt.rule5Title || (isEn ? 'Go-To (Towards Home)' : 'Go To — घर की तरफ') %></h4>
+        <p><%= cnt.rule5Desc || (isEn ? 'Ending your shift? Enter your home neighborhood to only receive bookings headed your way — zero wasted petrol.' : 'शिफ्ट खत्म होने पर अपने इलाके का नाम डाल दें. सिर्फ उसी तरफ जाने वाली राइड्स एक्सेप्ट होंगी — खाली पेट्रोल बर्बाद नहीं होगा.') %></p>
       </div>
       <div class="feature-box">
-        <h4>🚫 Jahan Nahi Jaana (Blacklist)</h4>
-        <p>Heavy traffic, no-entry ya kharab road wale ilaake block kar sakte ho. Wahan ki bookings aate hi reject ho jayengi.</p>
+        <h4>🚫 <%= cnt.rule6Title || (isEn ? 'Blacklist Restricted Zones' : 'जहां नहीं जाना (ब्लैकलिस्ट)') %></h4>
+        <p><%= cnt.rule6Desc || (isEn ? 'Block severe traffic choke points, bad roads, or no-entry zones. Incoming rides to these areas are rejected automatically.' : 'हैवी ट्रैफिक, नो-एंट्री या खराब रोड वाले इलाके ब्लॉक कर सकते हैं. वहां की बुकिंग्स आते ही रिजेक्ट हो जाएंगी.') %></p>
       </div>
     </div>
   </div>
@@ -238,20 +255,30 @@
   <!-- 5. PLANS & PRICING SECTION -->
   <div class="card card-section" id="pricing">
     <div class="section-head" style="text-align: center;">
-      <div class="pill-badge green" style="margin: 0 auto 12px;">Transaprent Pricing</div>
-      <h2>Simple Plans — Pehle 10 Rides Free</h2>
+      <div class="pill-badge green" style="margin: 0 auto 12px;">
+        <%= isEn ? 'Transparent Pricing' : 'पारदर्शी कीमतें' %>
+      </div>
+      <h2><%= cnt.pricingHeading || (isEn ? `Simple Plans — First ${num('freeTrialRides', 10)} Rides Free` : `सिंपल प्लान्स — पहली ${num('freeTrialRides', 10)} राइड्स फ्री`) %></h2>
       <p style="max-width: 620px; margin: 0 auto;">
-        Har naye account ko <strong>pehli 10 rides bilkul free</strong> milti hain. Pasandeeda plan chunein. Na card details required hain, na auto-debit ka jhanjhat.
+        <%= cnt.pricingSubheading || (isEn 
+          ? `Every new account receives ${num('freeTrialRides', 10)} free rides. Choose your preferred pass when ready. No card details or auto-debit required.` 
+          : `हर नए अकाउंट को पहली ${num('freeTrialRides', 10)} राइड्स बिल्कुल फ्री मिलती हैं. पसंदीदा प्लान चुनें. न कार्ड डिटेल्स चाहिए, न ऑटो-डेबिट का झंझट.`) %>
       </p>
     </div>
 
     <div class="pricing-grid">
-      <% plans.forEach((plan, idx) => { %>
-      <div class="plancard <%= plan.badge ? 'popular' : '' %>">
-        <% if (plan.badge) { %>
-          <div class="plancard-ribbon"><%= plan.badge %></div>
+      <% plans.forEach((plan, idx) => { 
+        const pName = isEn ? plan.name : (plan.name_hi || plan.name);
+        const pBadge = isEn ? plan.badge : (plan.badge_hi || plan.badge);
+        const pDuration = isEn ? plan.durationText : (plan.durationText_hi || plan.durationText);
+        const pDesc = isEn ? plan.description : (plan.description_hi || plan.description);
+        const pFeatures = isEn ? (plan.features || []) : (plan.features_hi || plan.features || []);
+      %>
+      <div class="plancard <%= pBadge ? 'popular' : '' %>">
+        <% if (pBadge) { %>
+          <div class="plancard-ribbon"><%= pBadge %></div>
         <% } %>
-        <div class="plancard-title"><%= plan.name %></div>
+        <div class="plancard-title"><%= pName %></div>
         
         <div class="plancard-price-row">
           <span class="plancard-price">₹<%= plan.price %></span>
@@ -259,39 +286,51 @@
             <span class="plancard-wasprice">₹<%= plan.wasPrice %></span>
           <% } %>
         </div>
-        <div class="plancard-duration"><%= plan.durationText %> duration</div>
-        <div class="plancard-desc"><%= plan.description %></div>
+        <div class="plancard-duration"><%= pDuration %> <%= isEn ? 'validity' : 'वैलिडिटी' %></div>
+        <div class="plancard-desc"><%= pDesc %></div>
 
         <ul class="plancard-features">
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            Rapido, Uber, Porter Support
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            Ghar ki taraf (Go-To) Filter
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            Pickup &amp; Fare Rules
-          </li>
-          <li>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            Voice &amp; Sound Alerts
-          </li>
+          <% if (pFeatures.length > 0) { %>
+            <% pFeatures.forEach(feat => { %>
+              <li>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                <%= feat %>
+              </li>
+            <% }) %>
+          <% } else { %>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              Rapido, Uber, Porter Support
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              Go-To (Ghar ki taraf) Route
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              Custom Fare &amp; Distance Rules
+            </li>
+            <li>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              Voice &amp; Sound Alerts
+            </li>
+          <% } %>
         </ul>
 
-        <a class="btn <%= plan.badge ? '' : 'ghost' %>" href="/buy?plan=<%= plan.id %>">
-          Buy <%= plan.name %>
+        <a class="btn <%= pBadge ? '' : 'ghost' %>" href="/buy?plan=<%= plan.id %>">
+          <%= isEn ? `Choose ${pName}` : `${pName} चुनें` %>
         </a>
       </div>
       <% }) %>
     </div>
 
-    <div class="notice-box info" style="margin-top: 10px;">
+    <div class="notice-box info" style="margin-top: 14px;">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0; color:var(--brand-primary);"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
       <div>
-        <strong>Plan activation timing:</strong> UPI Payment karne ke 1 se 2 minute ke andar digital plan aapke mobile number par activate ho jata hai. Kisi tarah ki madad ke liye hamari team support hours (<%= settings.supportHours %>) me WhatsApp par available hai.
+        <strong><%= isEn ? 'Instant Digital Activation:' : 'प्लान एक्टिवेशन टाइमिंग:' %></strong> 
+        <%= isEn 
+          ? `Within 1 to 2 minutes of completing UPI payment, your pass is activated on your phone number. Need assistance? Support hours: ${settings.supportHours}.` 
+          : `UPI पेमेंट करने के 1 से 2 मिनट के अंदर डिजिटल प्लान आपके मोबाइल नंबर पर एक्टिवेट हो जाता है. सहायता समय: ${settings.supportHours}.` %>
       </div>
     </div>
   </div>
@@ -301,16 +340,16 @@
   <!-- 6. REAL CAPTAIN TESTIMONIALS / REVIEWS -->
   <div class="card card-section">
     <div class="section-head" style="text-align: center;">
-      <div class="pill-badge" style="margin: 0 auto 12px;">Captains Ki Rai</div>
-      <h2>Desh bhar ke captains ka bharosa</h2>
-      <p>Dekhiye driver bhai RiderSaathi ke baare me kya keh rahe hain:</p>
+      <div class="pill-badge" style="margin: 0 auto 12px;"><%= isEn ? 'Captain Feedback' : 'कप्तानों की राय' %></div>
+      <h2><%= cnt.reviewsHeading || (isEn ? 'Trusted by Captains Across India' : 'देश भर के कप्तानों का भरोसा') %></h2>
+      <p><%= cnt.reviewsSubheading || (isEn ? 'See what fellow bike-taxi, auto and delivery captains say about RiderSaathi:' : `देखिए ड्राइवर भाई ${settings.siteName} के बारे में क्या कह रहे हैं:`) %></p>
     </div>
 
     <div class="reviews-grid">
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
         <p class="review-text">
-          "Pehle din bhar me ₹400-500 hi bachte the petrol nikal kar kyunki chhoti ₹20 wali rides aa jaati thi. RiderSaathi lagane ke baad ₹800+ daily bachat ho rahi hai!"
+          "Pehle din bhar me ₹400-500 hi bachte the petrol nikal kar kyunki chhoti ₹20 wali rides aa jaati thi. RiderSaathi lagane ke baad ₹<%= num('dailySavingsEst', '800+') %> daily bachat ho rahi hai!"
         </p>
         <div class="review-author">
           <div class="author-avatar">R</div>
@@ -324,7 +363,7 @@
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
         <p class="review-text">
-          "Porter 2-wheeler par chalaata hoon. 3-4 km door jakar sirf ₹30 milte the. Is app se maine pickup 1.5 km limit set kar diya. Ab ghaate ka trip kabhi nahi lagta."
+          "Porter 2-wheeler par chalaata hoon. 3-4 km door jakar sirf ₹30 milte the. Is app se maine pickup <%= num('maxPickupDistanceKm', 2.5) %> km limit set kar diya. Ab ghaate ka trip kabhi nahi lagta."
         </p>
         <div class="review-author">
           <div class="author-avatar">M</div>
@@ -354,20 +393,22 @@
 
   <% if (!settings.homeSections || settings.homeSections.communityCard !== false) { %>
   <!-- 7. WHATSAPP & SUPPORT SECTION -->
-  <div class="card card-section" style="background: linear-gradient(135deg, rgba(239,246,255,0.7) 0%, rgba(240,253,244,0.7) 100%);">
+  <div class="card card-section community-cta-card">
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
       <div>
         <h2 style="font-family: var(--font-heading); font-size: 24px; margin-bottom: 8px; color: var(--text-heading);">
-          WhatsApp Community &amp; Direct Support
+          <%= cnt.communityHeading || (isEn ? 'WhatsApp Community & Direct Support' : 'व्हाट्सएप कम्युनिटी और डायरेक्ट सपोर्ट') %>
         </h2>
-        <p style="font-size: 15px; color: var(--text-body); max-width: 540px;">
-          Naye version updates, tips aur kisi bhi dikkat ke liye direct WhatsApp par judein. Hamari support team aapki poori madad karegi.
+        <p style="font-size: 15px; color: var(--text-body); max-width: 540px; margin: 0;">
+          <%= cnt.communitySubheading || (isEn 
+            ? 'Join our official WhatsApp group for version updates, driver tips, and priority support from our team.' 
+            : 'नए वर्जन अपडेट्स, टिप्स और किसी भी समस्या के लिए डायरेक्ट व्हाट्सएप पर जुड़ें. हमारी टीम आपकी पूरी मदद करेगी.') %>
         </p>
       </div>
       <div>
         <a class="btn success" href="https://wa.me/<%= settings.whatsappNumber %>?text=<%= encodeURIComponent(settings.whatsappText) %>" target="_blank" rel="noopener">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z"/></svg>
-          WhatsApp par judein
+          <%= cnt.communityBtn || (isEn ? 'Join on WhatsApp' : 'व्हाट्सएप पर जुड़ें') %>
         </a>
       </div>
     </div>

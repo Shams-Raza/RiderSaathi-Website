@@ -40,7 +40,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 3. Mobile Sidebar Toggle
+  // 3. Bilingual Sub-Tab Switcher (Requirement 2 & 4)
+  window.switchBilingualTab = function(lang) {
+    const paneHi = document.getElementById("paneLangHi");
+    const paneEn = document.getElementById("paneLangEn");
+    const btnHi = document.getElementById("btnLangTabHi");
+    const btnEn = document.getElementById("btnLangTabEn");
+
+    if (lang === 'en') {
+      if (paneHi) paneHi.style.display = "none";
+      if (paneEn) paneEn.style.display = "block";
+      if (btnHi) btnHi.className = "btn-outline btn-sm";
+      if (btnEn) btnEn.className = "btn-primary btn-sm";
+    } else {
+      if (paneHi) paneHi.style.display = "block";
+      if (paneEn) paneEn.style.display = "none";
+      if (btnHi) btnHi.className = "btn-primary btn-sm";
+      if (btnEn) btnEn.className = "btn-outline btn-sm";
+    }
+  };
+
+  // 4. Mobile Sidebar Toggle
   const mobileToggle = document.getElementById("mobileMenuToggle");
   const sidebar = document.getElementById("adminSidebar");
   if (mobileToggle && sidebar) {
@@ -49,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 4. Dark / Light Theme Toggle
+  // 5. Dark / Light Theme Toggle
   const themeToggle = document.getElementById("themeToggleBtn");
   const savedTheme = localStorage.getItem("admin_theme") || "light";
   document.documentElement.setAttribute("data-theme", savedTheme);
@@ -63,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 5. Modal Helpers
+  // 6. Modal Helpers
   window.openModal = function (modalId) {
     const m = document.getElementById(modalId);
     if (m) m.classList.add("active");
@@ -83,7 +103,56 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 6. Generic Settings Form Submitter
+  // Helper to parse complex nested form names like "numbers[freeTrialRides]" or "socialLinks[whatsapp][url]"
+  function serializeFormToNestedObject(form) {
+    const formData = new FormData(form);
+    const obj = {};
+
+    for (let [key, value] of formData.entries()) {
+      // Check for array/nested notation: e.g. parent[child] or parent[child][grandchild]
+      const matches = key.match(/([a-zA-Z0-9_-]+)\[([a-zA-Z0-9_-]+)\](?:\[([a-zA-Z0-9_-]+)\])?/);
+      if (matches) {
+        const p1 = matches[1];
+        const p2 = matches[2];
+        const p3 = matches[3];
+
+        if (!obj[p1]) obj[p1] = {};
+        if (p3) {
+          if (!obj[p1][p2]) obj[p1][p2] = {};
+          obj[p1][p2][p3] = value;
+        } else {
+          obj[p1][p2] = value;
+        }
+      } else {
+        obj[key] = value;
+      }
+    }
+
+    // Also collect checkboxes that might not be in formData if unchecked
+    form.querySelectorAll("input[type='checkbox']").forEach(cb => {
+      const name = cb.getAttribute("name");
+      if (!name) return;
+      const matches = name.match(/([a-zA-Z0-9_-]+)\[([a-zA-Z0-9_-]+)\](?:\[([a-zA-Z0-9_-]+)\])?/);
+      if (matches) {
+        const p1 = matches[1];
+        const p2 = matches[2];
+        const p3 = matches[3];
+        if (!obj[p1]) obj[p1] = {};
+        if (p3) {
+          if (!obj[p1][p2]) obj[p1][p2] = {};
+          obj[p1][p2][p3] = cb.checked;
+        } else {
+          obj[p1][p2] = cb.checked;
+        }
+      } else {
+        obj[name] = cb.checked;
+      }
+    });
+
+    return obj;
+  }
+
+  // 7. Generic Settings Form Submitter
   async function submitSettings(data, successMsg = "Settings saved successfully!") {
     try {
       const res = await fetch("/api/admin/settings", {
@@ -104,95 +173,130 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 7. Home Page CMS Form
-  const homeCmsForm = document.getElementById("homeCmsForm");
-  if (homeCmsForm) {
-    homeCmsForm.addEventListener("submit", async (e) => {
+  // 8. Website Numbers Form (Requirement 3)
+  const numbersForm = document.getElementById("numbersSettingsForm");
+  if (numbersForm) {
+    numbersForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const formData = new FormData(homeCmsForm);
-      const data = Object.fromEntries(formData.entries());
-
-      // Parse homeSections
-      data.homeSections = {
-        heroSimulator: homeCmsForm.homeSections_heroSimulator ? homeCmsForm.homeSections_heroSimulator.checked : false,
-        supportedApps: homeCmsForm.homeSections_supportedApps ? homeCmsForm.homeSections_supportedApps.checked : false,
-        driverProblems: homeCmsForm.homeSections_driverProblems ? homeCmsForm.homeSections_driverProblems.checked : false,
-        ruleFeatures: homeCmsForm.homeSections_ruleFeatures ? homeCmsForm.homeSections_ruleFeatures.checked : false,
-        pricingPreview: homeCmsForm.homeSections_pricingPreview ? homeCmsForm.homeSections_pricingPreview.checked : false,
-        driverReviews: homeCmsForm.homeSections_driverReviews ? homeCmsForm.homeSections_driverReviews.checked : false,
-        communityCard: homeCmsForm.homeSections_communityCard ? homeCmsForm.homeSections_communityCard.checked : false,
-      };
-
-      data.showBanner = homeCmsForm.showBanner ? homeCmsForm.showBanner.checked : false;
-
-      // Clean up prefixed keys
-      delete data.homeSections_heroSimulator;
-      delete data.homeSections_supportedApps;
-      delete data.homeSections_driverProblems;
-      delete data.homeSections_ruleFeatures;
-      delete data.homeSections_pricingPreview;
-      delete data.homeSections_driverReviews;
-      delete data.homeSections_communityCard;
-
-      await submitSettings(data, "Home Page CMS updated!");
+      const data = serializeFormToNestedObject(numbersForm);
+      await submitSettings(data, "Website Numbers & Business Config saved!");
     });
   }
 
-  // 8. Contact Settings Form
+  // 9. Bilingual Content Form (Requirement 2 & 4)
+  const bilingualForm = document.getElementById("bilingualCmsForm");
+  if (bilingualForm) {
+    bilingualForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = serializeFormToNestedObject(bilingualForm);
+      await submitSettings(data, "Bilingual Hindi & English content saved!");
+    });
+  }
+
+  // 10. How It Works Video Form (Requirement 14)
+  const hiwForm = document.getElementById("howItWorksForm");
+  if (hiwForm) {
+    hiwForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = serializeFormToNestedObject(hiwForm);
+
+      // Auto-extract YouTube embed URL if standard URL was provided
+      if (data.howItWorks && data.howItWorks.youtubeVideoUrl && !data.howItWorks.youtubeEmbedUrl) {
+        try {
+          const u = new URL(data.howItWorks.youtubeVideoUrl);
+          if (u.hostname.includes("youtube.com") && u.searchParams.get("v")) {
+            data.howItWorks.youtubeEmbedUrl = `https://www.youtube.com/embed/${u.searchParams.get("v")}`;
+          } else if (u.hostname.includes("youtu.be")) {
+            data.howItWorks.youtubeEmbedUrl = `https://www.youtube.com/embed/${u.pathname.replace("/", "")}`;
+          }
+        } catch(err) {}
+      }
+
+      await submitSettings(data, "How It Works & Video settings saved!");
+    });
+  }
+
+  // 11. Social Media & Floating Dock Form (Requirement 11 & 13)
+  const socialForm = document.getElementById("socialSettingsForm");
+  if (socialForm) {
+    socialForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = serializeFormToNestedObject(socialForm);
+      await submitSettings(data, "Social Media & Floating Dock settings saved!");
+    });
+  }
+
+  // 12. Office & Location Form (Requirement 8 & 9)
+  const locationForm = document.getElementById("locationSettingsForm");
+  if (locationForm) {
+    locationForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = serializeFormToNestedObject(locationForm);
+      await submitSettings(data, "Office Location & Google Maps details saved!");
+    });
+  }
+
+  // 13. Contact & Helpline Settings Form (Requirement 10)
   const contactForm = document.getElementById("contactSettingsForm");
   if (contactForm) {
     contactForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const formData = new FormData(contactForm);
-      await submitSettings(Object.fromEntries(formData.entries()), "Contact & Support info updated!");
+      await submitSettings(Object.fromEntries(formData.entries()), "WhatsApp & Contact details saved!");
     });
   }
 
-  // 9. Footer Settings Form
+  // 14. Footer & Legal Settings Form (Requirement 8)
   const footerForm = document.getElementById("footerSettingsForm");
   if (footerForm) {
     footerForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const formData = new FormData(footerForm);
-      await submitSettings(Object.fromEntries(formData.entries()), "Footer & Legal details updated!");
+      await submitSettings(Object.fromEntries(formData.entries()), "Company details & Legal footer saved!");
     });
   }
 
-  // 10. SEO Settings Form
+  // 15. SEO Settings Form
   const seoForm = document.getElementById("seoSettingsForm");
   if (seoForm) {
     seoForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const formData = new FormData(seoForm);
-      await submitSettings(Object.fromEntries(formData.entries()), "SEO metadata updated!");
+      await submitSettings(Object.fromEntries(formData.entries()), "SEO metadata saved!");
     });
   }
 
-  // 11. Payment Settings Form
+  // 16. Payment Settings Form
   const paymentForm = document.getElementById("paymentSettingsForm");
   if (paymentForm) {
     paymentForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const formData = new FormData(paymentForm);
-      await submitSettings(Object.fromEntries(formData.entries()), "UPI & Payment settings updated!");
+      await submitSettings(Object.fromEntries(formData.entries()), "UPI & Payment gateway saved!");
     });
   }
 
-  // 12. App & APK Settings Form
+  // 17. App & APK Settings Form (Requirement 6 & 7)
   const appForm = document.getElementById("appSettingsForm");
   if (appForm) {
     appForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const formData = new FormData(appForm);
-      await submitSettings(Object.fromEntries(formData.entries()), "APK version & Download details saved!");
+      await submitSettings(Object.fromEntries(formData.entries()), "APK version & Download links saved!");
     });
   }
 
-  // 13. Pricing Plans CRUD
+  // 18. Pricing Plans CRUD (Requirement 5 with Features List Builder)
   window.openPlanModal = function () {
     const f = document.getElementById("planForm");
     if (f) f.reset();
     document.getElementById("planId").value = "";
+    document.getElementById("planNameHi").value = "";
+    document.getElementById("planDurationTextHi").value = "";
+    document.getElementById("planBadgeHi").value = "";
+    document.getElementById("planDescriptionHi").value = "";
+    document.getElementById("planFeatures").value = "Rapido, Uber & Porter Support\nGo-To (Towards Home) Route Filter\nPickup & Fare Rules\nVoice & Sound Alerts";
+    document.getElementById("planFeaturesHi").value = "Rapido, Uber और Porter सपोर्ट\nघर की तरफ (Go-To) रूट फ़िल्टर\nपिकअप और किराया रूल्स\nआवाज और साउंड अलर्ट्स";
     document.getElementById("planModalTitle").textContent = "Add New Pricing Plan";
     document.getElementById("planActive").checked = true;
     window.openModal("planModal");
@@ -201,14 +305,24 @@ document.addEventListener("DOMContentLoaded", () => {
   window.editPlan = function (p) {
     document.getElementById("planId").value = p.id || "";
     document.getElementById("planName").value = p.name || "";
+    document.getElementById("planNameHi").value = p.name_hi || "";
     document.getElementById("planPrice").value = p.price || "";
     document.getElementById("planWasPrice").value = p.wasPrice || "";
     document.getElementById("planDurationDays").value = p.durationDays || "";
     document.getElementById("planDurationText").value = p.durationText || "";
+    document.getElementById("planDurationTextHi").value = p.durationText_hi || "";
     document.getElementById("planBadge").value = p.badge || "";
+    document.getElementById("planBadgeHi").value = p.badge_hi || "";
     document.getElementById("planDescription").value = p.description || "";
-    document.getElementById("planActive").checked = p.active !== false;
+    document.getElementById("planDescriptionHi").value = p.description_hi || "";
 
+    // Load features arrays as newline strings
+    const featEn = Array.isArray(p.features) ? p.features.join("\n") : (p.features || "");
+    const featHi = Array.isArray(p.features_hi) ? p.features_hi.join("\n") : (p.features_hi || "");
+    document.getElementById("planFeatures").value = featEn;
+    document.getElementById("planFeaturesHi").value = featHi;
+
+    document.getElementById("planActive").checked = p.active !== false;
     document.getElementById("planModalTitle").textContent = `Edit Plan: ${p.name}`;
     window.openModal("planModal");
   };
@@ -257,7 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // 14. Guides & Tutorials CRUD
+  // 19. Guides & Tutorials CRUD
   window.openGuideModal = function () {
     const f = document.getElementById("guideForm");
     if (f) f.reset();
@@ -321,7 +435,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // 15. FAQ Management CRUD
+  // 20. FAQ Management CRUD
   window.openFaqModal = function () {
     const f = document.getElementById("faqForm");
     if (f) f.reset();
@@ -382,7 +496,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // 16. Security & Credentials Update Form
+  // 21. Security & Credentials Update Form
   const credentialsForm = document.getElementById("credentialsForm");
   if (credentialsForm) {
     credentialsForm.addEventListener("submit", async (e) => {
@@ -419,7 +533,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 17. Driver Actions (Subscription, Trials, Ban)
+  // 22. Driver Actions (Subscription, Trials, Ban)
   window.grantSubscription = async function (driverId, days, planName = "") {
     try {
       const res = await fetch("/api/admin/drivers/grant-subscription", {
@@ -477,7 +591,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // 18. Orders Actions
+  // 23. Orders Actions
   window.approveAndActivateOrder = async function (orderId) {
     if (!confirm("Approve this order and immediately activate driver subscription?")) return;
     try {
@@ -514,7 +628,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // 19. Inquiry Status
+  // 24. Inquiry Status
   window.updateInquiryStatus = async function (inquiryId, newStatus) {
     try {
       const res = await fetch(`/api/admin/inquiries/${inquiryId}/status`, {
@@ -532,7 +646,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // 20. Live Search for Drivers & Orders
+  // 25. Live Search for Drivers & Orders
   const driverSearch = document.getElementById("driverSearchInput");
   if (driverSearch) {
     driverSearch.addEventListener("input", (e) => {

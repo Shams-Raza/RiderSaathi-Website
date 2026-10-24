@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="<%= typeof lang !== 'undefined' ? lang : 'hi' %>">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,51 +7,77 @@
   <meta name="description" content="<%= typeof description !== 'undefined' ? description : (settings.seoDescription || 'Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.') %>">
   <meta name="keywords" content="<%= settings.seoKeywords || 'ride filter app for drivers, rapido ride filter app, uber driver ride filter, porter delivery filter, rider saathi, driver ride assistant, ride filter karne wala app, driver productivity app' %>">
   <link rel="icon" href="/images/icon.svg" type="image/svg+xml">
-  <meta name="theme-color" content="#1e40af">
+  <meta name="theme-color" content="#2563eb">
   <meta name="view-transition" content="same-origin">
   
-  <!-- Modern Driver-Friendly Google Fonts -->
+  <!-- Modern Google Fonts: Outfit for Bold Headings, Plus Jakarta Sans & Noto Sans Devanagari for Hindi -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="/css/style.css">
   <script src="/js/main.js" defer></script>
 </head>
-<body>
-<% if (settings.showBanner && settings.bannerAlert) { %>
+<body class="lang-<%= typeof lang !== 'undefined' ? lang : 'hi' %>">
+<% if (settings.showBanner && (settings.bannerAlert || settings.bannerAlert_en)) { %>
 <div class="top-bar">
-  <span>⚡ <%= settings.bannerAlert %></span>
-  <a href="/install">Try Free Now →</a>
+  <div class="wrap top-bar-wrap">
+    <span>⚡ <%= (typeof lang !== 'undefined' && lang === 'en') ? (settings.bannerAlert_en || settings.bannerAlert) : (settings.bannerAlert || settings.bannerAlert_en) %></span>
+    <a href="/install"><%= (typeof lang !== 'undefined' && lang === 'en') ? 'Try Free Now →' : 'फ्री में टेस्ट करें →' %></a>
+  </div>
 </div>
 <% } %>
 
 <header>
-  <div class="wrap">
+  <div class="wrap header-inner">
     <a class="brand" href="/">
       <span class="brand-glyph">
         <svg viewBox="0 0 24 24"><path d="M14 2 5 13h6l-1 9 9-11h-6z"/></svg>
       </span>
-      <span><%= settings.siteName %></span>
+      <span class="brand-name"><%= settings.siteName %></span>
     </a>
 
     <nav id="mainNav">
-      <a href="/" class="<%= currentPath === '/' ? 'active' : '' %>">Home</a>
-      <a href="/pricing" class="<%= currentPath === '/pricing' ? 'active' : '' %>">Pricing</a>
-      <a href="/install" class="<%= currentPath === '/install' ? 'active' : '' %>">Install App</a>
-      <a href="/guides" class="<%= currentPath === '/guides' ? 'active' : '' %>">Guides</a>
-      <a href="/faq" class="<%= currentPath === '/faq' ? 'active' : '' %>">FAQ</a>
-      <a href="/contact" class="<%= currentPath === '/contact' ? 'active' : '' %>">Contact</a>
+      <a href="/" class="<%= currentPath === '/' ? 'active' : '' %>">
+        <%= (typeof content !== 'undefined' && content.navHome) || (typeof lang !== 'undefined' && lang === 'en' ? 'Home' : 'होम') %>
+      </a>
+      <a href="/pricing" class="<%= currentPath === '/pricing' ? 'active' : '' %>">
+        <%= (typeof content !== 'undefined' && content.navPricing) || (typeof lang !== 'undefined' && lang === 'en' ? 'Pricing' : 'प्लान्स') %>
+      </a>
+      <a href="/how-it-works" class="<%= currentPath === '/how-it-works' ? 'active' : '' %>">
+        <%= (typeof content !== 'undefined' && content.navHowItWorks) || (typeof lang !== 'undefined' && lang === 'en' ? 'How It Works' : 'कैसे काम करता है') %>
+      </a>
+      <a href="/install" class="<%= currentPath === '/install' ? 'active' : '' %>">
+        <%= (typeof content !== 'undefined' && content.navInstall) || (typeof lang !== 'undefined' && lang === 'en' ? 'Install App' : 'ऐप इनस्टॉल') %>
+      </a>
+      <a href="/guides" class="<%= currentPath === '/guides' ? 'active' : '' %>">
+        <%= (typeof content !== 'undefined' && content.navGuides) || (typeof lang !== 'undefined' && lang === 'en' ? 'Guides' : 'गाइड्स') %>
+      </a>
+      <a href="/faq" class="<%= currentPath === '/faq' ? 'active' : '' %>">
+        <%= (typeof content !== 'undefined' && content.navFaq) || (typeof lang !== 'undefined' && lang === 'en' ? 'FAQ' : 'सवाल-जवाब') %>
+      </a>
+      <a href="/contact" class="<%= currentPath === '/contact' ? 'active' : '' %>">
+        <%= (typeof content !== 'undefined' && content.navContact) || (typeof lang !== 'undefined' && lang === 'en' ? 'Contact' : 'संपर्क') %>
+      </a>
     </nav>
 
     <div class="header-right">
-      <a href="/download" class="btn-header-cta">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
-        <span>Download APK</span>
+      <!-- Language Switcher: English | हिंदी -->
+      <div class="lang-switcher" id="langSwitcher" role="group" aria-label="Language selection">
+        <a href="/set-language/en" class="lang-btn <%= (typeof lang !== 'undefined' && lang === 'en') ? 'active' : '' %>" data-lang="en" title="Switch to English">English</a>
+        <span class="lang-divider">|</span>
+        <a href="/set-language/hi" class="lang-btn <%= (typeof lang !== 'undefined' && lang === 'hi') ? 'active' : '' %>" data-lang="hi" title="हिंदी में बदलें">हिंदी</a>
+      </div>
+
+      <a href="/download" class="btn-header-cta" title="Download Official APK">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+        <span><%= (typeof content !== 'undefined' && content.navDownload) || (typeof lang !== 'undefined' && lang === 'en' ? 'Download APK' : 'APK डाउनलोड') %></span>
       </a>
+
       <button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Theme" aria-label="Toggle theme">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       </button>
+
       <button class="mobile-nav-toggle" id="navToggle" aria-label="Toggle navigation menu">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>

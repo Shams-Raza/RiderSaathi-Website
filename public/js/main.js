@@ -1,6 +1,6 @@
 // RiderSaathi Public Client Script
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Theme Toggle
+  // 1. Theme Toggle (Light / Dark)
   const themeToggle = document.getElementById("themeToggle");
   const storedTheme = localStorage.getItem("theme");
 
@@ -27,7 +27,53 @@ document.addEventListener("DOMContentLoaded", () => {
         : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
   }
 
-  // 2. Mobile Nav Toggle
+  // 2. Language Switcher (Requirement 2: English | हिंदी)
+  const langButtons = document.querySelectorAll(".lang-btn");
+  langButtons.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      const selectedLang = btn.getAttribute("data-lang");
+      if (selectedLang) {
+        // Set cookie for 1 year
+        document.cookie = `lang=${selectedLang};path=/;max-age=${365 * 24 * 60 * 60};SameSite=Lax`;
+        localStorage.setItem("ridersaathi_lang", selectedLang);
+      }
+    });
+  });
+
+  // 3. Floating Social Media Dock Toggle (Requirement 13)
+  const floatingDock = document.getElementById("floatingSocialDock");
+  const floatingToggle = document.getElementById("floatingDockToggle");
+  if (floatingDock && floatingToggle) {
+    const iconShow = floatingToggle.querySelector(".toggle-icon-show");
+    const iconHide = floatingToggle.querySelector(".toggle-icon-hide");
+
+    // Check user preference in localStorage. Default state is EXPANDED (open)
+    const storedDockState = localStorage.getItem("ridersaathi_floating_social");
+    if (storedDockState === "collapsed") {
+      floatingDock.classList.add("collapsed");
+      if (iconShow && iconHide) {
+        iconShow.style.display = "block";
+        iconHide.style.display = "none";
+      }
+    } else {
+      floatingDock.classList.remove("collapsed");
+      if (iconShow && iconHide) {
+        iconShow.style.display = "none";
+        iconHide.style.display = "block";
+      }
+    }
+
+    floatingToggle.addEventListener("click", () => {
+      const isCollapsed = floatingDock.classList.toggle("collapsed");
+      localStorage.setItem("ridersaathi_floating_social", isCollapsed ? "collapsed" : "expanded");
+      if (iconShow && iconHide) {
+        iconShow.style.display = isCollapsed ? "block" : "none";
+        iconHide.style.display = isCollapsed ? "none" : "block";
+      }
+    });
+  }
+
+  // 4. Mobile Nav Toggle
   const navToggle = document.getElementById("navToggle");
   const mainNav = document.getElementById("mainNav");
   if (navToggle && mainNav) {
@@ -36,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 3. Copy UPI Button
+  // 5. Copy UPI Button
   const copyUpiBtn = document.getElementById("copyUpiBtn");
   if (copyUpiBtn) {
     copyUpiBtn.addEventListener("click", () => {
@@ -57,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 4. Interactive FAQ Accordion
+  // 6. Interactive FAQ Accordion
   const faqQuestions = document.querySelectorAll(".faq-question");
   faqQuestions.forEach((q) => {
     q.addEventListener("click", () => {
@@ -66,7 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // 5. Contact Form Handler (AJAX)
+  // 7. Contact Form Handler (AJAX)
   const contactForm = document.getElementById("contactForm");
   const contactAlert = document.getElementById("contactAlert");
   if (contactForm) {
@@ -106,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 6. Subtle Scroll Reveal Observer (High Performance & GPU Accelerated)
+  // 8. Subtle Scroll Reveal Observer
   if ("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     const revealObserver = new IntersectionObserver(
       (entries, observer) => {
@@ -123,20 +169,18 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     );
 
-    // Standalone cards, form containers, legal docs, upi box
     const candidateCards = document.querySelectorAll(
-      ".card, .legal, .form-card, .upibox"
+      ".card, .legal, .form-card, .upibox, .video-showcase-card, .step-card"
     );
     candidateCards.forEach((card) => {
-      if (!card.querySelector(".problems-grid, .features-grid, .pricing-grid, .reviews-grid, .steps-container")) {
+      if (!card.querySelector(".problems-grid, .features-grid, .pricing-grid, .reviews-grid, .steps-grid")) {
         card.classList.add("reveal");
         revealObserver.observe(card);
       }
     });
 
-    // Sub-elements, grid cards & nested section heads
     const revealElements = document.querySelectorAll(
-      ".card-section .section-head, .problem-card, .feature-box, .plancard, .review-card, .step-row, .partner-chip, .faq-item, .notice-box"
+      ".card-section .section-head, .problem-card, .feature-box, .plancard, .review-card, .step-card, .partner-chip, .faq-item, .notice-box"
     );
     revealElements.forEach((el) => {
       el.classList.add("reveal");

@@ -1,46 +1,85 @@
 [
   {
     "id": "day1",
-    "name": "1 Day",
+    "name": "1 Day Pass",
+    "name_hi": "1 दिन का पास",
     "price": 12,
     "wasPrice": 15,
     "durationDays": 1,
     "durationText": "1 day",
-    "badge": "",
+    "durationText_hi": "1 दिन",
+    "badge": "Starter",
+    "badge_hi": "शुरुआती",
     "active": true,
-    "description": "Short shift testing or single day duty."
+    "description": "Single day test pass",
+    "description_hi": "एक दिन का ट्रायल पास",
+    "features": [
+      "All Platforms Support",
+      "Go-To Route",
+      "Fare Rules"
+    ],
+    "features_hi": [
+      "सभी प्लेटफॉर्म्स सपोर्ट",
+      "घर की तरफ रूट",
+      "किराया रूल्स"
+    ]
   },
   {
     "id": "week1",
-    "name": "1 Week",
+    "name": "1 Week Pass",
+    "name_hi": "1 हफ्ते का पास",
     "price": 68,
     "wasPrice": 84,
     "durationDays": 7,
     "durationText": "7 days",
+    "durationText_hi": "7 दिन",
     "badge": "Popular",
+    "badge_hi": "लोकप्रिय",
     "active": true,
-    "description": "Best for full weekly shifts & high savings."
+    "description": "Best for full weekly shifts & high savings.",
+    "description_hi": "पूरी हफ़्ते की शिफ्ट और अधिक बचत के लिए सबसे बेस्ट.",
+    "features": [
+      "Rapido, Uber & Porter Support",
+      "Go-To (Ghar ki taraf) Route Filter",
+      "Custom Fare & Distance Rules",
+      "Auto-Accept Profitable Bookings",
+      "WhatsApp Priority Assistance"
+    ],
+    "features_hi": [
+      "Rapido, Uber और Porter सपोर्ट",
+      "घर की तरफ (Go-To) रूट फ़िल्टर",
+      "कस्टम किराया और दूरी रूल्स",
+      "कमाई वाली राइड्स ऑटो-एक्सेप्ट",
+      "व्हाट्सएप प्रायोरिटी सहायता"
+    ]
   },
   {
     "id": "month1",
-    "name": "1 Month",
+    "name": "1 Month Pass",
+    "name_hi": "1 महीने का पास",
     "price": 248,
     "wasPrice": 360,
     "durationDays": 30,
     "durationText": "30 days",
-    "badge": "Most popular",
+    "durationText_hi": "30 दिन",
+    "badge": "Most Popular",
+    "badge_hi": "सबसे लोकप्रिय",
     "active": true,
-    "description": "Maximum value for daily full-time captains."
-  },
-  {
-    "id": "free plan",
-    "name": "FREE FREE",
-    "price": 1,
-    "wasPrice": 489,
-    "durationDays": 5,
-    "durationText": "5 days",
-    "badge": "Most popular",
-    "description": "",
-    "active": true
+    "description": "Maximum value for daily full-time captains.",
+    "description_hi": "फुल-टाइम कप्तानों के लिए सबसे ज्यादा बचत और वैल्यू.",
+    "features": [
+      "All Platforms (Rapido, Uber, Porter, Shadowfax)",
+      "Advanced Blacklist Area Blocker",
+      "Go-To Unlimited Shift Routing",
+      "Instant 1-Second Auto Accept",
+      "Priority VIP Driver Support"
+    ],
+    "features_hi": [
+      "सभी प्लेटफॉर्म्स (Rapido, Uber, Porter, Shadowfax)",
+      "ब्लैकलिस्ट एरिया ब्लॉकर फ़ीचर",
+      "अनलिमिटेड घर की तरफ रूटिंग",
+      "1 सेकंड में इंस्टेंट ऑटो-एक्सेप्ट",
+      "प्रायोरिटी वीआईपी ड्राइवर सपोर्ट"
+    ]
   }
 ]
