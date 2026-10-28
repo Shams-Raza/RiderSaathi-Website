@@ -1,0 +1,93 @@
+import React from 'react';
+import { getSettings } from '@/lib/data';
+
+export async function generateMetadata() {
+  const settings = getSettings();
+  return {
+    title: `Privacy Notice — ${settings.siteName || 'RiderSaathi'}`,
+    description: `What ${settings.siteName || 'RiderSaathi'} reads and what it never reads.`,
+  };
+}
+
+export default function PrivacyPage() {
+  const settings = getSettings();
+
+  return (
+    <div className="wrap">
+      <div className="legal">
+        <h1>Privacy Notice</h1>
+        <p><strong>Last updated: 19 October 2026 &middot; Version 1.0</strong></p>
+        <p>
+          {settings.siteName || 'RiderSaathi'} works through Android's Accessibility Service, used the way Google Play's
+          policy allows for rule-based automation: the app shows what it reads and asks for your consent before it is
+          switched on, it reads only the driver apps listed below, and you can switch it off at any time. This page explains
+          exactly what it reads, what it keeps, and what it never touches.
+        </p>
+
+        <h2>1. The accessibility permission, in plain terms</h2>
+        <p>
+          To read a booking card, {settings.siteName || 'RiderSaathi'} uses Android's accessibility service. That permission
+          is broad: technically it allows an app to read anything on your screen.
+        </p>
+        <p><strong>We restrict it in code, not just in policy.</strong></p>
+        <p>The app only reads windows that belong to:</p>
+        <ul>
+          <li>Rapido driver (<code>com.rapido.rider</code>)</li>
+          <li>Uber Driver (<code>com.ubercab.driver</code>, <code>com.ubercab.partner</code>)</li>
+          <li>Porter Driver (<code>com.theporter.android.driverapp</code>)</li>
+        </ul>
+        <p>
+          Anything else on your screen — WhatsApp, your bank, your messages, your gallery, your browser — is discarded before
+          a single character is examined.
+        </p>
+
+        <h2>2. What we never read, even inside a driver app</h2>
+        <p>
+          Driver apps show more than booking cards. So even within them, the following are removed before anything can be
+          saved:
+        </p>
+        <ul>
+          <li>One-time passwords (OTP) and verification codes</li>
+          <li>Card, account and long numbers</li>
+          <li>Phone numbers, yours and your customers'</li>
+          <li>Email addresses and UPI IDs</li>
+          <li>Tokens or passwords</li>
+        </ul>
+
+        <h2>3. What stays on your phone</h2>
+        <ul>
+          <li>Your rules and settings</li>
+          <li>Your decision history — which bookings were accepted or declined and why</li>
+          <li>Pickup and drop addresses and fares shown on cards</li>
+        </ul>
+        <p>
+          These are stored in the app's private storage, where other apps cannot read them, and are deleted when you
+          uninstall.
+        </p>
+
+        <h2>4. Your safety</h2>
+        <ul>
+          <li>
+            <strong>We will never ask for your OTP, UPI PIN, password, card number or bank details</strong> — not on a
+            call, not on WhatsApp, not in the app. Anyone who asks is not {settings.siteName || 'RiderSaathi'}.
+          </li>
+          <li>{settings.siteName || 'RiderSaathi'} does not read your SMS or notifications.</li>
+          <li>
+            You pay only inside the app, on our official website, or via authorized UPI. We never ask you to pay anyone
+            over a personal phone call.
+          </li>
+        </ul>
+
+        <h2>5. Contact &amp; Grievance</h2>
+        <p>
+          Use <strong>Help</strong> inside the app or email us at{' '}
+          <a href={`mailto:${settings.contactEmail}`}>{settings.contactEmail}</a>.
+        </p>
+        <p>
+          Founder &amp; Operator: <strong>{settings.ownerName}</strong> ({settings.legalBusinessName}). Address:{' '}
+          {settings.officeAddress}.
+        </p>
+      </div>
+    </div>
+  );
+}

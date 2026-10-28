@@ -1,0 +1,123 @@
+import React from 'react';
+import Link from 'next/link';
+import { getSettings } from '@/lib/data';
+
+export async function generateMetadata() {
+  const settings = getSettings();
+  return {
+    title: `Terms of Use — ${settings.siteName || 'RiderSaathi'}`,
+    description: `Terms and conditions for using ${settings.siteName || 'RiderSaathi'}.`,
+  };
+}
+
+export default function TermsPage() {
+  const settings = getSettings();
+
+  return (
+    <div className="wrap">
+      <div className="legal">
+        <h1>Terms of Use</h1>
+        <p><strong>Last updated: 19 October 2026 &middot; Version 1.0</strong></p>
+        <p>Please read these Terms of Use carefully before using {settings.siteName || 'RiderSaathi'}. By using the app, you agree to these terms.</p>
+
+        <h2>1. What {settings.siteName || 'RiderSaathi'} is and how it works</h2>
+        <p>{settings.siteName || 'RiderSaathi'} is an on-device smart ride filtering and driver productivity assistant designed for commercial delivery and cab drivers.</p>
+        <p>
+          The software enables drivers to pre-configure their operational preferences (such as preferred trip distances,
+          maximum pickup radius, service categories like parcel vs passenger, and destination routes) on their Android
+          device. When an incoming booking offer card is displayed on the driver's phone by partner driver applications
+          (such as Rapido, Uber, or Porter), {settings.siteName || 'RiderSaathi'} reads that card, compares it against the
+          driver's pre-set rules, and — on a booking that matches — presses the Accept control on the driver's behalf.
+          Bookings that do not match are left alone.
+        </p>
+        <p>
+          {settings.siteName || 'RiderSaathi'} is an independent client-side utility tool that acts strictly under your
+          instruction and rules. It does not find or generate bookings, does not negotiate or modify fares, does not access
+          or alter third-party server APIs, does not manipulate GPS coordinates, and has no direct affiliation with Rapido,
+          Ola, Uber, Porter, or any aggregator.
+        </p>
+        <p>
+          Rapido, Ola, Uber, and Porter are trademarks of their respective owners. {settings.siteName || 'RiderSaathi'} is
+          an independent software tool and is not affiliated with, endorsed by, sponsored by, or connected to any of them.
+          Their names are used solely to indicate application compatibility.
+        </p>
+
+        <h2>2. Independent Operation &amp; Your Platform Accounts</h2>
+        <p>{settings.siteName || 'RiderSaathi'} is designed to enhance driving focus and road safety by minimizing manual phone interaction while operating a vehicle.</p>
+        <ul>
+          <li>
+            <strong>Rule-based automation you set up:</strong> {settings.siteName || 'RiderSaathi'} runs only on your own
+            phone and acts only on the rules you have set. It does not send requests to any ride platform's servers, does not
+            copy, modify or interfere with any platform's app, does not change your GPS or location, and never asks for your
+            platform account login.
+          </li>
+          <li>
+            <strong>Your platform accounts:</strong> You use driver partner applications as an independent contractor or
+            partner, under each platform's own terms, guidelines and policies, which they may change at any time. Reading and
+            following them is your responsibility. Each platform manages its driver accounts under its own terms and at its
+            own discretion. We do not control those decisions and are not liable for them, and they are not a ground for a
+            refund of your {settings.siteName || 'RiderSaathi'} plan. Whether to use {settings.siteName || 'RiderSaathi'},
+            and in which mode, is your decision.
+          </li>
+          <li>
+            <strong>Full User Control:</strong> {settings.siteName || 'RiderSaathi'} can be switched between Active, Monitor
+            (simulation mode), or completely turned off at any moment with a single tap. You remain solely in control of your
+            driving schedule, accepted trips, and customer interactions.
+          </li>
+        </ul>
+
+        <h2>3. What we do not promise</h2>
+        <ul>
+          <li>We do not promise you will receive any particular booking, or any minimum number of bookings.</li>
+          <li>
+            We do not promise the app will read every card correctly. Driver apps periodically update their user
+            interfaces; when that happens, the app may miss bookings until updated pattern rules are published.
+          </li>
+          <li>We do not promise or guarantee any specific level of earnings.</li>
+          <li>
+            We do not promise the app will operate uninterrupted on every phone. Certain manufacturers enforce aggressive
+            background battery limits that may pause background services until configured.
+          </li>
+        </ul>
+
+        <h2>4. Your responsibilities</h2>
+        <ul>
+          <li>You must be a genuine, registered driver partner on the platform you use it with.</li>
+          <li>
+            You must keep your own account credentials secure. We never ask for your Rapido, Ola, Uber, or Porter
+            password or OTP, and you must never share credentials with anyone claiming to represent us.
+          </li>
+          <li>You must not resell, share, reverse engineer, or redistribute the app or your subscription.</li>
+          <li>
+            You are responsible for driving safely. Do not operate or adjust phone settings while actively riding or driving
+            in traffic.
+          </li>
+        </ul>
+
+        <h2>5. Subscriptions and payment</h2>
+        <ul>
+          <li>
+            New drivers receive a free trial measured in rides, not days, so you can evaluate the assistant on your own
+            schedule.
+          </li>
+          <li>After the trial, an active subscription plan is required. Plans are prepaid for a fixed period.</li>
+          <li>Payment is supported by UPI. You pay the exact amount indicated.</li>
+          <li>
+            One subscription covers <strong>one phone</strong>. Transferring to a replacement device requires account
+            verification.
+          </li>
+        </ul>
+
+        <h2>6. Contact and Grievance</h2>
+        <p>
+          Reach us through <strong>Help</strong> inside the app or via email at{' '}
+          <a href={`mailto:${settings.contactEmail}`}>{settings.contactEmail}</a>.
+        </p>
+        <p>
+          {settings.siteName || 'RiderSaathi'} is owned and operated by its founder,{' '}
+          <strong>{settings.ownerName}</strong> ({settings.legalBusinessName}). Address: {settings.officeAddress}.
+        </p>
+      </div>
+    </div>
+  );
+}
