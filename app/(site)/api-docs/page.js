@@ -49,7 +49,7 @@ export default function ApiDocsPage() {
             display: 'inline-block',
           }}
         >
-          Base URL: <strong>https://ridersaathi.onrender.com/api/app</strong>
+          Base URL: <strong>/api/app</strong> (e.g. <code>http://localhost:3000/api/app</code>)
         </div>
       </div>
 

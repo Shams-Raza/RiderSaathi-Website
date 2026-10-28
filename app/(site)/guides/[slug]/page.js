@@ -1,22 +1,62 @@
 import React from 'react';
 import Link from 'next/link';
-import { notFound, redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { getSettings, getGuides } from '@/lib/data';
+
+export const runtime = 'nodejs';
+
+export async function generateStaticParams() {
+  const guides = getGuides();
+  return (guides || []).map((g) => ({
+    slug: g.slug,
+  }));
+}
 
 export async function generateMetadata({ params }) {
   const settings = getSettings();
   const guides = getGuides();
   const guide = guides.find((g) => g.slug === params.slug);
+  const siteName = settings.siteName || 'RiderSaathi';
+  const baseUrl = process.env.SITE_URL || 'http://localhost:3000';
 
   if (!guide) {
     return {
-      title: `Guides — ${settings.siteName || 'RiderSaathi'}`,
+      title: `Guide Not Found — ${siteName}`,
     };
   }
 
+  const title = `${guide.title} — ${siteName} Guides`;
+  const description = guide.summary || `Complete driver tutorial for ${guide.title}.`;
+  const canonicalUrl = `${baseUrl}/guides/${guide.slug}`;
+
   return {
-    title: `${guide.title} — ${settings.siteName || 'RiderSaathi'} Guides`,
-    description: guide.summary,
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title,
+      description,
+      url: canonicalUrl,
+      type: 'article',
+      publishedTime: guide.updatedAt || new Date().toISOString(),
+      authors: [settings.ownerName || siteName],
+      images: [
+        {
+          url: '/images/icon.svg',
+          width: 512,
+          height: 512,
+          alt: guide.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary',
+      title,
+      description,
+      images: ['/images/icon.svg'],
+    },
   };
 }
 
@@ -24,19 +64,70 @@ export default function GuideDetailPage({ params }) {
   const settings = getSettings();
   const guides = getGuides();
   const guide = guides.find((g) => g.slug === params.slug);
+  const baseUrl = process.env.SITE_URL || 'http://localhost:3000';
+  const siteName = settings.siteName || 'RiderSaathi';
 
   if (!guide) {
-    redirect('/guides');
+    notFound();
   }
+
+  const breadcrumbListJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: baseUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Guides',
+        item: `${baseUrl}/guides`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: guide.title,
+        item: `${baseUrl}/guides/${guide.slug}`,
+      },
+    ],
+  };
+
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: guide.title,
+    description: guide.summary,
+    author: {
+      '@type': 'Person',
+      name: settings.ownerName || siteName,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: siteName,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${baseUrl}/images/icon.svg`,
+      },
+    },
+    datePublished: guide.updatedAt || new Date().toISOString(),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${baseUrl}/guides/${guide.slug}`,
+    },
+  };
 
   return (
     <div className="wrap" style={{ paddingTop: '28px', paddingBottom: '60px' }}>
-      <div style={{ fontSize: '13.5px', color: 'var(--text-muted)', marginBottom: '20px' }}>
+      <nav aria-label="Breadcrumb" style={{ fontSize: '13.5px', color: 'var(--text-muted)', marginBottom: '20px' }}>
         <Link href="/">Home</Link> &rsaquo; <Link href="/guides">Guides</Link> &rsaquo;{' '}
         <span style={{ color: 'var(--text-heading)', fontWeight: 600 }}>{guide.title}</span>
-      </div>
+      </nav>
 
-      <div className="card" style={{ padding: '36px 32px' }}>
+      <article className="card" style={{ padding: '36px 32px' }}>
         <div className="pill-badge green" style={{ marginBottom: '12px' }}>
           {guide.category}
         </div>
@@ -97,7 +188,18 @@ export default function GuideDetailPage({ params }) {
             Back to all guides
           </Link>
         </div>
-      </div>
+      </article>
+
+      {/* Structured Data: BreadcrumbList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbListJsonLd) }}
+      />
+      {/* Structured Data: Article */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
     </div>
   );
 }
