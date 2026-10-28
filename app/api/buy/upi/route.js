@@ -1,11 +1,19 @@
 import { NextResponse } from 'next/server';
 import { getPlans, updateJSON } from '@/lib/data';
+import { checkGeneralRateLimit } from '@/lib/auth';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function POST(request) {
   try {
+    const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
+    if (!checkGeneralRateLimit(ip, 20, 60000)) {
+      return NextResponse.json(
+        { ok: false, error: 'Too many requests. Please wait a moment before trying again.' },
+        { status: 429 }
+      );
+    }
     let body;
     const contentType = request.headers.get('content-type') || '';
     if (contentType.includes('application/json')) {
