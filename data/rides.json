@@ -1,5 +1,25 @@
 [
   {
+    "id": "RIDE-MVS2C0WN",
+    "driverId": "DRV-DEMO101",
+    "driverPhone": "9876543210",
+    "platform": "rapido",
+    "fare": 120,
+    "pickupDistanceKm": 1.2,
+    "tripDistanceKm": 6.5,
+    "acceptedAt": "2026-10-28T12:00:35.735Z"
+  },
+  {
+    "id": "RIDE-MVS24R6S",
+    "driverId": "DRV-DEMO101",
+    "driverPhone": "9876543210",
+    "platform": "rapido",
+    "fare": 120,
+    "pickupDistanceKm": 1.2,
+    "tripDistanceKm": 6.5,
+    "acceptedAt": "2026-10-28T11:54:56.548Z"
+  },
+  {
     "id": "RIDE-MVI0NZF4",
     "driverId": "DRV-MVI0NQTV",
     "driverPhone": "8349049467",

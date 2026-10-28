@@ -27,7 +27,7 @@ export const metadata = {
   },
 };
 
-export default function AdminPage() {
+export default async function AdminPage() {
   const cookieStore = cookies();
   const session = getAdminSession(cookieStore);
 

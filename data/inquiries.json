@@ -1,5 +1,23 @@
 [
   {
+    "id": "INQ-MVS2C0KH",
+    "name": "Test Captain",
+    "phone": "9876543210",
+    "subject": "Smoke Test",
+    "message": "Automated test message",
+    "status": "New",
+    "createdAt": "2026-10-28T12:00:35.297Z"
+  },
+  {
+    "id": "INQ-MVS24QVG",
+    "name": "Test Captain",
+    "phone": "9876543210",
+    "subject": "Smoke Test",
+    "message": "Automated test message",
+    "status": "New",
+    "createdAt": "2026-10-28T11:54:56.140Z"
+  },
+  {
     "id": "INQ-MVFC9T8V",
     "name": "Ramesh Captain",
     "phone": "9876543210",

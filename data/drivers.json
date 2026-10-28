@@ -40,13 +40,13 @@
   {
     "id": "DRV-DEMO101",
     "phone": "9876543210",
-    "name": "Demo Captain",
-    "deviceId": "demo-device-id-001",
-    "deviceModel": "Redmi Note 12",
+    "name": "Captain Verification Test",
+    "deviceId": "DEVICE-TEST-SMOKE",
+    "deviceModel": "Pixel 8 Pro",
     "appVersion": "5.28.1",
     "authToken": "token_demo_9876543210",
     "trialRidesTotal": 10,
-    "trialRidesUsed": 3,
+    "trialRidesUsed": 5,
     "isTrialActive": true,
     "subscription": {
       "status": "trial",
@@ -56,9 +56,9 @@
       "expiresAt": null
     },
     "filterRules": {
-      "minFare": 50,
+      "minFare": 65,
       "maxPickupDistanceKm": 2.5,
-      "minFarePerKm": 12,
+      "minFarePerKm": 15,
       "platforms": {
         "rapido": true,
         "uber": true,
@@ -71,8 +71,8 @@
       "voiceAlert": true
     },
     "status": "active",
-    "totalRidesAccepted": 3,
+    "totalRidesAccepted": 5,
     "createdAt": "2026-10-21T06:00:00.000Z",
-    "lastActiveAt": "2026-10-21T10:30:00.000Z"
+    "lastActiveAt": "2026-10-28T12:00:35.748Z"
   }
 ]
