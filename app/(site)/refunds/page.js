@@ -2,11 +2,16 @@ import React from 'react';
 import Link from 'next/link';
 import { getSettings } from '@/lib/data';
 
+export const runtime = 'nodejs';
+
 export async function generateMetadata() {
   const settings = getSettings();
   return {
     title: `Refund & Cancellation Policy — ${settings.siteName || 'RiderSaathi'}`,
     description: `When a ${settings.siteName || 'RiderSaathi'} plan can be refunded, how cancellation works, and how to reach us.`,
+    alternates: {
+      canonical: `${process.env.SITE_URL || 'http://localhost:3000'}/refunds`,
+    },
   };
 }
 

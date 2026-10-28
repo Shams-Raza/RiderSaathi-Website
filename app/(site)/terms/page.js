@@ -2,11 +2,16 @@ import React from 'react';
 import Link from 'next/link';
 import { getSettings } from '@/lib/data';
 
+export const runtime = 'nodejs';
+
 export async function generateMetadata() {
   const settings = getSettings();
   return {
     title: `Terms of Use — ${settings.siteName || 'RiderSaathi'}`,
     description: `Terms and conditions for using ${settings.siteName || 'RiderSaathi'}.`,
+    alternates: {
+      canonical: `${process.env.SITE_URL || 'http://localhost:3000'}/terms`,
+    },
   };
 }
 

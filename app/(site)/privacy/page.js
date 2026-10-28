@@ -1,11 +1,16 @@
 import React from 'react';
 import { getSettings } from '@/lib/data';
 
+export const runtime = 'nodejs';
+
 export async function generateMetadata() {
   const settings = getSettings();
   return {
     title: `Privacy Notice — ${settings.siteName || 'RiderSaathi'}`,
     description: `What ${settings.siteName || 'RiderSaathi'} reads and what it never reads.`,
+    alternates: {
+      canonical: `${process.env.SITE_URL || 'http://localhost:3000'}/privacy`,
+    },
   };
 }
 
