@@ -4,9 +4,47 @@ import { getSettings, num } from '@/lib/data';
 
 export async function generateMetadata() {
   const settings = getSettings();
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const siteName = settings.siteName || 'RiderSaathi';
+  const titleText = 'How to Install on Android';
+  const descText =
+    'Follow this easy step-by-step guide to download and install RiderSaathi APK on Android phones. Enable accessibility service and configure custom ride rules.';
+
   return {
-    title: `How to install ${settings.siteName || 'RiderSaathi'} on Android`,
-    description: `Step by step install guide for ${settings.siteName || 'RiderSaathi'} ride filter assistant.`,
+    title: titleText,
+    description: descText,
+    alternates: {
+      canonical: `${baseUrl}/install`,
+      languages: {
+        'hi-IN': `${baseUrl}/install?lang=hi`,
+        'en-IN': `${baseUrl}/install?lang=en`,
+        'x-default': `${baseUrl}/install`,
+      },
+    },
+    openGraph: {
+      title: `${titleText} — ${siteName}`,
+      description: descText,
+      url: `${baseUrl}/install`,
+      siteName: siteName,
+      locale: 'hi_IN',
+      alternateLocale: ['en_US'],
+      type: 'article',
+      images: [
+        {
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
+          alt: `${siteName} Install Guide`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${titleText} — ${siteName}`,
+      description: descText,
+      images: [`${baseUrl}/images/og-default.png`],
+    },
   };
 }
 

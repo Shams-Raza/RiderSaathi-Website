@@ -1,29 +1,82 @@
 import React from 'react';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
-import { getSettings, getPlans, num } from '@/lib/data';
+import { headers, cookies } from 'next/headers';
+import { getSettings, getPlans, num, resolveLang } from '@/lib/data';
 
-export async function generateMetadata() {
+export async function generateMetadata({ searchParams }) {
   const settings = getSettings();
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const siteName = settings.siteName || 'RiderSaathi';
+  const headersList = headers();
   const cookieStore = cookies();
-  const lang = cookieStore.get('lang')?.value || 'hi';
+  const lang = resolveLang(searchParams, cookieStore, headersList);
   const isEn = lang === 'en';
 
+  let qLang = null;
+  if (searchParams) {
+    if (typeof searchParams.getAll === 'function') {
+      const all = searchParams.getAll('lang');
+      if (all.length === 1) qLang = all[0];
+    } else if (typeof searchParams.get === 'function') {
+      qLang = searchParams.get('lang');
+    } else if (typeof searchParams.lang === 'string') {
+      qLang = searchParams.lang;
+    }
+  }
+
+  const canonicalUrl = (qLang === 'en' || qLang === 'hi')
+    ? `${baseUrl}/pricing?lang=${qLang}`
+    : `${baseUrl}/pricing`;
+
+  const titleText = isEn ? 'Plans & Pricing' : 'प्लान्स और कीमतें';
+  const descText = isEn
+    ? 'Explore transparent RiderSaathi subscription passes for Rapido, Uber and Porter captains. 1-Day, 1-Week and 1-Month passes with first 10 rides free.'
+    : 'RiderSaathi के पारदर्शी सब्सक्रिप्शन प्लान्स: 1-दिन, 1-हफ्ता और 1-महीना पास. पहले 10 राइड्स बिल्कुल फ्री, बिना ऑटो-डेबिट या छुपे चार्ज के.';
+
   return {
-    title: isEn
-      ? `Plans & Pricing — ${settings.siteName || 'RiderSaathi'}`
-      : `प्लान्स और कीमतें — ${settings.siteName || 'RiderSaathi'}`,
-    description: isEn
-      ? `${settings.siteName || 'RiderSaathi'} plans and prices. 1 day, 1 week, 1 month. Free trial first, no auto-renewal.`
-      : `${settings.siteName || 'RiderSaathi'} के पारदर्शी प्लान्स. 1 दिन, 1 हफ्ता, 1 महीना. पहले 10 राइड्स फ्री.`,
+    title: titleText,
+    description: descText,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        'hi-IN': `${baseUrl}/pricing?lang=hi`,
+        'en-IN': `${baseUrl}/pricing?lang=en`,
+        'x-default': `${baseUrl}/pricing`,
+      },
+    },
+    openGraph: {
+      title: `${titleText} — ${siteName}`,
+      description: descText,
+      url: canonicalUrl,
+      siteName: siteName,
+      locale: isEn ? 'en_US' : 'hi_IN',
+      alternateLocale: isEn ? ['hi_IN'] : ['en_US'],
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
+          alt: `${siteName} Plans & Pricing`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${titleText} — ${siteName}`,
+      description: descText,
+      images: [`${baseUrl}/images/og-default.png`],
+    },
   };
 }
 
-export default function PricingPage() {
+export default function PricingPage({ searchParams }) {
   const settings = getSettings();
   const plans = getPlans();
+  const headersList = headers();
   const cookieStore = cookies();
-  const lang = cookieStore.get('lang')?.value || 'hi';
+  const lang = resolveLang(searchParams, cookieStore, headersList);
   const isEn = lang === 'en';
   const freeRides = num(settings, 'freeTrialRides', 10);
 

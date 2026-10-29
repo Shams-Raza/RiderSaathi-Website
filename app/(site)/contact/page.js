@@ -1,20 +1,85 @@
 import React from 'react';
-import { cookies } from 'next/headers';
-import { getSettings } from '@/lib/data';
+import { headers, cookies } from 'next/headers';
+import { getSettings, resolveLang } from '@/lib/data';
 import ContactForm from '@/components/ContactForm';
 
-export async function generateMetadata() {
+export const runtime = 'nodejs';
+
+export async function generateMetadata({ searchParams }) {
   const settings = getSettings();
+  const siteName = settings.siteName || 'RiderSaathi';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const headersList = headers();
+  const cookieStore = cookies();
+  const lang = resolveLang(searchParams, cookieStore, headersList);
+  const isEn = lang === 'en';
+
+  let qLang = null;
+  if (searchParams) {
+    if (typeof searchParams.getAll === 'function') {
+      const all = searchParams.getAll('lang');
+      if (all.length === 1) qLang = all[0];
+    } else if (typeof searchParams.get === 'function') {
+      qLang = searchParams.get('lang');
+    } else if (typeof searchParams.lang === 'string') {
+      qLang = searchParams.lang;
+    }
+  }
+
+  const canonicalUrl = (qLang === 'en' || qLang === 'hi')
+    ? `${baseUrl}/contact?lang=${qLang}`
+    : `${baseUrl}/contact`;
+
+  const title = isEn
+    ? 'Contact Us & Captain Helpline Support'
+    : 'हमसे संपर्क करें और हेल्पलाइन सपोर्ट';
+  const description = isEn
+    ? 'Get in touch with RiderSaathi customer support team for instant app activation, subscription inquiries, ride filter rules guidance, and official helpline assistance.'
+    : 'RiderSaathi सपोर्ट टीम से संपर्क करें: तुरंत ऐप एक्टिवेशन, सब्सक्रिप्शन पूछताछ, राइड रूल्स गाइडेंस और आधिकारिक हेल्पलाइन सहायता.';
+
   return {
-    title: `Contact — ${settings.siteName || 'RiderSaathi'}`,
-    description: `How to reach ${settings.siteName || 'RiderSaathi'} support for help, payments or refunds.`,
+    title,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        'hi-IN': `${baseUrl}/contact?lang=hi`,
+        'en-IN': `${baseUrl}/contact?lang=en`,
+        'x-default': `${baseUrl}/contact`,
+      },
+    },
+    openGraph: {
+      title: `${title} — ${siteName}`,
+      description,
+      url: canonicalUrl,
+      siteName,
+      locale: isEn ? 'en_US' : 'hi_IN',
+      alternateLocale: isEn ? ['hi_IN'] : ['en_US'],
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
+          alt: `${siteName} Contact Support`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} — ${siteName}`,
+      description,
+      images: [`${baseUrl}/images/og-default.png`],
+    },
   };
 }
 
-export default function ContactPage() {
+export default function ContactPage({ searchParams }) {
   const settings = getSettings();
+  const headersList = headers();
   const cookieStore = cookies();
-  const lang = cookieStore.get('lang')?.value || 'hi';
+  const lang = resolveLang(searchParams, cookieStore, headersList);
   const isEn = lang === 'en';
 
   const loc = settings.location || {};
@@ -263,6 +328,33 @@ export default function ContactPage() {
           </div>
         </div>
       </div>
+
+      {/* JSON-LD ContactPage & LocalBusiness Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'ContactPage',
+            name: `Contact ${settings.siteName || 'RiderSaathi'}`,
+            url: `${process.env.SITE_URL || 'http://localhost:3000'}/contact`,
+            description:
+              'Official contact and driver customer support desk for RiderSaathi app subscriptions and troubleshooting.',
+            mainEntity: {
+              '@type': 'LocalBusiness',
+              name: settings.siteName || 'RiderSaathi',
+              legalName: settings.legalBusinessName || 'RiderSaathi Technologies',
+              telephone: `+${settings.whatsappNumber}`,
+              email: settings.contactEmail,
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: settings.officeAddress,
+                addressCountry: 'IN',
+              },
+            },
+          }),
+        }}
+      />
     </div>
   );
 }

@@ -1,21 +1,83 @@
 import React from 'react';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
-import { getSettings, num } from '@/lib/data';
+import { headers, cookies } from 'next/headers';
+import { getSettings, num, resolveLang } from '@/lib/data';
 
-export async function generateMetadata() {
+export async function generateMetadata({ searchParams }) {
   const settings = getSettings();
-  const hiw = settings.howItWorks || {};
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const siteName = settings.siteName || 'RiderSaathi';
+  const headersList = headers();
+  const cookieStore = cookies();
+  const lang = resolveLang(searchParams, cookieStore, headersList);
+  const isEn = lang === 'en';
+
+  let qLang = null;
+  if (searchParams) {
+    if (typeof searchParams.getAll === 'function') {
+      const all = searchParams.getAll('lang');
+      if (all.length === 1) qLang = all[0];
+    } else if (typeof searchParams.get === 'function') {
+      qLang = searchParams.get('lang');
+    } else if (typeof searchParams.lang === 'string') {
+      qLang = searchParams.lang;
+    }
+  }
+
+  const canonicalUrl = (qLang === 'en' || qLang === 'hi')
+    ? `${baseUrl}/how-it-works?lang=${qLang}`
+    : `${baseUrl}/how-it-works`;
+
+  const titleText = isEn
+    ? 'How RiderSaathi Works — Driver Guide'
+    : 'RiderSaathi कैसे काम करता है — गाइड';
+  const descText = isEn
+    ? 'Watch step-by-step video tutorial to install RiderSaathi, configure custom ride rules, and auto-accept profitable rides on Rapido, Uber and Porter.'
+    : 'RiderSaathi इनस्टॉल करने, कस्टम राइड रूल्स सेट करने, और रैपिडो, उबर व पोर्टर पर ऑटो-एक्सेप्ट चालू करने का पूरा वीडियो ट्यूटोरियल देखें.';
+
   return {
-    title: hiw.title_en || `How It Works — ${settings.siteName || 'RiderSaathi'}`,
-    description: hiw.subtitle_en || `Step by step guide & tutorial on how ${settings.siteName || 'RiderSaathi'} filters rides for captains.`,
+    title: titleText,
+    description: descText,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        'hi-IN': `${baseUrl}/how-it-works?lang=hi`,
+        'en-IN': `${baseUrl}/how-it-works?lang=en`,
+        'x-default': `${baseUrl}/how-it-works`,
+      },
+    },
+    openGraph: {
+      title: `${titleText} — ${siteName}`,
+      description: descText,
+      url: canonicalUrl,
+      siteName: siteName,
+      locale: isEn ? 'en_US' : 'hi_IN',
+      alternateLocale: isEn ? ['hi_IN'] : ['en_US'],
+      type: 'article',
+      images: [
+        {
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
+          alt: `${siteName} How It Works`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${titleText} — ${siteName}`,
+      description: descText,
+      images: [`${baseUrl}/images/og-default.png`],
+    },
   };
 }
 
-export default function HowItWorksPage() {
+export default function HowItWorksPage({ searchParams }) {
   const settings = getSettings();
+  const headersList = headers();
   const cookieStore = cookies();
-  const lang = cookieStore.get('lang')?.value || 'hi';
+  const lang = resolveLang(searchParams, cookieStore, headersList);
   const isEn = lang === 'en';
 
   const hiw = settings.howItWorks || {};

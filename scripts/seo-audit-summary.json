@@ -1,0 +1,798 @@
+{
+  "results": [
+    {
+      "route": "/",
+      "status": 200,
+      "title": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers — RiderSaathi",
+      "desc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+      "descLength": 208,
+      "canonical": null,
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "अपनी पसंद की राइड.अपने रूल्स पर."
+      ],
+      "h2Count": 5,
+      "h3Count": 3,
+      "schemaTypes": [
+        "Organization",
+        "WebSite",
+        "SoftwareApplication"
+      ],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/how-it-works",
+      "status": 200,
+      "title": "How RiderSaathi Works — Complete Driver Guide &amp; Tutorial — RiderSaathi",
+      "desc": "Watch this step-by-step video to learn how to install, set up custom ride rules, and auto-accept profitable rides on Rapido, Uber &amp; Porter.",
+      "descLength": 143,
+      "canonical": null,
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "RiderSaathi कैसे काम करता है — पूरी जानकारी &amp; वीडियो ट्यूटोरियल"
+      ],
+      "h2Count": 1,
+      "h3Count": 6,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/pricing",
+      "status": 200,
+      "title": "प्लान्स और कीमतें — RiderSaathi — RiderSaathi",
+      "desc": "RiderSaathi के पारदर्शी प्लान्स. 1 दिन, 1 हफ्ता, 1 महीना. पहले 10 राइड्स फ्री.",
+      "descLength": 78,
+      "canonical": null,
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "प्लान्स और कीमतें"
+      ],
+      "h2Count": 0,
+      "h3Count": 1,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/install",
+      "status": 200,
+      "title": "How to install RiderSaathi on Android — RiderSaathi",
+      "desc": "Step by step install guide for RiderSaathi ride filter assistant.",
+      "descLength": 65,
+      "canonical": null,
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "How to install RiderSaathi"
+      ],
+      "h2Count": 4,
+      "h3Count": 0,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/buy",
+      "status": 200,
+      "title": "Buy Plan — RiderSaathi — RiderSaathi",
+      "desc": "Activate your RiderSaathi subscription via UPI. Fast, secure, and instant digital delivery.",
+      "descLength": 91,
+      "canonical": "http://localhost:3000/buy",
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "RiderSaathi प्लान एक्टिवेट करें"
+      ],
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/buy/upi",
+      "status": 200,
+      "title": "Complete UPI Payment — RiderSaathi — RiderSaathi",
+      "desc": "Complete your UPI payment for RiderSaathi. Instant digital activation for Rapido, Uber and Porter captains.",
+      "descLength": 107,
+      "canonical": null,
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "UPI द्वारा पेमेंट करें (GPay / PhonePe / Paytm)"
+      ],
+      "h2Count": 0,
+      "h3Count": 1,
+      "schemaTypes": [],
+      "imagesCount": 1,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/guides",
+      "status": 200,
+      "title": "Guides for Drivers — RiderSaathi — RiderSaathi",
+      "desc": "Rules and settings guide for RiderSaathi ride filter assistant.",
+      "descLength": 63,
+      "canonical": null,
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "Driver Guides &amp; Tutorials"
+      ],
+      "h2Count": 3,
+      "h3Count": 1,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/guides/ridersaathi-shuru-kaise-kare",
+      "status": 200,
+      "title": "RiderSaathi shuru kaise karein — RiderSaathi Guides — RiderSaathi",
+      "desc": "RiderSaathi install karne se lekar pehli ride tak: sign in, permissions, rules, Monitor mode aur Active mode — step by step.",
+      "descLength": 124,
+      "canonical": "http://localhost:3000/guides/ridersaathi-shuru-kaise-kare",
+      "og": {
+        "ogTitle": "RiderSaathi shuru kaise karein — RiderSaathi Guides",
+        "ogDesc": "RiderSaathi install karne se lekar pehli ride tak: sign in, permissions, rules, Monitor mode aur Active mode — step by step.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000/guides/ridersaathi-shuru-kaise-kare",
+        "ogType": "article"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi shuru kaise karein — RiderSaathi Guides",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "RiderSaathi shuru kaise karein"
+      ],
+      "h2Count": 0,
+      "h3Count": 5,
+      "schemaTypes": [
+        "BreadcrumbList",
+        "Article"
+      ],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/guides/booking-type-parcel-sawari",
+      "status": 200,
+      "title": "Booking types — kaunsi bookings leni hain — RiderSaathi Guides — RiderSaathi",
+      "desc": "RiderSaathi me Bike, Auto, Cab aur Parcel ke switch, Boost/Saver rides, cab ke types aur Intercity bookings kaise chalu-band karein.",
+      "descLength": 132,
+      "canonical": "http://localhost:3000/guides/booking-type-parcel-sawari",
+      "og": {
+        "ogTitle": "Booking types — kaunsi bookings leni hain — RiderSaathi Guides",
+        "ogDesc": "RiderSaathi me Bike, Auto, Cab aur Parcel ke switch, Boost/Saver rides, cab ke types aur Intercity bookings kaise chalu-band karein.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000/guides/booking-type-parcel-sawari",
+        "ogType": "article"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "Booking types — kaunsi bookings leni hain — RiderSaathi Guides",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "Booking types — kaunsi bookings leni hain"
+      ],
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": [
+        "BreadcrumbList",
+        "Article"
+      ],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/guides/trip-aur-pickup-distance",
+      "status": 200,
+      "title": "Trip distance aur pickup distance — RiderSaathi Guides — RiderSaathi",
+      "desc": "Trip distance (kam se kam / zyada se zyada km) aur pickup distance kaise set karein, shuruaati values kya rakhein.",
+      "descLength": 114,
+      "canonical": "http://localhost:3000/guides/trip-aur-pickup-distance",
+      "og": {
+        "ogTitle": "Trip distance aur pickup distance — RiderSaathi Guides",
+        "ogDesc": "Trip distance (kam se kam / zyada se zyada km) aur pickup distance kaise set karein, shuruaati values kya rakhein.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000/guides/trip-aur-pickup-distance",
+        "ogType": "article"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "Trip distance aur pickup distance — RiderSaathi Guides",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "Trip distance aur pickup distance"
+      ],
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": [
+        "BreadcrumbList",
+        "Article"
+      ],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/guides/auto-accept-sound-alerts",
+      "status": 200,
+      "title": "Guide Not Found — RiderSaathi — RiderSaathi",
+      "desc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+      "descLength": 208,
+      "canonical": null,
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 0,
+      "h1s": [],
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/guides/battery-optimization-settings",
+      "status": 200,
+      "title": "Guide Not Found — RiderSaathi — RiderSaathi",
+      "desc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+      "descLength": 208,
+      "canonical": null,
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 0,
+      "h1s": [],
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/guides/fare-calculation-tricks",
+      "status": 200,
+      "title": "Guide Not Found — RiderSaathi — RiderSaathi",
+      "desc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+      "descLength": 208,
+      "canonical": null,
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 0,
+      "h1s": [],
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/guides/play-protect-warning-solution",
+      "status": 200,
+      "title": "Guide Not Found — RiderSaathi — RiderSaathi",
+      "desc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+      "descLength": 208,
+      "canonical": null,
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 0,
+      "h1s": [],
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/guides/subscription-recharge-guide",
+      "status": 200,
+      "title": "Guide Not Found — RiderSaathi — RiderSaathi",
+      "desc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+      "descLength": 208,
+      "canonical": null,
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 0,
+      "h1s": [],
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/faq",
+      "status": 200,
+      "title": "RiderSaathi FAQ — रूल्स, सेटिंग्स और आम सवाल — RiderSaathi",
+      "desc": "RiderSaathi के लिए कप्तानों के सवाल और जवाब. रूल्स, सेटिंग्स, अकाउंट सुरक्षा और एक्टिवेशन की पूरी जानकारी.",
+      "descLength": 106,
+      "canonical": "http://localhost:3000/faq",
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "अक्सर पूछे जाने वाले सवाल (FAQ)"
+      ],
+      "h2Count": 0,
+      "h3Count": 1,
+      "schemaTypes": [
+        "FAQPage"
+      ],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/updates",
+      "status": 200,
+      "title": "What&#x27;s New in RiderSaathi — Version Changelog — RiderSaathi",
+      "desc": "RiderSaathi version history and updates.",
+      "descLength": 40,
+      "canonical": null,
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "What&#x27;s New in RiderSaathi"
+      ],
+      "h2Count": 3,
+      "h3Count": 1,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/about",
+      "status": 200,
+      "title": "About RiderSaathi — Kaun banata hai aur kyun — RiderSaathi",
+      "desc": "RiderSaathi is built for bike-taxi, auto, cab and parcel drivers.",
+      "descLength": 65,
+      "canonical": null,
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "RiderSaathi Kyun Bana"
+      ],
+      "h2Count": 3,
+      "h3Count": 1,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/contact",
+      "status": 200,
+      "title": "Contact — RiderSaathi — RiderSaathi",
+      "desc": "How to reach RiderSaathi support for help, payments or refunds.",
+      "descLength": 63,
+      "canonical": null,
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "RiderSaathi सपोर्ट से संपर्क करें"
+      ],
+      "h2Count": 0,
+      "h3Count": 2,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/refunds",
+      "status": 200,
+      "title": "Refund &amp; Cancellation Policy — RiderSaathi — RiderSaathi",
+      "desc": "When a RiderSaathi plan can be refunded, how cancellation works, and how to reach us.",
+      "descLength": 85,
+      "canonical": "http://localhost:3000/refunds",
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "Refund &amp; Cancellation Policy"
+      ],
+      "h2Count": 6,
+      "h3Count": 1,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/delivery",
+      "status": 200,
+      "title": "Delivery &amp; Activation — RiderSaathi — RiderSaathi",
+      "desc": "How your RiderSaathi digital license is activated after payment.",
+      "descLength": 64,
+      "canonical": "http://localhost:3000/delivery",
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "Delivery &amp; Activation"
+      ],
+      "h2Count": 6,
+      "h3Count": 1,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/terms",
+      "status": 200,
+      "title": "Terms of Use — RiderSaathi — RiderSaathi",
+      "desc": "Terms and conditions for using RiderSaathi.",
+      "descLength": 43,
+      "canonical": "http://localhost:3000/terms",
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "Terms of Use"
+      ],
+      "h2Count": 6,
+      "h3Count": 0,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/privacy",
+      "status": 200,
+      "title": "Privacy Notice — RiderSaathi — RiderSaathi",
+      "desc": "What RiderSaathi reads and what it never reads.",
+      "descLength": 47,
+      "canonical": "http://localhost:3000/privacy",
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "Privacy Notice"
+      ],
+      "h2Count": 5,
+      "h3Count": 0,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    },
+    {
+      "route": "/api-docs",
+      "status": 200,
+      "title": "Mobile App API Documentation — RiderSaathi — RiderSaathi",
+      "desc": "API specifications for RiderSaathi Android &amp; Flutter app integration.",
+      "descLength": 73,
+      "canonical": null,
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        "ogImage": "http://localhost:3000/images/icon.svg",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website"
+      },
+      "tw": {
+        "twCard": "summary",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/icon.svg"
+      },
+      "htmlLang": "hi",
+      "h1Count": 1,
+      "h1s": [
+        "RiderSaathi Mobile App REST APIs"
+      ],
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": [],
+      "imagesCount": 0,
+      "imagesWithoutAlt": []
+    }
+  ],
+  "sitemap": {
+    "status": 200,
+    "totalUrls": 23,
+    "urls": [
+      "http://localhost:3000",
+      "http://localhost:3000/how-it-works",
+      "http://localhost:3000/pricing",
+      "http://localhost:3000/install",
+      "http://localhost:3000/buy",
+      "http://localhost:3000/guides",
+      "http://localhost:3000/faq",
+      "http://localhost:3000/updates",
+      "http://localhost:3000/about",
+      "http://localhost:3000/contact",
+      "http://localhost:3000/refunds",
+      "http://localhost:3000/delivery",
+      "http://localhost:3000/terms",
+      "http://localhost:3000/privacy",
+      "http://localhost:3000/api-docs",
+      "http://localhost:3000/guides/ridersaathi-shuru-kaise-kare",
+      "http://localhost:3000/guides/booking-type-parcel-sawari",
+      "http://localhost:3000/guides/trip-aur-pickup-distance",
+      "http://localhost:3000/guides/kamai-filter-fare-aur-tip",
+      "http://localhost:3000/guides/go-to-ghar-ki-taraf",
+      "http://localhost:3000/guides/jahan-nahi-jaana",
+      "http://localhost:3000/guides/raste-wali-agli-ride",
+      "http://localhost:3000/guides/kin-apps-par-chalta-hai"
+    ],
+    "hasLastmod": true,
+    "lastmodsCount": 23
+  },
+  "robots": {
+    "status": 200,
+    "body": "User-Agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /api/\n\nSitemap: http://localhost:3000/sitemap.xml\n"
+  },
+  "bilingual": {
+    "titleHi": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers — RiderSaathi",
+    "titleEn": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers — RiderSaathi",
+    "descHi": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+    "descEn": "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+    "hreflangs": []
+  },
+  "duplicates": {
+    "titles": [
+      [
+        "Guide Not Found — RiderSaathi — RiderSaathi",
+        [
+          "/guides/auto-accept-sound-alerts",
+          "/guides/battery-optimization-settings",
+          "/guides/fare-calculation-tricks",
+          "/guides/play-protect-warning-solution",
+          "/guides/subscription-recharge-guide"
+        ]
+      ]
+    ],
+    "descs": [
+      [
+        "Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.",
+        [
+          "/",
+          "/guides/auto-accept-sound-alerts",
+          "/guides/battery-optimization-settings",
+          "/guides/fare-calculation-tricks",
+          "/guides/play-protect-warning-solution",
+          "/guides/subscription-recharge-guide"
+        ]
+      ]
+    ]
+  }
+}

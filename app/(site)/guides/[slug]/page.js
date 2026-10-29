@@ -17,7 +17,7 @@ export async function generateMetadata({ params }) {
   const guides = getGuides();
   const guide = guides.find((g) => g.slug === params.slug);
   const siteName = settings.siteName || 'RiderSaathi';
-  const baseUrl = process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
 
   if (!guide) {
     return {
@@ -25,8 +25,8 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  const title = `${guide.title} — ${siteName} Guides`;
-  const description = guide.summary || `Complete driver tutorial for ${guide.title}.`;
+  const title = `${guide.title} Guide`;
+  const description = guide.summary || `Complete step-by-step driver tutorial: ${guide.title} on RiderSaathi.`;
   const canonicalUrl = `${baseUrl}/guides/${guide.slug}`;
 
   return {
@@ -34,28 +34,37 @@ export async function generateMetadata({ params }) {
     description,
     alternates: {
       canonical: canonicalUrl,
+      languages: {
+        'hi-IN': `${canonicalUrl}?lang=hi`,
+        'en-IN': `${canonicalUrl}?lang=en`,
+        'x-default': canonicalUrl,
+      },
     },
     openGraph: {
-      title,
+      title: `${title} — ${siteName}`,
       description,
       url: canonicalUrl,
+      siteName,
+      locale: 'hi_IN',
+      alternateLocale: ['en_US'],
       type: 'article',
       publishedTime: guide.updatedAt || new Date().toISOString(),
       authors: [settings.ownerName || siteName],
       images: [
         {
-          url: '/images/icon.svg',
-          width: 512,
-          height: 512,
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
           alt: guide.title,
+          type: 'image/png',
         },
       ],
     },
     twitter: {
-      card: 'summary',
-      title,
+      card: 'summary_large_image',
+      title: `${title} — ${siteName}`,
       description,
-      images: ['/images/icon.svg'],
+      images: [`${baseUrl}/images/og-default.png`],
     },
   };
 }

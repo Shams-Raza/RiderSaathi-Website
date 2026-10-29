@@ -12,9 +12,46 @@ export const runtime = 'nodejs';
 export async function generateMetadata() {
   const settings = getSettings();
   const siteName = settings.siteName || 'RiderSaathi';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const titleText = 'Complete UPI Payment';
+  const descText =
+    'Scan the QR code or use GPay, PhonePe, or Paytm to complete your RiderSaathi UPI payment. Enter your 12-digit UTR number for instant plan verification.';
+
   return {
-    title: `Complete UPI Payment — ${siteName}`,
-    description: `Complete your UPI payment for ${siteName}. Instant digital activation for Rapido, Uber and Porter captains.`,
+    title: titleText,
+    description: descText,
+    alternates: {
+      canonical: `${baseUrl}/buy/upi`,
+      languages: {
+        'hi-IN': `${baseUrl}/buy/upi?lang=hi`,
+        'en-IN': `${baseUrl}/buy/upi?lang=en`,
+        'x-default': `${baseUrl}/buy/upi`,
+      },
+    },
+    openGraph: {
+      title: `${titleText} — ${siteName}`,
+      description: descText,
+      url: `${baseUrl}/buy/upi`,
+      siteName: siteName,
+      locale: 'hi_IN',
+      alternateLocale: ['en_US'],
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
+          alt: `${siteName} UPI Payment`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${titleText} — ${siteName}`,
+      description: descText,
+      images: [`${baseUrl}/images/og-default.png`],
+    },
   };
 }
 

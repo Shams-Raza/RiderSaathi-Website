@@ -2,11 +2,51 @@ import React from 'react';
 import Link from 'next/link';
 import { getSettings, getUpdates } from '@/lib/data';
 
+export const runtime = 'nodejs';
+
 export async function generateMetadata() {
   const settings = getSettings();
+  const siteName = settings.siteName || 'RiderSaathi';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const title = 'Changelog & Version Updates';
+  const description =
+    'Explore latest version updates, changelogs, new auto-accept features, and bug fixes in RiderSaathi app for Rapido, Uber and Porter delivery and cab drivers.';
+
   return {
-    title: `What's New in ${settings.siteName || 'RiderSaathi'} — Version Changelog`,
-    description: `${settings.siteName || 'RiderSaathi'} version history and updates.`,
+    title,
+    description,
+    alternates: {
+      canonical: `${baseUrl}/updates`,
+      languages: {
+        'hi-IN': `${baseUrl}/updates?lang=hi`,
+        'en-IN': `${baseUrl}/updates?lang=en`,
+        'x-default': `${baseUrl}/updates`,
+      },
+    },
+    openGraph: {
+      title: `${title} — ${siteName}`,
+      description,
+      url: `${baseUrl}/updates`,
+      siteName,
+      locale: 'hi_IN',
+      alternateLocale: ['en_US'],
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
+          alt: `${siteName} Updates`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} — ${siteName}`,
+      description,
+      images: [`${baseUrl}/images/og-default.png`],
+    },
   };
 }
 

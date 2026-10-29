@@ -6,11 +6,46 @@ export const runtime = 'nodejs';
 
 export async function generateMetadata() {
   const settings = getSettings();
+  const siteName = settings.siteName || 'RiderSaathi';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const title = 'Terms of Service & Usage Agreement';
+  const description =
+    'Read the official Terms of Service for RiderSaathi app. Discover our independent driver utility rules, non-affiliation disclaimer, and captain user agreements.';
+
   return {
-    title: `Terms of Use — ${settings.siteName || 'RiderSaathi'}`,
-    description: `Terms and conditions for using ${settings.siteName || 'RiderSaathi'}.`,
+    title,
+    description,
     alternates: {
-      canonical: `${process.env.SITE_URL || 'http://localhost:3000'}/terms`,
+      canonical: `${baseUrl}/terms`,
+      languages: {
+        'hi-IN': `${baseUrl}/terms?lang=hi`,
+        'en-IN': `${baseUrl}/terms?lang=en`,
+        'x-default': `${baseUrl}/terms`,
+      },
+    },
+    openGraph: {
+      title: `${title} — ${siteName}`,
+      description,
+      url: `${baseUrl}/terms`,
+      siteName,
+      locale: 'en_US',
+      alternateLocale: ['hi_IN'],
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
+          alt: `${siteName} Terms of Service`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} — ${siteName}`,
+      description,
+      images: [`${baseUrl}/images/og-default.png`],
     },
   };
 }

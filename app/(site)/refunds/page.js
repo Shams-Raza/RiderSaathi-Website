@@ -6,11 +6,46 @@ export const runtime = 'nodejs';
 
 export async function generateMetadata() {
   const settings = getSettings();
+  const siteName = settings.siteName || 'RiderSaathi';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const title = 'Refund & Cancellation Policy';
+  const description =
+    'Read RiderSaathi official refund and cancellation policy. Understand how digital license activation, phone compatibility refunds, and duplicate charges work.';
+
   return {
-    title: `Refund & Cancellation Policy — ${settings.siteName || 'RiderSaathi'}`,
-    description: `When a ${settings.siteName || 'RiderSaathi'} plan can be refunded, how cancellation works, and how to reach us.`,
+    title,
+    description,
     alternates: {
-      canonical: `${process.env.SITE_URL || 'http://localhost:3000'}/refunds`,
+      canonical: `${baseUrl}/refunds`,
+      languages: {
+        'hi-IN': `${baseUrl}/refunds?lang=hi`,
+        'en-IN': `${baseUrl}/refunds?lang=en`,
+        'x-default': `${baseUrl}/refunds`,
+      },
+    },
+    openGraph: {
+      title: `${title} — ${siteName}`,
+      description,
+      url: `${baseUrl}/refunds`,
+      siteName,
+      locale: 'en_US',
+      alternateLocale: ['hi_IN'],
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
+          alt: `${siteName} Refund Policy`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} — ${siteName}`,
+      description,
+      images: [`${baseUrl}/images/og-default.png`],
     },
   };
 }

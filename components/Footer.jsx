@@ -12,13 +12,12 @@ export default function Footer({ settings = {}, lang = 'hi' }) {
         <div className="footer-top-grid">
           {/* Col 1: Brand & Bio */}
           <div className="footer-col brand-col">
-            <Link className="brand" href="/" style={{ marginBottom: '12px', display: 'inline-flex' }}>
-              <span className="brand-glyph" style={{ width: '32px', height: '32px' }}>
-                <svg viewBox="0 0 24 24" width="18" height="18">
-                  <path d="M14 2 5 13h6l-1 9 9-11h-6z" />
-                </svg>
-              </span>
-              <span>{settings.siteName || 'RiderSaathi'}</span>
+            <Link className="brand" href="/" aria-label="RiderSathi Home" style={{ marginBottom: '14px', display: 'inline-flex' }}>
+              <img
+                src="/images/logo.png"
+                alt={settings.siteName || 'RiderSathi'}
+                style={{ height: '38px', width: 'auto', objectFit: 'contain' }}
+              />
             </Link>
             <p className="footer-bio">
               {isEn

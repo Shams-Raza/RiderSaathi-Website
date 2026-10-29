@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 85" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00E676"/>
+      <stop offset="100%" stop-color="#00C853"/>
+    </linearGradient>
+    <linearGradient id="speedGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00E676" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#00C853"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Speed streaks on left of R -->
+  <path d="M5 24 Q 25 24 38 27 L 34 32 Q 22 28 5 28 Z" fill="url(#speedGrad)"/>
+  <path d="M0 36 Q 28 36 44 40 L 40 45 Q 24 41 0 41 Z" fill="url(#speedGrad)"/>
+  <path d="M12 49 Q 32 49 48 53 L 45 58 Q 28 54 12 54 Z" fill="url(#speedGrad)"/>
+
+  <!-- "Rider" Text in Bold Italic Navy -->
+  <g transform="skewX(-11)">
+    <!-- R -->
+    <path d="M42 58 L 54 22 L 72 22 Q 83 22 83 29 Q 83 34 78 37 Q 85 40 82 49 L 79 58 L 68 58 L 71 49 Q 72 44 68 44 L 60 44 L 56 58 Z M 63 36 L 70 36 Q 74 36 74 32 Q 74 29 69 29 L 65 29 Z" fill="#0F172A"/>
+    
+    <!-- i stem -->
+    <path d="M83 58 L 92 28 L 102 28 L 93 58 Z" fill="#0F172A"/>
+
+    <!-- d -->
+    <path d="M110 58 Q 103 58 102 52 Q 101 45 106 37 Q 112 27 122 27 Q 128 27 131 31 L 136 14 L 146 14 L 133 58 L 123 58 L 124 53 Q 120 58 110 58 Z M 115 50 Q 121 50 125 43 Q 128 36 125 34 Q 121 33 116 38 Q 111 44 113 48 Q 114 50 115 50 Z" fill="#0F172A"/>
+
+    <!-- e -->
+    <path d="M142 45 Q 144 37 151 31 Q 158 27 167 27 Q 176 27 178 34 Q 179 40 174 45 Z M 153 52 Q 158 58 168 58 Q 175 58 181 54 L 178 48 Q 173 51 168 51 Q 161 51 157 47 L 176 47 Q 185 47 187 39 Q 188 33 182 29 Q 176 25 166 25 Q 154 25 147 34 Q 140 43 143 51 Q 146 58 153 58 Z M 156 41 L 172 41 Q 173 35 167 35 Q 160 35 156 41 Z" fill="#0F172A"/>
+
+    <!-- r -->
+    <path d="M187 58 L 196 28 L 205 28 L 203 35 Q 208 27 218 28 L 214 38 Q 207 36 202 42 L 197 58 Z" fill="#0F172A"/>
+
+    <!-- "Sathi" Text in Vibrant Brand Green -->
+    <!-- S -->
+    <path d="M228 58 Q 220 58 217 53 Q 215 48 219 43 Q 223 38 234 36 Q 241 35 242 32 Q 243 29 239 29 Q 233 29 229 32 L 226 25 Q 233 21 243 21 Q 252 21 255 26 Q 257 32 252 38 Q 247 43 236 45 Q 230 46 229 49 Q 228 51 232 51 Q 238 51 243 47 L 246 54 Q 238 58 228 58 Z" fill="url(#greenGrad)"/>
+
+    <!-- a -->
+    <path d="M255 58 Q 248 58 247 52 Q 246 45 252 37 Q 258 27 269 27 Q 276 27 279 32 L 280 28 L 289 28 L 280 58 L 271 58 L 272 53 Q 267 58 255 58 Z M 262 50 Q 268 50 272 44 Q 276 37 273 34 Q 269 33 264 38 Q 259 44 260 48 Q 261 50 262 50 Z" fill="url(#greenGrad)"/>
+
+    <!-- t -->
+    <path d="M294 58 Q 291 58 289 55 Q 288 52 290 47 L 295 28 L 288 28 L 290 22 L 297 22 L 300 13 L 309 13 L 306 22 L 316 22 L 314 28 L 304 28 L 300 45 Q 299 48 301 49 Q 303 50 307 49 L 305 56 Q 300 58 294 58 Z" fill="url(#greenGrad)"/>
+
+    <!-- h -->
+    <path d="M315 58 L 327 14 L 337 14 L 330 34 Q 336 27 344 27 Q 352 27 353 34 Q 353 37 351 43 L 347 58 L 337 58 L 341 43 Q 343 37 339 37 Q 334 37 330 43 L 325 58 Z" fill="url(#greenGrad)"/>
+
+    <!-- i -->
+    <path d="M354 58 L 362 28 L 372 28 L 364 58 Z" fill="url(#greenGrad)"/>
+    <circle cx="367" cy="18" r="4" fill="url(#greenGrad)"/>
+  </g>
+
+  <!-- Green Location Pin for the first 'i' in Rider -->
+  <g transform="translate(86, 7)">
+    <path d="M12 0 C5.37 0 0 5.37 0 12 C0 19.5 10.5 28 12 29 C13.5 28 24 19.5 24 12 C24 5.37 18.63 0 12 0 Z" fill="url(#greenGrad)"/>
+    <circle cx="12" cy="11" r="4.5" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Dynamic green curve underline -->
+  <path d="M38 64 Q 180 72 355 60 Q 200 66 42 67 Z" fill="url(#greenGrad)"/>
+
+  <!-- Subtitle Pill: "RIDE AUTO ACCEPT BOT" -->
+  <rect x="68" y="69" width="186" height="15" rx="7.5" fill="#DCFCE7"/>
+  <text x="161" y="80" text-anchor="middle" font-family="'Outfit', 'Plus Jakarta Sans', sans-serif" font-size="8" font-weight="800" fill="#0F172A" letter-spacing="1.5">RIDE AUTO ACCEPT BOT</text>
+</svg>

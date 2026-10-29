@@ -2,16 +2,57 @@ import React from 'react';
 import Link from 'next/link';
 import { getSettings } from '@/lib/data';
 
+export const runtime = 'nodejs';
+
 export async function generateMetadata() {
   const settings = getSettings();
+  const siteName = settings.siteName || 'RiderSaathi';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const title = 'About Us & Mission for Captains';
+  const description =
+    'Learn why RiderSaathi was built by real drivers for bike-taxi, auto and cab captains. Discover our mission, legal ownership, and privacy-first commitments.';
+
   return {
-    title: `About ${settings.siteName || 'RiderSaathi'} — Kaun banata hai aur kyun`,
-    description: `${settings.siteName || 'RiderSaathi'} is built for bike-taxi, auto, cab and parcel drivers.`,
+    title,
+    description,
+    alternates: {
+      canonical: `${baseUrl}/about`,
+      languages: {
+        'hi-IN': `${baseUrl}/about?lang=hi`,
+        'en-IN': `${baseUrl}/about?lang=en`,
+        'x-default': `${baseUrl}/about`,
+      },
+    },
+    openGraph: {
+      title: `${title} — ${siteName}`,
+      description,
+      url: `${baseUrl}/about`,
+      siteName,
+      locale: 'hi_IN',
+      alternateLocale: ['en_US'],
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
+          alt: `${siteName} About`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} — ${siteName}`,
+      description,
+      images: [`${baseUrl}/images/og-default.png`],
+    },
   };
 }
 
 export default function AboutPage() {
   const settings = getSettings();
+  const baseUrl = process.env.SITE_URL || 'http://localhost:3000';
 
   return (
     <div className="wrap" style={{ paddingTop: '36px', paddingBottom: '60px' }}>
@@ -137,6 +178,31 @@ export default function AboutPage() {
           </Link>
         </div>
       </div>
+
+      {/* JSON-LD AboutPage & Organization Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'AboutPage',
+            name: `About ${settings.siteName || 'RiderSaathi'}`,
+            url: `${baseUrl}/about`,
+            description:
+              'Learn why RiderSaathi was built by real drivers for bike-taxi, auto and cab captains. Discover our mission, legal ownership, and privacy-first commitments.',
+            mainEntity: {
+              '@type': 'Organization',
+              name: settings.siteName || 'RiderSaathi',
+              legalName: settings.legalBusinessName || 'RiderSaathi Technologies',
+              url: baseUrl,
+              founder: {
+                '@type': 'Person',
+                name: settings.ownerName || 'RiderSaathi Founder',
+              },
+            },
+          }),
+        }}
+      />
     </div>
   );
 }

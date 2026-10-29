@@ -41,6 +41,14 @@ export default function Header({ settings = {}, lang = 'hi' }) {
       document.cookie = `lang=${newLang};path=/;max-age=${365 * 24 * 60 * 60};SameSite=Lax`;
       localStorage.setItem('ridersaathi_lang', newLang);
     } catch (e) {}
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      if (url.searchParams.has('lang')) {
+        url.searchParams.delete('lang');
+        window.location.href = url.pathname + (url.search ? url.search : '') + (url.hash || '');
+        return;
+      }
+    }
     router.refresh();
   };
 
@@ -66,13 +74,13 @@ export default function Header({ settings = {}, lang = 'hi' }) {
 
       <header>
         <div className="wrap header-inner">
-          <Link className="brand" href="/">
-            <span className="brand-glyph">
-              <svg viewBox="0 0 24 24">
-                <path d="M14 2 5 13h6l-1 9 9-11h-6z" />
-              </svg>
-            </span>
-            <span className="brand-name">{settings.siteName || 'RiderSaathi'}</span>
+          <Link className="brand" href="/" aria-label="RiderSathi Home">
+            <img
+              src="/images/logo.png"
+              alt={settings.siteName || 'RiderSathi'}
+              className="brand-logo-img"
+              style={{ height: '38px', width: 'auto', objectFit: 'contain' }}
+            />
           </Link>
 
           <nav id="mainNav" className={mobileNavOpen ? 'open' : ''}>
@@ -84,13 +92,6 @@ export default function Header({ settings = {}, lang = 'hi' }) {
               {content.navHome || (isEn ? 'Home' : 'होम')}
             </Link>
             <Link
-              href="/pricing"
-              className={pathname === '/pricing' ? 'active' : ''}
-              onClick={() => setMobileNavOpen(false)}
-            >
-              {content.navPricing || (isEn ? 'Pricing' : 'प्लान्स')}
-            </Link>
-            <Link
               href="/how-it-works"
               className={pathname === '/how-it-works' ? 'active' : ''}
               onClick={() => setMobileNavOpen(false)}
@@ -98,11 +99,11 @@ export default function Header({ settings = {}, lang = 'hi' }) {
               {content.navHowItWorks || (isEn ? 'How It Works' : 'कैसे काम करता है')}
             </Link>
             <Link
-              href="/install"
-              className={pathname === '/install' ? 'active' : ''}
+              href="/pricing"
+              className={pathname === '/pricing' ? 'active' : ''}
               onClick={() => setMobileNavOpen(false)}
             >
-              {content.navInstall || (isEn ? 'Install App' : 'ऐप इनस्टॉल')}
+              {content.navPricing || (isEn ? 'Pricing' : 'प्लान्स')}
             </Link>
             <Link
               href="/guides"
@@ -151,12 +152,13 @@ export default function Header({ settings = {}, lang = 'hi' }) {
               </button>
             </div>
 
-            <a href="/download" className="btn-header-cta" title="Download Official APK">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z" />
+            <Link href="/install" className="btn-header-cta" title={isEn ? "Get Started" : "शुरू करें"}>
+              <span>{isEn ? 'Get Started' : 'शुरू करें'}</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
-              <span>{content.navDownload || (isEn ? 'Download APK' : 'APK डाउनलोड')}</span>
-            </a>
+            </Link>
 
             <button
               className="theme-toggle"

@@ -133,3 +133,30 @@ Every route touching data files declares `export const runtime = 'nodejs'` and p
 - **Hosting**: System runs 100% locally. No external cloud dependencies or CDNs are required.
 - **Local QR Code Generation**: QR codes are generated dynamically in-browser via the `qrcode` library using data URLs; no third-party image APIs are called.
 - **Compatibility**: Legacy Express endpoints (`/buy/upi`, `/buy/confirm-utr`, `/api/docs`) are fully rewritten in `next.config.js` to ensure legacy mobile app versions continue functioning seamlessly.
+
+---
+
+## 7. Bilingual & SEO Hreflang Resolution Audit
+
+### Resolution Strategy
+- **Priority**: 1) `?lang=` query param, 2) `x-current-lang` header from middleware, 3) `lang` cookie, 4) Default fallback (`'hi'`).
+- **Googlebot & Crawler Compliance**: `?lang=` overrides language for requests without cookies and does NOT set/persist cookies, preventing shared URLs from locking users into a language.
+- **Sitemap `<xhtml:link>`**: `app/sitemap.js` emits self-referencing and cross-referencing alternates for `hi-IN`, `en-IN`, and `x-default`.
+- **Bidirectional Return Links**: Every language variant links to itself and all siblings in both `<head>` and `sitemap.xml`.
+- **Empirical Verification (No Cookies)**:
+  - `/pricing?lang=en`: `<html lang="en">`, Title: `Plans & Pricing — RiderSaathi`, `og:locale="en_US"`, H1: `Plans & Pricing`.
+  - `/pricing?lang=hi`: `<html lang="hi">`, Title: `प्लान्स और कीमतें — RiderSaathi`, `og:locale="hi_IN"`, H1: `प्लान्स और कीमतें`.
+  - `/pricing` (no param): `<html lang="hi">`, Title: `प्लान्स और कीमतें — RiderSaathi`, `og:locale="hi_IN"`, H1: `प्लान्स और कीमतें` (matches default).
+  - `/set-language/[lang]` cookie route: Returns 302 redirect with `Set-Cookie: lang=[lang]; Max-Age=31536000; SameSite=lax`.
+- **Self-Referencing Canonical & `og:url`**:
+  - `/pricing?lang=en` → `canonical="http://localhost:3000/pricing?lang=en"`, `og:url="http://localhost:3000/pricing?lang=en"`
+  - `/pricing?lang=hi` → `canonical="http://localhost:3000/pricing?lang=hi"`, `og:url="http://localhost:3000/pricing?lang=hi"`
+  - `/pricing` → `canonical="http://localhost:3000/pricing"`, `og:url="http://localhost:3000/pricing"`
+- **Sitemap Namespace**: Root `<urlset>` verified with `xmlns:xhtml="http://www.w3.org/1999/xhtml"`.
+- **Middleware Query Edge Cases**:
+  - `/pricing?lang=EN`: `200 OK`, `<html lang="hi">` (graceful fallback)
+  - `/pricing?lang=xx`: `200 OK`, `<html lang="hi">` (graceful fallback)
+  - `/pricing?lang=`: `200 OK`, `<html lang="hi">` (graceful fallback)
+  - `/pricing?lang=en&lang=hi`: `200 OK`, `<html lang="hi">` (duplicate param handling)
+
+

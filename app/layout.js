@@ -1,6 +1,7 @@
 import '../public/css/style.css';
+import { headers, cookies } from 'next/headers';
 import { Outfit, Plus_Jakarta_Sans, Noto_Sans_Devanagari, JetBrains_Mono } from 'next/font/google';
-import { getSettings } from '@/lib/data';
+import { getSettings, resolveLang } from '@/lib/data';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -40,12 +41,12 @@ export const runtime = 'nodejs';
 
 export async function generateMetadata() {
   const settings = getSettings();
-  const baseUrl = process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
   const siteName = settings.siteName || 'RiderSaathi';
   const defaultTitle = settings.seoTitle || `${siteName} — Smart Ride Filter App for Rapido, Uber & Porter Drivers`;
   const defaultDesc =
     settings.seoDescription ||
-    'Independent ride-filtering assistant for Rapido, Uber and Porter drivers. Set your own rules: trip distance, pickup limit, parcel/passenger filter and auto-accept profitable rides. Pehli 10 rides bilkul free.';
+    'Smart ride filtering assistant for Rapido, Uber and Porter drivers. Set custom rules, pickup distance limits, and auto-accept rides. First 10 rides are free.';
 
   return {
     metadataBase: new URL(baseUrl),
@@ -68,21 +69,23 @@ export async function generateMetadata() {
       url: baseUrl,
       siteName,
       locale: 'hi_IN',
+      alternateLocale: ['en_US'],
       type: 'website',
       images: [
         {
-          url: '/images/icon.svg',
-          width: 512,
-          height: 512,
+          url: '/images/og-default.png',
+          width: 1200,
+          height: 630,
           alt: siteName,
+          type: 'image/png',
         },
       ],
     },
     twitter: {
-      card: 'summary',
+      card: 'summary_large_image',
       title: defaultTitle,
       description: defaultDesc,
-      images: ['/images/icon.svg'],
+      images: ['/images/og-default.png'],
     },
     robots: {
       index: true,
@@ -92,9 +95,13 @@ export async function generateMetadata() {
 }
 
 export default function RootLayout({ children }) {
+  const headersList = headers();
+  const cookieStore = cookies();
+  const lang = resolveLang(null, cookieStore, headersList);
+
   return (
     <html
-      lang="hi"
+      lang={lang}
       suppressHydrationWarning
       className={`${plusJakarta.variable} ${outfit.variable} ${notoSansDevanagari.variable} ${jetbrainsMono.variable}`}
     >

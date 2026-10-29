@@ -8,11 +8,45 @@ export const runtime = 'nodejs';
 export async function generateMetadata() {
   const settings = getSettings();
   const siteName = settings.siteName || 'RiderSaathi';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const titleText = 'Buy Subscription Pass';
+  const descText =
+    'Choose your RiderSaathi subscription pass and activate instantly via UPI. Secure direct payment for Rapido, Uber and Porter captains with zero hidden fees.';
+
   return {
-    title: `Buy Plan — ${siteName}`,
-    description: `Activate your ${siteName} subscription via UPI. Fast, secure, and instant digital delivery.`,
+    title: titleText,
+    description: descText,
     alternates: {
-      canonical: `${process.env.SITE_URL || 'http://localhost:3000'}/buy`,
+      canonical: `${baseUrl}/buy`,
+      languages: {
+        'hi-IN': `${baseUrl}/buy?lang=hi`,
+        'en-IN': `${baseUrl}/buy?lang=en`,
+        'x-default': `${baseUrl}/buy`,
+      },
+    },
+    openGraph: {
+      title: `${titleText} — ${siteName}`,
+      description: descText,
+      url: `${baseUrl}/buy`,
+      siteName: siteName,
+      locale: 'hi_IN',
+      alternateLocale: ['en_US'],
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
+          alt: `${siteName} Buy Subscription`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${titleText} — ${siteName}`,
+      description: descText,
+      images: [`${baseUrl}/images/og-default.png`],
     },
   };
 }

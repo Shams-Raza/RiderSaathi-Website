@@ -1,21 +1,87 @@
 import React from 'react';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
-import { getSettings, getPlans, getGuides, num } from '@/lib/data';
+import Image from 'next/image';
+import { headers, cookies } from 'next/headers';
+import { getSettings, getPlans, getGuides, num, resolveLang } from '@/lib/data';
 
-export async function generateMetadata() {
+export async function generateMetadata({ searchParams }) {
   const settings = getSettings();
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const siteName = settings.siteName || 'RiderSaathi';
+  const headersList = headers();
+  const cookieStore = cookies();
+  const lang = resolveLang(searchParams, cookieStore, headersList);
+  const isEn = lang === 'en';
+
+  let qLang = null;
+  if (searchParams) {
+    if (typeof searchParams.getAll === 'function') {
+      const all = searchParams.getAll('lang');
+      if (all.length === 1) qLang = all[0];
+    } else if (typeof searchParams.get === 'function') {
+      qLang = searchParams.get('lang');
+    } else if (typeof searchParams.lang === 'string') {
+      qLang = searchParams.lang;
+    }
+  }
+
+  const canonicalUrl = (qLang === 'en' || qLang === 'hi')
+    ? `${baseUrl}/?lang=${qLang}`
+    : `${baseUrl}/`;
+
+  const titleText = isEn
+    ? `${siteName} — Smart Ride Filter App for Rapido, Uber & Porter Drivers`
+    : `${siteName} — रैपिडो, उबर और पोर्टर कप्तानों के लिए स्मार्ट राइड फिल्टर ऐप`;
+  const descText = isEn
+    ? 'Smart ride filtering assistant for Rapido, Uber and Porter drivers. Set custom rules, pickup distance limits, and auto-accept rides. First 10 rides are free.'
+    : 'रैपिडो, उबर और पोर्टर ड्राइवर्स के लिए स्मार्ट राइड फिल्टरिंग असिस्टेंट. मनपसंद दूरी, मिनिमम किराया और ऑटो-एक्सेप्ट रूल्स सेट करें. पहली 10 राइड्स बिल्कुल फ्री.';
+
   return {
-    title: `${settings.siteName || 'RiderSaathi'} — Smart Ride Filter App for Rapido, Uber & Porter Drivers`,
-    description: settings.seoDescription,
+    title: {
+      absolute: titleText,
+    },
+    description: descText,
+    alternates: {
+      canonical: canonicalUrl,
+      languages: {
+        'hi-IN': `${baseUrl}/?lang=hi`,
+        'en-IN': `${baseUrl}/?lang=en`,
+        'x-default': `${baseUrl}/`,
+      },
+    },
+    openGraph: {
+      title: titleText,
+      description: descText,
+      url: canonicalUrl,
+      siteName: siteName,
+      locale: isEn ? 'en_US' : 'hi_IN',
+      alternateLocale: isEn ? ['hi_IN'] : ['en_US'],
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
+          alt: `${siteName} Banner`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: titleText,
+      description: descText,
+      images: [`${baseUrl}/images/og-default.png`],
+    },
   };
 }
 
-export default function HomePage() {
+export default function HomePage({ searchParams }) {
   const settings = getSettings();
   const plans = getPlans();
+  const headersList = headers();
   const cookieStore = cookies();
-  const lang = cookieStore.get('lang')?.value || 'hi';
+  const lang = resolveLang(searchParams, cookieStore, headersList);
   const isEn = lang === 'en';
   const cnt = isEn ? (settings.content_en || {}) : (settings.content_hi || {});
 
@@ -27,26 +93,22 @@ export default function HomePage() {
           <div className="hero-grid">
             {/* Left Column: High-Impact Copy */}
             <div className="hero-content">
-              <div className="pill-badge green">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                </svg>
-                {cnt.heroBadge ||
-                  (isEn
-                    ? `⚡ First ${num(settings, 'freeTrialRides', 10)} rides completely free — Test without payment!`
-                    : `⚡ पहली ${num(settings, 'freeTrialRides', 10)} राइड्स बिल्कुल फ्री — बिना पेमेंट टेस्ट करें!`)}
+              <div className="hero-smart-badge">
+                <span className="live-dot-green"></span>
+                <span>{isEn ? 'SMART RIDE COMPANION' : 'स्मार्ट राइड कम्पैनियन'}</span>
               </div>
 
-              <h1
-                className="hero-title"
-                dangerouslySetInnerHTML={{
-                  __html:
-                    cnt.heroTitle ||
-                    (isEn
-                      ? 'Your preferred ride.<br><span class="highlight">On your own terms.</span>'
-                      : 'अपनी पसंद की राइड.<br><span class="highlight">अपने रूल्स पर.</span>'),
-                }}
-              />
+              <h1 className="hero-title">
+                {isEn ? (
+                  <>
+                    Never Miss a <span className="text-primary">Ride Opportunity</span>
+                  </>
+                ) : (
+                  <>
+                    कभी न चूकें एक भी <span className="text-primary">कमाई वाली राइड</span>
+                  </>
+                )}
+              </h1>
 
               <p className="hero-subtitle">
                 {cnt.heroSubtitle ||
@@ -56,142 +118,208 @@ export default function HomePage() {
               </p>
 
               <div className="hero-actions">
-                <Link className="btn" href="/install">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z" />
+                <Link className="btn-hero-primary" href="/install">
+                  <span>{cnt.btnDownload || (isEn ? 'Get Started' : 'शुरू करें — डाउनलोड')}</span>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>
-                  {cnt.btnDownload || (isEn ? 'Download for Android' : 'Android के लिए डाउनलोड')}
                 </Link>
-                <Link className="btn ghost btn-video-cta" href="/how-it-works">
+                <Link className="btn-hero-secondary" href="/how-it-works">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M8 5v14l11-7z" />
                   </svg>
-                  {isEn ? 'How It Works (Video)' : 'कैसे काम करता है (वीडियो)'}
-                </Link>
-                <Link className="btn ghost" href="/pricing">
-                  {cnt.btnViewPlans ||
-                    (isEn
-                      ? `Plans (From ₹${num(settings, 'starterPrice', 12)})`
-                      : `प्लान्स (₹${num(settings, 'starterPrice', 12)} से)`)}
+                  <span>{isEn ? 'See How It Works' : 'देखें कैसे काम करता है'}</span>
                 </Link>
               </div>
 
-              <div className="hero-meta">
-                <span>Version {settings.appVersion || '5.28.1'}</span>
-                <span className="dot"></span>
-                <span>Size: {settings.apkFileSize || '11.1 MB'}</span>
-                <span className="dot"></span>
-                <span style={{ color: 'var(--success)', fontWeight: 700 }}>
-                  {isEn ? '100% Virus Free' : '100% सुरक्षित & टेस्टेड'}
-                </span>
-              </div>
-
-              <div className="trust-badges-bar">
-                <div className="trust-item">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-                  </svg>
-                  {cnt.statFreeRides ||
-                    (isEn
-                      ? `First ${num(settings, 'freeTrialRides', 10)} rides free`
-                      : `पहली ${num(settings, 'freeTrialRides', 10)} राइड्स फ्री`)}
-                </div>
-                <div className="trust-item">
+              <div className="hero-trust-indicators">
+                <div className="hero-trust-item">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" />
                   </svg>
-                  {cnt.statZeroBan || (isEn ? 'Zero Account Ban' : 'जीरो अकाउंट बैन')}
+                  <span>{isEn ? 'Safe & Secure' : '100% सुरक्षित'}</span>
                 </div>
-                <div className="trust-item">
+                <div className="hero-trust-item">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M13 2.05v3.03c3.39.49 6 3.39 6 6.92 0 .9-.18 1.75-.48 2.54l2.6 1.53c.56-1.24.88-2.62.88-4.07 0-5.18-3.95-9.45-9-9.95zM12 19c-3.87 0-7-3.13-7-7 0-3.53 2.61-6.43 6-6.92V2.05c-5.06.5-9 4.76-9 9.95 0 5.52 4.47 10 9.99 10 3.31 0 6.24-1.61 8.04-4.09l-2.6-1.53C16.15 17.58 14.24 19 12 19z" />
+                    <path d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14z" />
                   </svg>
-                  {cnt.statNoAutoDebit || (isEn ? 'No Auto-Debit' : 'कोई ऑटो-डेबिट नहीं')}
+                  <span>{isEn ? 'Works on Android' : 'Android पर समर्थित'}</span>
+                </div>
+                <div className="hero-trust-item">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                  </svg>
+                  <span>{isEn ? `First ${num(settings, 'freeTrialRides', 10)} Rides Free` : `पहली ${num(settings, 'freeTrialRides', 10)} राइड्स फ्री`}</span>
                 </div>
               </div>
             </div>
 
-            {/* Right Column: Interactive Simulator Mockup */}
-            {(!settings.homeSections || settings.homeSections.heroSimulator !== false) && (
-              <div className="mockup-container">
-                <div className="phone-mockup">
-                  <div className="phone-header">
-                    <div className="phone-status">
-                      <span className="pulse-indicator"></span>
-                      <span>
-                        {settings.siteName || 'RiderSaathi'} {isEn ? 'Filter Active' : 'फ़िल्टर एक्टिव'}
-                      </span>
-                    </div>
-                    <span className="autopilot-pill">
-                      {isEn ? '⚡ Auto-Pilot' : '⚡ ऑटो-पायलट'}
-                    </span>
-                  </div>
+            {/* Right Column: 3D Robot Visual & Floating Glassmorphism Cards */}
+            <div className="hero-visual-area">
+              <div className="hero-glow-blob" aria-hidden="true" />
 
-                  {/* Ride Simulation Card 1 (Accepted) */}
-                  <div className="ride-card accepted">
-                    <div className="ride-header-row">
-                      <span className="platform-pill platform-rapido">Rapido Bike</span>
-                      <span className="ride-fare">₹{num(settings, 'mock1Fare', 128)}</span>
-                    </div>
-                    <div className="ride-details">
-                      <span>📍 Drop: {num(settings, 'mock1DropKm', 6.2)} km</span>
-                      <span>🏃 Pickup: {num(settings, 'mock1PickupKm', 0.8)} km</span>
-                    </div>
-                    <div className="decision-badge accepted">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                      </svg>
-                      {isEn
-                        ? `AUTO-ACCEPTED (Fare ₹${num(settings, 'mock1FarePerKm', 20)}/km)`
-                        : `ऑटो-एक्सेप्टेड (किराया ₹${num(settings, 'mock1FarePerKm', 20)}/किमी)`}
-                    </div>
-                  </div>
+              <div className="hero-robot-wrapper">
+                <Image
+                  src="/images/hero-robot-clean.png"
+                  alt="RiderSaathi 3D Robot with Ride Auto Accept on Scooter"
+                  width={420}
+                  height={420}
+                  priority
+                  className="hero-robot-img"
+                />
+              </div>
 
-                  {/* Ride Simulation Card 2 (Declined) */}
-                  <div className="ride-card declined">
-                    <div className="ride-header-row">
-                      <span className="platform-pill platform-porter">Porter 2W</span>
-                      <span className="ride-fare">₹{num(settings, 'mock2Fare', 24)}</span>
-                    </div>
-                    <div className="ride-details">
-                      <span>📍 Drop: {num(settings, 'mock2DropKm', 1.1)} km</span>
-                      <span style={{ color: 'var(--danger)', fontWeight: 700 }}>
-                        🏃 Pickup: {num(settings, 'mock2PickupKm', 3.2)} km
-                      </span>
-                    </div>
-                    <div className="decision-badge declined">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
-                      </svg>
-                      {isEn
-                        ? `FILTERED (Loss trip - ${num(settings, 'mock2PickupKm', 3.2)}km pickup)`
-                        : `फ़िल्टर्ड (घाटे वाली राइड - ${num(settings, 'mock2PickupKm', 3.2)}किमी पिकअप)`}
-                    </div>
-                  </div>
+              {/* Floating Card 1: More Opportunities (Top Right) */}
+              <div className="hero-float-card card-top-right">
+                <div className="growth-badge-icon">📈</div>
+                <div className="growth-text-col">
+                  <div className="growth-label">{isEn ? 'More Opportunities' : 'ज्यादा अवसर'}</div>
+                  <div className="growth-val">{isEn ? '+45% Daily Rides' : '+45% ज्यादा राइड्स'}</div>
+                </div>
+                <div className="mini-bar-chart" aria-hidden="true">
+                  <span className="mini-bar"></span>
+                  <span className="mini-bar"></span>
+                  <span className="mini-bar"></span>
+                  <span className="mini-bar"></span>
+                </div>
+              </div>
 
-                  {/* Ride Simulation Card 3 (Accepted) */}
-                  <div className="ride-card accepted" style={{ marginBottom: 0 }}>
-                    <div className="ride-header-row">
-                      <span className="platform-pill platform-uber">Uber Auto</span>
-                      <span className="ride-fare">₹{num(settings, 'mock3Fare', 175)}</span>
-                    </div>
-                    <div className="ride-details">
-                      <span>📍 Drop: {num(settings, 'mock3DropKm', 8.5)} km</span>
-                      <span>🏃 Pickup: {num(settings, 'mock3PickupKm', 1.1)} km</span>
-                    </div>
-                    <div className="decision-badge accepted">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
-                      </svg>
-                      {isEn ? 'AUTO-ACCEPTED (Towards Home)' : 'ऑटो-एक्सेप्टेड (घर की तरफ)'}
-                    </div>
+              {/* Floating Card 2: Ride Accepted (Right Middle) */}
+              <div className="hero-float-card card-mid-right">
+                <div className="ride-accepted-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                  </svg>
+                </div>
+                <div className="ride-accepted-info">
+                  <div className="ride-accepted-title">
+                    <span>Rapido Bike</span>
+                    <span className="fare-tag">₹140</span>
+                  </div>
+                  <div className="ride-accepted-meta">
+                    {isEn ? 'Ride Accepted • 2 min ago' : 'राइड एक्सेप्टेड • 2 मिनट पहले'}
                   </div>
                 </div>
               </div>
-            )}
+
+              {/* Floating Card 3: Ride Accepted (Bottom Left) */}
+              <div className="hero-float-card card-bottom-left">
+                <div className="ride-accepted-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                  </svg>
+                </div>
+                <div className="ride-accepted-info">
+                  <div className="ride-accepted-title">
+                    <span>Uber Auto</span>
+                    <span className="fare-tag">₹185</span>
+                  </div>
+                  <div className="ride-accepted-meta">
+                    {isEn ? 'Ride Accepted • 8 min ago' : 'राइड एक्सेप्टेड • 8 मिनट पहले'}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
+      {/* FEATURE STRIP & 3 MODERN SAAS FEATURE CARDS */}
+      <div className="wrap">
+        <div className="feature-strip">
+          <div className="feature-strip-grid">
+            <div className="feature-strip-item">
+              <div className="feature-strip-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M7 2v11h3v9l7-12h-4l4-8z" />
+                </svg>
+              </div>
+              <div>
+                <div className="feature-strip-title">{isEn ? 'Faster Responses' : 'तेज़ रिस्पांस'}</div>
+                <div className="feature-strip-sub">{isEn ? 'Auto-accepts in < 1 second' : '1 सेकंड में ऑटो-एक्सेप्ट'}</div>
+              </div>
+            </div>
+
+            <div className="feature-strip-item">
+              <div className="feature-strip-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 11.24V7.5a2.5 2.5 0 0 1 5 0v3.74c1.21-.81 2-2.18 2-3.74a4.5 4.5 0 0 0-9 0c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26a1.99 1.99 0 0 0-1.87.12l-1.12.72-3.4-3.4a1.49 1.49 0 0 0-2.12 0l-.71.71 5.92 5.92c.38.38.88.58 1.41.58h5.59c1.02 0 1.88-.77 1.98-1.78l.34-3.41c.06-.57-.22-1.12-.48-1.2z" />
+                </svg>
+              </div>
+              <div>
+                <div className="feature-strip-title">{isEn ? 'Less Manual Tapping' : 'कम स्क्रीन टैपिंग'}</div>
+                <div className="feature-strip-sub">{isEn ? 'Hands on bar, eyes on road' : 'हाथ हैंडल पर, नजर सड़क पर'}</div>
+              </div>
+            </div>
+
+            <div className="feature-strip-item">
+              <div className="feature-strip-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z" />
+                </svg>
+              </div>
+              <div>
+                <div className="feature-strip-title">{isEn ? 'More Time on the Road' : 'सड़क पर ज्यादा समय'}</div>
+                <div className="feature-strip-sub">{isEn ? 'Maximize daily net profit' : 'प्रति किलोमीटर ज्यादा कमाई'}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 3 FEATURE CARDS */}
+        <div className="saas-features-grid">
+          <div className="saas-feature-card">
+            <div className="saas-feature-top">
+              <div className="saas-feature-icon-circle">🤖</div>
+              <div className="saas-feature-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+            <h3>{isEn ? 'Smart Ride Assistance' : 'स्मार्ट राइड असिस्टेंस'}</h3>
+            <p>
+              {isEn
+                ? 'Analyzes incoming booking fare, drop distance, and pickup route in milliseconds to accept only profitable trips.'
+                : 'किराया, ड्रॉप की दूरी और पिकअप रूट को तुरंत परख कर सिर्फ मुनाफे वाली राइड्स चुनता है.'}
+            </p>
+          </div>
+
+          <div className="saas-feature-card">
+            <div className="saas-feature-top">
+              <div className="saas-feature-icon-circle">⚡</div>
+              <div className="saas-feature-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+            <h3>{isEn ? 'Quick Ride Decisions' : 'त्वरित राइड निर्णय'}</h3>
+            <p>
+              {isEn
+                ? 'Skips low-fare loss trips automatically and grabs high-value long routes instantly before competitors can react.'
+                : 'छोटी घाटे वाली ₹20 की राइड्स को तुरंत छोड़ कर लंबी कमाई वाली बुकिंग्स पहले उठाता है.'}
+            </p>
+          </div>
+
+          <div className="saas-feature-card">
+            <div className="saas-feature-top">
+              <div className="saas-feature-icon-circle">🛡️</div>
+              <div className="saas-feature-arrow">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+            <h3>{isEn ? 'Driver-Friendly Design' : 'ड्राइवर-फ्रेंडली डिज़ाइन'}</h3>
+            <p>
+              {isEn
+                ? 'One-tap start with zero complicated setup. Operates seamlessly in background alongside Rapido, Uber, and Porter.'
+                : 'एक टैप में शुरू, कोई कठिन सेटिंग नहीं. पार्टनर ऐप्स के साथ बैकग्राउंड में बिना रुकावट काम करता है.'}
+            </p>
+          </div>
+        </div>
+      </div>
 
       {/* 2. SUPPORTED PLATFORMS SECTION */}
       {(!settings.homeSections || settings.homeSections.supportedApps !== false) && (
@@ -380,7 +508,77 @@ export default function HomePage() {
           </div>
         )}
 
-        {/* 5. PLANS & PRICING SECTION */}
+        {/* 5. BUILT FOR DRIVERS SECTION */}
+        <section className="built-drivers-section">
+          {/* Left Column: Image of happy driver with floating bubble */}
+          <div className="driver-image-container">
+            <Image
+              src="/images/happy-driver.jpg"
+              alt="Happy Indian Captain Driver with RiderSaathi"
+              width={560}
+              height={420}
+              className="driver-photo"
+            />
+            <div className="driver-speech-bubble">
+              <div className="bubble-check">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                </svg>
+              </div>
+              <div>
+                <div className="bubble-title">{isEn ? 'Ride Accepted • ₹165' : 'राइड एक्सेप्टेड • ₹165'}</div>
+                <div className="bubble-sub">{isEn ? '5.2 km Drop (Towards Home)' : '5.2 किमी ड्रॉप (घर की तरफ)'}</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Copy & 3 inline features */}
+          <div className="driver-content-col">
+            <div className="pill-badge green">
+              {isEn ? 'BUILT FOR DRIVERS' : 'ड्राइवर भाइयों के लिए समर्पित'}
+            </div>
+            <h2>
+              {isEn ? (
+                <>Drive Smarter with <span className="text-primary">Rider Sathi</span></>
+              ) : (
+                <>ड्राइव करें स्मार्ट <span className="text-primary">Rider Sathi</span> के साथ</>
+              )}
+            </h2>
+            <p className="driver-lead">
+              {isEn
+                ? 'Crafted specifically to solve everyday challenges faced by bike captains and auto drivers on Indian roads — maximizing profits while keeping you safe.'
+                : 'सड़क पर चलने वाले बाइक कप्तानों और ऑटो ड्राइवरों की असली जरूरतों को समझ कर बनाया गया है — ताकि घाटे वाली राइड्स खत्म हों और पूरी बचत हाथ लगे.'}
+            </p>
+
+            <div className="driver-features-list">
+              <div className="driver-feature-row">
+                <div className="driver-feat-icon">👀</div>
+                <div className="driver-feat-text">
+                  <h4>{isEn ? 'Stay Focused' : 'सड़क पर पूरा ध्यान'}</h4>
+                  <p>{isEn ? 'Keep eyes on traffic with zero phone-tapping distraction, avoiding dangerous accidents and traffic fines.' : 'चलते वाहन पर स्क्रीन घूरने की जरूरत नहीं — सुरक्षित ड्राइविंग और चालान से मुक्ति.'}</p>
+                </div>
+              </div>
+
+              <div className="driver-feature-row">
+                <div className="driver-feat-icon">🎯</div>
+                <div className="driver-feat-text">
+                  <h4>{isEn ? 'Better Opportunities' : 'बेहतरीन कमाई के अवसर'}</h4>
+                  <p>{isEn ? 'Filters out far-off pickups and loss-making trips so every liter of fuel converts into maximum earnings.' : 'दूर के पिकअप और घाटे के फेरे अपने आप फ़िल्टर — हर लीटर पेट्रोल पर पूरी कमाई.'}</p>
+                </div>
+              </div>
+
+              <div className="driver-feature-row">
+                <div className="driver-feat-icon">👌</div>
+                <div className="driver-feat-text">
+                  <h4>{isEn ? 'Simple & Reliable' : 'सरल और भरोसेमंद'}</h4>
+                  <p>{isEn ? 'Zero complicated configuration required. One tap to activate and it works quietly alongside your driver apps.' : 'कोई कठिन सेटिंग नहीं. एक टैप में एक्टिवेट और आपके सभी पार्टनर ऐप्स के साथ बैकग्राउंड में रेडी.'}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. PLANS & PRICING SECTION */}
         {(!settings.homeSections || settings.homeSections.pricingPreview !== false) && (
           <div className="card card-section" id="pricing">
             <div className="section-head" style={{ textAlign: 'center' }}>

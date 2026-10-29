@@ -4,9 +4,47 @@ import { getSettings, getGuides } from '@/lib/data';
 
 export async function generateMetadata() {
   const settings = getSettings();
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const siteName = settings.siteName || 'RiderSaathi';
+  const titleText = 'Guides & Tutorials for Captains';
+  const descText =
+    'Explore in-depth setup tutorials, route filter strategies, pickup distance controls, and profit optimization guides for Rapido, Uber and Porter drivers.';
+
   return {
-    title: `Guides for Drivers — ${settings.siteName || 'RiderSaathi'}`,
-    description: `Rules and settings guide for ${settings.siteName || 'RiderSaathi'} ride filter assistant.`,
+    title: titleText,
+    description: descText,
+    alternates: {
+      canonical: `${baseUrl}/guides`,
+      languages: {
+        'hi-IN': `${baseUrl}/guides?lang=hi`,
+        'en-IN': `${baseUrl}/guides?lang=en`,
+        'x-default': `${baseUrl}/guides`,
+      },
+    },
+    openGraph: {
+      title: `${titleText} — ${siteName}`,
+      description: descText,
+      url: `${baseUrl}/guides`,
+      siteName: siteName,
+      locale: 'hi_IN',
+      alternateLocale: ['en_US'],
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
+          alt: `${siteName} Guides`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${titleText} — ${siteName}`,
+      description: descText,
+      images: [`${baseUrl}/images/og-default.png`],
+    },
   };
 }
 

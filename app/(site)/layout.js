@@ -1,5 +1,5 @@
-import { cookies } from 'next/headers';
-import { getSettings } from '@/lib/data';
+import { headers, cookies } from 'next/headers';
+import { getSettings, resolveLang } from '@/lib/data';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import StickyMobileBar from '@/components/StickyMobileBar';
@@ -8,8 +8,9 @@ import ScrollReveal from '@/components/ScrollReveal';
 
 export default function SiteLayout({ children }) {
   const settings = getSettings();
+  const headersList = headers();
   const cookieStore = cookies();
-  const lang = cookieStore.get('lang')?.value || 'hi';
+  const lang = resolveLang(null, cookieStore, headersList);
 
   return (
     <>

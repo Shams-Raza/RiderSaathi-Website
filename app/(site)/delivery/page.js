@@ -6,11 +6,46 @@ export const runtime = 'nodejs';
 
 export async function generateMetadata() {
   const settings = getSettings();
+  const siteName = settings.siteName || 'RiderSaathi';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const title = 'Delivery & Plan Activation Terms';
+  const description =
+    'Learn how RiderSaathi digital software licenses are delivered and activated automatically within minutes via mobile number without needing any shipping.';
+
   return {
-    title: `Delivery & Activation — ${settings.siteName || 'RiderSaathi'}`,
-    description: `How your ${settings.siteName || 'RiderSaathi'} digital license is activated after payment.`,
+    title,
+    description,
     alternates: {
-      canonical: `${process.env.SITE_URL || 'http://localhost:3000'}/delivery`,
+      canonical: `${baseUrl}/delivery`,
+      languages: {
+        'hi-IN': `${baseUrl}/delivery?lang=hi`,
+        'en-IN': `${baseUrl}/delivery?lang=en`,
+        'x-default': `${baseUrl}/delivery`,
+      },
+    },
+    openGraph: {
+      title: `${title} — ${siteName}`,
+      description,
+      url: `${baseUrl}/delivery`,
+      siteName,
+      locale: 'en_US',
+      alternateLocale: ['hi_IN'],
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
+          alt: `${siteName} Delivery & Activation`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} — ${siteName}`,
+      description,
+      images: [`${baseUrl}/images/og-default.png`],
     },
   };
 }

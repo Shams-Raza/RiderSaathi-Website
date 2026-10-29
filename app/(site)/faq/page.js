@@ -1,36 +1,88 @@
 import React from 'react';
 import Link from 'next/link';
-import { cookies } from 'next/headers';
-import { getSettings, getFaqs, t } from '@/lib/data';
+import { headers, cookies } from 'next/headers';
+import { getSettings, getFaqs, t, resolveLang } from '@/lib/data';
 import FaqAccordion from '@/components/FaqAccordion';
 
 export const runtime = 'nodejs';
 
-export async function generateMetadata() {
+export async function generateMetadata({ searchParams }) {
   const settings = getSettings();
+  const headersList = headers();
   const cookieStore = cookies();
-  const lang = cookieStore.get('lang')?.value || 'hi';
+  const lang = resolveLang(searchParams, cookieStore, headersList);
   const isEn = lang === 'en';
   const siteName = settings.siteName || 'RiderSaathi';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+
+  let qLang = null;
+  if (searchParams) {
+    if (typeof searchParams.getAll === 'function') {
+      const all = searchParams.getAll('lang');
+      if (all.length === 1) qLang = all[0];
+    } else if (typeof searchParams.get === 'function') {
+      qLang = searchParams.get('lang');
+    } else if (typeof searchParams.lang === 'string') {
+      qLang = searchParams.lang;
+    }
+  }
+
+  const canonicalUrl = (qLang === 'en' || qLang === 'hi')
+    ? `${baseUrl}/faq?lang=${qLang}`
+    : `${baseUrl}/faq`;
+
+  const title = isEn
+    ? 'FAQ — Driver Rules, Settings & Questions'
+    : 'FAQ — कप्तानों के सवाल, सेटिंग्स और रूल्स';
+
+  const description = isEn
+    ? 'Driver questions and answers for RiderSaathi. How smart ride filtering, pickup distance, auto-accept rules and account security work on Rapido, Uber & Porter.'
+    : 'RiderSaathi के लिए कप्तानों के सवाल और जवाब. स्मार्ट राइड फिल्टर, पिकअप दूरी सीमा, ऑटो-एक्सेप्ट रूल्स, अकाउंट सुरक्षा और एक्टिवेशन की पूरी आधिकारिक जानकारी.';
 
   return {
-    title: isEn
-      ? `${siteName} FAQ — Rules, Settings & Common Questions`
-      : `${siteName} FAQ — रूल्स, सेटिंग्स और आम सवाल`,
-    description: isEn
-      ? `Driver questions and answers for ${siteName}. How ride filtering, pickup distance, and auto-accept rules work.`
-      : `${siteName} के लिए कप्तानों के सवाल और जवाब. रूल्स, सेटिंग्स, अकाउंट सुरक्षा और एक्टिवेशन की पूरी जानकारी.`,
+    title,
+    description,
     alternates: {
-      canonical: `${process.env.SITE_URL || 'http://localhost:3000'}/faq`,
+      canonical: canonicalUrl,
+      languages: {
+        'hi-IN': `${baseUrl}/faq?lang=hi`,
+        'en-IN': `${baseUrl}/faq?lang=en`,
+        'x-default': `${baseUrl}/faq`,
+      },
+    },
+    openGraph: {
+      title: `${title} — ${siteName}`,
+      description,
+      url: canonicalUrl,
+      siteName,
+      locale: isEn ? 'en_US' : 'hi_IN',
+      alternateLocale: isEn ? ['hi_IN'] : ['en_US'],
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
+          alt: `${siteName} FAQ`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} — ${siteName}`,
+      description,
+      images: [`${baseUrl}/images/og-default.png`],
     },
   };
 }
 
-export default function FaqPage() {
+export default function FaqPage({ searchParams }) {
   const settings = getSettings();
   const faqs = getFaqs();
+  const headersList = headers();
   const cookieStore = cookies();
-  const lang = cookieStore.get('lang')?.value || 'hi';
+  const lang = resolveLang(searchParams, cookieStore, headersList);
   const isEn = lang === 'en';
 
   const localizedFaqs = faqs.map((item) => ({

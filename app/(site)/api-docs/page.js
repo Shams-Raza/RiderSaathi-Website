@@ -1,11 +1,51 @@
 import React from 'react';
 import { getSettings } from '@/lib/data';
 
+export const runtime = 'nodejs';
+
 export async function generateMetadata() {
   const settings = getSettings();
+  const siteName = settings.siteName || 'RiderSaathi';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const title = 'Mobile App REST API Documentation';
+  const description =
+    'Explore RiderSaathi Android and Flutter mobile application REST APIs for authentication, 10 free trial rides count, rule sync and subscription verification.';
+
   return {
-    title: `Mobile App API Documentation — ${settings.siteName || 'RiderSaathi'}`,
-    description: `API specifications for ${settings.siteName || 'RiderSaathi'} Android & Flutter app integration.`,
+    title,
+    description,
+    alternates: {
+      canonical: `${baseUrl}/api-docs`,
+      languages: {
+        'hi-IN': `${baseUrl}/api-docs?lang=hi`,
+        'en-IN': `${baseUrl}/api-docs?lang=en`,
+        'x-default': `${baseUrl}/api-docs`,
+      },
+    },
+    openGraph: {
+      title: `${title} — ${siteName}`,
+      description,
+      url: `${baseUrl}/api-docs`,
+      siteName,
+      locale: 'en_US',
+      alternateLocale: ['hi_IN'],
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
+          alt: `${siteName} Mobile APIs`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} — ${siteName}`,
+      description,
+      images: [`${baseUrl}/images/og-default.png`],
+    },
   };
 }
 

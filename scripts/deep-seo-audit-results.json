@@ -1,0 +1,1194 @@
+{
+  "totalRoutes": 24,
+  "passedCount": 24,
+  "routes": [
+    {
+      "route": "/",
+      "title": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+      "desc": "Smart ride filtering assistant for Rapido, Uber and Porter drivers. Set custom rules, pickup distance limits, and auto-accept rides. First 10 rides are free.",
+      "descLength": 157,
+      "canonical": "http://localhost:3000",
+      "og": {
+        "ogTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "ogDesc": "Smart ride filtering assistant for Rapido, Uber and Porter drivers. Set custom rules, pickup distance limits, and auto-accept rides. First 10 rides are free.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000",
+        "ogType": "website",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "RiderSaathi — Smart Ride Filter App for Rapido, Uber &amp; Porter Drivers",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "अपनी पसंद की राइड.अपने रूल्स पर.",
+      "h2Count": 5,
+      "h3Count": 3,
+      "schemaTypes": "Organization, WebSite, SoftwareApplication",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/how-it-works",
+      "title": "How RiderSaathi Works — Driver Guide &amp; Video Tutorial — RiderSaathi",
+      "desc": "Watch step-by-step video tutorial to install RiderSaathi, configure custom ride rules, and auto-accept profitable rides on Rapido, Uber and Porter.",
+      "descLength": 147,
+      "canonical": "http://localhost:3000/how-it-works",
+      "og": {
+        "ogTitle": "How RiderSaathi Works — Driver Guide &amp; Video Tutorial — RiderSaathi",
+        "ogDesc": "Watch step-by-step video tutorial to install RiderSaathi, configure custom ride rules, and auto-accept profitable rides on Rapido, Uber and Porter.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/how-it-works",
+        "ogType": "article",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "How RiderSaathi Works — Driver Guide &amp; Video Tutorial — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/how-it-works?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/how-it-works?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/how-it-works"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "RiderSaathi कैसे काम करता है — पूरी जानकारी &amp; वीडियो ट्यूटोरियल",
+      "h2Count": 1,
+      "h3Count": 6,
+      "schemaTypes": "None",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/pricing",
+      "title": "प्लान्स और कीमतें — RiderSaathi",
+      "desc": "RiderSaathi के पारदर्शी सब्सक्रिप्शन प्लान्स: 1-दिन, 1-हफ्ता और 1-महीना पास. पहले 10 राइड्स बिल्कुल फ्री, बिना ऑटो-डेबिट या छुपे चार्ज के.",
+      "descLength": 138,
+      "canonical": "http://localhost:3000/pricing",
+      "og": {
+        "ogTitle": "प्लान्स और कीमतें — RiderSaathi",
+        "ogDesc": "RiderSaathi के पारदर्शी सब्सक्रिप्शन प्लान्स: 1-दिन, 1-हफ्ता और 1-महीना पास. पहले 10 राइड्स बिल्कुल फ्री, बिना ऑटो-डेबिट या छुपे चार्ज के.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/pricing",
+        "ogType": "website",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "प्लान्स और कीमतें — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/pricing?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/pricing?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/pricing"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "प्लान्स और कीमतें",
+      "h2Count": 0,
+      "h3Count": 1,
+      "schemaTypes": "None",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/install",
+      "title": "How to Install on Android — RiderSaathi",
+      "desc": "Follow this easy step-by-step guide to download and install RiderSaathi APK on Android phones. Enable accessibility service and configure custom ride rules.",
+      "descLength": 156,
+      "canonical": "http://localhost:3000/install",
+      "og": {
+        "ogTitle": "How to Install on Android — RiderSaathi",
+        "ogDesc": "Follow this easy step-by-step guide to download and install RiderSaathi APK on Android phones. Enable accessibility service and configure custom ride rules.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/install",
+        "ogType": "article",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "How to Install on Android — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/install?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/install?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/install"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "How to install RiderSaathi",
+      "h2Count": 4,
+      "h3Count": 0,
+      "schemaTypes": "None",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/buy",
+      "title": "Buy Subscription Pass — RiderSaathi",
+      "desc": "Choose your RiderSaathi subscription pass and activate instantly via UPI. Secure direct payment for Rapido, Uber and Porter captains with zero hidden fees.",
+      "descLength": 155,
+      "canonical": "http://localhost:3000/buy",
+      "og": {
+        "ogTitle": "Buy Subscription Pass — RiderSaathi",
+        "ogDesc": "Choose your RiderSaathi subscription pass and activate instantly via UPI. Secure direct payment for Rapido, Uber and Porter captains with zero hidden fees.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/buy",
+        "ogType": "website",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "Buy Subscription Pass — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/buy?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/buy?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/buy"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "RiderSaathi प्लान एक्टिवेट करें",
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": "None",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/buy/upi",
+      "title": "Complete UPI Payment — RiderSaathi",
+      "desc": "Scan the QR code or use GPay, PhonePe, or Paytm to complete your RiderSaathi UPI payment. Enter your 12-digit UTR number for instant plan verification.",
+      "descLength": 151,
+      "canonical": "http://localhost:3000/buy/upi",
+      "og": {
+        "ogTitle": "Complete UPI Payment — RiderSaathi",
+        "ogDesc": "Scan the QR code or use GPay, PhonePe, or Paytm to complete your RiderSaathi UPI payment. Enter your 12-digit UTR number for instant plan verification.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/buy/upi",
+        "ogType": "website",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "Complete UPI Payment — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/buy/upi?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/buy/upi?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/buy/upi"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "UPI द्वारा पेमेंट करें (GPay / PhonePe / Paytm)",
+      "h2Count": 0,
+      "h3Count": 1,
+      "schemaTypes": "None",
+      "imgCount": 1,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/guides",
+      "title": "Guides &amp; Tutorials for Captains — RiderSaathi",
+      "desc": "Explore in-depth setup tutorials, route filter strategies, pickup distance controls, and profit optimization guides for Rapido, Uber and Porter drivers.",
+      "descLength": 152,
+      "canonical": "http://localhost:3000/guides",
+      "og": {
+        "ogTitle": "Guides &amp; Tutorials for Captains — RiderSaathi",
+        "ogDesc": "Explore in-depth setup tutorials, route filter strategies, pickup distance controls, and profit optimization guides for Rapido, Uber and Porter drivers.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/guides",
+        "ogType": "website",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "Guides &amp; Tutorials for Captains — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/guides?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/guides?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/guides"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "Driver Guides &amp; Tutorials",
+      "h2Count": 3,
+      "h3Count": 1,
+      "schemaTypes": "None",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/guides/ridersaathi-shuru-kaise-kare",
+      "title": "RiderSaathi shuru kaise karein Guide — RiderSaathi",
+      "desc": "RiderSaathi install karne se lekar pehli ride tak: sign in, permissions, rules, Monitor mode aur Active mode configure karne ka step by step aasan driver guide.",
+      "descLength": 160,
+      "canonical": "http://localhost:3000/guides/ridersaathi-shuru-kaise-kare",
+      "og": {
+        "ogTitle": "RiderSaathi shuru kaise karein Guide — RiderSaathi",
+        "ogDesc": "RiderSaathi install karne se lekar pehli ride tak: sign in, permissions, rules, Monitor mode aur Active mode configure karne ka step by step aasan driver guide.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/guides/ridersaathi-shuru-kaise-kare",
+        "ogType": "article",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "RiderSaathi shuru kaise karein Guide — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/guides/ridersaathi-shuru-kaise-kare?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/guides/ridersaathi-shuru-kaise-kare?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/guides/ridersaathi-shuru-kaise-kare"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "RiderSaathi shuru kaise karein",
+      "h2Count": 0,
+      "h3Count": 5,
+      "schemaTypes": "BreadcrumbList, Article",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/guides/booking-type-parcel-sawari",
+      "title": "Booking types — kaunsi bookings leni hain Guide — RiderSaathi",
+      "desc": "RiderSaathi me Bike, Auto, Cab aur Parcel ke switch, Boost/Saver rides, cab ke types aur Intercity bookings kaise chalu-band karein uski step by step guide.",
+      "descLength": 156,
+      "canonical": "http://localhost:3000/guides/booking-type-parcel-sawari",
+      "og": {
+        "ogTitle": "Booking types — kaunsi bookings leni hain Guide — RiderSaathi",
+        "ogDesc": "RiderSaathi me Bike, Auto, Cab aur Parcel ke switch, Boost/Saver rides, cab ke types aur Intercity bookings kaise chalu-band karein uski step by step guide.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/guides/booking-type-parcel-sawari",
+        "ogType": "article",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "Booking types — kaunsi bookings leni hain Guide — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/guides/booking-type-parcel-sawari?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/guides/booking-type-parcel-sawari?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/guides/booking-type-parcel-sawari"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "Booking types — kaunsi bookings leni hain",
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": "BreadcrumbList, Article",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/guides/trip-aur-pickup-distance",
+      "title": "Trip distance aur pickup distance Guide — RiderSaathi",
+      "desc": "Trip distance (kam se kam aur zyada se zyada km) aur pickup limit kaise set karein taaki sirf faydemand rides hi auto-accept hon, poora tutorial yahan padhein.",
+      "descLength": 159,
+      "canonical": "http://localhost:3000/guides/trip-aur-pickup-distance",
+      "og": {
+        "ogTitle": "Trip distance aur pickup distance Guide — RiderSaathi",
+        "ogDesc": "Trip distance (kam se kam aur zyada se zyada km) aur pickup limit kaise set karein taaki sirf faydemand rides hi auto-accept hon, poora tutorial yahan padhein.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/guides/trip-aur-pickup-distance",
+        "ogType": "article",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "Trip distance aur pickup distance Guide — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/guides/trip-aur-pickup-distance?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/guides/trip-aur-pickup-distance?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/guides/trip-aur-pickup-distance"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "Trip distance aur pickup distance",
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": "BreadcrumbList, Article",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/guides/kamai-filter-fare-aur-tip",
+      "title": "Kamai filter — fare aur extra tip Guide — RiderSaathi",
+      "desc": "Kamai filter me minimum fare kaise rakhein, Rapido bike card rule aur customer tip wali rides ko preference dene ki poori jankari iss driver guide me padhein.",
+      "descLength": 158,
+      "canonical": "http://localhost:3000/guides/kamai-filter-fare-aur-tip",
+      "og": {
+        "ogTitle": "Kamai filter — fare aur extra tip Guide — RiderSaathi",
+        "ogDesc": "Kamai filter me minimum fare kaise rakhein, Rapido bike card rule aur customer tip wali rides ko preference dene ki poori jankari iss driver guide me padhein.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/guides/kamai-filter-fare-aur-tip",
+        "ogType": "article",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "Kamai filter — fare aur extra tip Guide — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/guides/kamai-filter-fare-aur-tip?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/guides/kamai-filter-fare-aur-tip?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/guides/kamai-filter-fare-aur-tip"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "Kamai filter — fare aur extra tip",
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": "BreadcrumbList, Article",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/guides/go-to-ghar-ki-taraf",
+      "title": "Go To — jidhar jaana hai Guide — RiderSaathi",
+      "desc": "Shift ke aakhir me ghar ki taraf jaane wali rides lene ke liye Go To area feature kaise set karein aur khali wapas aane ke nuksan se kaise bachein, seekhein.",
+      "descLength": 157,
+      "canonical": "http://localhost:3000/guides/go-to-ghar-ki-taraf",
+      "og": {
+        "ogTitle": "Go To — jidhar jaana hai Guide — RiderSaathi",
+        "ogDesc": "Shift ke aakhir me ghar ki taraf jaane wali rides lene ke liye Go To area feature kaise set karein aur khali wapas aane ke nuksan se kaise bachein, seekhein.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/guides/go-to-ghar-ki-taraf",
+        "ogType": "article",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "Go To — jidhar jaana hai Guide — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/guides/go-to-ghar-ki-taraf?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/guides/go-to-ghar-ki-taraf?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/guides/go-to-ghar-ki-taraf"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "Go To — jidhar jaana hai",
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": "BreadcrumbList, Article",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/guides/jahan-nahi-jaana",
+      "title": "Jahan nahi jaana (Area Block) Guide — RiderSaathi",
+      "desc": "Heavy traffic jam, kharab raste ya unsafe areas ko pickup aur drop dono taraf se block karne ke liye RiderSaathi area block rules step by step setup karein.",
+      "descLength": 156,
+      "canonical": "http://localhost:3000/guides/jahan-nahi-jaana",
+      "og": {
+        "ogTitle": "Jahan nahi jaana (Area Block) Guide — RiderSaathi",
+        "ogDesc": "Heavy traffic jam, kharab raste ya unsafe areas ko pickup aur drop dono taraf se block karne ke liye RiderSaathi area block rules step by step setup karein.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/guides/jahan-nahi-jaana",
+        "ogType": "article",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "Jahan nahi jaana (Area Block) Guide — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/guides/jahan-nahi-jaana?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/guides/jahan-nahi-jaana?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/guides/jahan-nahi-jaana"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "Jahan nahi jaana (Area Block)",
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": "BreadcrumbList, Article",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/guides/raste-wali-agli-ride",
+      "title": "Raste wali agli ride Guide — RiderSaathi",
+      "desc": "Current ride ke dauraan drop location ke raste me aane wali agli booking automatically accept karein aur fuel aur samay dono bacha kar zyada kamai karein.",
+      "descLength": 154,
+      "canonical": "http://localhost:3000/guides/raste-wali-agli-ride",
+      "og": {
+        "ogTitle": "Raste wali agli ride Guide — RiderSaathi",
+        "ogDesc": "Current ride ke dauraan drop location ke raste me aane wali agli booking automatically accept karein aur fuel aur samay dono bacha kar zyada kamai karein.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/guides/raste-wali-agli-ride",
+        "ogType": "article",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "Raste wali agli ride Guide — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/guides/raste-wali-agli-ride?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/guides/raste-wali-agli-ride?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/guides/raste-wali-agli-ride"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "Raste wali agli ride",
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": "BreadcrumbList, Article",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/guides/kin-apps-par-chalta-hai",
+      "title": "RiderSaathi kin apps par chalta hai Guide — RiderSaathi",
+      "desc": "Rapido Captain (bike, auto, cab, parcel), Uber Driver aur Porter Delivery Partner ke saath RiderSaathi app compatibility aur features ki poori detail dekhein.",
+      "descLength": 158,
+      "canonical": "http://localhost:3000/guides/kin-apps-par-chalta-hai",
+      "og": {
+        "ogTitle": "RiderSaathi kin apps par chalta hai Guide — RiderSaathi",
+        "ogDesc": "Rapido Captain (bike, auto, cab, parcel), Uber Driver aur Porter Delivery Partner ke saath RiderSaathi app compatibility aur features ki poori detail dekhein.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/guides/kin-apps-par-chalta-hai",
+        "ogType": "article",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "RiderSaathi kin apps par chalta hai Guide — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/guides/kin-apps-par-chalta-hai?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/guides/kin-apps-par-chalta-hai?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/guides/kin-apps-par-chalta-hai"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "RiderSaathi kin apps par chalta hai",
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": "BreadcrumbList, Article",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/faq",
+      "title": "FAQ — कप्तानों के सवाल, सेटिंग्स और रूल्स — RiderSaathi",
+      "desc": "RiderSaathi के लिए कप्तानों के सवाल और जवाब. स्मार्ट राइड फिल्टर, पिकअप दूरी सीमा, ऑटो-एक्सेप्ट रूल्स, अकाउंट सुरक्षा और एक्टिवेशन की पूरी आधिकारिक जानकारी.",
+      "descLength": 156,
+      "canonical": "http://localhost:3000/faq",
+      "og": {
+        "ogTitle": "FAQ — कप्तानों के सवाल, सेटिंग्स और रूल्स — RiderSaathi",
+        "ogDesc": "RiderSaathi के लिए कप्तानों के सवाल और जवाब. स्मार्ट राइड फिल्टर, पिकअप दूरी सीमा, ऑटो-एक्सेप्ट रूल्स, अकाउंट सुरक्षा और एक्टिवेशन की पूरी आधिकारिक जानकारी.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/faq",
+        "ogType": "website",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "FAQ — कप्तानों के सवाल, सेटिंग्स और रूल्स — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/faq?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/faq?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/faq"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "अक्सर पूछे जाने वाले सवाल (FAQ)",
+      "h2Count": 0,
+      "h3Count": 1,
+      "schemaTypes": "FAQPage",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/updates",
+      "title": "Changelog &amp; Version Updates — RiderSaathi",
+      "desc": "Explore latest version updates, changelogs, new auto-accept features, and bug fixes in RiderSaathi app for Rapido, Uber and Porter delivery and cab drivers.",
+      "descLength": 156,
+      "canonical": "http://localhost:3000/updates",
+      "og": {
+        "ogTitle": "Changelog &amp; Version Updates — RiderSaathi",
+        "ogDesc": "Explore latest version updates, changelogs, new auto-accept features, and bug fixes in RiderSaathi app for Rapido, Uber and Porter delivery and cab drivers.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/updates",
+        "ogType": "website",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "Changelog &amp; Version Updates — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/updates?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/updates?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/updates"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "What&#x27;s New in RiderSaathi",
+      "h2Count": 3,
+      "h3Count": 1,
+      "schemaTypes": "None",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/about",
+      "title": "About Us &amp; Mission for Captains — RiderSaathi",
+      "desc": "Learn why RiderSaathi was built by real drivers for bike-taxi, auto and cab captains. Discover our mission, legal ownership, and privacy-first commitments.",
+      "descLength": 155,
+      "canonical": "http://localhost:3000/about",
+      "og": {
+        "ogTitle": "About Us &amp; Mission for Captains — RiderSaathi",
+        "ogDesc": "Learn why RiderSaathi was built by real drivers for bike-taxi, auto and cab captains. Discover our mission, legal ownership, and privacy-first commitments.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/about",
+        "ogType": "website",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "About Us &amp; Mission for Captains — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/about?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/about?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/about"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "RiderSaathi Kyun Bana",
+      "h2Count": 3,
+      "h3Count": 1,
+      "schemaTypes": "AboutPage",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/contact",
+      "title": "Contact Us &amp; Captain Helpline Support — RiderSaathi",
+      "desc": "Get in touch with RiderSaathi customer support team for instant app activation, subscription inquiries, ride filter rules guidance, and official helpline assistance.",
+      "descLength": 165,
+      "canonical": "http://localhost:3000/contact",
+      "og": {
+        "ogTitle": "Contact Us &amp; Captain Helpline Support — RiderSaathi",
+        "ogDesc": "Get in touch with RiderSaathi customer support team for instant app activation, subscription inquiries, ride filter rules guidance, and official helpline assistance.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/contact",
+        "ogType": "website",
+        "ogLocale": "hi_IN",
+        "ogLocaleAlt": "en_US"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "Contact Us &amp; Captain Helpline Support — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/contact?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/contact?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/contact"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "RiderSaathi सपोर्ट से संपर्क करें",
+      "h2Count": 0,
+      "h3Count": 2,
+      "schemaTypes": "ContactPage",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/refunds",
+      "title": "Refund &amp; Cancellation Policy — RiderSaathi",
+      "desc": "Read RiderSaathi official refund and cancellation policy. Understand how digital license activation, phone compatibility refunds, and duplicate charges work.",
+      "descLength": 157,
+      "canonical": "http://localhost:3000/refunds",
+      "og": {
+        "ogTitle": "Refund &amp; Cancellation Policy — RiderSaathi",
+        "ogDesc": "Read RiderSaathi official refund and cancellation policy. Understand how digital license activation, phone compatibility refunds, and duplicate charges work.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/refunds",
+        "ogType": "website",
+        "ogLocale": "en_US",
+        "ogLocaleAlt": "hi_IN"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "Refund &amp; Cancellation Policy — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/refunds?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/refunds?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/refunds"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "Refund &amp; Cancellation Policy",
+      "h2Count": 6,
+      "h3Count": 1,
+      "schemaTypes": "None",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/delivery",
+      "title": "Delivery &amp; Plan Activation Terms — RiderSaathi",
+      "desc": "Learn how RiderSaathi digital software licenses are delivered and activated automatically within minutes via mobile number without needing any shipping.",
+      "descLength": 152,
+      "canonical": "http://localhost:3000/delivery",
+      "og": {
+        "ogTitle": "Delivery &amp; Plan Activation Terms — RiderSaathi",
+        "ogDesc": "Learn how RiderSaathi digital software licenses are delivered and activated automatically within minutes via mobile number without needing any shipping.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/delivery",
+        "ogType": "website",
+        "ogLocale": "en_US",
+        "ogLocaleAlt": "hi_IN"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "Delivery &amp; Plan Activation Terms — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/delivery?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/delivery?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/delivery"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "Delivery &amp; Activation",
+      "h2Count": 6,
+      "h3Count": 1,
+      "schemaTypes": "None",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/terms",
+      "title": "Terms of Service &amp; Usage Agreement — RiderSaathi",
+      "desc": "Read the official Terms of Service for RiderSaathi app. Discover our independent driver utility rules, non-affiliation disclaimer, and captain user agreements.",
+      "descLength": 159,
+      "canonical": "http://localhost:3000/terms",
+      "og": {
+        "ogTitle": "Terms of Service &amp; Usage Agreement — RiderSaathi",
+        "ogDesc": "Read the official Terms of Service for RiderSaathi app. Discover our independent driver utility rules, non-affiliation disclaimer, and captain user agreements.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/terms",
+        "ogType": "website",
+        "ogLocale": "en_US",
+        "ogLocaleAlt": "hi_IN"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "Terms of Service &amp; Usage Agreement — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/terms?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/terms?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/terms"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "Terms of Use",
+      "h2Count": 6,
+      "h3Count": 0,
+      "schemaTypes": "None",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/privacy",
+      "title": "Privacy Policy &amp; Accessibility Safety — RiderSaathi",
+      "desc": "Read RiderSaathi official privacy policy. Understand our strict on-device processing, Android accessibility safety restrictions, and zero personal data tracking.",
+      "descLength": 161,
+      "canonical": "http://localhost:3000/privacy",
+      "og": {
+        "ogTitle": "Privacy Policy &amp; Accessibility Safety — RiderSaathi",
+        "ogDesc": "Read RiderSaathi official privacy policy. Understand our strict on-device processing, Android accessibility safety restrictions, and zero personal data tracking.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/privacy",
+        "ogType": "website",
+        "ogLocale": "en_US",
+        "ogLocaleAlt": "hi_IN"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "Privacy Policy &amp; Accessibility Safety — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/privacy?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/privacy?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/privacy"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "Privacy Notice",
+      "h2Count": 5,
+      "h3Count": 0,
+      "schemaTypes": "None",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    },
+    {
+      "route": "/api-docs",
+      "title": "Mobile App REST API Documentation — RiderSaathi",
+      "desc": "Explore RiderSaathi Android and Flutter mobile application REST APIs for authentication, 10 free trial rides count, rule sync and subscription verification.",
+      "descLength": 156,
+      "canonical": "http://localhost:3000/api-docs",
+      "og": {
+        "ogTitle": "Mobile App REST API Documentation — RiderSaathi",
+        "ogDesc": "Explore RiderSaathi Android and Flutter mobile application REST APIs for authentication, 10 free trial rides count, rule sync and subscription verification.",
+        "ogImage": "http://localhost:3000/images/og-default.png",
+        "ogImageWidth": "1200",
+        "ogImageHeight": "630",
+        "ogUrl": "http://localhost:3000/api-docs",
+        "ogType": "website",
+        "ogLocale": "en_US",
+        "ogLocaleAlt": "hi_IN"
+      },
+      "tw": {
+        "twCard": "summary_large_image",
+        "twTitle": "Mobile App REST API Documentation — RiderSaathi",
+        "twImage": "http://localhost:3000/images/og-default.png"
+      },
+      "htmlLang": "hi",
+      "hreflangs": [
+        {
+          "lang": "hi-IN",
+          "href": "http://localhost:3000/api-docs?lang=hi"
+        },
+        {
+          "lang": "en-IN",
+          "href": "http://localhost:3000/api-docs?lang=en"
+        },
+        {
+          "lang": "x-default",
+          "href": "http://localhost:3000/api-docs"
+        }
+      ],
+      "h1Count": 1,
+      "h1": "RiderSaathi Mobile App REST APIs",
+      "h2Count": 0,
+      "h3Count": 0,
+      "schemaTypes": "None",
+      "imgCount": 0,
+      "missingAltCount": 0,
+      "externalImages": [],
+      "issues": [],
+      "status": "PASS"
+    }
+  ],
+  "qrVerification": {
+    "route": "/buy/upi",
+    "imgTagSnippet": "<img alt=\"UPI Payment QR Code\" width=\"190\" height=\"190\" decoding=\"async\" data-nimg=\"1\" style=\"color:transparent;display:block\" src=\"data:ima... (len: 4189)",
+    "srcType": "Base64 Local PNG Data URL",
+    "isExternal": false
+  },
+  "bilingualPricingTest": {
+    "hi": {
+      "title": "प्लान्स और कीमतें — RiderSaathi",
+      "desc": "RiderSaathi के पारदर्शी सब्सक्रिप्शन प्लान्स: 1-दिन, 1-हफ्ता और 1-महीना पास. पहले 10 राइड्स बिल्कुल फ्री, बिना ऑटो-डेबिट या छुपे चार्ज के.",
+      "descLen": 138,
+      "ogLocale": "hi_IN",
+      "ogLocaleAlt": "en_US",
+      "hreflangTags": [
+        "<link rel=\"alternate\" hrefLang=\"hi-IN\" href=\"http://localhost:3000/pricing?lang=hi\"/>",
+        "<link rel=\"alternate\" hrefLang=\"en-IN\" href=\"http://localhost:3000/pricing?lang=en\"/>",
+        "<link rel=\"alternate\" hrefLang=\"x-default\" href=\"http://localhost:3000/pricing\"/>"
+      ]
+    },
+    "en": {
+      "title": "Plans &amp; Pricing — RiderSaathi",
+      "desc": "Explore transparent RiderSaathi subscription passes for Rapido, Uber and Porter captains. 1-Day, 1-Week and 1-Month passes with first 10 rides free.",
+      "descLen": 148,
+      "ogLocale": "en_US",
+      "ogLocaleAlt": "hi_IN"
+    }
+  },
+  "sampleDynamicGuide": {
+    "slug": "ridersaathi-shuru-kaise-kare",
+    "title": "RiderSaathi shuru kaise karein Guide — RiderSaathi",
+    "desc": "RiderSaathi install karne se lekar pehli ride tak: sign in, permissions, rules, Monitor mode aur Active mode configure karne ka step by step aasan driver guide.",
+    "descLen": 160,
+    "canonical": "http://localhost:3000/guides/ridersaathi-shuru-kaise-kare"
+  },
+  "duplicateTitles": [],
+  "duplicateDescs": []
+}

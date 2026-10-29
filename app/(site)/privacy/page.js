@@ -5,11 +5,46 @@ export const runtime = 'nodejs';
 
 export async function generateMetadata() {
   const settings = getSettings();
+  const siteName = settings.siteName || 'RiderSaathi';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const title = 'Privacy Policy & Accessibility Safety';
+  const description =
+    'Read RiderSaathi official privacy policy. Understand our strict on-device processing, Android accessibility safety restrictions, and zero personal data tracking.';
+
   return {
-    title: `Privacy Notice — ${settings.siteName || 'RiderSaathi'}`,
-    description: `What ${settings.siteName || 'RiderSaathi'} reads and what it never reads.`,
+    title,
+    description,
     alternates: {
-      canonical: `${process.env.SITE_URL || 'http://localhost:3000'}/privacy`,
+      canonical: `${baseUrl}/privacy`,
+      languages: {
+        'hi-IN': `${baseUrl}/privacy?lang=hi`,
+        'en-IN': `${baseUrl}/privacy?lang=en`,
+        'x-default': `${baseUrl}/privacy`,
+      },
+    },
+    openGraph: {
+      title: `${title} — ${siteName}`,
+      description,
+      url: `${baseUrl}/privacy`,
+      siteName,
+      locale: 'en_US',
+      alternateLocale: ['hi_IN'],
+      type: 'website',
+      images: [
+        {
+          url: `${baseUrl}/images/og-default.png`,
+          width: 1200,
+          height: 630,
+          alt: `${siteName} Privacy Policy`,
+          type: 'image/png',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} — ${siteName}`,
+      description,
+      images: [`${baseUrl}/images/og-default.png`],
     },
   };
 }
