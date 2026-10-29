@@ -1,0 +1,51 @@
+const fs = require('fs');
+const path = require('path');
+const sharp = require('sharp');
+
+const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="brandGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00E676"/>
+      <stop offset="100%" stop-color="#00C853"/>
+    </linearGradient>
+    <linearGradient id="speedTail" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00E676" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#00C853"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Speed Streaks on Far Left -->
+  <path d="M4 23 Q 22 23 32 26 L 29 29 Q 19 26 4 26 Z" fill="url(#speedTail)"/>
+  <path d="M0 33 Q 24 33 37 36 L 33 40 Q 19 37 0 37 Z" fill="url(#speedTail)"/>
+  <path d="M8 43 Q 26 43 40 46 L 37 50 Q 22 47 8 47 Z" fill="url(#speedTail)"/>
+
+  <!-- Brand Title: Rider Sathi -->
+  <text x="38" y="47" font-family="'Plus Jakarta Sans', 'Outfit', system-ui, -apple-system, sans-serif" font-size="36" font-weight="900" font-style="italic" letter-spacing="-0.5px">
+    <tspan fill="#0F172A">Rider</tspan>
+    <tspan dx="4" fill="url(#brandGreen)">Sathi</tspan>
+  </text>
+
+  <!-- Location Pin on 'i' in Rider -->
+  <g transform="translate(68, 12)">
+    <path d="M6 0 C2.68 0 0 2.68 0 6 C0 10.5 6 15 6 15 C6 15 12 10.5 12 6 C12 2.68 9.32 0 6 0 Z" fill="url(#brandGreen)"/>
+    <circle cx="6" cy="6" r="2.2" fill="#FFFFFF"/>
+  </g>
+
+  <!-- Dynamic Underline Curve -->
+  <path d="M36 53 Q 140 59 235 50 Q 140 56 38 55 Z" fill="url(#brandGreen)"/>
+
+  <!-- Subtitle Pill: "RIDE AUTO ACCEPT BOT" -->
+  <rect x="42" y="60" width="186" height="16" rx="8" fill="#DCFCE7"/>
+  <text x="135" y="72" text-anchor="middle" font-family="'Plus Jakarta Sans', 'Outfit', system-ui, -apple-system, sans-serif" font-size="8.5" font-weight="800" fill="#0F172A" letter-spacing="1.8">RIDE AUTO ACCEPT BOT</text>
+</svg>`;
+
+const outputPath = path.join(process.cwd(), 'public', 'images', 'logo.svg');
+fs.writeFileSync(outputPath, svgContent, 'utf8');
+console.log('Saved public/images/logo.svg');
+
+// Also render super crisp 4x high-res PNG
+sharp(Buffer.from(svgContent), { density: 300 })
+  .png({ quality: 100 })
+  .toFile(path.join(process.cwd(), 'public', 'images', 'logo.png'))
+  .then(() => console.log('Saved high-res public/images/logo.png'))
+  .catch(console.error);

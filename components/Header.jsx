@@ -76,10 +76,11 @@ export default function Header({ settings = {}, lang = 'hi' }) {
         <div className="wrap header-inner">
           <Link className="brand" href="/" aria-label="RiderSathi Home">
             <img
-              src="/images/logo.png"
+              src={currentTheme === 'dark' ? '/images/logo-dark.svg' : '/images/logo.svg'}
               alt={settings.siteName || 'RiderSathi'}
+              width="160"
+              height="40"
               className="brand-logo-img"
-              style={{ height: '38px', width: 'auto', objectFit: 'contain' }}
             />
           </Link>
 
@@ -129,24 +130,21 @@ export default function Header({ settings = {}, lang = 'hi' }) {
           </nav>
 
           <div className="header-right">
-            {/* Language Switcher */}
-            <div className="lang-switcher" id="langSwitcher" role="group" aria-label="Language selection">
+            {/* Language Segmented Control: [ EN | हिंदी ] */}
+            <div className="lang-segmented-control" role="group" aria-label="Language selection">
               <button
                 type="button"
-                className={`lang-btn ${currentLang === 'en' ? 'active' : ''}`}
+                className={`lang-segment ${currentLang === 'en' ? 'active' : ''}`}
                 onClick={() => switchLanguage('en')}
-                title="Switch to English"
-                style={{ background: 'none', border: 'none', cursor: 'pointer', font: 'inherit', padding: 0 }}
+                title="English"
               >
-                English
+                EN
               </button>
-              <span className="lang-divider">|</span>
               <button
                 type="button"
-                className={`lang-btn ${currentLang === 'hi' ? 'active' : ''}`}
+                className={`lang-segment ${currentLang === 'hi' ? 'active' : ''}`}
                 onClick={() => switchLanguage('hi')}
-                title="हिंदी में बदलें"
-                style={{ background: 'none', border: 'none', cursor: 'pointer', font: 'inherit', padding: 0 }}
+                title="हिंदी"
               >
                 हिंदी
               </button>

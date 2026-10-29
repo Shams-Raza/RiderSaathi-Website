@@ -30,11 +30,8 @@
 
 <header>
   <div class="wrap header-inner">
-    <a class="brand" href="/">
-      <span class="brand-glyph">
-        <svg viewBox="0 0 24 24"><path d="M14 2 5 13h6l-1 9 9-11h-6z"/></svg>
-      </span>
-      <span class="brand-name"><%= settings.siteName %></span>
+    <a class="brand" href="/" aria-label="RiderSathi Home">
+      <img src="/images/logo.svg" alt="<%= settings.siteName || 'RiderSathi' %>" width="160" height="40" class="brand-logo-img">
     </a>
 
     <nav id="mainNav">
@@ -62,11 +59,10 @@
     </nav>
 
     <div class="header-right">
-      <!-- Language Switcher: English | हिंदी -->
-      <div class="lang-switcher" id="langSwitcher" role="group" aria-label="Language selection">
-        <a href="/set-language/en" class="lang-btn <%= (typeof lang !== 'undefined' && lang === 'en') ? 'active' : '' %>" data-lang="en" title="Switch to English">English</a>
-        <span class="lang-divider">|</span>
-        <a href="/set-language/hi" class="lang-btn <%= (typeof lang !== 'undefined' && lang === 'hi') ? 'active' : '' %>" data-lang="hi" title="हिंदी में बदलें">हिंदी</a>
+      <!-- Language Segmented Control: [ EN | हिंदी ] -->
+      <div class="lang-segmented-control" id="langSwitcher" role="group" aria-label="Language selection">
+        <a href="/set-language/en" class="lang-segment <%= (typeof lang !== 'undefined' && lang === 'en') ? 'active' : '' %>" data-lang="en" title="Switch to English">EN</a>
+        <a href="/set-language/hi" class="lang-segment <%= (typeof lang !== 'undefined' && lang === 'hi') ? 'active' : '' %>" data-lang="hi" title="हिंदी में बदलें">हिंदी</a>
       </div>
 
       <a href="/download" class="btn-header-cta" title="Download Official APK">

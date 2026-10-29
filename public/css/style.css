@@ -334,13 +334,8 @@ header .wrap {
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-family: var(--font-heading);
-  font-size: 21px;
-  font-weight: 800;
-  color: var(--text-heading);
+  gap: 12px;
   text-decoration: none;
-  letter-spacing: -0.5px;
   transition: transform 0.2s ease;
 }
 
@@ -352,22 +347,17 @@ header .wrap {
   transform: scale(0.97);
 }
 
-.brand-glyph {
-  width: 38px;
-  height: 38px;
-  background: var(--brand-gradient);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  box-shadow: 0 4px 10px rgba(0, 200, 83, 0.25);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+.brand-logo-img {
+  width: 160px;
+  height: auto;
+  object-fit: contain;
+  display: block;
 }
 
-.brand:hover .brand-glyph {
-  transform: rotate(-4deg) scale(1.05);
-  box-shadow: 0 6px 14px rgba(0, 200, 83, 0.35);
+@media (max-width: 580px) {
+  .brand-logo-img {
+    width: 120px;
+  }
 }
 
 .brand-glyph svg {
@@ -787,13 +777,39 @@ nav#mainNav a.active {
   flex-shrink: 0;
 }
 
-/* 3D Robot Visual Area & Floating Cards */
+/* ==========================================================================
+   3D Robot Visual Area & Floating Cards
+   ========================================================================== */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+    opacity: 1;
+  }
+}
+
 .hero-visual-area {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 440px;
+  min-height: 460px;
+  background: transparent;
 }
 
 .hero-glow-blob {
@@ -801,10 +817,11 @@ nav#mainNav a.active {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 380px;
-  height: 380px;
-  background: radial-gradient(circle, rgba(0, 200, 83, 0.24) 0%, rgba(0, 230, 118, 0.10) 45%, rgba(0, 200, 83, 0) 70%);
+  width: 390px;
+  height: 390px;
+  background: radial-gradient(circle, rgba(0, 200, 83, 0.22) 0%, rgba(0, 230, 118, 0.10) 45%, rgba(0, 200, 83, 0) 70%);
   border-radius: 50%;
+  box-shadow: 0 0 80px rgba(0, 200, 83, 0.2);
   filter: blur(40px);
   pointer-events: none;
   z-index: 1;
@@ -815,6 +832,11 @@ nav#mainNav a.active {
   position: relative;
   z-index: 2;
   text-align: center;
+  background: transparent;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-robot-img {
@@ -823,43 +845,44 @@ nav#mainNav a.active {
   height: auto;
   display: block;
   margin: 0 auto;
+  background: transparent;
   filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.12));
-  animation: floatSlow 5s ease-in-out infinite;
 }
 
 /* Floating Glassmorphism Cards */
 .hero-float-card {
   position: absolute;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.85);
   border-radius: 16px;
   padding: 12px 16px;
   box-shadow: 0 16px 36px -6px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(0, 200, 83, 0.08);
-  z-index: 5;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  z-index: 10;
+  animation: float 3s ease-in-out infinite;
+  transition: box-shadow 0.25s ease;
 }
 
 [data-theme="dark"] .hero-float-card {
-  background: rgba(15, 23, 42, 0.88);
+  background: rgba(15, 23, 42, 0.90);
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.6);
 }
 
 .hero-float-card:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 20px 42px -6px rgba(0, 200, 83, 0.25);
+  box-shadow: 0 20px 42px -6px rgba(0, 200, 83, 0.28);
 }
 
-/* Card 1: More Opportunities (Top Right) */
+/* Card 1: More Opportunities (Top Right - Above robot, outside image area) */
 .hero-float-card.card-top-right {
-  top: 15px;
-  right: -10px;
+  top: -15px;
+  right: -25px;
   display: flex;
   align-items: center;
   gap: 12px;
-  animation: floatCard1 4.5s ease-in-out infinite;
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 0s;
 }
 
 .growth-badge-icon {
@@ -911,24 +934,26 @@ nav#mainNav a.active {
 .mini-bar:nth-child(3) { height: 18px; background: #86efac; }
 .mini-bar:nth-child(4) { height: 22px; background: var(--brand-primary); }
 
-/* Card 2: Ride Accepted (Right Middle) */
+/* Card 2: Ride Accepted (Right Middle - Partially outside image, overlapping edge) */
 .hero-float-card.card-mid-right {
-  top: 48%;
-  right: -25px;
+  top: 50%;
+  right: -35px;
   display: flex;
   align-items: center;
   gap: 12px;
-  animation: floatCard2 5s ease-in-out infinite 0.6s;
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 0.9s;
 }
 
-/* Card 3: Ride Accepted (Bottom Left) */
+/* Card 3: Ride Accepted (Bottom Left - Outside image) */
 .hero-float-card.card-bottom-left {
-  bottom: 20px;
-  left: -15px;
+  bottom: -15px;
+  left: -30px;
   display: flex;
   align-items: center;
   gap: 12px;
-  animation: floatCard3 5.5s ease-in-out infinite 1.2s;
+  animation: float 3s ease-in-out infinite;
+  animation-delay: 1.8s;
 }
 
 .ride-accepted-icon {
@@ -2317,68 +2342,73 @@ footer .wrap {
 }
 
 /* ==========================================================================
-   12. Language Switcher (Requirement 2)
+   12. Language Segmented Control (Pill-shaped [ EN | हिंदी ])
    ========================================================================== */
+.lang-segmented-control,
 .lang-switcher {
   display: inline-flex;
   align-items: center;
   background: var(--surface-alt);
   border: 1px solid var(--border);
-  border-radius: var(--radius-pill);
-  padding: 3px 8px;
-  gap: 6px;
+  border-radius: 9999px;
+  padding: 3px;
+  gap: 2px;
+  user-select: none;
+}
+
+[data-theme="dark"] .lang-segmented-control,
+[data-theme="dark"] .lang-switcher {
+  background: #1e293b;
+  border-color: #334155;
+}
+
+.lang-segment,
+.lang-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 14px;
   font-size: 13px;
   font-weight: 600;
-  transition: all 0.2s ease;
-}
-
-.lang-switcher:hover {
-  border-color: var(--brand-primary);
-}
-
-.lang-btn {
-  text-decoration: none;
-  color: var(--text-muted);
-  padding: 3px 8px;
-  border-radius: var(--radius-pill);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer;
   line-height: 1.2;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: 9999px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  font-family: inherit;
 }
 
+.lang-segment:hover,
 .lang-btn:hover {
   color: var(--text-heading);
 }
 
+[data-theme="dark"] .lang-segment:hover,
+[data-theme="dark"] .lang-btn:hover {
+  color: #f8fafc;
+}
+
+.lang-segment.active,
 .lang-btn.active {
   background: var(--brand-primary);
   color: #ffffff !important;
-  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
   font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 200, 83, 0.35);
+}
+
+[data-theme="dark"] .lang-segment.active,
+[data-theme="dark"] .lang-btn.active {
+  background: var(--brand-primary);
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0, 200, 83, 0.4);
 }
 
 .lang-divider {
-  color: var(--border);
-  font-size: 12px;
-  user-select: none;
-}
-
-[data-theme="dark"] .lang-switcher {
-  background: #111827;
-  border-color: #1f2937;
-}
-
-[data-theme="dark"] .lang-btn {
-  color: #9ca3af;
-}
-
-[data-theme="dark"] .lang-btn:hover {
-  color: #f3f4f6;
-}
-
-[data-theme="dark"] .lang-btn.active {
-  background: #2563eb;
-  color: #ffffff !important;
+  display: none;
 }
 
 /* Hindi Typography Enhancements */

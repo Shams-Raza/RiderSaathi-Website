@@ -14,9 +14,11 @@ export default function Footer({ settings = {}, lang = 'hi' }) {
           <div className="footer-col brand-col">
             <Link className="brand" href="/" aria-label="RiderSathi Home" style={{ marginBottom: '14px', display: 'inline-flex' }}>
               <img
-                src="/images/logo.png"
+                src="/images/logo.svg"
                 alt={settings.siteName || 'RiderSathi'}
-                style={{ height: '38px', width: 'auto', objectFit: 'contain' }}
+                width="160"
+                height="40"
+                className="brand-logo-img"
               />
             </Link>
             <p className="footer-bio">
