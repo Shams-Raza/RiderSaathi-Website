@@ -13,6 +13,7 @@ export async function generateMetadata() {
   const settings = getSettings();
   return {
     title: `Admin Login — ${settings.siteName || 'RiderSaathi'}`,
+    description: 'Secure Administrative Portal for RiderSaathi management.',
     robots: {
       index: false,
       follow: false,
@@ -33,18 +34,11 @@ export default function AdminLoginPage({ searchParams }) {
   const initialEmail = searchParams?.email || '';
 
   return (
-    <div className="admin-body">
-      <div
-        className="login-wrapper"
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '24px 16px',
-          background: 'radial-gradient(circle at 50% 20%, rgba(29, 78, 216, 0.08) 0%, transparent 60%), var(--admin-bg)',
-        }}
-      >
+    <div className="admin-login-screen">
+      {/* Ambient background glow elements */}
+      <div className="login-ambient-blob" aria-hidden="true" />
+
+      <div className="login-wrapper">
         <AdminLoginForm
           initialError={initialError}
           initialEmail={initialEmail}

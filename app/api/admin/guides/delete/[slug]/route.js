@@ -23,3 +23,6 @@ export async function POST(req, { params }) {
     return NextResponse.json({ success: false, message: 'Server error' }, { status: 500 });
   }
 }
+
+export const DELETE = POST;
+
