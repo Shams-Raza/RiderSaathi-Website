@@ -25,6 +25,12 @@ export default function AdminLoginForm({ initialError = '', initialEmail = '', s
 
       const data = await res.json();
       if (data.ok) {
+        if (data.token && typeof window !== 'undefined') {
+          try {
+            localStorage.setItem('admin_token', data.token);
+            sessionStorage.setItem('admin_token', data.token);
+          } catch {}
+        }
         window.location.href = data.redirectUrl || '/admin';
       } else {
         setError(data.error || 'Invalid email address or password.');

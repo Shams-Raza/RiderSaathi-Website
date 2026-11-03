@@ -15,12 +15,43 @@ export default function AdminDashboard({
   initialDrivers,
   initialRides,
   adminEmail,
+  sessionToken = '',
 }) {
   const [activeTab, setActiveTab] = useState('tabOverview');
   const [bilingualLang, setBilingualLang] = useState('hi');
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [theme, setTheme] = useState('light');
   const [toast, setToast] = useState({ message: '', type: 'success', visible: false });
+
+  // Store token in localStorage / sessionStorage so API calls are always authenticated
+  useEffect(() => {
+    if (sessionToken && typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('admin_token', sessionToken);
+        sessionStorage.setItem('admin_token', sessionToken);
+      } catch {}
+    }
+  }, [sessionToken]);
+
+  // Robust fetch helper that passes Authorization header, x-admin-token, and credentials
+  const adminFetch = async (url, options = {}) => {
+    let token = sessionToken;
+    if (typeof window !== 'undefined') {
+      token = localStorage.getItem('admin_token') || sessionStorage.getItem('admin_token') || sessionToken;
+    }
+    const headers = {
+      ...(options.headers || {}),
+    };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+      headers['x-admin-token'] = token;
+    }
+    return fetch(url, {
+      ...options,
+      headers,
+      credentials: 'include',
+    });
+  };
 
   // Data state
   const [settings, setSettings] = useState(initialSettings || {});
@@ -144,10 +175,9 @@ export default function AdminDashboard({
     e.preventDefault();
     const data = serializeFormToNestedObject(e.target);
     try {
-      const res = await fetch('/api/admin/settings', {
+      const res = await adminFetch('/api/admin/settings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
         body: JSON.stringify(data),
       });
       const result = await res.json();
@@ -165,10 +195,9 @@ export default function AdminDashboard({
   // Driver Actions
   const grantSubscription = async (driverId, days, planName = '') => {
     try {
-      const res = await fetch('/api/admin/drivers/grant-subscription', {
+      const res = await adminFetch('/api/admin/drivers/grant-subscription', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
         body: JSON.stringify({ driverId, days, planName }),
       });
       const result = await res.json();
@@ -185,10 +214,9 @@ export default function AdminDashboard({
 
   const grantTrialRides = async (driverId, extraRides = 10) => {
     try {
-      const res = await fetch('/api/admin/drivers/grant-trial', {
+      const res = await adminFetch('/api/admin/drivers/grant-trial', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
         body: JSON.stringify({ driverId, extraRides }),
       });
       const result = await res.json();
@@ -205,10 +233,9 @@ export default function AdminDashboard({
 
   const toggleDriverStatus = async (driverId) => {
     try {
-      const res = await fetch('/api/admin/drivers/toggle-status', {
+      const res = await adminFetch('/api/admin/drivers/toggle-status', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
         body: JSON.stringify({ driverId }),
       });
       const result = await res.json();
@@ -227,10 +254,9 @@ export default function AdminDashboard({
   const approveAndActivateOrder = async (orderId) => {
     if (!confirm('Approve this order and immediately activate driver subscription?')) return;
     try {
-      const res = await fetch(`/api/admin/orders/${orderId}/approve-activate`, {
+      const res = await adminFetch(`/api/admin/orders/${orderId}/approve-activate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
       });
       const result = await res.json();
       if (result.success) {
@@ -338,10 +364,9 @@ export default function AdminDashboard({
   const handlePlanFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/admin/plans/save', {
+      const res = await adminFetch('/api/admin/plans/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
         body: JSON.stringify(planForm),
       });
       const result = await res.json();
@@ -368,9 +393,8 @@ export default function AdminDashboard({
   const deletePlan = async (id) => {
     if (!confirm('Are you sure you want to delete this pricing plan?')) return;
     try {
-      const res = await fetch(`/api/admin/plans/delete/${id}`, {
+      const res = await adminFetch(`/api/admin/plans/delete/${id}`, {
         method: 'POST',
-        credentials: 'include',
       });
       const result = await res.json();
       if (result.success) {
@@ -412,7 +436,7 @@ export default function AdminDashboard({
   const handleGuideFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/admin/guides/save', {
+      const res = await adminFetch('/api/admin/guides/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(guideForm),
@@ -442,7 +466,7 @@ export default function AdminDashboard({
   const deleteGuide = async (slug) => {
     if (!confirm(`Are you sure you want to delete guide "${slug}"?`)) return;
     try {
-      const res = await fetch(`/api/admin/guides/delete/${slug}`, { method: 'POST' });
+      const res = await adminFetch(`/api/admin/guides/delete/${slug}`, { method: 'POST' });
       const result = await res.json();
       if (result.success) {
         showToast('Guide deleted!', 'success');
@@ -469,7 +493,7 @@ export default function AdminDashboard({
   const handleFaqFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('/api/admin/faq/save', {
+      const res = await adminFetch('/api/admin/faq/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(faqForm),
@@ -498,7 +522,7 @@ export default function AdminDashboard({
   const deleteFaq = async (id) => {
     if (!confirm('Delete this FAQ?')) return;
     try {
-      const res = await fetch(`/api/admin/faq/delete/${id}`, { method: 'POST' });
+      const res = await adminFetch(`/api/admin/faq/delete/${id}`, { method: 'POST' });
       const result = await res.json();
       if (result.success) {
         showToast('FAQ deleted', 'success');
@@ -525,7 +549,7 @@ export default function AdminDashboard({
     }
 
     try {
-      const res = await fetch('/api/admin/credentials', {
+      const res = await adminFetch('/api/admin/credentials', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ currentPassword, newEmail, newPassword }),

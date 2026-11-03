@@ -45,7 +45,7 @@ export default async function AdminPage() {
   const stats = getStats();
   const drivers = getDrivers();
   const rides = getRides();
-  const admin = getAdmin();
+  const rawToken = cookieStore.get('admin_session')?.value || '';
 
   return (
     <AdminDashboard
@@ -60,6 +60,7 @@ export default async function AdminPage() {
       initialDrivers={drivers}
       initialRides={rides}
       adminEmail={admin?.email || session?.email || 'admin@ridersaathi.in'}
+      sessionToken={rawToken}
     />
   );
 }

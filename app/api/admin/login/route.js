@@ -59,7 +59,7 @@ export async function POST(request) {
       const token = signSession(admin.email);
 
       const response = contentType.includes('application/json')
-        ? NextResponse.json({ ok: true, redirectUrl: '/admin' })
+        ? NextResponse.json({ ok: true, token, redirectUrl: '/admin' })
         : NextResponse.redirect(new URL('/admin', request.url), 303);
 
       response.cookies.set(ADMIN_COOKIE_NAME, token, ADMIN_COOKIE_OPTIONS);
