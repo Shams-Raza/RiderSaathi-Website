@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(req) {
   try {
-    const session = getAdminSession(cookies());
+    const session = getAdminSession(req);
     if (!session) {
       return NextResponse.json({ success: false, message: 'Unauthorized. Admin session required.' }, { status: 401 });
     }

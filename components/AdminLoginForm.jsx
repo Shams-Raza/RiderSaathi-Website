@@ -19,6 +19,7 @@ export default function AdminLoginForm({ initialError = '', initialEmail = '', s
       const res = await fetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ email, password }),
       });
 

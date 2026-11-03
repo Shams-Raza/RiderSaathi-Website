@@ -147,6 +147,7 @@ export default function AdminDashboard({
       const res = await fetch('/api/admin/settings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(data),
       });
       const result = await res.json();
@@ -167,6 +168,7 @@ export default function AdminDashboard({
       const res = await fetch('/api/admin/drivers/grant-subscription', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ driverId, days, planName }),
       });
       const result = await res.json();
@@ -186,6 +188,7 @@ export default function AdminDashboard({
       const res = await fetch('/api/admin/drivers/grant-trial', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ driverId, extraRides }),
       });
       const result = await res.json();
@@ -205,6 +208,7 @@ export default function AdminDashboard({
       const res = await fetch('/api/admin/drivers/toggle-status', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify({ driverId }),
       });
       const result = await res.json();
@@ -226,6 +230,7 @@ export default function AdminDashboard({
       const res = await fetch(`/api/admin/orders/${orderId}/approve-activate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
       });
       const result = await res.json();
       if (result.success) {
@@ -336,6 +341,7 @@ export default function AdminDashboard({
       const res = await fetch('/api/admin/plans/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(planForm),
       });
       const result = await res.json();
@@ -362,7 +368,10 @@ export default function AdminDashboard({
   const deletePlan = async (id) => {
     if (!confirm('Are you sure you want to delete this pricing plan?')) return;
     try {
-      const res = await fetch(`/api/admin/plans/delete/${id}`, { method: 'POST' });
+      const res = await fetch(`/api/admin/plans/delete/${id}`, {
+        method: 'POST',
+        credentials: 'include',
+      });
       const result = await res.json();
       if (result.success) {
         showToast('Plan deleted!', 'success');
