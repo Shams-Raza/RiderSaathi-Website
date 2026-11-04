@@ -11,13 +11,13 @@
   "sha256Cert": "1b257df6e673afd4bddaa9b32a4ce4030bb893af3756a746ce1902f29a4e8551",
   "releaseDate": "2026-10-20",
   "releaseNotes": "Improved Rapido & Porter auto-accept detection speed, battery optimization, and sound notifications.",
-  "ownerName": "Shams",
-  "legalBusinessName": "RiderSaathi Technologies",
+  "ownerName": " BruhByte",
+  "legalBusinessName": "BruhByte Innovations",
   "businessType": "Sole Proprietorship",
   "registrationDetails": "Registered under Udyam (MSME) & Local Shops & Establishment (Gumasta) Licensing",
   "contactEmail": "help@ridersaathi.in",
   "supportPhone": "+91 8641011669",
-  "whatsappNumber": "918641011669",
+  "whatsappNumber": "8641011669",
   "whatsappText": "Mujhe RiderSaathi ke baare mein jankari chahiye",
   "telegramHandle": "RiderSaathi_app",
   "telegramUrl": "https://t.me/RiderSaathi_app",
@@ -67,7 +67,7 @@
   },
   "socialLinks": {
     "instagram": {
-      "url": "https://instagram.com/ridersaathi",
+      "url": "https://www.instagram.com/ridersathi.in?utm_source=ig_web_button_share_sheet&dlrf=ZDNlZDc0MzIxNw==",
       "enabled": true
     },
     "whatsapp": {
@@ -75,7 +75,7 @@
       "enabled": true
     },
     "facebook": {
-      "url": "https://facebook.com/ridersaathi",
+      "url": "https://www.facebook.com/share/1Hf1QcWuBN/",
       "enabled": true
     },
     "youtube": {
@@ -107,7 +107,9 @@
     "latitude": "22.7533",
     "longitude": "75.8937",
     "googleMapsUrl": "https://maps.google.com/?q=Gulab+Bagh+Colony+Indore+Madhya+Pradesh+452009",
-    "googleMapsEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14719.645701831826!2d75.885!3d22.753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396302a43b27b593%3A0x6b75fef872e61df3!2sGulab%20Bagh%20Colony%2C%20Indore%2C%20Madhya%20Pradesh%20452010!5e0!3m2!1sen!2sin!4v1700000000000"
+    "googleMapsEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14719.645701831826!2d75.885!3d22.753!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396302a43b27b593%3A0x6b75fef872e61df3!2sGulab%20Bagh%20Colony%2C%20Indore%2C%20Madhya%20Pradesh%20452010!5e0!3m2!1sen!2sin!4v1700000000000",
+    "mapEmbedUrl": "403, Bapu Gandhi Nagar, Scheme No 114, Indore, Madhya Pradesh 452010",
+    "pinCode": "302020"
   },
   "howItWorks": {
     "youtubeVideoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",

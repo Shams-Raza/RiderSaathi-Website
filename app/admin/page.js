@@ -45,6 +45,7 @@ export default async function AdminPage() {
   const stats = getStats();
   const drivers = getDrivers();
   const rides = getRides();
+  const admin = getAdmin();
   const rawToken = cookieStore.get('admin_session')?.value || '';
 
   return (

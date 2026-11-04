@@ -22,6 +22,18 @@ export async function POST(req) {
 
       ['homeSections', 'numbers', 'socialLinks', 'floatingSocial', 'location', 'howItWorks', 'content_en', 'content_hi', 'theme'].forEach(sectionKey => {
         if (data[sectionKey] && typeof data[sectionKey] === 'object') {
+          if (sectionKey === 'socialLinks') {
+            for (const [k, v] of Object.entries(data.socialLinks)) {
+              if (typeof v === 'string') {
+                const currentObj = (current.socialLinks && typeof current.socialLinks[k] === 'object') ? current.socialLinks[k] : {};
+                data.socialLinks[k] = {
+                  ...currentObj,
+                  url: v,
+                  enabled: v.trim() !== '' && v !== '[object Object]',
+                };
+              }
+            }
+          }
           data[sectionKey] = deepMerge(current[sectionKey] || {}, data[sectionKey]);
         }
       });

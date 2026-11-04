@@ -1194,19 +1194,19 @@ export default function AdminDashboard({
                 <div className="form-grid">
                   <div className="form-group">
                     <label>YouTube Channel URL</label>
-                    <input type="text" name="socialLinks[youtube]" defaultValue={settings.socialLinks?.youtube || ''} />
+                    <input type="text" name="socialLinks[youtube]" defaultValue={typeof settings.socialLinks?.youtube === 'object' ? settings.socialLinks?.youtube?.url : (settings.socialLinks?.youtube || '')} />
                   </div>
                   <div className="form-group">
                     <label>Instagram URL</label>
-                    <input type="text" name="socialLinks[instagram]" defaultValue={settings.socialLinks?.instagram || ''} />
+                    <input type="text" name="socialLinks[instagram]" defaultValue={typeof settings.socialLinks?.instagram === 'object' ? settings.socialLinks?.instagram?.url : (settings.socialLinks?.instagram || '')} />
                   </div>
                   <div className="form-group">
                     <label>Telegram Group / Channel</label>
-                    <input type="text" name="socialLinks[telegram]" defaultValue={settings.socialLinks?.telegram || ''} />
+                    <input type="text" name="socialLinks[telegram]" defaultValue={typeof settings.socialLinks?.telegram === 'object' ? settings.socialLinks?.telegram?.url : (settings.socialLinks?.telegram || '')} />
                   </div>
                   <div className="form-group">
                     <label>Facebook Page</label>
-                    <input type="text" name="socialLinks[facebook]" defaultValue={settings.socialLinks?.facebook || ''} />
+                    <input type="text" name="socialLinks[facebook]" defaultValue={typeof settings.socialLinks?.facebook === 'object' ? settings.socialLinks?.facebook?.url : (settings.socialLinks?.facebook || '')} />
                   </div>
                 </div>
                 <div className="form-actions" style={{ marginTop: '20px' }}>

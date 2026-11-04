@@ -6,6 +6,17 @@ export default function Footer({ settings = {}, lang = 'hi' }) {
   const soc = settings.socialLinks || {};
   const currentYear = new Date().getFullYear();
 
+  const getUrl = (val, fallback) => {
+    if (!val) return fallback;
+    if (typeof val === 'string') return val;
+    return val.url || fallback;
+  };
+  const isEnabled = (val) => {
+    if (!val) return false;
+    if (typeof val === 'string') return val.trim().length > 0 && val !== '[object Object]';
+    return val.enabled !== false;
+  };
+
   return (
     <footer>
       <div className="wrap">
@@ -29,9 +40,9 @@ export default function Footer({ settings = {}, lang = 'hi' }) {
 
             {/* Social Icons Row in Footer */}
             <div className="footer-social-row">
-              {soc.whatsapp && soc.whatsapp.enabled !== false && (
+              {isEnabled(soc.whatsapp) && (
                 <a
-                  href={soc.whatsapp.url || `https://wa.me/${settings.whatsappNumber}`}
+                  href={getUrl(soc.whatsapp, `https://wa.me/${settings.whatsappNumber}`)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="footer-social-icon"
@@ -43,9 +54,9 @@ export default function Footer({ settings = {}, lang = 'hi' }) {
                   </svg>
                 </a>
               )}
-              {soc.instagram && soc.instagram.enabled !== false && (
+              {isEnabled(soc.instagram) && (
                 <a
-                  href={soc.instagram.url || 'https://instagram.com/ridersaathi'}
+                  href={getUrl(soc.instagram, 'https://instagram.com/ridersaathi')}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="footer-social-icon"
@@ -57,9 +68,9 @@ export default function Footer({ settings = {}, lang = 'hi' }) {
                   </svg>
                 </a>
               )}
-              {soc.facebook && soc.facebook.enabled !== false && (
+              {isEnabled(soc.facebook) && (
                 <a
-                  href={soc.facebook.url || 'https://facebook.com/ridersaathi'}
+                  href={getUrl(soc.facebook, 'https://facebook.com/ridersaathi')}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="footer-social-icon"
@@ -71,9 +82,9 @@ export default function Footer({ settings = {}, lang = 'hi' }) {
                   </svg>
                 </a>
               )}
-              {soc.youtube && soc.youtube.enabled !== false && (
+              {isEnabled(soc.youtube) && (
                 <a
-                  href={soc.youtube.url || 'https://youtube.com/@ridersaathi'}
+                  href={getUrl(soc.youtube, 'https://youtube.com/@ridersaathi')}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="footer-social-icon"
@@ -85,9 +96,9 @@ export default function Footer({ settings = {}, lang = 'hi' }) {
                   </svg>
                 </a>
               )}
-              {soc.telegram && soc.telegram.enabled !== false && (
+              {isEnabled(soc.telegram) && (
                 <a
-                  href={soc.telegram.url || settings.telegramUrl || 'https://t.me/RiderSaathi_app'}
+                  href={getUrl(soc.telegram, settings.telegramUrl || 'https://t.me/RiderSaathi_app')}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="footer-social-icon"
