@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { updateJSON } from '@/lib/data';
-import { checkGeneralRateLimit } from '@/lib/auth';
+import { checkGeneralRateLimit, sanitizeUtr, sanitizeInput } from '@/lib/auth';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -25,11 +25,12 @@ export async function POST(request) {
 
     const { orderId, utr } = body || {};
 
-    if (!orderId || !String(orderId).trim()) {
+    const cleanOrderId = sanitizeInput(orderId, 60);
+    if (!cleanOrderId) {
       return NextResponse.json({ ok: false, error: 'Order ID is missing.' }, { status: 400 });
     }
 
-    const cleanUtr = String(utr || '').trim();
+    const cleanUtr = sanitizeUtr(utr);
     if (!cleanUtr || cleanUtr.length < 6) {
       return NextResponse.json(
         { ok: false, error: 'Please enter a valid 12-digit UPI Reference / UTR Number.' },
@@ -42,7 +43,7 @@ export async function POST(request) {
       'orders.json',
       (orders) => {
         const list = Array.isArray(orders) ? orders : [];
-        const order = list.find((o) => o.id === orderId.trim());
+        const order = list.find((o) => o.id === cleanOrderId);
         if (order) {
           order.utr = cleanUtr;
           order.status = 'Pending Verification';

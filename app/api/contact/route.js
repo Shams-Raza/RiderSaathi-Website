@@ -1,11 +1,20 @@
 import { NextResponse } from 'next/server';
 import { updateJSON } from '@/lib/data';
+import { checkGeneralRateLimit, sanitizeInput, sanitizePhone } from '@/lib/auth';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 export async function POST(request) {
   try {
+    const ip = request.headers.get('x-forwarded-for') || '127.0.0.1';
+    if (!checkGeneralRateLimit(ip, 10, 60000)) {
+      return NextResponse.json(
+        { ok: false, error: 'Too many messages sent. Please wait a minute before submitting again.' },
+        { status: 429 }
+      );
+    }
+
     let body;
     const contentType = request.headers.get('content-type') || '';
     if (contentType.includes('application/json')) {
@@ -17,25 +26,29 @@ export async function POST(request) {
 
     const { name, phone, subject, message } = body || {};
 
-    if (!name || !String(name).trim()) {
+    const sanitizedName = sanitizeInput(name, 100);
+    if (!sanitizedName) {
       return NextResponse.json({ ok: false, error: 'Name is required' }, { status: 400 });
     }
 
-    const cleanPhone = String(phone || '').replace(/\D/g, '').slice(-10);
+    const cleanPhone = sanitizePhone(phone);
     if (!cleanPhone || cleanPhone.length !== 10) {
       return NextResponse.json({ ok: false, error: 'Valid 10-digit mobile number is required' }, { status: 400 });
     }
 
-    if (!message || !String(message).trim()) {
+    const sanitizedMessage = sanitizeInput(message, 2000);
+    if (!sanitizedMessage) {
       return NextResponse.json({ ok: false, error: 'Message content is required' }, { status: 400 });
     }
 
+    const sanitizedSubject = sanitizeInput(subject || 'General', 100) || 'General';
+
     const newInquiry = {
       id: 'INQ-' + Date.now().toString(36).toUpperCase(),
-      name: String(name).trim(),
+      name: sanitizedName,
       phone: cleanPhone,
-      subject: subject ? String(subject).trim() : 'General',
-      message: String(message).trim(),
+      subject: sanitizedSubject,
+      message: sanitizedMessage,
       status: 'New',
       createdAt: new Date().toISOString(),
     };

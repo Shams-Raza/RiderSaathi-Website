@@ -3,7 +3,22 @@ import { NextResponse } from 'next/server';
 export function middleware(request) {
   const { pathname, searchParams } = request.nextUrl;
 
-  // 1. Admin route protection
+  // 1. Protect /api/admin/* endpoints (except /api/admin/login)
+  if (pathname.startsWith('/api/admin/') && pathname !== '/api/admin/login') {
+    const sessionCookie = request.cookies.get('admin_session')?.value;
+    const authHeader = request.headers.get('authorization') || '';
+    const xAdminToken = request.headers.get('x-admin-token') || '';
+    const hasToken = !!(sessionCookie || authHeader || xAdminToken);
+
+    if (!hasToken) {
+      return NextResponse.json(
+        { success: false, message: 'Unauthorized. Admin authentication required.' },
+        { status: 401 }
+      );
+    }
+  }
+
+  // 2. Protect /admin UI pages (except /admin/login and /admin/logout)
   if (pathname === '/admin' || (pathname.startsWith('/admin/') && pathname !== '/admin/login' && pathname !== '/admin/logout')) {
     const sessionCookie = request.cookies.get('admin_session')?.value;
     if (!sessionCookie) {
@@ -12,7 +27,7 @@ export function middleware(request) {
     }
   }
 
-  // 2. Language resolution: Priority 1) ?lang= query param, 2) lang cookie, 3) default 'hi'
+  // 3. Language resolution: Priority 1) ?lang= query param, 2) lang cookie, 3) default 'hi'
   const allLangParams = searchParams.getAll('lang');
   const queryLang = allLangParams.length === 1 ? allLangParams[0] : null;
   const cookieLang = request.cookies.get('lang')?.value;
@@ -32,13 +47,8 @@ export function middleware(request) {
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - images, css, favicon.ico, manifest (public files)
-     */
+    '/admin/:path*',
+    '/api/admin/:path*',
     '/((?!api|_next/static|_next/image|images|css|favicon.ico|manifest).*)',
   ],
 };

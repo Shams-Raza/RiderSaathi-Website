@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { updateJSON } from '@/lib/data';
+import { sanitizeUtr, sanitizeInput } from '@/lib/auth';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -9,15 +10,18 @@ export async function handleSubmitAppUtr(req) {
     const body = await req.json().catch(() => ({}));
     const { orderId, utr } = body;
 
-    if (!orderId || !utr) {
-      return NextResponse.json({ success: false, message: 'Order ID and UTR/Transaction ID are required' }, { status: 400 });
+    const cleanOrderId = sanitizeInput(orderId, 60);
+    const cleanUtr = sanitizeUtr(utr);
+
+    if (!cleanOrderId || !cleanUtr || cleanUtr.length < 6) {
+      return NextResponse.json({ success: false, message: 'Valid Order ID and UTR/Transaction ID are required' }, { status: 400 });
     }
 
     let updatedOrder = null;
     await updateJSON('orders.json', (orders = []) => {
-      const order = orders.find(o => o.id === orderId);
+      const order = orders.find(o => o.id === cleanOrderId);
       if (order) {
-        order.utr = String(utr).trim();
+        order.utr = cleanUtr;
         order.status = 'Pending Verification';
         order.updatedAt = new Date().toISOString();
         updatedOrder = { ...order };
