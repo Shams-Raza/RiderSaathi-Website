@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { updateJSON } from '@/lib/data';
 import { getAdminSession } from '@/lib/auth';
@@ -29,6 +30,12 @@ export async function POST(req) {
 
     if (!targetDriver) {
       return NextResponse.json({ success: false, message: 'Driver not found' }, { status: 404 });
+    }
+
+    try {
+      revalidatePath('/', 'layout');
+    } catch (e) {
+      console.warn('Revalidation warning:', e);
     }
 
     return NextResponse.json({

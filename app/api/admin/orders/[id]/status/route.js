@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { updateJSON } from '@/lib/data';
 import { getAdminSession } from '@/lib/auth';
@@ -8,7 +9,7 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(req, { params }) {
   try {
-    const session = getAdminSession(cookies());
+    const session = getAdminSession(req) || getAdminSession(cookies());
     if (!session) {
       return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
     }
@@ -29,6 +30,12 @@ export async function POST(req, { params }) {
 
     if (!found) {
       return NextResponse.json({ success: false, message: 'Order not found' }, { status: 404 });
+    }
+
+    try {
+      revalidatePath('/', 'layout');
+    } catch (e) {
+      console.warn('Revalidation warning:', e);
     }
 
     return NextResponse.json({ success: true });

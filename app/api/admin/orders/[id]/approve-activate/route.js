@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { updateJSON } from '@/lib/data';
 import { getAdminSession } from '@/lib/auth';
@@ -97,6 +98,12 @@ export async function POST(req, { params }) {
       targetDriver = { ...driver };
       return drivers;
     }, []);
+
+    try {
+      revalidatePath('/', 'layout');
+    } catch (e) {
+      console.warn('Revalidation warning:', e);
+    }
 
     return NextResponse.json({
       success: true,

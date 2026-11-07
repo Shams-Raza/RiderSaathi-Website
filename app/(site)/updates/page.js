@@ -7,7 +7,7 @@ export const runtime = 'nodejs';
 export async function generateMetadata() {
   const settings = getSettings();
   const siteName = settings.siteName || 'RiderSaathi';
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
   const title = 'Changelog & Version Updates';
   const description =
     'Explore latest version updates, changelogs, new auto-accept features, and bug fixes in RiderSaathi app for Rapido, Uber and Porter delivery and cab drivers.';

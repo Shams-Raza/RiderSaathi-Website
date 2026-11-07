@@ -7,7 +7,7 @@ export const runtime = 'nodejs';
 export async function generateMetadata() {
   const settings = getSettings();
   const siteName = settings.siteName || 'RiderSaathi';
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
   const title = 'Refund & Cancellation Policy';
   const description =
     'Read RiderSaathi official refund and cancellation policy. Understand how digital license activation, phone compatibility refunds, and duplicate charges work.';

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { updateJSON } from '@/lib/data';
 import { getAdminSession } from '@/lib/auth';
@@ -17,6 +18,13 @@ export async function POST(req, { params }) {
     await updateJSON('guides.json', (guides = []) => {
       return guides.filter(g => g.slug !== slug);
     }, []);
+
+    try {
+      revalidatePath('/', 'layout');
+      revalidatePath('/guides');
+    } catch (e) {
+      console.warn('Revalidation warning:', e);
+    }
 
     return NextResponse.json({ success: true, message: 'Guide deleted successfully!' });
   } catch (err) {

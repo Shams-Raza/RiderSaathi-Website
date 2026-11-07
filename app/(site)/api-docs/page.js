@@ -6,7 +6,7 @@ export const runtime = 'nodejs';
 export async function generateMetadata() {
   const settings = getSettings();
   const siteName = settings.siteName || 'RiderSaathi';
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
   const title = 'Mobile App REST API Documentation';
   const description =
     'Explore RiderSaathi Android and Flutter mobile application REST APIs for authentication, 10 free trial rides count, rule sync and subscription verification.';
@@ -53,7 +53,7 @@ export default function ApiDocsPage() {
   const settings = getSettings();
 
   return (
-    <div style={{ maxWidth: '1040px', margin: '40px auto 80px', padding: '0 20px' }}>
+    <div className="wrap" style={{ maxWidth: '1040px', margin: '40px auto 80px', padding: '0 20px', minWidth: 0, width: '100%' }}>
       <div style={{ textAlign: 'center', marginBottom: '40px' }}>
         <div
           style={{
@@ -87,9 +87,12 @@ export default function ApiDocsPage() {
             padding: '8px 16px',
             borderRadius: '8px',
             display: 'inline-block',
+            maxWidth: '100%',
+            wordBreak: 'break-word',
+            overflowWrap: 'anywhere',
           }}
         >
-          Base URL: <strong>/api/app</strong> (e.g. <code>http://localhost:3000/api/app</code>)
+          Base URL: <strong>/api/app</strong> (e.g. <code style={{ wordBreak: 'break-all' }}>{settings.siteUrl || 'https://ridersaathi.onrender.com'}/api/app</code>)
         </div>
       </div>
 

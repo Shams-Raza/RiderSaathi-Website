@@ -1,9 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function BuyPlanForm({ plans = [], defaultPlanId = 'week1', initialPhone = '', lang = 'hi', siteName = 'RiderSaathi' }) {
+export default function BuyPlanForm({
+  plans = [],
+  defaultPlanId = 'week1',
+  initialPhone = '',
+  lang = 'hi',
+  siteName = 'RiderSaathi',
+}) {
   const router = useRouter();
   const isEn = lang === 'en';
 
@@ -11,16 +17,36 @@ export default function BuyPlanForm({ plans = [], defaultPlanId = 'week1', initi
   const [phone, setPhone] = useState(initialPhone);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
+  const timerRef = useRef(null);
+
+  // Auto-dismiss success message after 5 seconds
+  useEffect(() => {
+    if (successMsg) {
+      timerRef.current = setTimeout(() => {
+        setSuccessMsg('');
+      }, 5000);
+    }
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [successMsg]);
 
   const selectedPlan = plans.find((p) => p.id === selectedPlanId) || plans[0] || {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (timerRef.current) clearTimeout(timerRef.current);
     setErrorMsg('');
+    setSuccessMsg('');
 
     const cleanPhone = String(phone || '').replace(/\D/g, '').slice(-10);
     if (!cleanPhone || cleanPhone.length !== 10) {
-      setErrorMsg(isEn ? 'Please enter a valid 10-digit mobile number.' : 'कृपया 10 अंकों का मान्य मोबाइल नंबर दर्ज करें.');
+      setErrorMsg(
+        isEn
+          ? 'Please enter a valid 10-digit mobile number.'
+          : 'कृपया 10 अंकों का मान्य मोबाइल नंबर दर्ज करें.'
+      );
       return;
     }
 
@@ -34,29 +60,88 @@ export default function BuyPlanForm({ plans = [], defaultPlanId = 'week1', initi
 
       const data = await res.json();
       if (data.ok && data.redirectUrl) {
+        setSuccessMsg(
+          isEn
+            ? 'Order initiated successfully! Redirecting to UPI payment...'
+            : 'ऑर्डर सफलतापूर्वक तैयार हुआ! UPI पेमेंट पेज पर भेजा जा रहा है...'
+        );
         router.push(data.redirectUrl);
       } else {
-        setErrorMsg(data.error || (isEn ? 'Failed to create order. Please try again.' : 'ऑर्डर बनाने में समस्या आई. कृपया पुनः प्रयास करें.'));
+        setErrorMsg(
+          data.error ||
+            (isEn
+              ? 'Failed to create order. Please try again.'
+              : 'ऑर्डर बनाने में समस्या आई. कृपया पुनः प्रयास करें.')
+        );
         setLoading(false);
       }
     } catch (err) {
-      setErrorMsg(isEn ? 'Network error. Please try again.' : 'नेटवर्क समस्या. कृपया पुनः प्रयास करें.');
+      setErrorMsg(
+        isEn
+          ? 'Failed to connect. Please check your internet connection and try again.'
+          : 'कनेक्शन में समस्या आई. कृपया अपना इंटरनेट चेक करें और पुनः प्रयास करें.'
+      );
       setLoading(false);
     }
   };
 
   return (
     <div className="card" style={{ boxShadow: 'var(--shadow-md)' }}>
-      {errorMsg && (
+      {successMsg && (
         <div
-          className="notice-box danger"
-          style={{ display: 'block', marginBottom: '16px', padding: '12px 16px', borderRadius: 'var(--radius-sm)' }}
+          className="notice-box success"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '16px',
+            padding: '12px 16px',
+            borderRadius: 'var(--radius-sm)',
+          }}
+          role="status"
         >
-          <strong>{isEn ? 'Error:' : 'त्रुटि:'}</strong> {errorMsg}
+          <div>
+            <strong>{isEn ? 'Success!' : 'सफलता!'}</strong> {successMsg}
+          </div>
+          <button
+            type="button"
+            className="notice-box-close"
+            onClick={() => setSuccessMsg('')}
+            aria-label="Dismiss success message"
+          >
+            &times;
+          </button>
         </div>
       )}
 
-      <form className="delform" onSubmit={handleSubmit}>
+      {errorMsg && (
+        <div
+          className="notice-box danger"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '16px',
+            padding: '12px 16px',
+            borderRadius: 'var(--radius-sm)',
+          }}
+          role="alert"
+        >
+          <div>
+            <strong>{isEn ? 'Error:' : 'त्रुटि:'}</strong> {errorMsg}
+          </div>
+          <button
+            type="button"
+            className="notice-box-close"
+            onClick={() => setErrorMsg('')}
+            aria-label="Dismiss error"
+          >
+            &times;
+          </button>
+        </div>
+      )}
+
+      <form className="delform" onSubmit={handleSubmit} noValidate>
         <label htmlFor="phone" style={{ marginTop: 0 }}>
           1. {isEn ? `Your ${siteName} Mobile Number` : `आपका ${siteName} मोबाइल नंबर`}
         </label>
@@ -69,7 +154,11 @@ export default function BuyPlanForm({ plans = [], defaultPlanId = 'week1', initi
             required
             pattern="[0-9]{10}"
             maxLength={10}
-            placeholder={isEn ? '10-digit registered number (e.g. 9876543210)' : '10 अंकों का रजिस्टर्ड नंबर (उदा. 9876543210)'}
+            placeholder={
+              isEn
+                ? '10-digit registered mobile number'
+                : '10 अंकों का रजिस्टर्ड मोबाइल नंबर'
+            }
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             style={{ paddingLeft: '48px', fontSize: '16px', fontWeight: 600 }}
@@ -100,10 +189,10 @@ export default function BuyPlanForm({ plans = [], defaultPlanId = 'week1', initi
         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '8px' }}>
           {plans.map((p) => {
             const isSelected = selectedPlanId === p.id;
-            const pName = isEn ? p.name : (p.name_hi || p.name);
-            const pBadge = isEn ? p.badge : (p.badge_hi || p.badge);
-            const pDuration = isEn ? p.durationText : (p.durationText_hi || p.durationText);
-            const pDesc = isEn ? p.description : (p.description_hi || p.description);
+            const pName = isEn ? p.name : p.name_hi || p.name;
+            const pBadge = isEn ? p.badge : p.badge_hi || p.badge;
+            const pDuration = isEn ? p.durationText : p.durationText_hi || p.durationText;
+            const pDesc = isEn ? p.description : p.description_hi || p.description;
 
             return (
               <label
@@ -196,7 +285,9 @@ export default function BuyPlanForm({ plans = [], defaultPlanId = 'week1', initi
           style={{ width: '100%', marginTop: '26px', padding: '15px', fontSize: '16px' }}
         >
           {loading
-            ? (isEn ? 'Creating Order...' : 'ऑर्डर तैयार हो रहा है...')
+            ? isEn
+              ? 'Creating Order...'
+              : 'ऑर्डर तैयार हो रहा है...'
             : `${isEn ? 'Proceed to UPI Payment' : 'UPI पेमेंट के लिए आगे बढ़ें'} (₹${selectedPlan.price || 0}) →`}
         </button>
       </form>

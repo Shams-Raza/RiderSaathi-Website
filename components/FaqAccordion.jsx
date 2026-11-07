@@ -21,7 +21,16 @@ export default function FaqAccordion({ items = [] }) {
           <div key={item.id || index} className={`faq-item ${isOpen ? 'open' : ''}`}>
             <div
               className="faq-question"
+              role="button"
+              tabIndex={0}
+              aria-expanded={isOpen}
               onClick={() => toggleItem(index)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  toggleItem(index);
+                }
+              }}
               style={{ cursor: 'pointer' }}
             >
               <span>{item.q}</span>

@@ -7,7 +7,7 @@ export const runtime = 'nodejs';
 export async function generateMetadata() {
   const settings = getSettings();
   const siteName = settings.siteName || 'RiderSaathi';
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
   const title = 'About Us & Mission for Captains';
   const description =
     'Learn why RiderSaathi was built by real drivers for bike-taxi, auto and cab captains. Discover our mission, legal ownership, and privacy-first commitments.';
@@ -52,7 +52,7 @@ export async function generateMetadata() {
 
 export default function AboutPage() {
   const settings = getSettings();
-  const baseUrl = process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
 
   return (
     <div className="wrap" style={{ paddingTop: '36px', paddingBottom: '60px' }}>

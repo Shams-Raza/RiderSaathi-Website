@@ -4,7 +4,6 @@ import Link from 'next/link';
 export default function Footer({ settings = {}, lang = 'hi' }) {
   const isEn = lang === 'en';
   const soc = settings.socialLinks || {};
-  const currentYear = new Date().getFullYear();
 
   const getUrl = (val, fallback) => {
     if (!val) return fallback;
@@ -23,7 +22,7 @@ export default function Footer({ settings = {}, lang = 'hi' }) {
         <div className="footer-top-grid">
           {/* Col 1: Brand & Bio */}
           <div className="footer-col brand-col">
-            <Link className="brand" href="/" aria-label="RiderSathi Home" style={{ marginBottom: '14px', display: 'inline-flex' }}>
+            <Link className="brand" href="/" aria-label="RiderSaathi Home" style={{ marginBottom: '14px', display: 'inline-flex' }}>
               <img
                 src="/images/logo.svg"
                 alt={settings.siteName || 'RiderSathi'}
@@ -123,6 +122,7 @@ export default function Footer({ settings = {}, lang = 'hi' }) {
               <Link href="/install">{isEn ? 'Install App' : 'ऐप इनस्टॉल'}</Link>
               <Link href="/guides">{isEn ? 'Driver Guides' : 'ड्राइवर गाइड्स'}</Link>
               <Link href="/faq">{isEn ? 'FAQ' : 'सवाल-जवाब'}</Link>
+              <Link href="/updates">{isEn ? 'Updates & Changelog' : 'अपडेट्स और बदलाव'}</Link>
               <Link href="/about">{isEn ? 'About Us' : 'हमारे बारे में'}</Link>
               <Link href="/contact">{isEn ? 'Contact' : 'संपर्क करें'}</Link>
             </div>
@@ -136,6 +136,7 @@ export default function Footer({ settings = {}, lang = 'hi' }) {
               <Link href="/delivery">{isEn ? 'Delivery & Activation' : 'डिलीवरी और एक्टिवेशन'}</Link>
               <Link href="/terms">{isEn ? 'Terms of Use' : 'नियम और शर्तें'}</Link>
               <Link href="/privacy">{isEn ? 'Privacy Notice' : 'प्राइवेसी नोटिस'}</Link>
+              <Link href="/api-docs">{isEn ? 'API Documentation' : 'एपीआई डॉक्स'}</Link>
             </div>
           </div>
 
@@ -149,17 +150,29 @@ export default function Footer({ settings = {}, lang = 'hi' }) {
               🕒 {settings.supportHours}
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '13.5px' }}>
-              <a href={`mailto:${settings.contactEmail}`} style={{ color: 'var(--brand-primary)', fontWeight: 500 }}>
-                ✉️ {settings.contactEmail}
-              </a>
-              <a
-                href={`https://wa.me/${settings.whatsappNumber}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: 'var(--success)', fontWeight: 600 }}
-              >
-                💬 +{settings.whatsappNumber}
-              </a>
+              {settings.contactEmail && (
+                <a href={`mailto:${settings.contactEmail}`} style={{ color: 'var(--brand-primary)', fontWeight: 500 }}>
+                  ✉️ {settings.contactEmail}
+                </a>
+              )}
+              {settings.supportPhone && (
+                <a
+                  href={`tel:${String(settings.supportPhone).replace(/[^0-9+]/g, '')}`}
+                  style={{ color: 'var(--text-heading)', fontWeight: 500 }}
+                >
+                  📞 {settings.supportPhone}
+                </a>
+              )}
+              {settings.whatsappNumber && (
+                <a
+                  href={`https://wa.me/${String(settings.whatsappNumber).replace(/[^0-9]/g, '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: 'var(--success)', fontWeight: 600 }}
+                >
+                  💬 +{settings.whatsappNumber}
+                </a>
+              )}
               {settings.location && settings.location.googleMapsUrl && (
                 <a
                   href={settings.location.googleMapsUrl}
@@ -192,7 +205,9 @@ export default function Footer({ settings = {}, lang = 'hi' }) {
 
         {/* Copyright Notice */}
         <div className="footer-copyright">
-          {settings.copyrightText || `© ${currentYear} ${settings.legalBusinessName || 'RiderSaathi'}. All rights reserved.`}
+          <p>
+            &copy; {new Date().getFullYear()} {settings.siteName || 'RiderSaathi'}. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

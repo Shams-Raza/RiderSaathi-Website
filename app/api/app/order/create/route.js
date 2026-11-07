@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { readJSON, updateJSON, getPlans, getSettings } from '@/lib/data';
+import { updateJSON, getPlans, getSettings } from '@/lib/data';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';

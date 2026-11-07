@@ -11,6 +11,34 @@ export default function Header({ settings = {}, lang = 'hi' }) {
   const [currentTheme, setCurrentTheme] = useState('light');
   const [currentLang, setCurrentLang] = useState(lang);
 
+  // Prevent background scrolling when mobile drawer is open
+  useEffect(() => {
+    if (mobileNavOpen) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+    };
+  }, [mobileNavOpen]);
+
+  // Close drawer on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && mobileNavOpen) {
+        setMobileNavOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileNavOpen]);
+
+  // Close drawer on route change
+  useEffect(() => {
+    setMobileNavOpen(false);
+  }, [pathname]);
+
   useEffect(() => {
     // Check initial theme from localStorage or document attribute
     const docTheme = document.documentElement.getAttribute('data-theme');
@@ -74,7 +102,7 @@ export default function Header({ settings = {}, lang = 'hi' }) {
 
       <header>
         <div className="wrap header-inner">
-          <Link className="brand" href="/" aria-label="RiderSathi Home">
+          <Link className="brand" href="/" aria-label="RiderSaathi Home">
             <img
               src={currentTheme === 'dark' ? '/images/logo-dark.svg' : '/images/logo.svg'}
               alt={settings.siteName || 'RiderSathi'}
@@ -178,20 +206,175 @@ export default function Header({ settings = {}, lang = 'hi' }) {
             </button>
 
             <button
-              className="mobile-nav-toggle"
+              className="mobile-nav-toggle md:hidden"
               id="navToggle"
-              onClick={() => setMobileNavOpen(!mobileNavOpen)}
-              aria-label="Toggle navigation menu"
+              type="button"
+              onClick={() => setMobileNavOpen((prev) => !prev)}
+              aria-label={mobileNavOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileNavOpen}
+              aria-controls="mobileDrawer"
             >
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <line x1="3" y1="12" x2="21" y2="12"></line>
-                <line x1="3" y1="6" x2="21" y2="6"></line>
-                <line x1="3" y1="18" x2="21" y2="18"></line>
-              </svg>
+              {mobileNavOpen ? (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+              ) : (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="3" y1="12" x2="21" y2="12" />
+                  <line x1="3" y1="6" x2="21" y2="6" />
+                  <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+              )}
             </button>
           </div>
         </div>
       </header>
+
+      {/* Mobile Drawer Overlay Backdrop */}
+      <div
+        className={`mobile-drawer-overlay ${mobileNavOpen ? 'open' : ''}`}
+        onClick={() => setMobileNavOpen(false)}
+        aria-hidden="true"
+      />
+
+      {/* Mobile Drawer Panel */}
+      <aside
+        id="mobileDrawer"
+        className={`mobile-drawer ${mobileNavOpen ? 'open' : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation"
+        aria-hidden={!mobileNavOpen}
+      >
+        <div className="mobile-drawer-header">
+          <Link
+            className="brand"
+            href="/"
+            onClick={() => setMobileNavOpen(false)}
+            aria-label="RiderSaathi Home"
+          >
+            <img
+              src={currentTheme === 'dark' ? '/images/logo-dark.svg' : '/images/logo.svg'}
+              alt={settings.siteName || 'RiderSaathi'}
+              width="140"
+              height="35"
+              className="brand-logo-img"
+            />
+          </Link>
+          <button
+            type="button"
+            className="mobile-drawer-close"
+            onClick={() => setMobileNavOpen(false)}
+            aria-label="Close menu"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+
+        <nav className="mobile-drawer-nav" aria-label="Mobile navigation links">
+          <Link
+            href="/"
+            className={pathname === '/' ? 'active' : ''}
+            onClick={() => setMobileNavOpen(false)}
+          >
+            {content.navHome || (isEn ? 'Home' : 'होम')}
+          </Link>
+          <Link
+            href="/how-it-works"
+            className={pathname === '/how-it-works' ? 'active' : ''}
+            onClick={() => setMobileNavOpen(false)}
+          >
+            {content.navHowItWorks || (isEn ? 'How It Works' : 'कैसे काम करता है')}
+          </Link>
+          <Link
+            href="/pricing"
+            className={pathname === '/pricing' ? 'active' : ''}
+            onClick={() => setMobileNavOpen(false)}
+          >
+            {content.navPricing || (isEn ? 'Pricing' : 'प्लान्स')}
+          </Link>
+          <Link
+            href="/guides"
+            className={pathname.startsWith('/guides') ? 'active' : ''}
+            onClick={() => setMobileNavOpen(false)}
+          >
+            {content.navGuides || (isEn ? 'Guides' : 'गाइड्स')}
+          </Link>
+          <Link
+            href="/faq"
+            className={pathname === '/faq' ? 'active' : ''}
+            onClick={() => setMobileNavOpen(false)}
+          >
+            {content.navFaq || (isEn ? 'FAQ' : 'सवाल-जवाब')}
+          </Link>
+          <Link
+            href="/contact"
+            className={pathname === '/contact' ? 'active' : ''}
+            onClick={() => setMobileNavOpen(false)}
+          >
+            {content.navContact || (isEn ? 'Contact' : 'संपर्क')}
+          </Link>
+        </nav>
+
+        <div className="mobile-drawer-footer">
+          <Link
+            href="/install"
+            className="mobile-drawer-cta"
+            onClick={() => setMobileNavOpen(false)}
+            title={isEn ? "Get Started" : "शुरू करें"}
+          >
+            <span>{isEn ? 'Get Started' : 'शुरू करें'}</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </Link>
+
+          <div className="mobile-drawer-actions">
+            <div className="lang-segmented-control" role="group" aria-label="Language selection">
+              <button
+                type="button"
+                className={`lang-segment ${currentLang === 'en' ? 'active' : ''}`}
+                onClick={() => switchLanguage('en')}
+                title="English"
+              >
+                EN
+              </button>
+              <button
+                type="button"
+                className={`lang-segment ${currentLang === 'hi' ? 'active' : ''}`}
+                onClick={() => switchLanguage('hi')}
+                title="हिंदी"
+              >
+                हिंदी
+              </button>
+            </div>
+
+            <button
+              className="theme-toggle"
+              type="button"
+              onClick={toggleTheme}
+              title="Toggle Light/Dark Theme"
+              aria-label="Toggle theme"
+            >
+              {currentTheme === 'dark' ? (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="5" />
+                  <path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4" />
+                </svg>
+              ) : (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+              )}
+            </button>
+          </div>
+        </div>
+      </aside>
     </>
   );
 }

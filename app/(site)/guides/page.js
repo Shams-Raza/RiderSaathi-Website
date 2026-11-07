@@ -4,7 +4,7 @@ import { getSettings, getGuides } from '@/lib/data';
 
 export async function generateMetadata() {
   const settings = getSettings();
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
   const siteName = settings.siteName || 'RiderSaathi';
   const titleText = 'Guides & Tutorials for Captains';
   const descText =
@@ -93,7 +93,7 @@ export default function GuidesPage() {
             >
               📁 {cat}
             </h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '18px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: '18px' }}>
               {catGuides.map((g) => (
                 <div key={g.slug} className="feature-box">
                   <h4 style={{ marginBottom: '6px' }}>

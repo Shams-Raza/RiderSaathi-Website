@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { readJSON, updateJSON, getSettings } from '@/lib/data';
+import { updateJSON, getSettings } from '@/lib/data';
 import { evaluateDriverAccess } from '@/lib/driver';
 
 export const runtime = 'nodejs';

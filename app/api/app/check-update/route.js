@@ -13,8 +13,8 @@ export async function GET(req) {
     const hasUpdate = currentVersion !== latestVersion;
 
     const rawUrl = settings.apkDownloadUrl || '/downloads/RiderSaathi-v5.28.1.apk';
-    const host = req.headers.get('host') || 'localhost:3000';
-    const protocol = req.headers.get('x-forwarded-proto') || 'http';
+    const host = req.headers.get('host') || 'ridersaathi.onrender.com';
+    const protocol = req.headers.get('x-forwarded-proto') || 'https';
     const apkUrl = rawUrl.startsWith('http') ? rawUrl : `${protocol}://${host}${rawUrl}`;
 
     return NextResponse.json({

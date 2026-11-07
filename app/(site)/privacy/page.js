@@ -6,10 +6,10 @@ export const runtime = 'nodejs';
 export async function generateMetadata() {
   const settings = getSettings();
   const siteName = settings.siteName || 'RiderSaathi';
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
   const title = 'Privacy Policy & Accessibility Safety';
   const description =
-    'Read RiderSaathi official privacy policy. Understand our strict on-device processing, Android accessibility safety restrictions, and zero personal data tracking.';
+    'Read the official RiderSaathi privacy policy. Learn about strict on-device processing, Android accessibility safety, and zero personal data tracking.';
 
   return {
     title,

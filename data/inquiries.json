@@ -1,5 +1,23 @@
 [
   {
+    "id": "INQ-MW61O9VQ",
+    "name": "UX Verification Driver",
+    "phone": "8641011669",
+    "subject": "Other",
+    "message": "Testing user feedback UX improvement message.",
+    "status": "New",
+    "createdAt": "2026-11-07T06:50:54.086Z"
+  },
+  {
+    "id": "INQ-MW5ZNWQH",
+    "name": "Test Captain",
+    "phone": "9876543210",
+    "subject": "Payment & Plan Activation",
+    "message": "This is a test message from automated button audit.",
+    "status": "New",
+    "createdAt": "2026-11-07T05:54:37.817Z"
+  },
+  {
     "id": "INQ-MVS2C0KH",
     "name": "Test Captain",
     "phone": "9876543210",

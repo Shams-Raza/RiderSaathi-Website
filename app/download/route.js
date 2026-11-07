@@ -26,7 +26,7 @@ export async function GET(request) {
     const settings = getSettings();
     const downloadUrl = settings.apkDownloadUrl || '/downloads/RiderSaathi-v5.28.1.apk';
 
-    if (downloadUrl.startsWith('http://') || downloadUrl.startsWith('https://')) {
+    if (/^https?:\/\//i.test(downloadUrl)) {
       return NextResponse.redirect(downloadUrl, 302);
     }
     return NextResponse.redirect(new URL(downloadUrl, request.url), 302);

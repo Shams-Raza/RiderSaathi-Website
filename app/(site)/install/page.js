@@ -4,7 +4,7 @@ import { getSettings, num } from '@/lib/data';
 
 export async function generateMetadata() {
   const settings = getSettings();
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
   const siteName = settings.siteName || 'RiderSaathi';
   const titleText = 'How to Install on Android';
   const descText =

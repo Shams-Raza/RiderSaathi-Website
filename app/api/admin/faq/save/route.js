@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { updateJSON } from '@/lib/data';
 import { getAdminSession } from '@/lib/auth';
@@ -34,6 +35,13 @@ export async function POST(req) {
       }
       return faqs;
     }, []);
+
+    try {
+      revalidatePath('/', 'layout');
+      revalidatePath('/faq');
+    } catch (e) {
+      console.warn('Revalidation warning:', e);
+    }
 
     return NextResponse.json({ success: true, message: 'FAQ saved successfully!', faq: faqData });
   } catch (err) {

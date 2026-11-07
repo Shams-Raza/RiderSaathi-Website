@@ -2,11 +2,11 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { headers, cookies } from 'next/headers';
-import { getSettings, getPlans, getGuides, num, resolveLang } from '@/lib/data';
+import { getSettings, getPlans, num, resolveLang } from '@/lib/data';
 
 export async function generateMetadata({ searchParams }) {
   const settings = getSettings();
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
   const siteName = settings.siteName || 'RiderSaathi';
   const headersList = headers();
   const cookieStore = cookies();
@@ -786,24 +786,24 @@ export default function HomePage({ searchParams }) {
               '@graph': [
                 {
                   '@type': 'Organization',
-                  '@id': `${process.env.SITE_URL || 'http://localhost:3000'}#organization`,
+                  '@id': `${process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com'}#organization`,
                   name: settings.siteName || 'RiderSaathi',
-                  url: process.env.SITE_URL || 'http://localhost:3000',
-                  logo: `${process.env.SITE_URL || 'http://localhost:3000'}/images/icon.svg`,
+                  url: process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com',
+                  logo: `${process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com'}/images/icon.svg`,
                   contactPoint: {
                     '@type': 'ContactPoint',
-                    telephone: `+${settings.whatsappNumber || '919876543210'}`,
+                    telephone: settings.supportPhone || '+91 8641011669',
                     contactType: 'customer support',
                     availableLanguage: ['Hindi', 'English'],
                   },
                 },
                 {
                   '@type': 'WebSite',
-                  '@id': `${process.env.SITE_URL || 'http://localhost:3000'}#website`,
-                  url: process.env.SITE_URL || 'http://localhost:3000',
+                  '@id': `${process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com'}#website`,
+                  url: process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com',
                   name: settings.siteName || 'RiderSaathi',
                   publisher: {
-                    '@id': `${process.env.SITE_URL || 'http://localhost:3000'}#organization`,
+                    '@id': `${process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com'}#organization`,
                   },
                   inLanguage: ['hi', 'en'],
                 },

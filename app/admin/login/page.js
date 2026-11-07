@@ -13,7 +13,7 @@ export async function generateMetadata() {
   const settings = getSettings();
   return {
     title: `Admin Login — ${settings.siteName || 'RiderSaathi'}`,
-    description: 'Secure Administrative Portal for RiderSaathi management.',
+    description: 'Admin login for RiderSaathi.',
     robots: {
       index: false,
       follow: false,

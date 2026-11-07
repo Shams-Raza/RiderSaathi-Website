@@ -5,7 +5,7 @@ import { getSettings, getPlans, num, resolveLang } from '@/lib/data';
 
 export async function generateMetadata({ searchParams }) {
   const settings = getSettings();
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
   const siteName = settings.siteName || 'RiderSaathi';
   const headersList = headers();
   const cookieStore = cookies();
@@ -31,7 +31,7 @@ export async function generateMetadata({ searchParams }) {
   const titleText = isEn ? 'Plans & Pricing' : 'प्लान्स और कीमतें';
   const descText = isEn
     ? 'Explore transparent RiderSaathi subscription passes for Rapido, Uber and Porter captains. 1-Day, 1-Week and 1-Month passes with first 10 rides free.'
-    : 'RiderSaathi के पारदर्शी सब्सक्रिप्शन प्लान्स: 1-दिन, 1-हफ्ता और 1-महीना पास. पहले 10 राइड्स बिल्कुल फ्री, बिना ऑटो-डेबिट या छुपे चार्ज के.';
+    : 'RiderSaathi के पारदर्शी सब्सक्रिप्शन प्लान्स: 1-दिन, 1-हफ्ता और 1-महीना पास. पहले 10 राइड्स बिल्कुल फ्री, बिना ऑटो-डेबिट या किसी छुपे चार्ज के.';
 
   return {
     title: titleText,
@@ -194,7 +194,7 @@ export default function PricingPage({ searchParams }) {
           {isEn ? 'Important Details on Payment & Plan Activation' : 'पेमेंट और प्लान एक्टिवेशन के बारे में जरूरी बातें'}
         </h3>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))', gap: '20px' }}>
           <div
             style={{
               background: 'var(--surface-alt)',

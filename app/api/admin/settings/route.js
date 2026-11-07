@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+import { revalidatePath } from 'next/cache';
 import { updateJSON } from '@/lib/data';
 import { getAdminSession } from '@/lib/auth';
 import { deepMerge } from '@/lib/driver';
@@ -47,6 +47,12 @@ export async function POST(req) {
       updatedResult = merged;
       return merged;
     }, {});
+
+    try {
+      revalidatePath('/', 'layout');
+    } catch (e) {
+      console.warn('Revalidation warning:', e);
+    }
 
     return NextResponse.json({
       success: true,

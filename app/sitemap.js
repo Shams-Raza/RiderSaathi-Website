@@ -3,7 +3,7 @@ import { getGuides } from '@/lib/data';
 export const runtime = 'nodejs';
 
 export default function sitemap() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'https://ridersaathi.onrender.com';
   const lastModified = new Date();
 
   const staticRoutes = [

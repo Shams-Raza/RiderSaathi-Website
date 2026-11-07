@@ -12,7 +12,7 @@ export const runtime = 'nodejs';
 export async function generateMetadata() {
   const settings = getSettings();
   const siteName = settings.siteName || 'RiderSaathi';
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
   const titleText = 'Complete UPI Payment';
   const descText =
     'Scan the QR code or use GPay, PhonePe, or Paytm to complete your RiderSaathi UPI payment. Enter your 12-digit UTR number for instant plan verification.';
@@ -76,7 +76,7 @@ export default async function BuyUpiPage({ searchParams }) {
     plans.find((p) => p.id === planId) ||
     plans[0] || { id: 'week1', name: '1 Week Pass', price: 68, durationText: '7 Din' };
 
-  const phone = order ? order.phone : searchParams?.phone || '9876543210';
+  const phone = order ? order.phone : (searchParams?.phone || '');
   const displayOrderId = orderId || 'ORD-' + Date.now().toString(36).toUpperCase();
 
   const upiId = settings.upiId || 'ridersaathi@upi';
@@ -141,8 +141,12 @@ export default async function BuyUpiPage({ searchParams }) {
           <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--text-body)', marginBottom: '14px' }}>
             {isEn ? plan.name : plan.name_hi || plan.name} (
             {isEn ? plan.durationText : plan.durationText_hi || plan.durationText}{' '}
-            {isEn ? 'Validity' : 'वैलिडिटी'}) &middot;{' '}
-            <strong>+91 {phone}</strong>
+            {isEn ? 'Validity' : 'वैलिडिटी'})
+            {phone && (
+              <>
+                {' '}&middot; <strong>+91 {phone}</strong>
+              </>
+            )}
           </div>
 
           {/* Local QR Code */}
@@ -273,7 +277,7 @@ export default async function BuyUpiPage({ searchParams }) {
           planName={plan.name}
           price={plan.price}
           phone={phone}
-          whatsappNumber={settings.whatsappNumber || '919876543210'}
+          whatsappNumber={settings.whatsappNumber ? `91${String(settings.whatsappNumber).replace(/\D/g, '')}` : '918641011669'}
           lang={lang}
         />
       </div>

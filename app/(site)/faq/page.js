@@ -13,7 +13,7 @@ export async function generateMetadata({ searchParams }) {
   const lang = resolveLang(searchParams, cookieStore, headersList);
   const isEn = lang === 'en';
   const siteName = settings.siteName || 'RiderSaathi';
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
 
   let qLang = null;
   if (searchParams) {

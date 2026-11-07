@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { updateJSON } from '@/lib/data';
 import { getAdminSession } from '@/lib/auth';
@@ -45,6 +46,14 @@ export async function POST(req) {
       }
       return guides;
     }, []);
+
+    try {
+      revalidatePath('/', 'layout');
+      revalidatePath('/guides');
+      revalidatePath(`/guides/${finalSlug}`);
+    } catch (e) {
+      console.warn('Revalidation warning:', e);
+    }
 
     return NextResponse.json({ success: true, message: `Guide "${guideData.title}" saved!`, guide: guideData });
   } catch (err) {

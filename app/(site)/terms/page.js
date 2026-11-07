@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { getSettings } from '@/lib/data';
 
 export const runtime = 'nodejs';
@@ -7,7 +6,7 @@ export const runtime = 'nodejs';
 export async function generateMetadata() {
   const settings = getSettings();
   const siteName = settings.siteName || 'RiderSaathi';
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
   const title = 'Terms of Service & Usage Agreement';
   const description =
     'Read the official Terms of Service for RiderSaathi app. Discover our independent driver utility rules, non-affiliation disclaimer, and captain user agreements.';

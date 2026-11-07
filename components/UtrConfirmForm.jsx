@@ -2,7 +2,15 @@
 
 import React, { useState } from 'react';
 
-export default function UtrConfirmForm({ orderId, initialConfirmed = false, planName = '', price = 0, phone = '', whatsappNumber = '919876543210', lang = 'hi' }) {
+export default function UtrConfirmForm({
+  orderId,
+  initialConfirmed = false,
+  planName = '',
+  price = 0,
+  phone = '',
+  whatsappNumber = '918641011669',
+  lang = 'hi',
+}) {
   const isEn = lang === 'en';
   const [utr, setUtr] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -15,7 +23,11 @@ export default function UtrConfirmForm({ orderId, initialConfirmed = false, plan
 
     const cleanUtr = String(utr || '').trim();
     if (!cleanUtr || cleanUtr.length < 6) {
-      setErrorMsg(isEn ? 'Please enter a valid 12-digit UPI Reference / UTR Number.' : 'कृपया 12-अंकों का मान्य UPI Reference / UTR नंबर दर्ज करें.');
+      setErrorMsg(
+        isEn
+          ? 'Please enter a valid 12-digit UPI Reference / UTR Number.'
+          : 'कृपया 12-अंकों का मान्य UPI Reference / UTR नंबर दर्ज करें.'
+      );
       return;
     }
 
@@ -31,10 +43,19 @@ export default function UtrConfirmForm({ orderId, initialConfirmed = false, plan
       if (data.ok) {
         setConfirmed(true);
       } else {
-        setErrorMsg(data.error || (isEn ? 'Failed to submit UTR. Please try again.' : 'UTR सबमिट करने में समस्या आई. कृपया पुनः प्रयास करें.'));
+        setErrorMsg(
+          data.error ||
+            (isEn
+              ? 'Failed to submit UTR. Please check the number and try again.'
+              : 'UTR सबमिट करने में समस्या आई. कृपया नंबर जांचें और पुनः प्रयास करें.')
+        );
       }
     } catch (err) {
-      setErrorMsg(isEn ? 'Network error. Please try again.' : 'नेटवर्क समस्या. कृपया पुनः प्रयास करें.');
+      setErrorMsg(
+        isEn
+          ? 'Failed to connect. Please check your internet connection and try again.'
+          : 'कनेक्शन में समस्या आई. कृपया अपना इंटरनेट चेक करें और पुनः प्रयास करें.'
+      );
     } finally {
       setSubmitting(false);
     }
@@ -55,6 +76,7 @@ export default function UtrConfirmForm({ orderId, initialConfirmed = false, plan
           textAlign: 'center',
           marginTop: '16px',
         }}
+        role="status"
       >
         <div style={{ fontSize: '36px', marginBottom: '8px' }}>🎉</div>
         <h4 style={{ fontSize: '20px', fontWeight: '800', color: 'var(--success)', marginBottom: '8px' }}>
@@ -103,13 +125,31 @@ export default function UtrConfirmForm({ orderId, initialConfirmed = false, plan
       {errorMsg && (
         <div
           className="notice-box danger"
-          style={{ display: 'block', marginBottom: '16px', padding: '10px 14px', borderRadius: 'var(--radius-sm)' }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '16px',
+            padding: '10px 14px',
+            borderRadius: 'var(--radius-sm)',
+          }}
+          role="alert"
         >
-          <strong>{isEn ? 'Error:' : 'त्रुटि:'}</strong> {errorMsg}
+          <div>
+            <strong>{isEn ? 'Error:' : 'त्रुटि:'}</strong> {errorMsg}
+          </div>
+          <button
+            type="button"
+            className="notice-box-close"
+            onClick={() => setErrorMsg('')}
+            aria-label="Dismiss error"
+          >
+            &times;
+          </button>
         </div>
       )}
 
-      <form className="delform" onSubmit={handleSubmit}>
+      <form className="delform" onSubmit={handleSubmit} noValidate>
         <input type="hidden" name="orderId" value={orderId} />
         <label htmlFor="utr">
           {isEn ? '12-Digit UPI Ref / UTR Number' : '12-अंकों का UPI Ref / UTR नंबर'}
@@ -119,7 +159,7 @@ export default function UtrConfirmForm({ orderId, initialConfirmed = false, plan
           name="utr"
           placeholder="e.g. 429182736451"
           required
-          pattern="[0-9A-Za-z]{8,24}"
+          pattern="[0-9A-Za-z]{6,24}"
           value={utr}
           onChange={(e) => setUtr(e.target.value)}
           style={{ fontFamily: 'var(--font-mono)', fontSize: '16px', fontWeight: 600 }}
@@ -132,7 +172,9 @@ export default function UtrConfirmForm({ orderId, initialConfirmed = false, plan
           style={{ width: '100%', marginTop: '18px', padding: '14px' }}
         >
           {submitting
-            ? (isEn ? 'Verifying UTR...' : 'वेरिफाई हो रहा है...')
+            ? isEn
+              ? 'Verifying UTR...'
+              : 'वेरिफाई हो रहा है...'
             : `✓ ${isEn ? 'Submit UTR & Activate Plan' : 'UTR सबमिट करें और प्लान चालू करें'}`}
         </button>
       </form>
@@ -149,10 +191,7 @@ export default function UtrConfirmForm({ orderId, initialConfirmed = false, plan
           rel="noopener noreferrer"
           style={{ marginTop: '10px', display: 'inline-flex' }}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: '6px' }}>
-            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2z" />
-          </svg>
-          {isEn ? `WhatsApp Support (+${whatsappNumber})` : `व्हाट्सएप सपोर्ट (+${whatsappNumber})`}
+          {isEn ? 'WhatsApp Support' : 'व्हाट्सएप सपोर्ट'}
         </a>
       </div>
     </div>

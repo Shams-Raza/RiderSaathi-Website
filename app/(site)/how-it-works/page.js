@@ -1,11 +1,10 @@
 import React from 'react';
-import Link from 'next/link';
 import { headers, cookies } from 'next/headers';
 import { getSettings, num, resolveLang } from '@/lib/data';
 
 export async function generateMetadata({ searchParams }) {
   const settings = getSettings();
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
   const siteName = settings.siteName || 'RiderSaathi';
   const headersList = headers();
   const cookieStore = cookies();
@@ -33,7 +32,7 @@ export async function generateMetadata({ searchParams }) {
     : 'RiderSaathi कैसे काम करता है — गाइड';
   const descText = isEn
     ? 'Watch step-by-step video tutorial to install RiderSaathi, configure custom ride rules, and auto-accept profitable rides on Rapido, Uber and Porter.'
-    : 'RiderSaathi इनस्टॉल करने, कस्टम राइड रूल्स सेट करने, और रैपिडो, उबर व पोर्टर पर ऑटो-एक्सेप्ट चालू करने का पूरा वीडियो ट्यूटोरियल देखें.';
+    : 'RiderSaathi ऐप इनस्टॉल करने, कस्टम राइड रूल्स सेट करने, और रैपिडो, उबर व पोर्टर पर ऑटो-एक्सेप्ट चालू करने का पूरा आधिकारिक वीडियो ट्यूटोरियल देखें.';
 
   return {
     title: titleText,

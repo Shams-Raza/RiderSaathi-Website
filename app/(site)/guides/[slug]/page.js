@@ -17,16 +17,25 @@ export async function generateMetadata({ params }) {
   const guides = getGuides();
   const guide = guides.find((g) => g.slug === params.slug);
   const siteName = settings.siteName || 'RiderSaathi';
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
 
   if (!guide) {
-    return {
-      title: `Guide Not Found — ${siteName}`,
-    };
+    notFound();
   }
 
   const title = `${guide.title} Guide`;
-  const description = guide.summary || `Complete step-by-step driver tutorial: ${guide.title} on RiderSaathi.`;
+  let description = guide.summary;
+  if (!description && guide.content) {
+    description = guide.content.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  }
+  if (!description) {
+    description = `Complete step-by-step driver tutorial: ${guide.title} on RiderSaathi.`;
+  }
+  if (description.length > 158) {
+    description = description.slice(0, 155).trim() + '...';
+  } else if (description.length < 140) {
+    description = (description + ' Complete step-by-step driver tutorial on RiderSaathi.').slice(0, 158);
+  }
   const canonicalUrl = `${baseUrl}/guides/${guide.slug}`;
 
   return {
@@ -73,7 +82,7 @@ export default function GuideDetailPage({ params }) {
   const settings = getSettings();
   const guides = getGuides();
   const guide = guides.find((g) => g.slug === params.slug);
-  const baseUrl = process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
   const siteName = settings.siteName || 'RiderSaathi';
 
   if (!guide) {

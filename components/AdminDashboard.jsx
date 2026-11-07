@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 export default function AdminDashboard({
@@ -22,6 +22,8 @@ export default function AdminDashboard({
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const [theme, setTheme] = useState('light');
   const [toast, setToast] = useState({ message: '', type: 'success', visible: false });
+  const [savingFormId, setSavingFormId] = useState(null);
+  const toastTimerRef = useRef(null);
 
   // Store token in localStorage / sessionStorage so API calls are always authenticated
   useEffect(() => {
@@ -54,7 +56,7 @@ export default function AdminDashboard({
   };
 
   // Data state
-  const [settings, setSettings] = useState(initialSettings || {});
+  const [settings, setSettings] = useState({ siteUrl: '', ...(initialSettings || {}) });
   const [plans, setPlans] = useState(initialPlans || []);
   const [faqs, setFaqs] = useState(initialFaqs || []);
   const [guides, setGuides] = useState(initialGuides || []);
@@ -122,10 +124,25 @@ export default function AdminDashboard({
   };
 
   const showToast = (message, type = 'success') => {
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current);
+      toastTimerRef.current = null;
+    }
     setToast({ message, type, visible: true });
-    setTimeout(() => {
-      setToast(prev => ({ ...prev, visible: false }));
-    }, 3500);
+    // Auto-dismiss ONLY if success. Keep error visible until dismissed or user tries again.
+    if (type === 'success') {
+      toastTimerRef.current = setTimeout(() => {
+        setToast((prev) => ({ ...prev, visible: false }));
+      }, 5000);
+    }
+  };
+
+  const hideToast = () => {
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current);
+      toastTimerRef.current = null;
+    }
+    setToast((prev) => ({ ...prev, visible: false }));
   };
 
   // Helper to parse nested forms
@@ -173,6 +190,8 @@ export default function AdminDashboard({
   // Generic Settings Submitter
   const handleSettingsSubmit = async (e, successMsg = 'Settings saved successfully!') => {
     e.preventDefault();
+    const formId = e.target?.id || 'settingsForm';
+    setSavingFormId(formId);
     const data = serializeFormToNestedObject(e.target);
     try {
       const res = await adminFetch('/api/admin/settings', {
@@ -189,6 +208,8 @@ export default function AdminDashboard({
       }
     } catch (err) {
       showToast('Network error while saving settings', 'error');
+    } finally {
+      setSavingFormId(null);
     }
   };
 
@@ -283,7 +304,7 @@ export default function AdminDashboard({
 
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
-      const res = await fetch(`/api/admin/orders/${orderId}/status`, {
+      const res = await adminFetch(`/api/admin/orders/${orderId}/status`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus }),
@@ -301,7 +322,7 @@ export default function AdminDashboard({
   // Inquiry Actions
   const updateInquiryStatus = async (inquiryId, newStatus) => {
     try {
-      const res = await fetch(`/api/admin/inquiries/${inquiryId}/status`, {
+      const res = await adminFetch(`/api/admin/inquiries/${inquiryId}/status`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus }),
@@ -363,6 +384,7 @@ export default function AdminDashboard({
 
   const handlePlanFormSubmit = async (e) => {
     e.preventDefault();
+    setSavingFormId('planForm');
     try {
       const res = await adminFetch('/api/admin/plans/save', {
         method: 'POST',
@@ -387,6 +409,8 @@ export default function AdminDashboard({
       }
     } catch {
       showToast('Error saving plan', 'error');
+    } finally {
+      setSavingFormId(null);
     }
   };
 
@@ -435,6 +459,7 @@ export default function AdminDashboard({
 
   const handleGuideFormSubmit = async (e) => {
     e.preventDefault();
+    setSavingFormId('guideForm');
     try {
       const res = await adminFetch('/api/admin/guides/save', {
         method: 'POST',
@@ -460,6 +485,8 @@ export default function AdminDashboard({
       }
     } catch {
       showToast('Error saving guide', 'error');
+    } finally {
+      setSavingFormId(null);
     }
   };
 
@@ -492,6 +519,7 @@ export default function AdminDashboard({
 
   const handleFaqFormSubmit = async (e) => {
     e.preventDefault();
+    setSavingFormId('faqForm');
     try {
       const res = await adminFetch('/api/admin/faq/save', {
         method: 'POST',
@@ -516,6 +544,8 @@ export default function AdminDashboard({
       }
     } catch {
       showToast('Error saving FAQ', 'error');
+    } finally {
+      setSavingFormId(null);
     }
   };
 
@@ -538,6 +568,7 @@ export default function AdminDashboard({
   // Credentials Action
   const handleCredentialsSubmit = async (e) => {
     e.preventDefault();
+    setSavingFormId('credentialsForm');
     const currentPassword = e.target.currentPassword.value;
     const newEmail = e.target.newEmail.value;
     const newPassword = e.target.newPassword.value;
@@ -545,6 +576,7 @@ export default function AdminDashboard({
 
     if (newPassword && newPassword !== confirmPassword) {
       showToast('New Passwords do not match!', 'error');
+      setSavingFormId(null);
       return;
     }
 
@@ -564,6 +596,8 @@ export default function AdminDashboard({
       }
     } catch {
       showToast('Network error while updating credentials', 'error');
+    } finally {
+      setSavingFormId(null);
     }
   };
 
@@ -606,6 +640,15 @@ export default function AdminDashboard({
       </div>
 
       <div className="admin-layout">
+        {/* Mobile Sidebar Backdrop Overlay */}
+        {mobileSidebarOpen && (
+          <div
+            className="admin-sidebar-backdrop"
+            onClick={() => setMobileSidebarOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+
         {/* Sidebar Navigation */}
         <aside className={`admin-sidebar ${mobileSidebarOpen ? 'open' : ''}`} id="adminSidebar">
           <Link className="admin-brand" href="/admin">
@@ -763,7 +806,19 @@ export default function AdminDashboard({
             <Link href="/" target="_blank" className="btn-outline" style={{ textDecoration: 'none', fontSize: '12.5px' }}>
               🌐 View Live Site
             </Link>
-            <Link href="/admin/logout" className="btn-outline" style={{ textDecoration: 'none', color: 'var(--admin-danger)', fontSize: '12.5px' }}>
+            <Link
+              href="/admin/logout"
+              className="btn-outline"
+              style={{ textDecoration: 'none', color: 'var(--admin-danger)', fontSize: '12.5px' }}
+              onClick={() => {
+                if (typeof window !== 'undefined') {
+                  try {
+                    localStorage.removeItem('admin_token');
+                    sessionStorage.removeItem('admin_token');
+                  } catch {}
+                }
+              }}
+            >
               🚪 Log Out
             </Link>
           </div>
@@ -795,8 +850,21 @@ export default function AdminDashboard({
 
           {/* Toast Notification Message */}
           {toast.visible && (
-            <div id="adminToast" className={`toast-msg ${toast.type}`} style={{ display: 'block' }}>
-              {toast.message}
+            <div
+              id="adminToast"
+              className={`toast-msg ${toast.type}`}
+              role={toast.type === 'error' ? 'alert' : 'status'}
+            >
+              <span style={{ flex: 1 }}>{toast.message}</span>
+              <button
+                type="button"
+                className="toast-close"
+                onClick={hideToast}
+                aria-label="Dismiss notification"
+                title="Dismiss"
+              >
+                &times;
+              </button>
             </div>
           )}
 
@@ -995,7 +1063,9 @@ export default function AdminDashboard({
                 </div>
 
                 <div className="form-actions">
-                  <button type="submit" className="btn-primary">💾 Save Website Numbers</button>
+                  <button type="submit" className="btn-primary" disabled={savingFormId === 'numbersSettingsForm'}>
+                    {savingFormId === 'numbersSettingsForm' ? '⏳ Saving Numbers...' : '💾 Save Website Numbers'}
+                  </button>
                   <Link href="/" target="_blank" className="btn-outline" style={{ textDecoration: 'none' }}>View Website &rarr;</Link>
                 </div>
               </form>
@@ -1083,7 +1153,9 @@ export default function AdminDashboard({
                 </div>
 
                 <div className="form-actions" style={{ marginTop: '24px' }}>
-                  <button type="submit" className="btn-primary">💾 Save Bilingual Content</button>
+                  <button type="submit" className="btn-primary" disabled={savingFormId === 'bilingualCmsForm'}>
+                    {savingFormId === 'bilingualCmsForm' ? '⏳ Saving Content...' : '💾 Save Bilingual Content'}
+                  </button>
                 </div>
               </form>
             </div>
@@ -1180,7 +1252,9 @@ export default function AdminDashboard({
                 </div>
 
                 <div className="form-actions" style={{ marginTop: '24px' }}>
-                  <button type="submit" className="btn-primary">💾 Save Video &amp; Tutorial Settings</button>
+                  <button type="submit" className="btn-primary" disabled={savingFormId === 'howItWorksForm'}>
+                  {savingFormId === 'howItWorksForm' ? '⏳ Saving Video...' : '💾 Save Video & Tutorial Settings'}
+                </button>
                 </div>
               </form>
             </div>
@@ -1210,7 +1284,9 @@ export default function AdminDashboard({
                   </div>
                 </div>
                 <div className="form-actions" style={{ marginTop: '20px' }}>
-                  <button type="submit" className="btn-primary">💾 Save Social Links</button>
+                  <button type="submit" className="btn-primary" disabled={savingFormId === 'socialSettingsForm'}>
+                  {savingFormId === 'socialSettingsForm' ? '⏳ Saving Links...' : '💾 Save Social Links'}
+                </button>
                 </div>
               </form>
             </div>
@@ -1236,7 +1312,9 @@ export default function AdminDashboard({
                   </div>
                 </div>
                 <div className="form-actions" style={{ marginTop: '20px' }}>
-                  <button type="submit" className="btn-primary">💾 Save Location</button>
+                  <button type="submit" className="btn-primary" disabled={savingFormId === 'locationSettingsForm'}>
+                  {savingFormId === 'locationSettingsForm' ? '⏳ Saving Location...' : '💾 Save Location'}
+                </button>
                 </div>
               </form>
             </div>
@@ -1262,7 +1340,9 @@ export default function AdminDashboard({
                   </div>
                 </div>
                 <div className="form-actions" style={{ marginTop: '20px' }}>
-                  <button type="submit" className="btn-primary">💾 Save APK Details</button>
+                  <button type="submit" className="btn-primary" disabled={savingFormId === 'appSettingsForm'}>
+                  {savingFormId === 'appSettingsForm' ? '⏳ Saving APK Details...' : '💾 Save APK Details'}
+                </button>
                 </div>
               </form>
             </div>
@@ -1423,7 +1503,7 @@ export default function AdminDashboard({
                               <div style={{ fontSize: '11px', color: 'var(--admin-muted)' }}>free rides</div>
                             </td>
                             <td>
-                              <span className={`badge-tag ${subBadge}`}>
+                              <span className={`badge-tag ${subBadge}`} suppressHydrationWarning>
                                 {subText}
                               </span>
                             </td>
@@ -1497,7 +1577,7 @@ export default function AdminDashboard({
                     <tbody>
                       {filteredOrders.map(ord => (
                         <tr key={ord.id}>
-                          <td>{new Date(ord.createdAt).toLocaleString()}</td>
+                          <td suppressHydrationWarning>{ord.createdAt ? new Date(ord.createdAt).toLocaleString() : 'N/A'}</td>
                           <td><code>{ord.id}</code></td>
                           <td><strong>{ord.phone}</strong></td>
                           <td>{ord.planName}</td>
@@ -1561,7 +1641,7 @@ export default function AdminDashboard({
                     <tbody>
                       {inquiries.map(inq => (
                         <tr key={inq.id}>
-                          <td>{new Date(inq.createdAt).toLocaleString()}</td>
+                          <td suppressHydrationWarning>{inq.createdAt ? new Date(inq.createdAt).toLocaleString() : 'N/A'}</td>
                           <td><strong>{inq.name}</strong></td>
                           <td><code>{inq.phone}</code></td>
                           <td>{inq.subject}</td>
@@ -1612,7 +1692,9 @@ export default function AdminDashboard({
                   </div>
                 </div>
                 <div className="form-actions" style={{ marginTop: '20px' }}>
-                  <button type="submit" className="btn-primary">💾 Save Contact Settings</button>
+                  <button type="submit" className="btn-primary" disabled={savingFormId === 'contactSettingsForm'}>
+                  {savingFormId === 'contactSettingsForm' ? '⏳ Saving Contact...' : '💾 Save Contact Settings'}
+                </button>
                 </div>
               </form>
             </div>
@@ -1638,7 +1720,9 @@ export default function AdminDashboard({
                   </div>
                 </div>
                 <div className="form-actions" style={{ marginTop: '20px' }}>
-                  <button type="submit" className="btn-primary">💾 Save Company &amp; Footer</button>
+                  <button type="submit" className="btn-primary" disabled={savingFormId === 'footerSettingsForm'}>
+                  {savingFormId === 'footerSettingsForm' ? '⏳ Saving Footer...' : '💾 Save Company & Footer'}
+                </button>
                 </div>
               </form>
             </div>
@@ -1662,9 +1746,23 @@ export default function AdminDashboard({
                     <label>Meta Keywords</label>
                     <input type="text" name="seoKeywords" defaultValue={settings.seoKeywords || ''} />
                   </div>
+                  <div className="form-group full-width">
+                    <label>Official Site URL</label>
+                    <input
+                      type="url"
+                      name="siteUrl"
+                      defaultValue={settings.siteUrl || ''}
+                      placeholder="https://ridersaathi.onrender.com"
+                    />
+                    <div className="field-hint" style={{ marginTop: '4px' }}>
+                      This URL is used for canonical tags, sitemap, robots.txt, and social sharing previews. Change only if you migrate to a custom domain.
+                    </div>
+                  </div>
                 </div>
                 <div className="form-actions" style={{ marginTop: '20px' }}>
-                  <button type="submit" className="btn-primary">💾 Save SEO Settings</button>
+                  <button type="submit" className="btn-primary" disabled={savingFormId === 'seoSettingsForm'}>
+                  {savingFormId === 'seoSettingsForm' ? '⏳ Saving SEO...' : '💾 Save SEO Settings'}
+                </button>
                 </div>
               </form>
             </div>
@@ -1686,7 +1784,9 @@ export default function AdminDashboard({
                   </div>
                 </div>
                 <div className="form-actions" style={{ marginTop: '20px' }}>
-                  <button type="submit" className="btn-primary">💾 Save Payment Settings</button>
+                  <button type="submit" className="btn-primary" disabled={savingFormId === 'paymentSettingsForm'}>
+                  {savingFormId === 'paymentSettingsForm' ? '⏳ Saving Payment...' : '💾 Save Payment Settings'}
+                </button>
                 </div>
               </form>
             </div>
@@ -1716,7 +1816,9 @@ export default function AdminDashboard({
                   </div>
                 </div>
                 <div className="form-actions" style={{ marginTop: '20px' }}>
-                  <button type="submit" className="btn-primary">🔒 Update Credentials</button>
+                  <button type="submit" className="btn-primary" disabled={savingFormId === 'credentialsForm'}>
+                    {savingFormId === 'credentialsForm' ? '⏳ Updating Credentials...' : '🔒 Update Credentials'}
+                  </button>
                 </div>
               </form>
             </div>
@@ -1841,7 +1943,9 @@ export default function AdminDashboard({
                   </div>
                 </div>
                 <div className="form-actions" style={{ marginTop: '20px' }}>
-                  <button type="submit" className="btn-primary">Save Plan</button>
+                  <button type="submit" className="btn-primary" disabled={savingFormId === 'planForm'}>
+                {savingFormId === 'planForm' ? '⏳ Saving Plan...' : 'Save Plan'}
+              </button>
                   <button type="button" className="btn-outline" onClick={() => setPlanModalOpen(false)}>Cancel</button>
                 </div>
               </form>
@@ -1909,7 +2013,9 @@ export default function AdminDashboard({
                   </div>
                 </div>
                 <div className="form-actions" style={{ marginTop: '20px' }}>
-                  <button type="submit" className="btn-primary">Save Guide</button>
+                  <button type="submit" className="btn-primary" disabled={savingFormId === 'guideForm'}>
+                {savingFormId === 'guideForm' ? '⏳ Saving Guide...' : 'Save Guide'}
+              </button>
                   <button type="button" className="btn-outline" onClick={() => setGuideModalOpen(false)}>Cancel</button>
                 </div>
               </form>
@@ -1949,7 +2055,9 @@ export default function AdminDashboard({
                   ></textarea>
                 </div>
                 <div className="form-actions" style={{ marginTop: '20px' }}>
-                  <button type="submit" className="btn-primary">Save FAQ</button>
+                  <button type="submit" className="btn-primary" disabled={savingFormId === 'faqForm'}>
+                {savingFormId === 'faqForm' ? '⏳ Saving FAQ...' : 'Save FAQ'}
+              </button>
                   <button type="button" className="btn-outline" onClick={() => setFaqModalOpen(false)}>Cancel</button>
                 </div>
               </form>

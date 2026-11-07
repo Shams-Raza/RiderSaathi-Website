@@ -8,7 +8,7 @@ export const runtime = 'nodejs';
 export async function generateMetadata({ searchParams }) {
   const settings = getSettings();
   const siteName = settings.siteName || 'RiderSaathi';
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
   const headersList = headers();
   const cookieStore = cookies();
   const lang = resolveLang(searchParams, cookieStore, headersList);
@@ -34,8 +34,8 @@ export async function generateMetadata({ searchParams }) {
     ? 'Contact Us & Captain Helpline Support'
     : 'हमसे संपर्क करें और हेल्पलाइन सपोर्ट';
   const description = isEn
-    ? 'Get in touch with RiderSaathi customer support team for instant app activation, subscription inquiries, ride filter rules guidance, and official helpline assistance.'
-    : 'RiderSaathi सपोर्ट टीम से संपर्क करें: तुरंत ऐप एक्टिवेशन, सब्सक्रिप्शन पूछताछ, राइड रूल्स गाइडेंस और आधिकारिक हेल्पलाइन सहायता.';
+    ? 'Contact RiderSaathi driver support for instant app activation, subscription inquiries, ride filter rules assistance, and official customer helpline desk.'
+    : 'RiderSaathi सपोर्ट टीम से संपर्क करें: तुरंत ऐप एक्टिवेशन, सब्सक्रिप्शन पूछताछ, राइड रूल्स गाइडेंस और 24x7 आधिकारिक ड्राइवर हेल्पलाइन सहायता.';
 
   return {
     title,
@@ -94,10 +94,11 @@ export default function ContactPage({ searchParams }) {
         <h1
           style={{
             fontFamily: 'var(--font-heading)',
-            fontSize: '38px',
+            fontSize: 'clamp(24px, 5.5vw, 38px)',
             fontWeight: 800,
             color: 'var(--text-heading)',
             letterSpacing: '-0.8px',
+            lineHeight: 1.25,
           }}
         >
           {isEn ? `Contact ${settings.siteName || 'RiderSaathi'} Support` : `${settings.siteName || 'RiderSaathi'} सपोर्ट से संपर्क करें`}
@@ -109,7 +110,7 @@ export default function ContactPage({ searchParams }) {
         </p>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '28px' }}>
+      <div className="contact-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '28px' }}>
         {/* Left Column: Direct Info & Location */}
         <div>
           <div className="card" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -157,6 +158,38 @@ export default function ContactPage({ searchParams }) {
                   </a>
                 </div>
               </div>
+
+              {settings.supportPhone && (
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                  <div
+                    style={{
+                      width: '40px',
+                      height: '40px',
+                      background: '#eff6ff',
+                      color: '#2563eb',
+                      borderRadius: '10px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0,
+                      fontSize: '18px',
+                    }}
+                  >
+                    📞
+                  </div>
+                  <div>
+                    <strong style={{ color: 'var(--text-heading)', fontSize: '14.5px', display: 'block' }}>
+                      {isEn ? 'Direct Phone Helpline' : 'कॉल हेल्पलाइन'}
+                    </strong>
+                    <a
+                      href={`tel:${String(settings.supportPhone).replace(/[^0-9+]/g, '')}`}
+                      style={{ fontSize: '14px', fontWeight: 600, color: 'var(--brand-primary)', minHeight: '44px', display: 'inline-flex', alignItems: 'center' }}
+                    >
+                      {settings.supportPhone}
+                    </a>
+                  </div>
+                </div>
+              )}
 
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
                 <div
@@ -238,7 +271,7 @@ export default function ContactPage({ searchParams }) {
                   <strong style={{ color: 'var(--text-heading)', fontSize: '14.5px', display: 'block' }}>
                     {isEn ? 'Office Address' : 'ऑफिस का पता'}
                   </strong>
-                  <span style={{ fontSize: '13.5px', color: 'var(--text-body)', lineHeight: 1.5, display: 'block' }}>
+                  <span style={{ fontSize: '13.5px', color: 'var(--text-body)', lineHeight: 1.5, display: 'block', overflowWrap: 'break-word', wordBreak: 'normal' }}>
                     {loc.address || settings.officeAddress}
                   </span>
                   {loc.googleMapsUrl && (
@@ -337,7 +370,7 @@ export default function ContactPage({ searchParams }) {
             '@context': 'https://schema.org',
             '@type': 'ContactPage',
             name: `Contact ${settings.siteName || 'RiderSaathi'}`,
-            url: `${process.env.SITE_URL || 'http://localhost:3000'}/contact`,
+            url: `${process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com'}/contact`,
             description:
               'Official contact and driver customer support desk for RiderSaathi app subscriptions and troubleshooting.',
             mainEntity: {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 
 export default function AdminLoginForm({ initialError = '', initialEmail = '', siteName = 'RiderSaathi' }) {
@@ -8,11 +8,26 @@ export default function AdminLoginForm({ initialError = '', initialEmail = '', s
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState(initialError);
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    if (success) {
+      timerRef.current = setTimeout(() => {
+        setSuccess('');
+      }, 5000);
+    }
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [success]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (timerRef.current) clearTimeout(timerRef.current);
     setError('');
+    setSuccess('');
     setLoading(true);
 
     try {
@@ -20,7 +35,7 @@ export default function AdminLoginForm({ initialError = '', initialEmail = '', s
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email: email.trim(), password }),
       });
 
       const data = await res.json();
@@ -31,13 +46,16 @@ export default function AdminLoginForm({ initialError = '', initialEmail = '', s
             sessionStorage.setItem('admin_token', data.token);
           } catch {}
         }
-        window.location.href = data.redirectUrl || '/admin';
+        setSuccess('Authentication successful! Redirecting to Control Center...');
+        setTimeout(() => {
+          window.location.href = data.redirectUrl || '/admin';
+        }, 500);
       } else {
         setError(data.error || 'Invalid email address or password.');
         setLoading(false);
       }
     } catch (err) {
-      setError('Network error. Please try again.');
+      setError('Failed to connect to authentication server. Please verify your connection.');
       setLoading(false);
     }
   };
@@ -46,26 +64,32 @@ export default function AdminLoginForm({ initialError = '', initialEmail = '', s
     <div className="login-card">
       {/* Brand Header */}
       <div className="login-brand-header">
-        <div className="login-logo-wrap">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/images/logo.svg"
-            alt={siteName}
-            className="login-brand-logo"
-            width="160"
-            height="38"
-            onError={(e) => {
-              // Graceful fallback if SVG fails
-              e.currentTarget.style.display = 'none';
-              const fallback = document.getElementById('login-brand-fallback');
-              if (fallback) fallback.style.display = 'flex';
-            }}
-          />
-          <div id="login-brand-fallback" className="login-brand-fallback" style={{ display: 'none' }}>
-            <span className="brand-fallback-icon">⚡</span>
-            <span className="brand-fallback-text">{siteName}</span>
+        <Link href="/" className="login-logo-link" aria-label="RiderSaathi Home">
+          <div className="login-logo-wrap">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/logo-dark.svg"
+              alt={siteName}
+              className="login-brand-logo"
+              width="170"
+              height="42"
+              onError={(e) => {
+                if (e.currentTarget.src.indexOf('/logo-dark.svg') !== -1 && !e.currentTarget.dataset.retried) {
+                  e.currentTarget.dataset.retried = 'true';
+                  e.currentTarget.src = '/images/logo-dark.svg';
+                } else {
+                  e.currentTarget.style.display = 'none';
+                  const fallback = document.getElementById('login-brand-fallback');
+                  if (fallback) fallback.style.display = 'flex';
+                }
+              }}
+            />
+            <div id="login-brand-fallback" className="login-brand-fallback" style={{ display: 'none' }}>
+              <span className="brand-fallback-icon">⚡</span>
+              <span className="brand-fallback-text">{siteName}</span>
+            </div>
           </div>
-        </div>
+        </Link>
 
         <div className="login-portal-pill">
           <span className="portal-pill-dot" />
@@ -79,6 +103,31 @@ export default function AdminLoginForm({ initialError = '', initialEmail = '', s
           Manage driver fleet, verify payments, update pricing plans, and monitor live metrics.
         </p>
       </div>
+
+      {success && (
+        <div className="login-alert success" role="status">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            style={{ flexShrink: 0, marginTop: '2px' }}
+          >
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span style={{ flex: 1 }}>{success}</span>
+          <button
+            type="button"
+            className="login-alert-close"
+            onClick={() => setSuccess('')}
+            aria-label="Dismiss message"
+          >
+            &times;
+          </button>
+        </div>
+      )}
 
       {error && (
         <div className="login-alert" role="alert">
@@ -95,7 +144,15 @@ export default function AdminLoginForm({ initialError = '', initialEmail = '', s
             <line x1="12" y1="8" x2="12" y2="12"></line>
             <line x1="12" y1="16" x2="12.01" y2="16"></line>
           </svg>
-          <span>{error}</span>
+          <span style={{ flex: 1 }}>{error}</span>
+          <button
+            type="button"
+            className="login-alert-close"
+            onClick={() => setError('')}
+            aria-label="Dismiss error"
+          >
+            &times;
+          </button>
         </div>
       )}
 
@@ -193,7 +250,7 @@ export default function AdminLoginForm({ initialError = '', initialEmail = '', s
         <Link href="/" className="login-back-link">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <line x1="19" y1="12" x2="5" y2="12"></line>
-            <polyline points="12 19 5 12 12 5"></polyline>
+            <polyline points="12 19 5 12 12 19"></polyline>
           </svg>
           <span>Return to RiderSaathi Website</span>
         </Link>

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 export default function ContactForm({ lang = 'hi' }) {
   const isEn = lang === 'en';
@@ -12,6 +12,19 @@ export default function ContactForm({ lang = 'hi' }) {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [alert, setAlert] = useState(null);
+  const timerRef = useRef(null);
+
+  // Auto-dismiss success messages after 5 seconds
+  useEffect(() => {
+    if (alert && alert.type === 'success') {
+      timerRef.current = setTimeout(() => {
+        setAlert(null);
+      }, 5000);
+    }
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [alert]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,6 +33,22 @@ export default function ContactForm({ lang = 'hi' }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (timerRef.current) clearTimeout(timerRef.current);
+
+    const cleanName = (formData.name || '').trim();
+    const cleanPhone = (formData.phone || '').replace(/\D/g, '').slice(-10);
+    const cleanMessage = (formData.message || '').trim();
+
+    if (!cleanName || cleanPhone.length !== 10 || !cleanMessage) {
+      setAlert({
+        type: 'error',
+        message: isEn
+          ? 'Please fill in all fields with a valid 10-digit mobile number.'
+          : 'कृपया सभी फ़ील्ड्स और 10 अंकों का मान्य मोबाइल नंबर भरें.',
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     setAlert(null);
 
@@ -27,7 +56,12 @@ export default function ContactForm({ lang = 'hi' }) {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          name: cleanName,
+          phone: cleanPhone,
+          message: cleanMessage,
+        }),
       });
       const result = await res.json();
       if (result.ok || result.success) {
@@ -41,20 +75,25 @@ export default function ContactForm({ lang = 'hi' }) {
           type: 'success',
           message: isEn
             ? 'Message Received! We have received your query. Our support team will get back to you on WhatsApp or call shortly.'
-            : 'Aapka sandesh mil gaya hai. Hamari support team aapse WhatsApp ya call par jald revert karegi.',
+            : 'आपका संदेश प्राप्त हो गया है. हमारी सपोर्ट टीम आपसे WhatsApp या कॉल पर जल्द संपर्क करेगी.',
         });
       } else {
         setAlert({
           type: 'error',
-          message: result.error || result.message || (isEn ? 'Could not send message.' : 'Sandesh bhejne me samasya aayi.'),
+          message:
+            result.error ||
+            result.message ||
+            (isEn
+              ? 'Could not send message. Please try again.'
+              : 'संदेश भेजने में समस्या आई. कृपया पुनः प्रयास करें.'),
         });
       }
     } catch (err) {
       setAlert({
         type: 'error',
         message: isEn
-          ? 'Network error. Please try again or WhatsApp directly.'
-          : 'Network error. Kripya dubara koshish karein ya seedhe WhatsApp karein.',
+          ? 'Failed to connect. Please check your internet connection or contact us via WhatsApp.'
+          : 'कनेक्ट करने में समस्या आई. कृपया अपना इंटरनेट चेक करें या सीधे WhatsApp पर संपर्क करें.',
       });
     } finally {
       setIsSubmitting(false);
@@ -67,14 +106,41 @@ export default function ContactForm({ lang = 'hi' }) {
         <div
           id="contactAlert"
           className={`notice-box ${alert.type === 'success' ? 'success' : 'danger'}`}
-          style={{ display: 'block', marginBottom: '16px', padding: '12px 16px', borderRadius: 'var(--radius-sm)' }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            marginBottom: '16px',
+            padding: '12px 16px',
+            borderRadius: 'var(--radius-sm)',
+          }}
+          role="alert"
         >
-          <strong>{alert.type === 'success' ? (isEn ? 'Success!' : 'संदेश प्राप्त!') : (isEn ? 'Error!' : 'त्रुटि!')}</strong>{' '}
-          {alert.message}
+          <div>
+            <strong>
+              {alert.type === 'success'
+                ? isEn
+                  ? 'Success!'
+                  : 'संदेश प्राप्त!'
+                : isEn
+                ? 'Error!'
+                : 'त्रुटि!'}
+            </strong>{' '}
+            {alert.message}
+          </div>
+          <button
+            type="button"
+            className="notice-box-close"
+            onClick={() => setAlert(null)}
+            aria-label="Dismiss alert"
+            title={isEn ? 'Dismiss' : 'हटाएं'}
+          >
+            &times;
+          </button>
         </div>
       )}
 
-      <form id="contactForm" className="delform" onSubmit={handleSubmit}>
+      <form id="contactForm" className="delform" onSubmit={handleSubmit} noValidate>
         <label htmlFor="cName" style={{ marginTop: 0 }}>
           {isEn ? 'Your Name' : 'आपका नाम'}
         </label>
@@ -127,8 +193,19 @@ export default function ContactForm({ lang = 'hi' }) {
           onChange={handleChange}
         ></textarea>
 
-        <button type="submit" className="btn" style={{ width: '100%', marginTop: '18px', padding: '13px' }} disabled={isSubmitting}>
-          {isSubmitting ? (isEn ? 'Sending message...' : 'भेजा जा रहा है...') : (isEn ? 'Submit Message' : 'संदेश भेजें')}
+        <button
+          type="submit"
+          className="btn"
+          style={{ width: '100%', marginTop: '18px', padding: '13px' }}
+          disabled={isSubmitting}
+        >
+          {isSubmitting
+            ? isEn
+              ? 'Sending message...'
+              : 'भेजा जा रहा है...'
+            : isEn
+            ? 'Submit Message'
+            : 'संदेश भेजें'}
         </button>
       </form>
     </div>

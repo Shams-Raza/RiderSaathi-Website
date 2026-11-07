@@ -41,9 +41,9 @@ export const runtime = 'nodejs';
 
 export async function generateMetadata() {
   const settings = getSettings();
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL || settings.siteUrl || 'https://ridersaathi.onrender.com';
   const siteName = settings.siteName || 'RiderSaathi';
-  const defaultTitle = settings.seoTitle || `${siteName} — Smart Ride Filter App for Rapido, Uber & Porter Drivers`;
+  const defaultTitle = settings.seoTitle || `${siteName} — Driver Productivity & Screen Assist Utility`;
   const defaultDesc =
     settings.seoDescription ||
     'Smart ride filtering assistant for Rapido, Uber and Porter drivers. Set custom rules, pickup distance limits, and auto-accept rides. First 10 rides are free.';
@@ -52,17 +52,13 @@ export async function generateMetadata() {
     metadataBase: new URL(baseUrl),
     title: {
       default: defaultTitle,
-      template: `%s — ${siteName}`,
+      template: `%s | ${siteName}`,
     },
     description: defaultDesc,
     keywords:
       settings.seoKeywords ||
       'ride filter app for drivers, rapido ride filter app, uber driver ride filter, porter delivery filter, rider saathi, driver ride assistant, ride filter karne wala app, driver productivity app',
     manifest: '/manifest.json',
-    icons: {
-      icon: '/images/icon.svg',
-      apple: '/images/icon.svg',
-    },
     openGraph: {
       title: defaultTitle,
       description: defaultDesc,
